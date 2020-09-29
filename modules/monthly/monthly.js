@@ -59,6 +59,17 @@ Module.register("monthly", {
 		}
 	},
 
+	getHeader: function () {
+		var time = moment();
+		if (this.config.monthOffset !== 0) {
+			time = time.add(this.config.monthOffset, "months");
+		}
+		var month = time.format("MMMM");
+		var year = time.year();
+
+		return month + " " + year;
+	},
+
 	getDom: function() {
 		var time = moment();
 		if (this.config.monthOffset !== 0) {
@@ -173,14 +184,6 @@ Module.register("monthly", {
 			}
 		}
 
-		if (time.add({month:1}).month() == 10) {
-			this.config.specialDay = 13;
-		} 
-
-		if (time.add({month:1}).month() == 8) {
-			this.config.specialDay = 22;
-		}
-		
 		bodyContent.appendChild(bodyTR);
 		wrapper.appendChild(bodyContent);
 		this.loaded = true;
