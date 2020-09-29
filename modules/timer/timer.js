@@ -84,23 +84,25 @@ Module.register("timer", {
 		}
 
 		function day_mode() {
-			hide.forEach(function(element) {return element.style.opacity = "1", element.style.transition = "all 1s";});
+			hide.forEach(function(element) {return element.style.opacity = "1";});
 			icon.forEach(function(element) {return element.style.float = "left";});
 			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)",
-				element.style.textAlign = "inherit", element.style.transition = "all 1s";});
-			comp.forEach(function(element) {return element.style.position = "inherit",
-				element.style.width = "inherit", element.style.transform = "scale(1)", element.style.transition = "all 1s";});
-			beat.forEach(function(element) {return element.style.transform = "translateY(0)", element.style.transition = "all 1s";});
+				element.style.textAlign = "inherit", element.style.transition = "translate 1s ease";});
+			comp.forEach(function(element) {return element.style.width = "inherit",
+				element.style.transform = "scale(1)";});
+			beat.forEach(function(element) {return element.style.transform = "translateY(0)",
+				element.style.transition = "translate 1s ease";});
 		}
 
 		function night_mode() {
-			hide.forEach(function(element) {return element.style.opacity = "0", element.style.transition = "all 1s";});
+			hide.forEach(function(element) {return element.style.opacity = "0";});
 			icon.forEach(function(element) {return element.style.float = "right";});
 			weat.forEach(function(element) {return element.style.transform = "translate(-720px, 280px)",
-				element.style.textAlign = "left", element.style.transition = "all 1s";});
-			comp.forEach(function(element) {return element.style.position = "absolute", element.style.width = "600px", 
-				element.style.transform = "translate(-300px, -400px) scale(0.5)", element.style.transition = "all 1s";});
-			beat.forEach(function(element) {return element.style.transform = "translateY(-15px)", element.style.transition = "all 1s";});
+				element.style.textAlign = "left", element.style.transition = "translate 1s ease";});
+			comp.forEach(function(element) {return element.style.width = "600px",
+				element.style.transform = "translateY(-80px) scale(0.5)";});
+			beat.forEach(function(element) {return element.style.transform = "translateY(-15px)",
+				element.style.transition = "translate 1s ease";});
 		}
 	},
 
