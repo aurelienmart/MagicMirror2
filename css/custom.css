@@ -1,0 +1,1223 @@
+/* Magic Mirror
+ *
+ * MIT Licensed.
+ *
+ * Redesigned by Răzvan Cristea
+ * for iPad 3 & HD display
+ * https://github.com/hangorazvan
+ */
+
+@import url("../fonts/fonts.css");
+
+html {
+	overflow: hidden;
+	cursor: text;
+	background: black;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+body {
+	background: transparent;
+	margin: 0;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	color: lightgray;
+	font-family: "Roboto Condensed", sans-serif;
+	font-weight: 300;
+	transform-origin: 0 0;
+	transition: all 1s ease;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: geometricprecision;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+.empty {
+    padding-top: 0px;
+}
+
+.transparent {
+	background: transparent;
+}
+
+.fade {
+	color: dimgray;
+}
+
+.shade {
+	color: gray;
+}
+
+.dimmed {
+	color: silver;
+}
+
+.normal {
+	color: lightgray;
+}
+
+.bright {
+	color: white;
+}
+
+.xxsmall {
+	font-size: 0.8rem;
+	line-height: 1.1rem;
+}
+
+.xsmall {
+	font-size: 0.9rem;
+	line-height: 1.2rem;
+}
+
+.qsmall {
+	font-size: 1rem;
+	line-height: 1.45rem;
+}
+
+.msmall {
+	font-size: 1.1rem;
+	line-height: 1.4rem;
+}
+
+.ssmall {
+	font-size: 1.2rem;
+	line-height: 1.5rem;
+}
+
+.small {
+	font-size: 1.3rem;
+	line-height: 1.6rem;
+}
+
+.smedium {
+	font-size: 1.5rem;
+	line-height: 1.5rem;
+}
+
+.medium {
+	font-size: 1.4rem;
+	line-height: 1.7rem;
+}
+
+.xmedium {
+	font-size: 1.6rem;
+	line-height: 1.8rem;
+}
+
+.large {
+	font-size: 6rem;
+	line-height: 6.5rem;
+}
+
+.xlarge {
+	font-size: 7.4rem;
+	line-height: 7rem;
+	background: -webkit-linear-gradient(white, darkgray);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+}
+
+.thin {
+	font-family: Roboto, sans-serif;
+	font-weight: 100;
+}
+
+.light {
+	font-family: "Roboto Condensed", sans-serif;
+	font-weight: 300;
+}
+
+.regular {
+	font-family: "Roboto Condensed", sans-serif;
+	font-weight: 400;
+}
+
+.bold {
+	font-family: "Roboto Condensed", sans-serif;
+	font-weight: 500;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.align-left {
+	text-align: left;
+}
+
+header {
+	font-size: 1rem;
+	font-weight: 400;
+	border-bottom: 1px solid gray;
+	line-height: 1.2rem;
+	padding-bottom: 5px;
+	margin: 5px 0 5px;
+	color: silver;
+	width: 100%;
+}
+
+.module {
+	margin-bottom: 5px;
+}
+
+.region.bottom .module {
+	margin-top: 30px;
+	margin-bottom: 0;
+}
+
+.no-wrap {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.pre-line {
+	white-space: pre-line;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.region {
+	position: absolute;
+}
+
+.region.fullscreen {
+	pointer-events: none;
+}
+
+.region.fullscreen * {
+	pointer-events: auto;
+}
+
+.fullscreen.above,
+.fullscreen.below {
+	background: transparent;
+	background-size: cover;
+	opacity: 0.3;
+	width: 100%;
+	height: 100%;
+	border: 0;
+} 
+
+.region.top {
+	top: 5px;
+}
+
+.region.top .container {
+	margin-bottom: 25px;
+}
+
+.region.bottom .container {
+	margin-top: 25px;
+}
+
+.region.top .container:empty {
+	margin-bottom: 0;
+}
+
+.region.top.center,
+.region.bottom.center {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.region.top.right,
+.region.top.left,
+.region.top.center {
+	top: 100%;
+}
+
+.region.bottom {
+	bottom: 5px;
+}
+
+.region.bottom .container:empty {
+	margin-top: 0;
+}
+
+.region.bottom.right,
+.region.bottom.center,
+.region.bottom.left {
+	bottom: 100%;
+}
+
+.region.bar {
+	width: 100%;
+	text-align: center;
+}
+
+.region.left {
+	left: 5px;
+	text-align: left;
+}
+
+.region.right {
+	right: 5px;
+	text-align: right;
+}
+
+.region table {
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: separate;
+}
+
+.region table tr {
+	height: 24px;
+}
+
+.region table td {
+	padding: 0;
+}
+
+.region.third,
+.region.middle.center {
+	width: 100%;
+	text-align: center;
+	transform: translateY(-50%);
+}
+
+.darkred {
+	color: darkred;
+}
+
+.redrf {
+	color: red;
+}
+
+.orangered {
+	color: orangered;
+}
+
+.tomato {
+	color: tomato;
+}
+
+.coral {
+	color: coral;
+}
+
+.darkorange {
+	color: darkorange;
+}
+
+.orange {
+	color: orange;
+}
+
+.gold {
+	color: gold;
+}
+
+.yellow {
+	color: yellow;
+}
+
+.greenyellow {
+	color: greenyellow;
+}
+
+.chartreuse {
+	color: chartreuse;
+}
+
+.lawngreen {
+	color: lawngreen;
+}
+
+.lime {
+	color: lime;
+}
+
+.powderblue {
+	color: powderblue;
+}
+
+.lightblue {
+	color: lightblue;
+}
+
+.skyblue {
+	color: skyblue;
+}
+
+.lightskyblue {
+	color: lightskyblue;
+}
+
+.deepskyblue {
+	color: deepskyblue;
+}
+
+.dodgerblue {
+	color: dodgerblue;
+}
+
+.lightgreen {
+	color: lightgreen;
+}
+
+.magenta {
+	color: magenta;
+}
+
+/* Clock */
+
+.clock .date {
+	text-align: left;
+}
+
+.clock .time {
+	text-align: left;
+	letter-spacing: -2px;
+}
+
+.clock .seconds {
+	font-size: 70%;
+}
+
+.clock .clockCircle {
+	margin: 0 auto;
+	position: relative;
+	border-radius: 50%;
+	background-size: 100%;
+	background: transparent url("face-013.svg") center no-repeat;
+}
+
+.clock .clockFace {
+	width: 100%;
+	height: 100%;
+}
+
+.clock .clockFace::after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 8px;
+	height: 8px;
+	margin: -4px 0 0 -4px;
+	background: white;
+	border-radius: 3px;
+	content: "";
+	display: block;
+}
+
+.clock .clockHour {
+	width: 0;
+	height: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -3px 0 -3px -25%;
+	padding: 3px 0 3px 25%;
+	background: white;
+	transform-origin: 100% 50%;
+	border-radius: 3px 0 0 3px;
+}
+
+.clock .clockMinute {
+	width: 0;
+	height: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -35% -2px -1px -2px;
+	padding: 35% 2px 1px 2px;
+	background: white;
+	transform-origin: 50% 100%;
+	border-radius: 2px 0 0 2px;
+}
+
+.clock .clockSecond {
+	width: 0;
+	height: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -38% -2px 0 0;
+	padding: 38% 2px 0 0;
+	transform-origin: 50% 100%;
+	border-radius: 1px 0 0 1px;
+}
+
+.clock .wi-day-sunny, 
+.wi-sunset, .wi-sunrise {
+	color: gold;
+	margin-top: -20px;
+}
+
+.clock .wi-night-clear, 
+.wi-moonset, .wi-moonrise {
+	color: skyblue;
+}
+
+.clock .sun,
+.clock .moon {
+	display: flex;
+}
+
+.clock .sun > *,
+.clock .moon > * {
+	flex: 1;
+}
+
+.clock .sun {
+	margin-top: -12px;
+}
+
+.clock .moon {
+	margin-top: 3px;
+}
+
+.clock .week {
+	margin-top: 2px;
+}
+
+.swatch {
+	opacity: 0.8;
+}
+
+/* connection */
+
+.connection .smart {
+	padding-bottom: 10px;
+}
+
+.connection .warn {
+	color: tomato;
+}
+
+.connection .fa-wifi {
+	display: inline-block;
+	transform: scale(0.6);
+}
+
+/* monthly */
+
+.monthly {
+	width: 100%;
+	border-spacing: 3px;
+	padding-top: 5px;
+}
+
+.monthly .calendar-th {
+	font-weight: 400;
+	padding-bottom: 7px;
+	border-bottom: 1px solid #cccccc;
+}
+
+.monthly td:nth-child(n+6) {
+	color: skyblue;
+}
+
+.monthly .calendar-header-day {
+	text-align: center;
+	color: lightgray;
+	height: 30px;
+	padding-top: 5px;
+}
+
+.monthly .calendar-day {
+	text-align: center;
+	width: 14.2857%;
+}
+
+.months .calendar-weekday {
+	padding: 5px 0;
+}
+
+.monthly .weekRow {
+	height: 24px;
+}
+
+.monthly .today {
+	color: lime;
+	font-weight: 800;
+	font-size: 120%;
+}
+
+.monthly .special {
+	color: yellow;
+	font-weight: 800;
+	font-size: 120%;
+}
+
+.monthly .monthPrev {
+	color: dimgray;
+	opacity: 0.75;
+}
+
+.monthly .monthNext {
+	color: dimgray;
+	opacity: 0.75;
+}
+
+.monthly .events {
+	color: var(--event-color);
+}
+
+.monthPosition {
+	position: absolute !important;
+	top: 35vh;
+}
+
+.monthSecond {
+	opacity: 0.5 !important;
+}
+
+/* compliments */
+
+.compliments .wi,
+.compliments .fa {
+	font-size: 70%;
+	display: inline-block;
+	transform: translateY(-5px);
+}
+
+.night_compliments .pre-line {
+	padding-top: 20px;
+/*	display: inline-block;
+	transform: translateY(-150px);
+*/	font-size: 3rem;
+	line-height: 3.3rem;
+}
+
+/* quotes */
+
+.quotes {
+	text-align: center;
+	font-family: Roboto, sans-serif;
+	font-weight: 400;
+	font-style: italic;
+	color: silver;
+	padding-top: 15px;
+}
+
+.quotes .autor {
+	text-align: center;
+	font-family: Roboto, sans-serif;
+	font-weight: 300;
+	font-style: normal;
+	color: gray;
+}
+
+/* Calendar */
+
+.calendar table {
+	float: left;
+	padding-left: 5px;
+	padding-bottom: 15px;
+}
+
+.calendar .symbol span {
+	display: inline-block;
+	transform: translate(-10px, 2px);
+}
+
+.calendar .title::first-letter {
+	text-transform: capitalize;
+}
+
+.calendar .time {
+	text-align: right;
+	vertical-align: top;
+}
+
+/* jquery Calendar */
+
+.icalendar {
+	padding: 0 1px;
+	text-overflow: clip;
+	overflow: hidden;
+}
+
+.icalendar table,
+.calendar-table table {
+	width: 100%;
+	white-space: nowrap; 
+}
+
+.icalendar table tr,
+.calendar-table table tr {
+	height: 22px;
+}
+
+.icalendar table td,
+.calendar-table table td {
+	padding: 0;
+}
+
+.icalendar table .description::first-letter,
+.icalendar table .days::first-letter,
+.calendar-table table .description::first-letter,
+.calendar-table table .days::first-letter,
+.calendar-table .description::first-letter,
+.calendar-table .days::first-letter{
+	text-transform: capitalize;
+}
+
+.icalendar table .description,
+.calendar-table table .description {
+	white-space: nowrap;
+}
+
+.icalendar table .days,
+.calendar-table table .days {
+	padding-left: 5px;
+	text-align: right;
+	white-space: nowrap; 
+	color: darkgray;
+}
+
+.icalendar .fa-calendar, 
+.icalendar .fa-calendar-check, 
+.icalendar .fa-calendar-check-o,
+.calendars .fa-calendar, 
+.calendars .fa-calendar-check, 
+.calendars .fa-calendar-check-o {
+	color: skyblue;
+}
+
+.icalendar .fa-registered {
+	color: lightgreen;
+}
+
+.icalendar .fa-product-hunt {
+	color: tomato;
+}
+
+.icalendar .fa-birthday-cake {
+	color: gold;
+}
+
+.icalendar .fa-suitcase {
+	color: coral;
+}
+
+.icalendar .fa-film {
+	color: magenta;
+}
+
+/* jquery Newsfeed */
+
+.rssfeed .feed,
+.feed {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
+	font-family: Roboto, sans-serif;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 5;
+	font-size: 1.4rem;
+	line-height: 1.6rem;
+}
+
+.rssfeed .feed::first-letter,
+.feed::first-letter {
+	text-transform: capitalize;
+}
+
+.rssfeed .feed .fa-rss-square,
+.feed .fa-rss-square {
+	color: #f26522;
+}
+
+.rssfeed .feed .date,
+.rssfeed .feed .source,
+.feed .date, .feed .source {
+	font-size: 1.4rem;
+	font-weight: 300;
+	color: lightgray;
+}
+
+
+.rssfeed .feed .desc,
+.rssfeed .news .feed .desc,
+.news .feed .desc,
+.feed .desc {
+	font-style: italic;
+	color: silver;
+}
+
+.rssfeed .feed .news,
+.feed .news {
+	font-weight: 400;
+}
+
+.rssfeed .feed .RSS,
+.rssfeed .feed .count,
+.rssfeed .feed .story,
+.rssfeed .feed .update,
+.rssfeed .feed .dots,
+.feed .RSS, .feed .count,
+.feed .story, .feed .update,
+.feed .dots {
+	color: dimgray;
+}
+
+.rssfeed .feed .desc ul,
+.rssfeed .feed .desc li,
+.rssfeed .feed .desc link,
+.rssfeed .feed .desc .guid,
+.rssfeed .feed .desc .enclosure,
+.rssfeed .feed .desc a,
+.rssfeed .feed .desc img,
+.rssfeed .feed .desc br,
+.feed .desc ul, .feed .desc li,
+.feed .desc link, .feed .desc .guid,
+.feed .desc .enclosure, .feed .desc a,
+.feed .desc img, .feed .desc br {
+	display: none;
+}
+
+/* newsfeed */
+
+.newsfeed {
+	padding: 0 5px;
+}
+
+.newsfeed .light {
+	font-family: Roboto, sans-serif;
+	font-size: 1.4rem;
+	line-height: 1.6rem;
+}
+
+.newsfeed .newsfeed-source {
+	font-size: 1.2rem;
+}
+
+.newsfeed .newsfeed-desc {
+	font-style: italic;
+}
+
+.fa-rss-square {
+	color: #f26522;
+}
+
+/* Weather */
+
+.currentweather .subs {
+	font-size: 50%;
+}
+
+.currentweather .sups {
+	display: inline-block;
+	transform: translate(-25px, -7px) scale(0.5);
+	margin-right: -20px;
+}
+
+.currentweather .wi-strong-wind {
+	color: cyan;
+}
+
+.currentweather .wi-thermometer, 
+.currentweather .wi-humidity, 
+.currentweather .wi-alien, 
+.currentweather .wi-sunset, 
+.currentweather .wi-sunrise {
+	display: inline-block;
+	transform: scale(0.65);
+}
+
+.currentweather .wi-thermometer {
+	color: gold;
+	margin-left: 10px;
+}
+
+.currentweather .pressure {
+	margin-right: -10px;
+}
+
+.currentweather .wi-alien {
+	color: violet;
+}
+
+.currentweather .wi-humidity, 
+.currentweather .wi-raindrop {
+	color: skyblue;
+}
+
+.currentweather .wi-sunset, 
+.currentweather .wi-sunrise {
+	color: goldenrod;
+}
+
+.currentweather .wtemp {
+	display: inline-block;
+	transform: translate(-5px, -5px);
+	letter-spacing: -5px;
+	padding-right: 3px;
+}
+
+.currentweather .wicon {
+	transform: translate(0, 20px);
+	height: 70px;
+	float: left;
+}
+
+.night_weather {
+	padding-top: 10px;
+/*	display: inline-block;
+	transform: translateY(-295px);
+*/	margin-left: 2px;
+}
+
+.night_weather .wtemp {
+	display: inline-block;
+	transform: translate(-3px, -5px);
+	letter-spacing: -5px;
+}
+
+.night_weather .wicon {
+	transform: translate(-10px, 20px);
+	float: right;
+}
+
+.currentweather .deg {
+	font-size: 50%;
+	font-weight: 400;
+	margin-left: -35px;
+}
+
+.currentweather .rfd {
+    margin-top: -25px;
+}
+
+.currentweather .maxTemp {
+	color: coral;
+}
+
+.currentweather .minTemp {
+	color: skyblue;
+}
+
+.currentweather .minMax {
+	color: silver;
+}
+
+.currentweather .wi-day-sunny {
+	content: url("../css/icons/clear.png");
+	transform: translate(0, 15px) scale(1.4);
+}
+
+.currentweather .wi-day-cloudy {
+	content: url("../css/icons/mostlysunny.png");
+}
+
+.currentweather .wi-cloudy {
+	content: url("../css/icons/cloudy.png");
+}
+
+.currentweather .wi-day-cloudy-windy {
+	content: url("../css/icons/mostlycloudy.png");
+}
+
+.currentweather .wi-day-showers {
+	content: url("../css/icons/chancerain.png");
+}
+
+.currentweather .wi-day-rain {
+	content: url("../css/icons/rain.png");
+}
+
+.currentweather .wi-day-thunderstorm {
+	content: url("../css/icons/tstorms.png");
+}
+
+.currentweather .wi-day-snow {
+	content: url("../css/icons/snow.png");
+}
+
+.currentweather .wi-day-fog {
+	content: url("../css/icons/cloudy.png");
+}
+
+.currentweather .wi-night-clear {
+	content: url("../css/icons/nt_clear.png");
+	transform: translate(0, 15px) scale(1.6);
+}
+
+.currentweather .wi-night-alt-cloudy {
+	content: url("../css/icons/nt_cloudy.png");
+}
+
+.currentweather .wi-night-cloudy {
+	content: url("../css/icons/nt_partlycloudy.png");
+}
+
+.currentweather .wi-night-cloudy-windy {
+	content: url("../css/icons/nt_mostlycloudy.png");
+}
+
+.currentweather .wi-night-showers {
+	content: url("../css/icons/nt_chancerain.png");
+}
+
+.currentweather .wi-night-rain {
+	content: url("../css/icons/nt_rain.png");
+}
+
+.currentweather .wi-night-thunderstorm {
+	content: url("../css/icons/nt_tstorms.png");
+}
+
+.currentweather .wi-night-snow {
+	content: url("../css/icons/nt_snow.png");
+}
+
+.currentweather .wi-night-alt-cloudy-windy {
+	content: url("../css/icons/nt_hazy.png");
+}
+
+/* Forecast */
+
+.weatherforecast header {
+	margin-bottom: 5px;
+}
+
+.weatherforecast table {
+	float: right;
+	margin-bottom: 5px;
+}
+
+.weatherforecast table tr:nth-child(1) td:nth-child(1) {
+	color: lime;
+}
+
+.weatherforecast .day {
+	text-align: left;
+	min-width: 45px;
+	max-width: 55px;
+}
+
+.weatherforecast .currentweather-icon {
+	min-width: 40px;
+	max-width: 50px;
+	text-align: center;
+}
+
+.weatherforecast tr.colored .max-temp {
+	min-width: 60px;
+	max-width: 75px;
+	color: coral;
+}
+
+.weatherforecast tr.colored .min-temp {
+	min-width: 60px;
+	max-width: 75px;
+	color: skyblue;
+}
+
+.weatherforecast .shade {
+	min-width: 70px;
+	max-width: 90px;
+}
+
+.weatherforecast .rain, .weatherforecast .snow {
+	color: lightgray;
+}
+
+.weatherforecast .wi-day-sunny {
+	color: gold;
+}
+
+.weatherforecast .wi-day-cloudy {
+	color: lightblue;
+}
+
+.weatherforecast .wi-day-cloudy-windy {
+	color: skyblue;
+}
+
+.weatherforecast .wi-cloudy {
+	color: powderblue;
+}
+
+.weatherforecast .wi-day-showers {
+	color: skyblue;
+}
+
+.weatherforecast .wi-day-rain {
+	color: deepskyblue;
+}
+
+.weatherforecast .wi-day-thunderstorm {
+	color: dodgerblue;
+}
+
+.weatherforecast .wi-day-snow {
+	color: snow;
+}
+
+.weatherforecast .wi-day-fog {
+	color: white;
+}
+
+.weatherforecast .wi-night-clear {
+	color: silver;
+}
+
+.weatherforecast .wi-night-alt-cloudy {
+	color: powderblue;
+}
+
+.weatherforecast .wi-night-cloudy-windy {
+	color: skyblue;
+}
+
+.weatherforecast .wi-night-cloudy {
+	color: powderblue;
+}
+
+.weatherforecast .wi-night-showers {
+	color: skyblue;
+}
+
+.weatherforecast .wi-night-rain {
+	color: deepskyblue;
+}
+
+.weatherforecast .wi-night-thunderstorm {
+	color: royalblue;
+}
+
+.weatherforecast .wi-night-snow {
+	color: snow;
+}
+
+.weatherforecast .wi-night-alt-cloudy-windy {
+	color: skyblue;
+}
+
+/* media queries */
+
+.video {
+	margin-bottom: -22%;
+}
+
+.region.upper.third {
+	bottom: 35%;
+}
+
+.region.middle.center {
+	bottom: 20%;
+}
+
+.region.lower.third {
+	bottom: 15%;
+}
+
+@media screen and (max-width: 1080px) {
+	.region.bottom.right, .region.bottom.left,
+	.region.top.right, .region.top.left {
+		width: 32%;
+	}
+
+	.region.bottom.center, .region.top.center {
+		width: 28%;
+	}
+}
+
+@media screen and (min-height: 1079px) and (orientation: landscape) {
+	html {
+		position: absolute;
+		transform: rotate(-90deg);
+		transform-origin: left top;
+		top: 100%;
+		left: 0;
+/*		transform: rotate(90deg);
+		transform-origin: right bottom;
+		bottom: 100%;
+		right: 0;
+*/	}
+
+	body {
+		height: 100vw;
+		width: 100vh;
+	}
+}
+
+@media screen and (max-height: 1024px) and (orientation: landscape) {
+	.region.upper.third {
+		display: none;
+	}
+}
+
+@media screen and (max-height: 980px) and (orientation: landscape) {
+	.region.middle.center {
+		bottom: 15%;
+	}
+		
+	.region.lower.third {
+		display: none;
+	}
+}
+
+@media screen and (max-height: 860px) and (orientation: landscape) {
+	.region.middle.center {
+		bottom: 12%;
+	}
+
+	.calendar table tr:nth-child(n+11),
+	.icalendar table tr:nth-child(n+11),
+	.calendar-table tr:nth-child(n+11),
+	.hourly table tr:nth-child(n+5),
+	.daily table tr:nth-child(n+11),
+	.daily2 table tr:nth-child(n+14),
+	.monthly thead, header,
+	.simpletext, .monthSecond {
+		display: none !important;
+	}
+
+	.weatherforecast table {
+		margin-bottom: 7px;
+	}
+
+	.icalendar {
+		height: 268px !important;
+	}
+
+	.rssfeed {
+		height: 200px !important;
+		width: 125% !important;
+		transform-origin: 0 0;
+		transform: translate(0, 40px) scale(0.8);
+	}
+
+	.rssfeed .feed,
+	.feed {
+		font-size: 1.8rem;
+		line-height: 2rem;
+	}
+
+	.newsfeed, .newsfeed .light {
+		font-size: 1.2rem;
+		line-height: 1.4rem;
+	}
+}
+
+@media screen and (max-height: 740px) and (orientation: landscape) {
+	.region.middle.center {
+		display: none;
+	}
+}
+
+@media screen and (max-height: 599px) and (orientation: landscape) {
+	.region.bottom.bar {
+		display: none;
+	}
+}
