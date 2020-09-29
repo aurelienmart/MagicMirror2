@@ -998,31 +998,31 @@ header {
 	color: lime;
 }
 
-.weatherforecast .day {
+.weatherforecast .colored .day {
 	text-align: left;
 	min-width: 45px;
 	max-width: 55px;
 }
 
-.weatherforecast .currentweather-icon {
+.weatherforecast .colored .currentweather-icon {
 	min-width: 40px;
 	max-width: 50px;
 	text-align: center;
 }
 
-.weatherforecast tr.colored .max-temp {
+.weatherforecast .colored .max-temp {
 	min-width: 60px;
 	max-width: 75px;
 	color: coral;
 }
 
-.weatherforecast tr.colored .min-temp {
+.weatherforecast .colored .min-temp {
 	min-width: 60px;
 	max-width: 75px;
 	color: skyblue;
 }
 
-.weatherforecast .shade {
+.weatherforecast .colored .shade {
 	min-width: 70px;
 	max-width: 90px;
 }
