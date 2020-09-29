@@ -22,7 +22,6 @@ Module.register("swatch", {
 		var self = this;
 		setInterval(function() {
 			self.swatch();
-			Log.info("UTC: " + moment().utcOffset(60));
 		}, 86400);
 	},
 
