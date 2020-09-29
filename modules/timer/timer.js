@@ -31,33 +31,59 @@ Module.register("timer", {
 		Log.info("Starting module: " + this.name);
 		var self = this;
 		setInterval(function() {
-			self.timer();
+			self.variables();
+			self.timer(); 
 			self.notification();
 			if (this.config.debugging!==false) {
 				self.dimmer();	
 			}
-		}, 1000); self.dimmer();
+		}, 1000);
 		setInterval(function() {
 			self.dimmer();
 		}, 60 * 1000);
 	},
 
-	timer: function() {
-		var self = this;
-		var now = moment().format("HH:mm:ss");
+	variables: function() {
+		this.now = moment().format("HH:mm:ss");
+		this.date = moment().format("DD.MM mm:ss");
+		this.mins = moment().format("m");
+		this.secs = moment().format("s");
+		this.grayscale = this.config.dimming;
+		this.opacity = (1-this.grayscale/100).toPrecision(2);
 
 		if (this.config.debugging!==false) {
-			midnight = moment().startOf("d").add(this.config.debugging,"h").format("HH:mm:ss");
-			morning = moment().startOf("d").add(this.config.debugging + 1,"h").format("HH:mm:ss");
-			Log.log("Timer start & end points - Midnight " + midnight + " Morning " + morning);
-		} else { midnight = moment().startOf("d").format("HH:mm:ss");
-			morning = moment().startOf("d").add(6,"h").format("HH:mm:ss");
-			var winter = moment().format("M");
-			if ((winter >= "1" && winter <= "3") || (winter >= "11" && winter <= "12")) {
-				morning = morning + 1;
+			this.gray1 = (this.secs*(this.grayscale/60)/1).toPrecision(2); 
+			this.opac1 = ((1-this.gray1/100)/1).toPrecision(2);
+			this.gray2 = ((this.grayscale-this.gray1)/1).toPrecision(2);
+			this.opac2 = ((1-this.gray2/100)/1).toPrecision(2);
+			this.midnight = moment().startOf("d").add(this.config.debugging,"h").format("HH:mm:ss");
+			this.before = moment().startOf("d").add(this.config.debugging - 1,"h").format("HH:mm:ss");
+			this.morning = moment().startOf("d").add(this.config.debugging + 1,"h").format("HH:mm:ss");
+			this.after = moment().startOf("d").add(this.config.debugging + 2,"h").format("HH:mm:ss");
+			Log.log("Dimmer Night "+this.night+" Midnight "+this.midnight+" Before "+this.before+" Morning "+this.morning+" After "+this.after);
+			Log.log("Dimmer Opacity 1: "+this.opac1+", Grayscale 1: "+this.gray1+", Opacity 2: "+this.opac2+", Grayscale 2: "+this.gray2);
+		} else { 
+			this.gray1 = (this.mins*this.grayscale/60).toPrecision(4);
+			this.opac1 = (1-this.gray1/100).toPrecision(2);
+			this.gray2 = (this.grayscale-this.gray1).toPrecision(4);
+			this.opac2 = (1-this.gray2/100).toPrecision(2);
+			this.night = moment().endOf("d").format("HH:mm:ss");
+			this.midnight = moment().startOf("d").format("HH:mm:ss");
+			this.before = moment().startOf("d").subtract(1,"h").format("HH:mm:ss");
+			this.morning = moment().startOf("d").add(6,"h").format("HH:mm:ss");
+			this.after = moment().startOf("d").add(7,"h").format("HH:mm:ss");
+			this.winter = moment().format("M");
+			if ((this.winter >= "1" && this.winter <= "3") || (this.winter >= "11" && this.winter <= "12")) {
+				this.morning = this.morning + 1; this.after = this.after + 1;
 			}
 		}
+	},
 
+	timer: function() {
+		var self = this;
+		var now = this.now;
+		var midnight = this.midnight;
+		var morning = this.morning;
 		var hide = Array.from(document.querySelectorAll(".module:not(.clock):not(.currentweather):not(.compliments):not(.swatch):not(.connection)"));
 		var icon = Array.from(document.querySelectorAll(".wicon"));
 		var weat = Array.from(document.querySelectorAll(".currentweather"));
@@ -107,32 +133,19 @@ Module.register("timer", {
 	},
 
 	dimmer: function() {
-		var now = moment().format("HH:mm:ss");
-		var mins = moment().format("m");
-		var secs = moment().format("s");
-		var grayscale = this.config.dimming;
-		var opacity = (1-grayscale/100).toPrecision(2);
+		var now = this.now;
+		var grayscale = this.grayscale;
+		var opacity = this.opacity;
+		var gray1 = this.gray1;
+		var gray2 = this.gray2;
+		var opac1 = this.opac1;
+		var opac2 = this.opac2;
+		var night = this.midnight;
+		var midnight = this.midnight;
+		var morning = this.morning;
+		var before = this.before;
+		var after = this.after;
 		var body = Array.from(document.querySelectorAll("body"));
-
-		if (this.config.debugging!==false) {
-			night=midnight=moment().startOf("d").add(this.config.debugging,"h").format("HH:mm:ss");
-			before = moment().startOf("d").add(this.config.debugging - 1,"h").format("HH:mm:ss");
-			morning = moment().startOf("d").add(this.config.debugging + 1,"h").format("HH:mm:ss");
-			after = moment().startOf("d").add(this.config.debugging + 2,"h").format("HH:mm:ss");
-			gray1 = (secs*(grayscale/60)/1).toPrecision(2); opac1 = ((1-gray1/100)/1).toPrecision(2);
-			gray2 = ((grayscale-gray1)/1).toPrecision(2); opac2 = ((1-gray2/100)/1).toPrecision(2);
-			Log.log("Dimmer Night "+night+" Midnight "+midnight+" Before "+before+" Morning "+morning+" After "+after);
-			Log.log("Dimmer Opacity 1: "+opac1+", Grayscale 1: "+gray1+", Opacity 2: "+opac2+", Grayscale 2: "+gray2);
-		} else { gray1 = (mins*grayscale/60).toPrecision(4); opac1 = (1-gray1/100).toPrecision(2);
-			gray2 = (grayscale-gray1).toPrecision(4); opac2 = (1-gray2/100).toPrecision(2);
-			night = moment().endOf("d").format("HH:mm:ss"); midnight = moment().startOf("d").format("HH:mm:ss");
-			before = moment().startOf("d").subtract(1,"h").format("HH:mm:ss");
-			morning = moment().startOf("d").add(6,"h").format("HH:mm:ss");
-			after = moment().startOf("d").add(7,"h").format("HH:mm:ss"); var winter = moment().format("M");
-			if ((winter >= "1" && winter <= "3") || (winter >= "11" && winter <= "12")) {
-				morning = morning + 1; after = after + 1;
-			}
-		}
 
 		if (this.config.dimmMode) {
 			if (this.config.fadeMode) {
@@ -155,9 +168,10 @@ Module.register("timer", {
 	},
 
 	notification: function() {
-		var now = moment().format("HH:mm:ss");
-		var date = moment().format("DD.MM mm:ss");
-		var secs = moment().format("s");
+		var now = this.now;
+		var date = this.date;
+		var mins = this.mins;
+		var secs = this.secs;
 		var ns_box = Array.from(document.querySelectorAll(".ns-box"));
 		
 		if (secs >= 58) { //not working this.sendNotification("HIDE_ALERT", {});
