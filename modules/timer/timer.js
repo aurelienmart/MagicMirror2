@@ -57,12 +57,15 @@ Module.register("timer", {
 			this.gray2 = ((this.grayscale-this.gray1)/1).toPrecision(2);
 			this.opac2 = ((1-this.gray2/100)/1).toPrecision(2);
 			this.midnight = moment().startOf("d").add(this.config.debugging,"h").format("HH:mm:ss");
+			this.night = this.midnight;
 			this.before = moment().startOf("d").add(this.config.debugging - 1,"h").format("HH:mm:ss");
 			this.morning = moment().startOf("d").add(this.config.debugging + 1,"h").format("HH:mm:ss");
 			this.after = moment().startOf("d").add(this.config.debugging + 2,"h").format("HH:mm:ss");
 			Log.log("Dimmer Night "+this.night+" Midnight "+this.midnight+" Before "+this.before+" Morning "+this.morning+" After "+this.after);
 			Log.log("Dimmer Opacity 1: "+this.opac1+", Grayscale 1: "+this.gray1+", Opacity 2: "+this.opac2+", Grayscale 2: "+this.gray2);
-		} else { 
+		} else {
+			Log.log("Dimmer Night "+this.night+" Midnight "+this.midnight+" Before "+this.before+" Morning "+this.morning+" After "+this.after);
+			Log.log("Dimmer Opacity 1: "+this.opac1+", Grayscale 1: "+this.gray1+", Opacity 2: "+this.opac2+", Grayscale 2: "+this.gray2);
 			this.gray1 = (this.mins*this.grayscale/60).toPrecision(4);
 			this.opac1 = (1-this.gray1/100).toPrecision(2);
 			this.gray2 = (this.grayscale-this.gray1).toPrecision(4);
@@ -140,7 +143,7 @@ Module.register("timer", {
 		var gray2 = this.gray2;
 		var opac1 = this.opac1;
 		var opac2 = this.opac2;
-		var night = this.midnight;
+		var night = this.night;
 		var midnight = this.midnight;
 		var morning = this.morning;
 		var before = this.before;
