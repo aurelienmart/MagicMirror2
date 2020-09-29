@@ -13,7 +13,7 @@ Custom personal smart mirror for HD monitor + Windows PC stick / HP mini netbook
 <br>connection_status https://github.com/sheyabernstein/MMM-connection-status
 <br>random_quotes https://github.com/KirAsh4/random_quotes
 
-<b>My modules:</b>
+<b>My test modules:</b>
 <br>swatch.beat https://github.com/hangorazvan/swatch
 <br>lifecounter https://github.com/hangorazvan/lifecounter
 <br>timer-dimmer-notification https://github.com/hangorazvan/timer
