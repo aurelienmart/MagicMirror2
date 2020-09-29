@@ -23,7 +23,12 @@ Module.register("monthly", {
 
 	start: function() {
 		Log.info("Starting module: " + this.name);
-		moment.locale(config.language);
+		this.time = moment().locale(config.language);
+		if (this.config.monthOffset !== 0) {
+			this.time = this.time.add(this.config.monthOffset, "months");
+		}
+		this.monthname = this.time.format("MMMM");
+		this.year = this.time.year();
 		this.scheduleUpdate(1/5 * this.config.initialLoadDelay);
 	},
 	
@@ -60,34 +65,25 @@ Module.register("monthly", {
 	},
 
 	getHeader: function () {
-		var time = moment();
-		if (this.config.monthOffset !== 0) {
-			time = time.add(this.config.monthOffset, "months");
+		if (this.config.realHeader) {
+			return this.monthname + " " + this.year;
 		}
-		var month = time.format("MMMM");
-		var year = time.year();
-
-		return month + " " + year;
 	},
 
 	getDom: function() {
-		var time = moment();
-		if (this.config.monthOffset !== 0) {
-			time = time.add(this.config.monthOffset, "months");
-		}
-
+		var time = this.time;
 		var date = this.config.monthOffset ? 0 : time.date();
 		var month = time.month();
-		var year = time.year();
-		var monthName = time.format("MMMM");
+		var year = this.year;
+		var monthName = this.monthname;
 		var monthLength = time.daysInMonth();
 		var startingDay = time.date(1).weekday();
 		var wrapper = document.createElement("table");
 		wrapper.className = this.config.tableClass;
 
-		var header = document.createElement("tHead");
-		var headerTR = document.createElement("tr");
 		if (this.config.showHeader) {
+			var header = document.createElement("tHead");
+			var headerTR = document.createElement("tr");
 			var headerTH = document.createElement("th");
 			headerTH.colSpan = "7";
 			headerTH.scope = "col";
@@ -103,9 +99,9 @@ Module.register("monthly", {
 			headerTH.appendChild(headerSpace);
 			headerTH.appendChild(headerYearSpan);
 			headerTR.appendChild(headerTH);
+			header.appendChild(headerTR);
+			wrapper.appendChild(header);
 		}
-		header.appendChild(headerTR);
-		wrapper.appendChild(header);
 		
 		var bodyContent = document.createElement("tBody");
 		var bodyTR = document.createElement("tr");
