@@ -91,7 +91,9 @@ Module.register("weatherforecast", {
 			wrapper.innerHTML = this.translate("LOADING");
 			wrapper.className = "dimmed light small";
 
-			this.scheduleUpdate(this.config.initialLoadDelay);
+			if (this.config.reload) {
+				this.scheduleUpdate(this.config.initialLoadDelay);
+			}
 
 			return wrapper;
 		}
