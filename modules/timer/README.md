@@ -1,6 +1,6 @@
 # timer-dimmer-notification
 
-https://github.com/hangorazvan/timer-dimmer-notification
+https://github.com/hangorazvan/timer
 
 MagicMirror 2 Notification alert & timer trigger for my own use on iPad3
 
@@ -24,7 +24,7 @@ All settings inside of module or in config.js
 			name2: "",		// Husband or boyfriend name
 			birthday2: "",		// day & month
 			name3: "",		// Child or pet name
-			birthday3: ""		// day & month
+			birthday3: "",		// day & month
 
 			debugging: false 	// midnight for custom timer start
 			}
