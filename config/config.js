@@ -219,6 +219,18 @@ var config = {
 			}
 		},
 		{
+			module: "monthly",
+			position: "top_center",
+			classes: "current_month",
+//			classes: "monthSecond monthPosition",
+			disabled: false,
+			config: {
+				monthOffset: 0,
+				showHeader: true,
+				tableClass: "qsmall monthly"
+			}
+		},
+		{
 			module: "currentweather",
 			position: "top_right",
 			disabled: false,
@@ -289,18 +301,6 @@ var config = {
 				calendarClass: "calendar",
 				tableClass: "qsmall",
 				fullday: "ddd"
-			}
-		},
-		{
-			module: "monthly",
-			position: "top_center",
-			classes: "current_month",
-//			classes: "monthSecond monthPosition",
-			disabled: false,
-			config: {
-				monthOffset: 0,
-				showHeader: true,
-				tableClass: "qsmall monthly"
 			}
 		},
 		{
