@@ -1,12 +1,10 @@
 /* Magic Mirror
  *
- * calendar_monthly v1.0 - June 2016
- * By Ashley M. Kirchner <kirash4@gmail.com>
- * Beer Licensed (meaning, if you like this module, feel free to have a beer on me, or send me one.)
- *
  * Redesigned by Răzvan Cristea
  * for iPad 3 & HD display
+ *
  * https://github.com/hangorazvan
+ * Creative Commons BY-NC-SA 4.0, Romania.
  */
 Module.register("monthly", {
 
@@ -23,17 +21,12 @@ Module.register("monthly", {
 
 	start: function() {
 		Log.info("Starting module: " + this.name);
-		this.time = moment().locale(config.language);
-		if (this.config.monthOffset !== 0) {
-			this.time = this.time.add(this.config.monthOffset, "months");
-		}
-		this.monthname = this.time.format("MMMM");
-		this.year = this.time.year();
+		moment.locale(config.language);
 		this.scheduleUpdate(1/5 * this.config.initialLoadDelay);
 	},
 	
 	scheduleUpdate: function() {
-		this.midnight = moment().endOf("day").add(this.config.updateDelay, "seconds");
+		this.midnight = moment().endOf("day").add(1/5 * this.config.updateDelay, "seconds");
 		var self = this;
 		setTimeout(function() {
 			self.updateDom(this.config.fadeSpeed);
@@ -60,30 +53,28 @@ Module.register("monthly", {
 			self.loaded = false;
 
 //			Log.log("Calendar events: " + event.title);
-			self.updateDom(0); //this.config.fadeSpeed);
-		}
-	},
-
-	getHeader: function () {
-		if (this.config.realHeader) {
-			return this.monthname + " " + this.year;
+			self.updateDom(this.config.fadeSpeed * 0);
 		}
 	},
 
 	getDom: function() {
-		var time = this.time;
+		var time = moment();
+		if (this.config.monthOffset !== 0) {
+			time = time.add(this.config.monthOffset, "months");
+		}
+
 		var date = this.config.monthOffset ? 0 : time.date();
 		var month = time.month();
-		var year = this.year;
-		var monthName = this.monthname;
+		var year = time.year();
+		var monthName = time.format("MMMM");
 		var monthLength = time.daysInMonth();
 		var startingDay = time.date(1).weekday();
 		var wrapper = document.createElement("table");
 		wrapper.className = this.config.tableClass;
 
+		var header = document.createElement("tHead");
+		var headerTR = document.createElement("tr");
 		if (this.config.showHeader) {
-			var header = document.createElement("tHead");
-			var headerTR = document.createElement("tr");
 			var headerTH = document.createElement("th");
 			headerTH.colSpan = "7";
 			headerTH.scope = "col";
@@ -99,9 +90,9 @@ Module.register("monthly", {
 			headerTH.appendChild(headerSpace);
 			headerTH.appendChild(headerYearSpan);
 			headerTR.appendChild(headerTH);
-			header.appendChild(headerTR);
-			wrapper.appendChild(header);
 		}
+		header.appendChild(headerTR);
+		wrapper.appendChild(header);
 		
 		var bodyContent = document.createElement("tBody");
 		var bodyTR = document.createElement("tr");
@@ -180,6 +171,14 @@ Module.register("monthly", {
 			}
 		}
 
+		if (time.add({month:1}).month() == 10) {
+			this.config.specialDay = 13;
+		} 
+
+		if (time.add({month:1}).month() == 8) {
+			this.config.specialDay = 22;
+		}
+		
 		bodyContent.appendChild(bodyTR);
 		wrapper.appendChild(bodyContent);
 		this.loaded = true;
