@@ -9,8 +9,8 @@ Custom personal smart mirror for HD monitor + Windows PC stick / HP mini netbook
 <br>Clock https://github.com/hangorazvan/clock_plus
 
 <b>Some 3rd party modified modules:</b>
-<br>calendar_monthly https://github.com/KirAsh4/calendar_monthly
 <br>connection_status https://github.com/sheyabernstein/MMM-connection-status
+<br>calendar_monthly https://github.com/KirAsh4/calendar_monthly
 <br>random_quotes https://github.com/KirAsh4/random_quotes
 
 <b>My test modules:</b>
