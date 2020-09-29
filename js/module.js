@@ -405,11 +405,10 @@ var Module = Class.extend({
 
 		var self = this;
 		MM.hideModule(
-			this,
+			self,
 			speed,
 			function () {
 				self.suspend();
-//				callback;
 				callback();
 			},
 			options
@@ -434,11 +433,10 @@ var Module = Class.extend({
 
 		var self = this;
 		MM.showModule(
-			this,
+			self,
 			speed,
 			function () {
 				self.resume();
-//				callback;
 				callback();
 			},
 			options
