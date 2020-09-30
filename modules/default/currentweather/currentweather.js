@@ -130,9 +130,9 @@ Module.register("currentweather",{
 
 			var pressure = document.createElement("span"); 			// main pressure.
 			var atpressure = Math.round(this.pressure * 750.062 / 1000)
-				if (atpressure < 700) {
+				if (atpressure < 745) {
 				    pressure.className = "pressure lightblue";
-				} else if (atpressure > 800) {
+				} else if (atpressure > 775) {
 				    pressure.className = "pressure yellow";
 				} else pressure.className = "pressure";
 			pressure.innerHTML = Math.round(this.pressure * 750.062 / 1000) + "<span class=\"subs\"> Hg</span><span class=\"sups\">mm</span>";
