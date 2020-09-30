@@ -1,6 +1,6 @@
 # MagicMirror&sup2;
 
-Custom personal smart mirror for HD monitor + Windows PC stick / HP mini netbook + IKEA frame + see-thru acrylic mirror based on MagicMirror&sup2; https://github.com/MichMich/MagicMirror/tree/develop, & hybrid version for iPad 3 iOS 9 & ES5 js compatibile with old jquery calendar https://github.com/MichMich/MagicMirror/tree/v1.0.0 and newsfeed https://github.com/jangellx/MagicMirror, served from webpage without local node.js, consistent fonts sizes, icons & well structured folders, css & js.
+Custom personal smart mirror for HD monitor + Windows PC stick / HP mini netbook + IKEA frame + see-thru acrylic mirror based on MagicMirror&sup2; https://github.com/MichMich/MagicMirror/tree/develop, & hybrid version for iPad 3 iOS 9 & ES5 js compatibile with old jquery/PHP calendar https://github.com/MichMich/MagicMirror/tree/v1.0.0 and newsfeed https://github.com/jangellx/MagicMirror, served from webpage without local node.js, consistent fonts sizes, icons & well structured folders, css & js.
 
 <b>Original modified modules:</b>
 <br>Compliments https://github.com/hangorazvan/compliments_plus
