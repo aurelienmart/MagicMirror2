@@ -70,8 +70,8 @@ Module.register("timer", {
 			this.before = moment().startOf("d").subtract(1,"h").format("HH:mm:ss");
 			this.morning = moment().startOf("d").add(6,"h").format("HH:mm:ss");
 			this.after = moment().startOf("d").add(7,"h").format("HH:mm:ss");
-			this.winter = moment().format("M");
-			if ((this.winter >= "1" && this.winter <= "3") || (this.winter >= "11" && this.winter <= "12")) {
+			this.winter = moment().format("MM");
+			if ((this.winter >= "01" && this.winter <= "03") || (this.winter >= "10" && this.winter <= "12")) {
 				this.morning = this.morning + 1; this.after = this.after + 1;
 			}
 		}
