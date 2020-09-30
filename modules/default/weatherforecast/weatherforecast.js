@@ -89,7 +89,7 @@ Module.register("weatherforecast", {
 
 		if (!this.loaded) {
 			wrapper.innerHTML = this.translate("LOADING");
-			wrapper.className = "dimmed light small" + this.config.endpointClass;
+			wrapper.className = "dimmed light small";
 
 			if (this.config.reload) {
 				this.scheduleUpdate(this.config.initialLoadDelay);
@@ -99,7 +99,7 @@ Module.register("weatherforecast", {
 		}
 
 		var table = document.createElement("table");
-		table.className = this.config.tableClass + this.config.endpointClass;
+		table.className = this.config.tableClass;
 
 		for (var f in this.forecast) {
 			var forecast = this.forecast[f];
@@ -111,16 +111,16 @@ Module.register("weatherforecast", {
 			table.appendChild(row);
 
 			var dayCell = document.createElement("td");
-			dayCell.className = "day" + this.config.endpointClass;
+			dayCell.className = "day";
 			dayCell.innerHTML = forecast.day;
 			row.appendChild(dayCell);
 
 			var iconCell = document.createElement("td");
-			iconCell.className = "bright weather-icon" + this.config.endpointClass;
+			iconCell.className = "bright weather-icon";
 			row.appendChild(iconCell);
 
 			var icon = document.createElement("span");
-			icon.className = "wi weathericon " + forecast.icon + this.config.endpointClass;
+			icon.className = "wi weathericon " + forecast.icon;
 			iconCell.appendChild(icon);
 
 			var degreeLabel = "";
@@ -147,45 +147,45 @@ Module.register("weatherforecast", {
 
 			var maxTempCell = document.createElement("td");
 			maxTempCell.innerHTML = forecast.maxTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
-			maxTempCell.className = "align-right bright max-temp" + this.config.endpointClass;
+			maxTempCell.className = "align-right bright max-temp";
 			row.appendChild(maxTempCell);
 
 			var minTempCell = document.createElement("td");
 			minTempCell.innerHTML = forecast.minTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
-			minTempCell.className = "align-right min-temp" + this.config.endpointClass;
+			minTempCell.className = "align-right min-temp";
 			row.appendChild(minTempCell);
 
 			if (this.config.showRainAmount) {
 				var rainCell = document.createElement("td");
 				if (isNaN(forecast.rain)) {
-					rainCell.className = "align-right shade" + this.config.endpointClass;
+					rainCell.className = "align-right shade";
 					rainCell.innerHTML = this.translate("No rain");
 				} else {
 					if (config.units !== "imperial") {
-						rainCell.innerHTML = parseFloat(forecast.rain).toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
+						rainCell.innerHTML = "<i class=\"wi wi-umbrella skyblue\"></i>&nbsp;" + parseFloat(forecast.rain).toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
 					} else {
-						rainCell.innerHTML = (parseFloat(forecast.rain) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
+						rainCell.innerHTML = "<i class=\"wi wi-umbrella skyblue\"></i>&nbsp;" + (parseFloat(forecast.rain) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
 					}
 				}
-				rainCell.className = "align-right bright rain" + this.config.endpointClass;
+				rainCell.className = "align-right bright rain";
 				row.appendChild(rainCell);
 			}
 
 			if (this.config.showSnowAmount) {
-				var winter = moment().format("M");
-				if ((winter >= "1" && winter <= "3") || (winter >= "11" && winter <= "12")) {
+				var winter = moment().format("MM");
+				if ((winter >= "01" && winter <= "03") || (winter >= "11" && winter <= "12")) {
 					var snowCell = document.createElement("td");
 					if (isNaN(forecast.snow)) {
 						snowCell.className = "align-right shade";
 						snowCell.innerHTML = this.translate("No snow");
 					} else {
 						if(config.units !== "imperial") {
-							snowCell.innerHTML = parseFloat(forecast.snow).toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
+							snowCell.innerHTML = "<i class=\"wi wi-snowflake-cold lightblue\"></i>" + parseFloat(forecast.snow).toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
 						} else {
-							snowCell.innerHTML = (parseFloat(forecast.snow) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
+							snowCell.innerHTML = "<i class=\"wi wi-snowflake-cold lightblue\"></i>" + (parseFloat(forecast.snow) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
 						}
 					}
-					snowCell.className = "align-right bright snow" + this.config.endpointClass;
+					snowCell.className = "align-right bright snow";
 					row.appendChild(snowCell);
 				}
 			}
