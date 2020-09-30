@@ -484,7 +484,7 @@ function configMerge(result) {
 		}
 	}
 	return result;
-}
+};
 
 Module.definitions = {};
 
@@ -539,4 +539,4 @@ function cmpVersions(a, b) {
 		}
 	}
 	return segmentsA.length - segmentsB.length;
-}
+};
