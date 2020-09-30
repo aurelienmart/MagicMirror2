@@ -549,7 +549,9 @@ Module.register("currentweather",{
 					break;
 			}
 		} else {
-			this.feelsLike = parseFloat(this.temperature).toFixed(0);
+		//	this.feelsLike = parseFloat(this.temperature).toFixed(0);
+                        this.feelsLike = parseFloat(data.main.feels_like).toFixed(0);
+
 		}
 
 		this.windDirection = this.deg2Cardinal(data.wind.deg);
