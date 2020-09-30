@@ -652,6 +652,16 @@ header {
 	white-space: nowrap; 
 }
 
+.icalendar table tr:nth-child(even),
+.calendar-table table tr:nth-child(even) {
+  background: rgba(32,32,32,0.15);
+}
+
+.icalendar table td,
+.calendar-table table td {
+	border-bottom: 1px solid #111;
+}
+
 .icalendar table tr,
 .calendar-table table tr {
 	height: 22px;
@@ -1181,11 +1191,14 @@ header {
 		bottom: 12%;
 	}
 
-
+	.icalendar table tr:nth-child(even),
+	.calendar-table table tr:nth-child(even),
 	.region table tr:nth-child(even) {
 	  background: none;
 	}
 
+	.icalendar table td,
+	.calendar-table table td,
 	.region table td {
 		border-bottom: 0;
 	}
