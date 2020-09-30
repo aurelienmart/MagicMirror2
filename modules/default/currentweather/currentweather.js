@@ -331,7 +331,7 @@ Module.register("currentweather",{
 				minTemp.innerHTML = "&nbsp; <span class=\"minMax\">min.</span>&nbsp;" + this.roundValue(this.minTemp.toFixed(1).replace(".", this.config.decimalSymbol)) + "&deg;" + degreeLabel;
 				small.appendChild(minTemp);
 
-				var rains = document.createElement("span"); 				// rain.
+				var rains = document.createElement("span"); 				// rain. not working, under construction
 				rains.className = "mmx";
 				if ((isNaN(this.rain)) || (isNaN(this.snow))) {
 					rains.innerHTML = "&nbsp; <i class=\"wi wi-small-craft-advisory lime\"></i>&nbsp;" + this.translate("No rain");
@@ -480,7 +480,7 @@ Module.register("currentweather",{
 		this.minTemp = data.main.temp_min;				// min temperature.
 		this.maxTemp = data.main.temp_max;				// max temperature.
 		this.rain = data.rain;	//parseFloat(data.rain[1h]);		// rain.
-		this.snow = data.snow; //parseFloat(data.snow[1h]);		// snow.
+		this.snow = data.snow;	//parseFloat(data.snow[1h]);		// snow.
 
 		if (this.config.useBeaufort) {
 			this.windSpeed = this.ms2Beaufort(this.roundValue(data.wind.speed));
