@@ -999,30 +999,30 @@ header {
 
 .weatherforecast .colored .day {
 	text-align: left;
-	min-width: 45px;
-	max-width: 55px;
+	min-width: 50px;
+	max-width: 60px;
 }
 
 .weatherforecast .colored .currentweather-icon {
-	min-width: 40px;
-	max-width: 50px;
+	min-width: 30px;
+	max-width: 40px;
 	text-align: center;
 }
 
 .weatherforecast .colored .max-temp {
 	min-width: 60px;
-	max-width: 75px;
+	max-width: 80px;
 	color: coral;
 }
 
 .weatherforecast .colored .min-temp {
 	min-width: 60px;
-	max-width: 75px;
+	max-width: 80px;
 	color: skyblue;
 }
 
 .weatherforecast .colored .shade {
-	min-width: 70px;
+	min-width: 80px;
 	max-width: 90px;
 }
 
