@@ -44,12 +44,9 @@ Module.register("timer", {
 	},
 
 	variables: function() {
-		this.now = moment().format("HH:mm:ss");
-		this.date = moment().format("DD.MM mm:ss");
-		this.mins = moment().format("m");
-		this.secs = moment().format("s");
-		this.grayscale = this.config.dimming;
-		this.opacity = (1-this.grayscale/100).toPrecision(2);
+		this.now = moment().format("HH:mm:ss"); this.date = moment().format("DD.MM mm:ss");
+		this.mins = moment().format("m"); this.secs = moment().format("s");
+		this.grayscale = this.config.dimming; this.opacity = (1-this.grayscale/100).toPrecision(2);
 
 		if (this.config.debugging!==false) {
 			this.gray1 = (this.secs*(this.grayscale/60)/1).toPrecision(2); 
@@ -81,10 +78,7 @@ Module.register("timer", {
 	},
 
 	timer: function() {
-		var self = this;
-		var now = this.now;
-		var midnight = this.midnight;
-		var morning = this.morning;
+		var self = this; var now = this.now; var midnight = this.midnight; var morning = this.morning;
 		var hide = Array.from(document.querySelectorAll(".module:not(.clock):not(.currentweather):not(.compliments):not(.swatch):not(.connection)"));
 		var icon = Array.from(document.querySelectorAll(".wicon"));
 		var weat = Array.from(document.querySelectorAll(".currentweather"));
@@ -134,18 +128,10 @@ Module.register("timer", {
 	},
 
 	dimmer: function() {
-		var now = this.now;
-		var grayscale = this.grayscale;
-		var opacity = this.opacity;
-		var gray1 = this.gray1;
-		var gray2 = this.gray2;
-		var opac1 = this.opac1;
-		var opac2 = this.opac2;
-		var night = this.night;
-		var midnight = this.midnight;
-		var morning = this.morning;
-		var before = this.before;
-		var after = this.after;
+		var now = this.now; var grayscale = this.grayscale; var opacity = this.opacity;
+		var gray1 = this.gray1; var gray2 = this.gray2; var opac1 = this.opac1;
+		var opac2 = this.opac2; var night = this.night; var midnight = this.midnight;
+		var morning = this.morning; var before = this.before; var after = this.after;
 		var body = Array.from(document.querySelectorAll("body"));
 
 		if (this.config.dimmMode) {
@@ -169,13 +155,11 @@ Module.register("timer", {
 	},
 
 	notification: function() {
-		var now = this.now;
-		var date = this.date;
-		var mins = this.mins;
-		var secs = this.secs;
+		var now = this.now; var date = this.date;
+		var mins = this.mins; var secs = this.secs;
 		var ns_box = Array.from(document.querySelectorAll(".ns-box"));
-		
-		if (secs >= 58) { //not working this.sendNotification("HIDE_ALERT", {});
+
+		if (secs >= 58) { //not working this.sendNotification("HIDE_ALERT",{});
 			ns_box.forEach(function(element) {element.style.display = "none";});
 		}
 
@@ -211,7 +195,7 @@ Module.register("timer", {
 					type: "notification", title: "<i class=\"far fa-bell lime\"></i> " + this.translate("Sharp hour!"),
 					message: this.translate("Time it was ") + moment().format("H:mm") + "<br>" + this.translate("Have a nice evening!")
 				});
-			}
+			} 
 		}
 
 		if (this.config.dateMode) { 
@@ -247,5 +231,11 @@ Module.register("timer", {
 				});
 			}
 		}
-	}
+	},
+
+	notificationReceived: function(notification, payload, sender) {
+		if (notification === "ALL_MODULES_STARTED") {
+
+		}
+	},
 });
