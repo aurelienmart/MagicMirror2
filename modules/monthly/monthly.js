@@ -1,10 +1,12 @@
 /* Magic Mirror
  *
+ * calendar_monthly v1.0 - June 2016
+ * By Ashley M. Kirchner <kirash4@gmail.com>
+ * Beer Licensed (meaning, if you like this module, feel free to have a beer on me, or send me one.)
+ *
  * Redesigned by Răzvan Cristea
  * for iPad 3 & HD display
- *
  * https://github.com/hangorazvan
- * Creative Commons BY-NC-SA 4.0, Romania.
  */
 Module.register("monthly", {
 
@@ -26,7 +28,7 @@ Module.register("monthly", {
 	},
 	
 	scheduleUpdate: function() {
-		this.midnight = moment().endOf("day").add(1/5 * this.config.updateDelay, "seconds");
+		this.midnight = moment().endOf("day").add(this.config.updateDelay, "seconds");
 		var self = this;
 		setTimeout(function() {
 			self.updateDom(this.config.fadeSpeed);
@@ -53,7 +55,19 @@ Module.register("monthly", {
 			self.loaded = false;
 
 //			Log.log("Calendar events: " + event.title);
-			self.updateDom(this.config.fadeSpeed * 0);
+			self.updateDom(0); //this.config.fadeSpeed);
+		}
+	},
+
+	getHeader: function () {
+		var time = moment();
+		if (this.config.monthOffset !== 0) {
+			time = time.add(this.config.monthOffset, "months");
+		}
+		monthname = time.format("MMMM");
+		year = time.year();
+		if (this.config.realHeader) {
+			return monthname + " " + year;
 		}
 	},
 
@@ -72,9 +86,9 @@ Module.register("monthly", {
 		var wrapper = document.createElement("table");
 		wrapper.className = this.config.tableClass;
 
-		var header = document.createElement("tHead");
-		var headerTR = document.createElement("tr");
 		if (this.config.showHeader) {
+			var header = document.createElement("tHead");
+			var headerTR = document.createElement("tr");
 			var headerTH = document.createElement("th");
 			headerTH.colSpan = "7";
 			headerTH.scope = "col";
@@ -90,9 +104,9 @@ Module.register("monthly", {
 			headerTH.appendChild(headerSpace);
 			headerTH.appendChild(headerYearSpan);
 			headerTR.appendChild(headerTH);
+			header.appendChild(headerTR);
+			wrapper.appendChild(header);
 		}
-		header.appendChild(headerTR);
-		wrapper.appendChild(header);
 		
 		var bodyContent = document.createElement("tBody");
 		var bodyTR = document.createElement("tr");
@@ -171,14 +185,6 @@ Module.register("monthly", {
 			}
 		}
 
-		if (time.add({month:1}).month() == 10) {
-			this.config.specialDay = 13;
-		} 
-
-		if (time.add({month:1}).month() == 8) {
-			this.config.specialDay = 22;
-		}
-		
 		bodyContent.appendChild(bodyTR);
 		wrapper.appendChild(bodyContent);
 		this.loaded = true;

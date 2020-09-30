@@ -1,6 +1,6 @@
 /* Magic Mirror
  *
- * MIT Licensed.
+  * MIT Licensed.
  *
  * Redesigned by Răzvan Cristea
  * for iPad 3 & HD display
@@ -118,7 +118,7 @@ Module.register("timer", {
 			comp.forEach(function(element) {return element.style.width = "inherit",
 				element.style.transform = "scale(1)";});
 			beat.forEach(function(element) {return element.style.transform = "translateY(0)",
-				element.style.transition = "translate 1s ease";});
+				element.style.transition = "translateY 1s ease";});
 		}
 
 		function night_mode() {
@@ -129,7 +129,7 @@ Module.register("timer", {
 			comp.forEach(function(element) {return element.style.width = "600px",
 				element.style.transform = "translateY(-80px) scale(0.5)";});
 			beat.forEach(function(element) {return element.style.transform = "translateY(-15px)",
-				element.style.transition = "translate 1s ease";});
+				element.style.transition = "translateY 1s ease";});
 		}
 	},
 

@@ -336,9 +336,9 @@ Module.register("currentweather",{
 				if ((isNaN(this.rain)) || (isNaN(this.snow))) {
 					rains.innerHTML = "&nbsp; <i class=\"wi wi-small-craft-advisory lime\"></i>&nbsp;" + this.translate("No rain");
 				} else if (isNaN(this.rain)) {
-					rains.innerHTML = "&nbsp; <i class=\"wi wi-snowflake-cold lightblue\"></i>&nbsp;" + parseFloat(this.snow["1h"]).toFixed(1).replace(".", this.config.decimalSymbol) + "&nbsp;mm";
+					rains.innerHTML = "&nbsp; <i class=\"wi wi-snowflake-cold lightblue\"></i>&nbsp;" + this.snow.toFixed(1).replace(".", this.config.decimalSymbol) + "&nbsp;mm";
 				} else if (isNaN(this.snow)) {
-					rains.innerHTML = "&nbsp; <i class=\"wi wi-umbrella yellow\"></i>&nbsp;" + parseFloat(this.rain["1h"]).toFixed(1).replace(".", this.config.decimalSymbol) + "&nbsp;mm";
+					rains.innerHTML = "&nbsp; <i class=\"wi wi-umbrella yellow\"></i>&nbsp;" + this.rain.toFixed(1).replace(".", this.config.decimalSymbol) + "&nbsp;mm";
 				}
 				small.appendChild(rains);
 			}
@@ -479,8 +479,8 @@ Module.register("currentweather",{
 		this.visibility = data.visibility;				// visibility.
 		this.minTemp = data.main.temp_min;				// min temperature.
 		this.maxTemp = data.main.temp_max;				// max temperature.
-		this.rain = data.rain;							// rain.
-		this.snow = data.snow;							// snow.
+		this.rain = data.rain;	//parseFloat(data.rain[1h]);		// rain.
+		this.snow = data.snow; //parseFloat(data.snow[1h]);		// snow.
 
 		if (this.config.useBeaufort) {
 			this.windSpeed = this.ms2Beaufort(this.roundValue(data.wind.speed));
@@ -550,8 +550,7 @@ Module.register("currentweather",{
 			}
 		} else {
 		//	this.feelsLike = parseFloat(this.temperature).toFixed(0);
-                        this.feelsLike = parseFloat(data.main.feels_like).toFixed(0);
-
+			this.feelsLike = parseFloat(data.main.feels_like).toFixed(0);
 		}
 
 		this.windDirection = this.deg2Cardinal(data.wind.deg);
