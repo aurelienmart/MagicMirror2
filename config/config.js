@@ -265,7 +265,7 @@ var config = {
 			config: {
 				maxNumberOfDays: 3,
 				showRainAmount: true,
-				showSnowAmount: true,
+				showSnowAmount: false,
 				updateInterval: 10 * 60 * 1000,
 				appendLocationNameToHeader: false,
 				fade: false,
@@ -288,7 +288,7 @@ var config = {
 			config: {
 				maxNumberOfDays: 14,
 				showRainAmount: true,
-				showSnowAmount: true,
+				showSnowAmount: false,
 				updateInterval: 10 * 60 * 2000,
 				appendLocationNameToHeader: false,
 				fade: true,
