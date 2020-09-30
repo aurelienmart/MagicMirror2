@@ -160,6 +160,28 @@ Module.register("weatherforecast", {
 				if (isNaN(forecast.rain)) {
 					rainCell.className = "align-right shade";
 					rainCell.innerHTML = this.translate("No rain");
+				} else if (!isNaN(forecast.snow)) {
+					if(config.units !== "imperial") {
+						rainCell.innerHTML = "<i class=\"wi wi-snowflake-cold lightblue\"></i> " + parseFloat(forecast.snow).toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
+					} else {
+						rainCell.innerHTML = "<i class=\"wi wi-snowflake-cold lightblue\"></i> " + (parseFloat(forecast.snow) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
+					}
+				} else {
+					if (config.units !== "imperial") {
+						rainCell.innerHTML = "<i class=\"wi wi-umbrella skyblue\"></i> " + parseFloat(forecast.rain).toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
+					} else {
+						rainCell.innerHTML = "<i class=\"wi wi-umbrella skyblue\"></i> " + (parseFloat(forecast.rain) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
+					}
+				} 
+				rainCell.className = "align-right bright rain";
+				row.appendChild(rainCell);
+			}
+/*
+			if (this.config.showRainAmount) {
+				var rainCell = document.createElement("td");
+				if (isNaN(forecast.rain)) {
+					rainCell.className = "align-right shade";
+					rainCell.innerHTML = this.translate("No rain");
 				} else {
 					if (config.units !== "imperial") {
 						rainCell.innerHTML = "<i class=\"wi wi-umbrella skyblue\"></i>&nbsp;" + parseFloat(forecast.rain).toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
@@ -189,7 +211,7 @@ Module.register("weatherforecast", {
 					row.appendChild(snowCell);
 				}
 			}
-
+*/
 			if (this.config.fade && this.config.fadePoint < 1) {
 				if (this.config.fadePoint < 0) {
 					this.config.fadePoint = 0;
