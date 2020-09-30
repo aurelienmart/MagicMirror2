@@ -272,12 +272,17 @@ header {
 	border-collapse: separate;
 }
 
+.region table tr:nth-child(even) {
+  background: rgba(32,32,32,0.15);
+}
+
 .region table tr {
 	height: 24px;
 }
 
 .region table td {
 	padding: 0;
+	border-bottom: 1px solid #111;
 }
 
 .region.third,
@@ -1176,11 +1181,20 @@ header {
 		bottom: 12%;
 	}
 
+
+	.region table tr:nth-child(even) {
+	  background: none;
+	}
+
+	.region table td {
+		border-bottom: 0;
+	}
+
 	.calendar table tr:nth-child(n+11),
 	.icalendar table tr:nth-child(n+11),
 	.calendar-table tr:nth-child(n+11),
 	.hourly table tr:nth-child(n+5),
-	.daily table tr:nth-child(n+11),
+	.daily table tr:nth-child(n+12),
 	.daily2 table tr:nth-child(n+14),
 	.monthly thead, header,
 	.simpletext, .monthSecond {
