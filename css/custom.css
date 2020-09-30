@@ -744,7 +744,6 @@ header {
 	color: lightgray;
 }
 
-
 .rssfeed .feed .desc,
 .rssfeed .news .feed .desc,
 .news .feed .desc,
@@ -1032,6 +1031,7 @@ header {
 }
 
 .weatherforecast .wi-day-sunny {
+	transform: translateX(-3px);
 	color: gold;
 }
 
@@ -1040,10 +1040,12 @@ header {
 }
 
 .weatherforecast .wi-day-cloudy-windy {
+	transform: translateX(1px);
 	color: skyblue;
 }
 
 .weatherforecast .wi-cloudy {
+	transform: translateX(-2px);
 	color: powderblue;
 }
 
@@ -1068,6 +1070,7 @@ header {
 }
 
 .weatherforecast .wi-night-clear {
+	transform: translateX(-3px);
 	color: silver;
 }
 
@@ -1076,6 +1079,7 @@ header {
 }
 
 .weatherforecast .wi-night-cloudy-windy {
+	transform: translateX(-2px);
 	color: skyblue;
 }
 
@@ -1200,8 +1204,15 @@ header {
 
 	.rssfeed .feed,
 	.feed {
-		font-size: 1.8rem;
+		font-size: 1.8rem
 		line-height: 2rem;
+	}
+
+	.rssfeed .feed .date,
+	.rssfeed .feed .source,
+	.feed .date, .feed .source {
+		font-size: 1.6rem;
+		line-height: 1.8rem;
 	}
 
 	.newsfeed, .newsfeed .light {
