@@ -259,6 +259,7 @@ var config = {
 		{
 			module: "weatherforecast",
 			position: "top_right",
+			header: "Vremea în următoarele ore",
 			classes: "hourly",
 			disabled: false,
 			config: {
@@ -281,7 +282,7 @@ var config = {
 		{
 			module: "weatherforecast",
 			position: "top_right",
-			header: "Prognoza meteo în",
+			header: "Vremea în următoarele zile",
 			classes: "daily",
 			disabled: false,
 			config: {
@@ -289,7 +290,7 @@ var config = {
 				showRainAmount: true,
 				showSnowAmount: true,
 				updateInterval: 10 * 60 * 2000,
-				appendLocationNameToHeader: true,
+				appendLocationNameToHeader: false,
 				fade: true,
 				fadePoint: 0.25,
 				colored: true,
