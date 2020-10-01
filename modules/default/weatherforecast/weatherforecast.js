@@ -177,22 +177,6 @@ Module.register("weatherforecast", {
 				row.appendChild(rainCell);
 			}
 /*
-			if (this.config.showRainAmount) {
-				var rainCell = document.createElement("td");
-				if (isNaN(forecast.rain)) {
-					rainCell.className = "align-right shade";
-					rainCell.innerHTML = this.translate("No rain");
-				} else {
-					if (config.units !== "imperial") {
-						rainCell.innerHTML = "<i class=\"wi wi-umbrella skyblue\"></i>&nbsp;" + parseFloat(forecast.rain).toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
-					} else {
-						rainCell.innerHTML = "<i class=\"wi wi-umbrella skyblue\"></i>&nbsp;" + (parseFloat(forecast.rain) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
-					}
-				}
-				rainCell.className = "align-right bright rain";
-				row.appendChild(rainCell);
-			}
-
 			if (this.config.showSnowAmount) {
 				var winter = moment().format("MM");
 				if ((winter >= "01" && winter <= "03") || (winter >= "11" && winter <= "12")) {
@@ -329,7 +313,9 @@ Module.register("weatherforecast", {
 		if (this.config.forecastEndpoint === "forecast") {
 			numberOfDays = this.config.maxNumberOfDays < 1 || this.config.maxNumberOfDays > 5 ? 5 : this.config.maxNumberOfDays;
 			// don't get forecasts for the next day, as it would not represent the whole day
-		//	numberOfDays = numberOfDays * 8 - (Math.round(new Date().getHours() / 3) % 8);
+			if (self.config.forecastEndpoint === "forecast/daily") {
+				numberOfDays = numberOfDays * 8 - (Math.round(new Date().getHours() / 3) % 8);
+			}
 		} else {
 			numberOfDays = this.config.maxNumberOfDays < 1 || this.config.maxNumberOfDays > 17 ? 7 : this.config.maxNumberOfDays;
 		}
