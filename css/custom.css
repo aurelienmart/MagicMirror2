@@ -396,7 +396,7 @@ header {
 	position: relative;
 	border-radius: 50%;
 	background-size: 100%;
-	background: transparent url("face-013.svg") center no-repeat;
+	background: transparent url("../modules/default/clock/face-013.svg") center no-repeat;
 }
 
 .clock .clockFace {
@@ -423,10 +423,10 @@ header {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin: -3px 0 -3px -25%;
-	padding: 3px 0 3px 25%;
+	margin: -25% -3px -1px -3px;
+	padding: 25% 3px 1px 3px;
 	background: white;
-	transform-origin: 100% 50%;
+	transform-origin: 50% 100%;
 	border-radius: 3px 0 0 3px;
 }
 
@@ -453,6 +453,13 @@ header {
 	padding: 38% 2px 0 0;
 	transform-origin: 50% 100%;
 	border-radius: 1px 0 0 1px;
+}
+
+.clock .clockHour,
+.clock .clockMinute,
+.clock .clockSecond {
+	transition: transform 0.2s;
+    transition-timing-function: cubic-bezier(.4,2.08,.55,0.44);
 }
 
 .clock .wi-day-sunny, 
@@ -1014,31 +1021,26 @@ header {
 
 .weatherforecast .colored .day {
 	text-align: left;
-	min-width: 50px;
-	max-width: 60px;
+	width: 15%;
 }
 
 .weatherforecast .colored .currentweather-icon {
-	min-width: 30px;
-	max-width: 40px;
+	width: 10%;
 	text-align: center;
 }
 
 .weatherforecast .colored .max-temp {
-	min-width: 60px;
-	max-width: 80px;
+	width: 22%;
 	color: coral;
 }
 
 .weatherforecast .colored .min-temp {
-	min-width: 60px;
-	max-width: 80px;
+	width: 22%;
 	color: skyblue;
 }
 
 .weatherforecast .colored .shade {
-	min-width: 80px;
-	max-width: 90px;
+	width: 30%;
 }
 
 .weatherforecast .rain, .weatherforecast .snow {
@@ -1231,7 +1233,7 @@ header {
 
 	.rssfeed .feed,
 	.feed {
-		font-size: 1.8rem
+		font-size: 1.8rem;
 		line-height: 2rem;
 	}
 
