@@ -1,12 +1,6 @@
+/* global translations */
+
 /* Magic Mirror
- *
- * By Michael Teeuw https://michaelteeuw.nl
- * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
- *
  * Translator (l10n)
  *
  * By Christopher Fenner https://github.com/CFenner

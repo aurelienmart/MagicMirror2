@@ -1,11 +1,8 @@
 /* Magic Mirror
+ * Utils
  *
- * By Michael Teeuw https://michaelteeuw.nl
+ * By Rodrigo Ramírez Norambuena https://rodrigoramirez.com
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 var colors = require("colors/safe");
 

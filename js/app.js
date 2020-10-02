@@ -1,18 +1,15 @@
 /* Magic Mirror
+ * The Core App (Server)
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 var fs = require("fs");
 var path = require("path");
 var Log = require(__dirname + "/logger.js");
 var Server = require(__dirname + "/server.js");
 var Utils = require(__dirname + "/utils.js");
-var defaultModules = require(__dirname + "/defaultmodules.js");
+var defaultModules = require(__dirname + "/../modules/default/defaultmodules.js");
 
 // Alias modules mentioned in package.js under _moduleAliases.
 require("module-alias/register");
@@ -43,16 +40,19 @@ process.on("uncaughtException", function (err) {
 	Log.error("If you think this really is an issue, please open an issue on GitHub: https://github.com/MichMich/MagicMirror/issues");
 });
 
-/* App - The core app.
+/**
+ * The core app.
+ *
+ * @class
  */
 var App = function () {
 	var nodeHelpers = [];
 
-	/* loadConfig(callback)
-	 * Loads the config file. combines it with the defaults,
-	 * and runs the callback with the found config as argument.
+	/**
+	 * Loads the config file. Combines it with the defaults,  and runs the
+	 * callback with the found config as argument.
 	 *
-	 * argument callback function - The callback function.
+	 * @param {Function} callback Function to be called after loading the config
 	 */
 	var loadConfig = function (callback) {
 		Log.log("Loading config ...");
@@ -68,7 +68,7 @@ var App = function () {
 		try {
 			fs.accessSync(configFilename, fs.F_OK);
 			var c = require(configFilename);
-//			checkDeprecatedOptions(c);
+			checkDeprecatedOptions(c);
 			var config = Object.assign(defaults, c);
 			callback(config);
 		} catch (e) {
@@ -83,7 +83,13 @@ var App = function () {
 		}
 	};
 
-/*	var checkDeprecatedOptions = function (userConfig) {
+	/**
+	 * Checks the config for deprecated options and throws a warning in the logs
+	 * if it encounters one option from the deprecated.js list
+	 *
+	 * @param {object} userConfig The user config
+	 */
+	var checkDeprecatedOptions = function (userConfig) {
 		var deprecated = require(global.root_path + "/js/deprecated.js");
 		var deprecatedOptions = deprecated.configs;
 
@@ -99,10 +105,11 @@ var App = function () {
 		}
 	};
 
-	/* loadModule(module)
+	/**
 	 * Loads a specific module.
 	 *
-	 * argument module string - The name of the module (including subpath).
+	 * @param {string} module The name of the module (including subpath).
+	 * @param {Function} callback Function to be called after loading
 	 */
 	var loadModule = function (module, callback) {
 		var elements = module.split("/");
@@ -147,10 +154,11 @@ var App = function () {
 		}
 	};
 
-	/* loadModules(modules)
+	/**
 	 * Loads all modules.
 	 *
-	 * argument module string - The name of the module (including subpath).
+	 * @param {Module[]} modules All modules to be loaded
+	 * @param {Function} callback Function to be called after loading
 	 */
 	var loadModules = function (modules, callback) {
 		Log.log("Loading module helpers ...");
@@ -172,11 +180,14 @@ var App = function () {
 		loadNextModule();
 	};
 
-	/* cmpVersions(a,b)
+	/**
 	 * Compare two semantic version numbers and return the difference.
 	 *
-	 * argument a string - Version number a.
-	 * argument a string - Version number b.
+	 * @param {string} a Version number a.
+	 * @param {string} b Version number b.
+	 *
+	 * @returns {number} A positive number if a is larger than b, a negative
+	 * number if a is smaller and 0 if they are the same
 	 */
 	function cmpVersions(a, b) {
 		var i, diff;
@@ -194,16 +205,19 @@ var App = function () {
 		return segmentsA.length - segmentsB.length;
 	}
 
-	/* start(callback)
-	 * This methods starts the core app.
-	 * It loads the config, then it loads all modules.
-	 * When it's done it executes the callback with the config as argument.
+	/**
+	 * Start the core app.
 	 *
-	 * argument callback function - The callback function.
+	 * It loads the config, then it loads all modules. When it's done it
+	 * executes the callback with the config as argument.
+	 *
+	 * @param {Function} callback Function to be called after start
 	 */
 	this.start = function (callback) {
 		loadConfig(function (c) {
 			config = c;
+
+			Log.setLogLevel(config.logLevel);
 
 			var modules = [];
 
@@ -235,9 +249,10 @@ var App = function () {
 		});
 	};
 
-	/* stop()
-	 * This methods stops the core app.
-	 * This calls each node_helper's STOP() function, if it exists.
+	/**
+	 * Stops the core app. This calls each node_helper's STOP() function, if it
+	 * exists.
+	 *
 	 * Added to fix #1056
 	 */
 	this.stop = function () {
@@ -249,7 +264,8 @@ var App = function () {
 		}
 	};
 
-	/* Listen for SIGINT signal and call stop() function.
+	/**
+	 * Listen for SIGINT signal and call stop() function.
 	 *
 	 * Added to fix #1056
 	 * Note: this is only used if running `server-only`. Otherwise
@@ -264,7 +280,9 @@ var App = function () {
 		process.exit(0);
 	});
 
-	/* We also need to listen to SIGTERM signals so we stop everything when we are asked to stop by the OS.
+	/**
+	 * Listen to SIGTERM signals so we can stop everything when we
+	 * are asked to stop by the OS.
 	 */
 	process.on("SIGTERM", () => {
 		Log.log("[SIGTERM] Received. Shutting down server...");

@@ -1,11 +1,10 @@
+/* global defaultModules, vendor */
+
 /* Magic Mirror
+ * Module and File loaders.
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 var Loader = (function () {
 	/* Create helper variables */

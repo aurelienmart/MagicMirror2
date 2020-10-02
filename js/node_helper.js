@@ -1,15 +1,12 @@
 /* Magic Mirror
+ * Node Helper Superclass
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
-var Class = require("./class.js");
-var Log = require("./logger.js");
-var express = require("express");
+const Class = require("./class.js");
+const Log = require("./logger.js");
+const express = require("express");
 
 var NodeHelper = Class.extend({
 	init: function () {

@@ -1,11 +1,11 @@
 /* Magic Mirror
+ * Log
+ *
+ * This logger is very simple, but needs to be extended.
+ * This system can eventually be used to push the log messages to an external target.
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 (function (root, factory) {
 	if (typeof exports === "object") {

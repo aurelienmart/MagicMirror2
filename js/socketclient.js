@@ -1,11 +1,10 @@
+/* global io */
+
 /* Magic Mirror
+ * TODO add description
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 var MMSocket = function (moduleName) {
 	var self = this;

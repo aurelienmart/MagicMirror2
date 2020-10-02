@@ -1,11 +1,10 @@
+/* global mmPort */
+
 /* Magic Mirror
+ * Config Defaults
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 var address = "localhost";
 var port = 8080;
@@ -29,11 +28,10 @@ var defaults = {
 	modules: [
 		{
 			module: "updatenotification",
-			position: "top_center",
-			disabled: true
+			position: "top_center"
 		},
 		{
-			module: "simpletext",
+			module: "helloworld",
 			position: "upper_third",
 			classes: "large thin",
 			config: {
@@ -41,14 +39,14 @@ var defaults = {
 			}
 		},
 		{
-			module: "simpletext",
+			module: "helloworld",
 			position: "middle_center",
 			config: {
 				text: "Please create a config file."
 			}
 		},
 		{
-			module: "simpletext",
+			module: "helloworld",
 			position: "middle_center",
 			classes: "small dimmed",
 			config: {
@@ -56,7 +54,7 @@ var defaults = {
 			}
 		},
 		{
-			module: "simpletext",
+			module: "helloworld",
 			position: "middle_center",
 			classes: "xsmall",
 			config: {
@@ -64,7 +62,7 @@ var defaults = {
 			}
 		},
 		{
-			module: "simpletext",
+			module: "helloworld",
 			position: "bottom_bar",
 			classes: "xsmall dimmed",
 			config: {
@@ -75,6 +73,7 @@ var defaults = {
 
 	paths: {
 		modules: "modules",
+		vendor: "vendor"
 	}
 };
 

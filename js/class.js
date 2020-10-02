@@ -1,11 +1,11 @@
-/* Magic Mirror
+/* global Class, xyz */
+
+/* Simple JavaScript Inheritance
+ * By John Resig https://johnresig.com/
  *
- * By Michael Teeuw https://michaelteeuw.nl
+ * Inspired by base2 and Prototype
+ *
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 (function () {
 	var initializing = false;

@@ -1,11 +1,12 @@
+/* global Class, cloneObject, Loader, MMSocket, nunjucks, Translator */
+
 /* Magic Mirror
+ * Module Blueprint.
+ * @typedef {Object} Module
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 var Module = Class.extend({
 	/*********************************************************
@@ -221,8 +222,8 @@ var Module = Class.extend({
 		this.name = data.name;
 		this.identifier = data.identifier;
 		this.hidden = false;
+
 		this.setConfig(data.config, data.configDeepMerge);
-//		this.setConfig(data.config);
 	},
 
 	/**
@@ -231,8 +232,6 @@ var Module = Class.extend({
 	 * @param {object} config The combined module config.
 	 * @param {boolean} config Merge module config in deep.
 	 */
-//	setConfig: function (config) {
-//		this.config = Object.assign({}, this.defaults, config);
 	setConfig: function (config, deep) {
 		this.config = deep ? configMerge({}, this.defaults, config) : Object.assign({}, this.defaults, config);
 	},
@@ -484,7 +483,7 @@ function configMerge(result) {
 		}
 	}
 	return result;
-};
+}
 
 Module.definitions = {};
 
@@ -539,4 +538,4 @@ function cmpVersions(a, b) {
 		}
 	}
 	return segmentsA.length - segmentsB.length;
-};
+}

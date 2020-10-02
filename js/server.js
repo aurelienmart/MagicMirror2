@@ -1,11 +1,8 @@
 /* Magic Mirror
+ * Server
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 var express = require("express");
 var app = require("express")();

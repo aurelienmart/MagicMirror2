@@ -7,8 +7,6 @@
  * https://github.com/hangorazvan
  */
 
-@import url("../fonts/fonts.css");
-
 html {
 	overflow: hidden;
 	cursor: text;
@@ -423,10 +421,10 @@ header {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin: -25% -3px -1px -3px;
-	padding: 25% 3px 1px 3px;
+	margin: -2px 0 -2px -25%;
+	padding: 2px 0 2px 25%;
 	background: white;
-	transform-origin: 50% 100%;
+	transform-origin: 100% 50%;
 	border-radius: 3px 0 0 3px;
 }
 
@@ -497,6 +495,20 @@ header {
 
 .swatch {
 	opacity: 0.8;
+}
+
+.ns-box {
+	margin-top: 5px;
+}
+
+.ns-box .title {
+	font-size: 2.5rem;
+	line-height: 3rem;
+}
+
+.ns-box .message {
+	font-size: 1.4rem;
+	line-height: 1.7rem;
 }
 
 /* connection */
@@ -943,27 +955,27 @@ header {
 	content: url("../css/icons/cloudy.png");
 }
 
-.currentweather .wi-day-cloudy-windy {
+.currentweather .wi-cloudy-windy {
 	content: url("../css/icons/mostlycloudy.png");
 }
 
-.currentweather .wi-day-showers {
+.currentweather .wi-showers {
 	content: url("../css/icons/chancerain.png");
 }
 
-.currentweather .wi-day-rain {
+.currentweather .wi-rain {
 	content: url("../css/icons/rain.png");
 }
 
-.currentweather .wi-day-thunderstorm {
+.currentweather .wi-thunderstorm {
 	content: url("../css/icons/tstorms.png");
 }
 
-.currentweather .wi-day-snow {
+.currentweather .wi-snow {
 	content: url("../css/icons/snow.png");
 }
 
-.currentweather .wi-day-fog {
+.currentweather .wi-fog {
 	content: url("../css/icons/cloudy.png");
 }
 
@@ -1048,46 +1060,48 @@ header {
 }
 
 .weatherforecast .wi-day-sunny {
-	transform: translateX(-3px);
+	transform: translateX(-2px);
 	color: gold;
 }
 
 .weatherforecast .wi-day-cloudy {
+	transform: translateX(1px);
 	color: lightblue;
 }
 
-.weatherforecast .wi-day-cloudy-windy {
-	transform: translateX(1px);
+.weatherforecast .wi-cloudy-windy {
+	transform: translateX(-1px);
 	color: skyblue;
 }
 
 .weatherforecast .wi-cloudy {
-	transform: translateX(-2px);
+	transform: translateX(-1px);
 	color: powderblue;
 }
 
-.weatherforecast .wi-day-showers {
+.weatherforecast .wi-showers {
 	color: skyblue;
 }
 
-.weatherforecast .wi-day-rain {
+.weatherforecast .wi-rain {
 	color: deepskyblue;
 }
 
-.weatherforecast .wi-day-thunderstorm {
+.weatherforecast .wi-thunderstorm {
 	color: dodgerblue;
 }
 
-.weatherforecast .wi-day-snow {
+.weatherforecast .wi-snow {
 	color: snow;
 }
 
-.weatherforecast .wi-day-fog {
+.weatherforecast .wi-fog {
 	color: white;
 }
 
 .weatherforecast .wi-night-clear {
-	transform: translateX(-3px);
+	transform: translateX(-2px);
+	font-size: 120%;
 	color: silver;
 }
 
@@ -1096,7 +1110,7 @@ header {
 }
 
 .weatherforecast .wi-night-cloudy-windy {
-	transform: translateX(-2px);
+	transform: translateX(-1px);
 	color: skyblue;
 }
 

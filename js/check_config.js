@@ -1,21 +1,19 @@
 /* Magic Mirror
  *
- * By Michael Teeuw https://michaelteeuw.nl
- * MIT Licensed.
+ * Check the configuration file for errors
  *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
+ * By Rodrigo Ramírez Norambuena https://rodrigoramirez.com
+ * MIT Licensed.
  */
-var Linter = require("eslint").Linter;
-var linter = new Linter();
+const Linter = require("eslint").Linter;
+const linter = new Linter();
 
-var path = require("path");
-var fs = require("fs");
+const path = require("path");
+const fs = require("fs");
 
-var rootPath = path.resolve(__dirname + "/../");
-var Log = require(rootPath + "/js/logger.js");
-var Utils = require(rootPath + "/js/utils.js");
+const rootPath = path.resolve(__dirname + "/../");
+const Log = require(rootPath + "/js/logger.js");
+const Utils = require(rootPath + "/js/utils.js");
 
 /**
  * Returns a string with path of configuration file.
@@ -36,7 +34,7 @@ function getConfigFile() {
  * Checks the config file using eslint.
  */
 function checkConfigFile() {
-	var configFileName = getConfigFile();
+	const configFileName = getConfigFile();
 
 	// Check if file is present
 	if (fs.existsSync(configFileName) === false) {
@@ -60,13 +58,13 @@ function checkConfigFile() {
 		if (err) {
 			throw err;
 		}
-		var messages = linter.verify(data);
+		const messages = linter.verify(data);
 		if (messages.length === 0) {
 			Log.info(Utils.colors.pass("Your configuration file doesn't contain syntax errors :)"));
 		} else {
 			Log.error(Utils.colors.error("Your configuration file contains syntax errors :("));
 			// In case the there errors show messages and return
-			messages.forEach(function (error) {
+			messages.forEach((error) => {
 				Log.error("Line", error.line, "col", error.column, error.message);
 			});
 		}
