@@ -1,16 +1,13 @@
 /* Magic Mirror
+ * Node Helper: Newsfeed - NewsfeedFetcher
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
-var Log = require("../../../js/logger");
-var FeedMe = require("feedme");
-var request = require("request");
-var iconv = require("iconv-lite");
+const Log = require("../../../js/logger.js");
+const FeedMe = require("feedme");
+const request = require("request");
+const iconv = require("iconv-lite");
 
 /**
  * Responsible for requesting an update on the set interval and broadcasting the data.
@@ -21,14 +18,14 @@ var iconv = require("iconv-lite");
  * @param {boolean} logFeedWarnings If true log warnings when there is an error parsing a news article.
  * @class
  */
-var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) {
-	var self = this;
+const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) {
+	const self = this;
 
-	var reloadTimer = null;
-	var items = [];
+	let reloadTimer = null;
+	let items = [];
 
-	var fetchFailedCallback = function () {};
-	var itemsReceivedCallback = function () {};
+	let fetchFailedCallback = function () {};
+	let itemsReceivedCallback = function () {};
 
 	if (reloadInterval < 1000) {
 		reloadInterval = 1000;
@@ -39,21 +36,21 @@ var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) 
 	/**
 	 * Request the new items.
 	 */
-	var fetchNews = function () {
+	const fetchNews = function () {
 		clearTimeout(reloadTimer);
 		reloadTimer = null;
 		items = [];
 
-		var parser = new FeedMe();
+		const parser = new FeedMe();
 
 		parser.on("item", function (item) {
-			var title = item.title;
-			var description = item.description || item.summary || item.content || "";
-			var pubdate = item.pubdate || item.published || item.updated || item["dc:date"];
-			var url = item.url || item.link || "";
+			const title = item.title;
+			let description = item.description || item.summary || item.content || "";
+			const pubdate = item.pubdate || item.published || item.updated || item["dc:date"];
+			const url = item.url || item.link || "";
 
 			if (title && pubdate) {
-				var regex = /(<([^>]+)>)/gi;
+				const regex = /(<([^>]+)>)/gi;
 				description = description.toString().replace(regex, "");
 
 				items.push({
@@ -81,8 +78,8 @@ var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) 
 			scheduleTimer();
 		});
 
-		var nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
-		var opts = {
+		const nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
+		const opts = {
 			headers: {
 				"User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)",
 				"Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
@@ -103,7 +100,7 @@ var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) 
 	/**
 	 * Schedule the timer for the next update.
 	 */
-	var scheduleTimer = function () {
+	const scheduleTimer = function () {
 		clearTimeout(reloadTimer);
 		reloadTimer = setTimeout(function () {
 			fetchNews();

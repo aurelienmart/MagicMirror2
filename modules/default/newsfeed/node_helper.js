@@ -1,16 +1,14 @@
 /* Magic Mirror
+ * Node Helper: Newsfeed
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
-var NodeHelper = require("node_helper");
-var validUrl = require("valid-url");
-var NewsfeedFetcher = require("./newsfeedfetcher.js");
-var Log = require("../../../js/logger");
+
+const NodeHelper = require("node_helper");
+const validUrl = require("valid-url");
+const NewsfeedFetcher = require("./newsfeedfetcher.js");
+const Log = require("../../../js/logger");
 
 module.exports = NodeHelper.create({
 	// Override start method.
@@ -34,27 +32,27 @@ module.exports = NodeHelper.create({
 	 * @param {object} config The configuration object.
 	 */
 	createFetcher: function (feed, config) {
-		var url = feed.url || "";
-		var encoding = feed.encoding || "UTF-8";
-		var reloadInterval = feed.reloadInterval || config.reloadInterval || 5 * 60 * 1000;
+		const url = feed.url || "";
+		const encoding = feed.encoding || "UTF-8";
+		const reloadInterval = feed.reloadInterval || config.reloadInterval || 5 * 60 * 1000;
 
 		if (!validUrl.isUri(url)) {
 			this.sendSocketNotification("INCORRECT_URL", url);
 			return;
 		}
 
-		var fetcher;
+		let fetcher;
 		if (typeof this.fetchers[url] === "undefined") {
 			Log.log("Create new news fetcher for url: " + url + " - Interval: " + reloadInterval);
 			fetcher = new NewsfeedFetcher(url, reloadInterval, encoding, config.logFeedWarnings);
 
 			var self = this;
-			fetcher.onReceive(function () {
+			fetcher.onReceive(function() {
 				self.broadcastFeeds();
 			});
 
-			fetcher.onError(function (fetcher, error) {
-				this.sendSocketNotification("FETCH_ERROR", {
+			fetcher.onError(function(fetcher, error) {
+				self.sendSocketNotification("FETCH_ERROR", {
 					url: fetcher.url(),
 					error: error
 				});

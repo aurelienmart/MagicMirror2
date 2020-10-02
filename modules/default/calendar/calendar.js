@@ -1,15 +1,24 @@
+/* global cloneObject */
+
 /* Magic Mirror
+ * Module: Calendar
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 Module.register("calendar", {
 	// Define module defaults
 	defaults: {},
+
+	// Define required scripts.
+	getStyles: function () {
+		return ["font-awesome.css"];
+	},
+
+	// Define required scripts.
+	getScripts: function () {
+		return ["moment.js"];
+	},
 
 	// Define required translations.
 	getTranslations: function () {
@@ -199,10 +208,10 @@ Module.register("calendar", {
 
 			var titleClass = this.titleClassForUrl(event.url);
 
-			if (this.config.colored) {
-				titleWrapper.className = "title " + titleClass;
-			} else {
+			if (!this.config.colored) {
 				titleWrapper.className = "title bright ";
+			} else {
+				titleWrapper.className = "title " + titleClass;
 			}
 
 			var timeWrapper;
@@ -315,7 +324,7 @@ Module.register("calendar", {
 						timeWrapper.innerHTML += this.capFirst(moment(event.endDate, "x").format(this.config.dateEndFormat));
 					}
 				}
-					
+				//timeWrapper.innerHTML += ' - '+ moment(event.startDate,'x').format('lll');
 				if (!this.config.colored) {
 					timeWrapper.className = "time light ";
 				} else {

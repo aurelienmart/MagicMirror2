@@ -9,14 +9,14 @@
  *
  * Copyright 2014, Codrops
  * https://tympanus.net/codrops/
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 (function (window) {
 	/**
-	 * extend obj function
+	 * Extend one object with another one
+	 *
+	 * @param {object} a The object to extend
+	 * @param {object} b The object which extends the other, overwrites existing keys
+	 * @returns {object} The merged object
 	 */
 	function extend(a, b) {
 		for (var key in b) {
@@ -28,7 +28,10 @@
 	}
 
 	/**
-	 * NotificationFx function
+	 * NotificationFx varructor
+	 *
+	 * @param {object} options The configuration options
+	 * @class
 	 */
 	function NotificationFx(options) {
 		this.options = extend({}, this.options);
@@ -70,8 +73,7 @@
 	};
 
 	/**
-	 * init function
-	 * initialize and cache some vars
+	 * Initialize and cache some vars
 	 */
 	NotificationFx.prototype._init = function () {
 		// create HTML structure
@@ -88,11 +90,11 @@
 		// dismiss after [options.ttl]ms
 		var self = this;
 		if (this.options.ttl) {
-			this.dismissttl = setTimeout(function() {
+			this.dismissttl = setTimeout(function () {
 				if (self.active) {
 					self.dismiss();
 				}
-			}, self.options.ttl);
+			}, this.options.ttl);
 		}
 
 		// init events
@@ -100,17 +102,18 @@
 	};
 
 	/**
-	 * init events
+	 * Init events
 	 */
 	NotificationFx.prototype._initEvents = function () {
 		// dismiss notification by tapping on it if someone has a touchscreen
+		var self = this;
 		this.ntf.querySelector(".ns-box-inner").addEventListener("click", function() {
-			this.dismiss();
+			self.dismiss();
 		});
 	};
 
 	/**
-	 * show the notification
+	 * Show the notification
 	 */
 	NotificationFx.prototype.show = function () {
 		this.active = true;
@@ -120,13 +123,13 @@
 	};
 
 	/**
-	 * dismiss the notification
+	 * Dismiss the notification
 	 */
 	NotificationFx.prototype.dismiss = function () {
-		var self = this;
 		this.active = false;
 		clearTimeout(this.dismissttl);
-		self.ntf.classList.remove("ns-show");
+		this.ntf.classList.remove("ns-show");
+		var self = this;
 		setTimeout(function() {
 			self.ntf.classList.add("ns-hide");
 
@@ -135,6 +138,7 @@
 		}, 25);
 
 		// after animation ends remove ntf from the DOM
+		var self = this;
 		var onEndAnimationFn = function(ev) {
 			if (ev.target !== self.ntf) {
 				return false;
@@ -150,7 +154,7 @@
 	};
 
 	/**
-	 * add to global namespace
+	 * Add to global namespace
 	 */
 	window.NotificationFx = NotificationFx;
 })(window);

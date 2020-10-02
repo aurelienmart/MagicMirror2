@@ -1,14 +1,11 @@
 /* Magic Mirror
+ * Module: WeatherForecast
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 Module.register("weatherforecast", {
-
+	// Default module config.
 	defaults: {
 		location: config.location,
 		locationID: config.locationID,
@@ -27,33 +24,44 @@ Module.register("weatherforecast", {
 		roundTemp: config.roundTemp,
 		initialLoadDelay: config.delay,
 		excludes: false,
+
 		iconTable: {
 			"01d": "wi-day-sunny",
 			"02d": "wi-day-cloudy",
 			"03d": "wi-cloudy",
-			"04d": "wi-day-cloudy-windy",
-			"09d": "wi-day-showers",
-			"10d": "wi-day-rain",
-			"11d": "wi-day-thunderstorm",
-			"13d": "wi-day-snow",
-			"50d": "wi-day-fog",
+			"04d": "wi-cloudy-windy",
+			"09d": "wi-showers",
+			"10d": "wi-rain",
+			"11d": "wi-thunderstorm",
+			"13d": "wi-snow",
+			"50d": "wi-fog",
 			"01n": "wi-night-clear",
-			"02n": "wi-night-alt-cloudy",
+			"02n": "wi-night-cloudy",
 			"03n": "wi-night-cloudy",
-			"04n": "wi-night-cloudy-windy",
+			"04n": "wi-night-cloudy",
 			"09n": "wi-night-showers",
 			"10n": "wi-night-rain",
 			"11n": "wi-night-thunderstorm",
 			"13n": "wi-night-snow",
 			"50n": "wi-night-alt-cloudy-windy"
-		},
+		}
 	},
 
-// create a variable for the first upcoming calendar event. Used if no location is specified.
+	// create a variable for the first upcoming calendar event. Used if no location is specified.
 	firstEvent: false,
 
 	// create a variable to hold the location name based on the API result.
 	fetchedLocationName: "",
+
+	// Define required scripts.
+	getScripts: function () {
+		return ["moment.js"];
+	},
+
+	// Define required scripts.
+	getStyles: function () {
+		return ["weather-icons.css"];
+	},
 
 	// Define required translations.
 	getTranslations: function () {
@@ -90,11 +98,6 @@ Module.register("weatherforecast", {
 		if (!this.loaded) {
 			wrapper.innerHTML = this.translate("LOADING");
 			wrapper.className = "dimmed light small";
-
-			if (this.config.reload) {
-				this.scheduleUpdate(this.config.initialLoadDelay);
-			}
-
 			return wrapper;
 		}
 
@@ -162,40 +165,21 @@ Module.register("weatherforecast", {
 					rainCell.innerHTML = this.translate("No rain");
 				} else if (!isNaN(forecast.snow)) {
 					if(config.units !== "imperial") {
-						rainCell.innerHTML = "<i class=\"wi wi-snowflake-cold lightblue\"></i> " + parseFloat(forecast.snow).toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
+						rainCell.innerHTML = parseFloat(forecast.snow).toFixed(1).replace(".", this.config.decimalSymbol) + " mm <i class=\"wi wi-snowflake-cold lightblue\"></i>";
 					} else {
-						rainCell.innerHTML = "<i class=\"wi wi-snowflake-cold lightblue\"></i> " + (parseFloat(forecast.snow) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
+						rainCell.innerHTML = (parseFloat(forecast.snow) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in <i class=\"wi wi-snowflake-cold lightblue\"></i>";
 					}
 				} else {
 					if (config.units !== "imperial") {
-						rainCell.innerHTML = "<i class=\"wi wi-umbrella skyblue\"></i> " + parseFloat(forecast.rain).toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
+						rainCell.innerHTML = parseFloat(forecast.rain).toFixed(1).replace(".", this.config.decimalSymbol) + " mm <i class=\"wi wi-umbrella skyblue\"></i>";
 					} else {
-						rainCell.innerHTML = "<i class=\"wi wi-umbrella skyblue\"></i> " + (parseFloat(forecast.rain) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
+						rainCell.innerHTML = (parseFloat(forecast.rain) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in <i class=\"wi wi-umbrella skyblue\"></i>";
 					}
 				} 
 				rainCell.className = "align-right bright rain";
 				row.appendChild(rainCell);
 			}
-/*
-			if (this.config.showSnowAmount) {
-				var winter = moment().format("MM");
-				if ((winter >= "01" && winter <= "03") || (winter >= "11" && winter <= "12")) {
-					var snowCell = document.createElement("td");
-					if (isNaN(forecast.snow)) {
-						snowCell.className = "align-right shade";
-						snowCell.innerHTML = this.translate("No snow");
-					} else {
-						if(config.units !== "imperial") {
-							snowCell.innerHTML = "<i class=\"wi wi-snowflake-cold lightblue\"></i>" + parseFloat(forecast.snow).toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
-						} else {
-							snowCell.innerHTML = "<i class=\"wi wi-snowflake-cold lightblue\"></i>" + (parseFloat(forecast.snow) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
-						}
-					}
-					snowCell.className = "align-right bright snow";
-					row.appendChild(snowCell);
-				}
-			}
-*/
+
 			if (this.config.fade && this.config.fadePoint < 1) {
 				if (this.config.fadePoint < 0) {
 					this.config.fadePoint = 0;
@@ -320,6 +304,7 @@ Module.register("weatherforecast", {
 			numberOfDays = this.config.maxNumberOfDays < 1 || this.config.maxNumberOfDays > 17 ? 7 : this.config.maxNumberOfDays;
 		}
 		params += "&cnt=" + numberOfDays;
+
 		params += "&exclude=" + this.config.excludes;
 		params += "&units=" + this.config.units;
 		params += "&lang=" + this.config.lang;

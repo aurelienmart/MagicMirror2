@@ -1,14 +1,13 @@
+/* global SunCalc */
+
 /* Magic Mirror
+ * Module: Clock
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
-Module.register("clock",{
-
+Module.register("clock", {
+	// Module config defaults.
 	defaults: {
 	    timeFormat: config.timeFormat,
 	    timezone: config.timezone,
@@ -17,12 +16,14 @@ Module.register("clock",{
 		showPeriod: config.period,
 		showPeriodUpper: config.period,
 	},
-
 	// Define required scripts.
 	getScripts: function () {
 		return ["moment.js", "moment-timezone.js", "suncalc.js"];
 	},
-
+	// Define styles.
+	getStyles: function () {
+		return [];
+	},
 	// Define start sequence.
 	start: function () {
 		Log.info("Starting module: " + this.name);
@@ -98,9 +99,9 @@ Module.register("clock",{
 		dateWrapper.className = "date normal xmedium";
 		timeWrapper.className = "time bright xlarge light";
 		secondsWrapper.className = "seconds dimmed";
-		sunWrapper.className = "sun dimmed ssmall";
-		moonWrapper.className = "moon dimmed ssmall";
-		weekWrapper.className = "week dimmed ssmall";
+		sunWrapper.className = "sun dimmed medium";
+		moonWrapper.className = "moon dimmed medium";
+		weekWrapper.className = "week dimmed medium";
 
 		// Set content of wrappers.
 		// The moment().format("h") method has a bug on the Raspberry Pi.
@@ -128,7 +129,7 @@ Module.register("clock",{
 			dateWrapper.innerHTML = now.format(this.config.dateFormat);
 		}
 		if (this.config.showWeek) {
-			weekWrapper.innerHTML = this.translate("WEEK", { weekNumber: now.week() }) + ", " + this.translate("DAY", { dayNumber: now.dayOfYear() }) + ", " + now.format("z") + " " + config.location + ", " + (config.language).toUpperCase();
+			weekWrapper.innerHTML = this.translate("WEEK", { weekNumber: now.week() }) + ", " + this.translate("DAY", { dayNumber: now.dayOfYear() }) + ", " + " " + config.location + ", " + (config.language).toUpperCase();
 		}
 		timeWrapper.innerHTML = timeString;
 		secondsWrapper.innerHTML = now.format(":ss");
@@ -173,7 +174,6 @@ Module.register("clock",{
 			}
 			var untilNextEvent = moment.duration(moment(nextEvent).diff(now));
 			var untilNextEventString = untilNextEvent.hours() + "h " + untilNextEvent.minutes() + "m";
-			sunWrapper.innerHTML =
 			sunWrapper.innerHTML = "<span class=\"" + (isVisible ? "bright" : "") + "\"><i class=\"wi wi-day-sunny\"></i> " + untilNextEventString + "</span>" +
 				"<span><i class=\"wi wi-sunrise\"></i> " + formatTime(this.config, sunTimes.sunrise) + "</span>" +
 				"<span><i class=\"wi wi-sunset\"></i> " + formatTime(this.config, sunTimes.sunset) + "</span>";
@@ -223,7 +223,7 @@ Module.register("clock",{
 
 				// The following line solves issue: https://github.com/MichMich/MagicMirror/issues/611
 				// clockCircle.style.border = "1px solid black";
-				clockCircle.style.border = "rgba(0, 0, 0, 0)"; //Updated fix for Issue 611 where non-black backgrounds are used
+				clockCircle.style.border = "rgba(0, 0, 0, 0.1)"; //Updated fix for Issue 611 where non-black backgrounds are used
 			} else if (this.config.analogFace !== "none") {
 				clockCircle.style.border = "0";
 			}
@@ -290,13 +290,11 @@ Module.register("clock",{
 			var placement = this.config.analogPlacement;
 
 			var analogWrapper = document.createElement("div");
-//			analogWrapper.id = "analog";
 			analogWrapper.className = "analog";
 			analogWrapper.style.cssFloat = "none";
 			analogWrapper.appendChild(clockCircle);
 
 			var digitalWrapper = document.createElement("div");
-//			digitalWrapper.id = "digital";
 			digitalWrapper.className = "digital";
 			digitalWrapper.style.cssFloat = "none";
 			digitalWrapper.appendChild(dateWrapper);

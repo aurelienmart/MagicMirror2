@@ -1,13 +1,11 @@
 /* Magic Mirror
+ * Module: CurrentWeather
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
-Module.register("currentweather",{
+Module.register("currentweather", {
+	// Default module config.
 	defaults: {
 		location: config.location,
 		locationID: config.locationID,
@@ -25,26 +23,27 @@ Module.register("currentweather",{
 		retryDelay: config.delay,
 		roundTemp: config.roundTemp,
 		initialLoadDelay: config.delay,
+
 		iconTable: {
 			"01d": "wi-day-sunny",
 			"02d": "wi-day-cloudy",
 			"03d": "wi-cloudy",
-			"04d": "wi-day-cloudy-windy",
-			"09d": "wi-day-showers",
-			"10d": "wi-day-rain",
-			"11d": "wi-day-thunderstorm",
-			"13d": "wi-day-snow",
-			"50d": "wi-day-fog",
+			"04d": "wi-cloudy-windy",
+			"09d": "wi-showers",
+			"10d": "wi-rain",
+			"11d": "wi-thunderstorm",
+			"13d": "wi-snow",
+			"50d": "wi-fog",
 			"01n": "wi-night-clear",
-			"02n": "wi-night-alt-cloudy",
+			"02n": "wi-night-cloudy",
 			"03n": "wi-night-cloudy",
-			"04n": "wi-night-cloudy-windy",
+			"04n": "wi-night-cloudy",
 			"09n": "wi-night-showers",
 			"10n": "wi-night-rain",
 			"11n": "wi-night-thunderstorm",
 			"13n": "wi-night-snow",
 			"50n": "wi-night-alt-cloudy-windy"
-		},
+		}
 	},
 
 	// create a variable for the first upcoming calendar event. Used if no location is specified.
@@ -52,6 +51,16 @@ Module.register("currentweather",{
 
 	// create a variable to hold the location name based on the API result.
 	fetchedLocationName: "",
+
+	// Define required scripts.
+	getScripts: function () {
+		return ["moment.js"];
+	},
+
+	// Define required scripts.
+	getStyles: function () {
+		return ["weather-icons.css"];
+	},
 
 	// Define required translations.
 	getTranslations: function () {
@@ -78,13 +87,13 @@ Module.register("currentweather",{
 		this.indoorHumidity = null;
 		this.weatherType = null;
 		this.feelsLike = null;
-		this.minTemp = null;								// min temperature.
-		this.maxTemp = null;								// max temperature.
-		this.desc = null;	 								// weather description.
-		this.rain = null;	 								// rain.
-		this.snow = null;	 								// snow.
-		this.pressure = null;	 							// main pressure.
-		this.visibility = null;	 							// visibility.
+		this.minTemp = null;			// min temperature.
+		this.maxTemp = null;			// max temperature.
+		this.desc = null;	 			// weather description.
+		this.rain = null;	 			// rain.
+		this.snow = null;	 			// snow.
+		this.pressure = null;	 		// main pressure.
+		this.visibility = null;	 		// visibility.
 		this.loaded = false;
 		this.scheduleUpdate(this.config.initialLoadDelay);
 	},
@@ -115,7 +124,7 @@ Module.register("currentweather",{
 			windDirection.className = "sups";
 			if (this.config.showWindDirectionAsArrow) {
 				if (this.windDeg !== null) {
-					windDirection.innerHTML = "<i class=\"fa fa-long-arrow-down\" style=\"transform:rotate("+this.windDeg+"deg);\"></i>";
+					windDirection.innerHTML = '<i class="fa fa-long-arrow-down" style="transform:rotate(' + this.windDeg + 'deg);"></i>';
 				}
 			} else {
 				windDirection.innerHTML = this.translate(this.windDirection);
@@ -149,7 +158,6 @@ Module.register("currentweather",{
 			visibility.innerHTML = this.visibility / 1000 + "<span class=\"subs\"> km</span> ";
 			small.appendChild(visibility);
 		}
-
 //		var spacer = document.createElement("span");
 //		spacer.innerHTML = "&nbsp;";
 //		small.appendChild(spacer);
@@ -178,7 +186,6 @@ Module.register("currentweather",{
 			small.appendChild(sunriseSunsetIcon);
 
 			var sunriseSunsetTime = document.createElement("span");
-			sunriseSunsetTime.className = "wiss";
 			sunriseSunsetTime.innerHTML = " " + this.sunriseSunsetTime;
 			small.appendChild(sunriseSunsetTime);
 		}
@@ -238,7 +245,7 @@ Module.register("currentweather",{
 			large.appendChild(weatherIcon);
 
 			var temperature = document.createElement("span");
-			temperature.className = "wtemp bright light xlarge ";
+			temperature.className = "wtemp bright light xlarge";
 			temperature.innerHTML = " " + this.temperature.replace(".", this.config.decimalSymbol) + "&deg;<span class=\"deg shade\">" + degreeLabel + "</span>";
 			large.appendChild(temperature);
 		}
@@ -267,9 +274,10 @@ Module.register("currentweather",{
 
 		wrapper.appendChild(large);
 
+
 		if (this.config.showFeelsLike && this.config.onlyTemp === false) {
 			var small = document.createElement("div");
-			small.className = "normal ssmall rfd ";
+			small.className = "normal medium rfd ";
 
 			var feelsLike = document.createElement("span");
 						if (this.config.units == "metric") {
@@ -549,7 +557,6 @@ Module.register("currentweather",{
 					break;
 			}
 		} else {
-		//	this.feelsLike = parseFloat(this.temperature).toFixed(0);
 			this.feelsLike = parseFloat(data.main.feels_like).toFixed(0);
 		}
 

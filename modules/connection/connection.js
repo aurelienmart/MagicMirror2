@@ -16,13 +16,13 @@ Module.register("connection", {
 		animationSpeed: config.animation
 	},
 
-//	getScripts: function() {
-//		return ["moment.js"];
-//	},
+	getScripts: function() {
+		return ["moment.js"];
+	},
 
-//	getStyles: function () {
-//		return ["font-awesome.css"];
-//	},
+	getStyles: function () {
+		return ["font-awesome.css"];
+	},
 
 	start: function() {
 		Log.info("Starting module: " + this.name);

@@ -1,11 +1,10 @@
+/* global NotificationFx */
+
 /* Magic Mirror
+ * Module: alert
  *
- * By Michael Teeuw https://michaelteeuw.nl
+ * By Paul-Vincent Roll https://paulvincentroll.com/
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 Module.register("alert", {
 	defaults: {},
@@ -15,7 +14,12 @@ Module.register("alert", {
 	},
 
 	getStyles: function () {
-		return ["notificationFx.css"];
+		return ["notificationFx.css", "font-awesome.css"];
+	},
+
+	// Define required translations.
+	getTranslations: function () {
+		return null;
 	},
 
 	show_notification: function (message) {
@@ -24,13 +28,13 @@ Module.register("alert", {
 		}
 		var msg = "";
 		if (message.title) {
-			msg += "<span class=\"title medium thin dimmed\">" + message.title + "</span>";
+			msg += "<span class='title thin dimmed medium'>" + message.title + "</span>";
 		}
 		if (message.message) {
 			if (msg !== "") {
-				msg+= "<br />";
+				msg += "<br />";
 			}
-			msg += "<span class=\"message xsmall light bright\">" + message.message + "</span>";
+			msg += "<span class='message light bright xsmall'>" + message.message + "</span>";
 		}
 
 		new NotificationFx({
@@ -91,9 +95,10 @@ Module.register("alert", {
 		//Show alert
 		this.alerts[sender.name].show();
 		//Add timer to dismiss alert and overlay
+		var self = this;
 		if (params.timer) {
-			setTimeout(function() {
-				this.hide_alert(sender);
+			setTimeout(function () {
+				self.hide_alert(sender);
 			}, params.timer);
 		}
 	},
@@ -104,9 +109,9 @@ Module.register("alert", {
 			this.alerts[sender.name].dismiss();
 			this.alerts[sender.name] = null;
 			//Remove overlay
-			const overlay = document.getElementById("overlay");
+			var overlay = document.getElementById("overlay");
 			overlay.parentNode.removeChild(overlay);
-		} else this.hide_alert(sender);
+		} else this.sendNotification("HIDE_ALERT",{});
 	},
 
 	setPosition: function (pos) {
@@ -145,8 +150,7 @@ Module.register("alert", {
 		if (this.config.welcome_message) {
 			if (this.config.welcome_message === true) {
 				this.show_notification({title: this.config.title, message: this.config.message});
-			}
-			else {
+			} else {
 				this.show_notification({title: this.config.message.title, message: this.config.welcome_message});
 			}
 		}

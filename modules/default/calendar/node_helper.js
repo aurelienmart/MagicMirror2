@@ -1,11 +1,8 @@
 /* Magic Mirror
+ * Node Helper: Calendar
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 var NodeHelper = require("node_helper");
 var validUrl = require("valid-url");

@@ -36,9 +36,9 @@ Module.register("lifecounter", {
 		}
 
 		if (this.config.decimalSymbol == "."){
-			wrapper.innerHTML = lifecounter.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			wrapper.innerHTML = lifecounter.replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace("-", "");
 		} else {
-			wrapper.innerHTML = lifecounter.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+			wrapper.innerHTML = lifecounter.replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace("-", "");
 		}
 		
 		return wrapper;

@@ -11,14 +11,14 @@ Module.register("timer", {
 		debugging: false
 	},
 
-//	getScripts: function() {
-//		return ["moment.js"];
-//	},
+	getScripts: function() {
+		return ["moment.js"];
+	},
 
 
-//	getStyles: function () {
-//		return ["font-awesome.css"];
-//	},
+	getStyles: function () {
+		return ["font-awesome.css"];
+	},
 
 	getTranslations: function() {
 		return {
@@ -29,6 +29,11 @@ Module.register("timer", {
 
 	start: function() {
 		Log.info("Starting module: " + this.name);
+
+		var meta = document.createElement('meta');
+		document.head.innerHTML += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=yes, user-scalable=no\">"
+		document.getElementsByTagName("head")[0].appendChild(meta);
+
 		var self = this;
 		setInterval(function() {
 			self.variables();
@@ -46,25 +51,25 @@ Module.register("timer", {
 	variables: function() {
 		this.now = moment().format("HH:mm:ss"); this.date = moment().format("DD.MM mm:ss");
 		this.mins = moment().format("m"); this.secs = moment().format("s");
-		this.grayscale = this.config.dimming; this.opacity = (1-this.grayscale/100).toPrecision(2);
+		this.grayscale = this.config.dimming; this.opacity = (1 - this.grayscale / 100).toPrecision(2);
 
 		if (this.config.debugging!==false) {
-			this.gray1 = (this.secs*(this.grayscale/60)/1).toPrecision(2); 
-			this.opac1 = ((1-this.gray1/100)/1).toPrecision(2);
-			this.gray2 = ((this.grayscale-this.gray1)/1).toPrecision(2);
-			this.opac2 = ((1-this.gray2/100)/1).toPrecision(2);
+			this.gray1 = (this.secs * (this.grayscale / 60) / 1).toPrecision(2); 
+			this.opac1 = ((1 - this.gray1 / 100) / 1).toPrecision(2);
+			this.gray2 = ((this.grayscale - this.gray1) / 1).toPrecision(2);
+			this.opac2 = ((1 - this.gray2 / 100) / 1).toPrecision(2);
 			this.midnight = moment().startOf("d").add(this.config.debugging,"h").format("HH:mm:ss");
 			this.night = this.midnight;
 			this.before = moment().startOf("d").add(this.config.debugging - 1,"h").format("HH:mm:ss");
 			this.morning = moment().startOf("d").add(this.config.debugging + 1,"h").format("HH:mm:ss");
 			this.after = moment().startOf("d").add(this.config.debugging + 2,"h").format("HH:mm:ss");
-			Log.log("Dimmer Night "+this.night+" Midnight "+this.midnight+" Before "+this.before+" Morning "+this.morning+" After "+this.after);
-			Log.log("Dimmer Opacity 1: "+this.opac1+", Grayscale 1: "+this.gray1+", Opacity 2: "+this.opac2+", Grayscale 2: "+this.gray2);
+			Log.log("Dimmer Night " + this.night + " Midnight " + this.midnight + " Before " + this.before + " Morning " + this.morning + " After " + this.after);
+			Log.log("Dimmer Opacity 1: " + this.opac1 + ", Grayscale 1: " + this.gray1 + ", Opacity 2: " + this.opac2 + ", Grayscale 2: " + this.gray2);
 		} else {
-			this.gray1 = (this.mins*this.grayscale/60).toPrecision(4);
-			this.opac1 = (1-this.gray1/100).toPrecision(2);
-			this.gray2 = (this.grayscale-this.gray1).toPrecision(4);
-			this.opac2 = (1-this.gray2/100).toPrecision(2);
+			this.gray1 = (this.mins * this.grayscale / 60).toPrecision(4);
+			this.opac1 = (1 - this.gray1 / 100).toPrecision(2);
+			this.gray2 = (this.grayscale - this.gray1).toPrecision(4);
+			this.opac2 = (1 - this.gray2 / 100).toPrecision(2);
 			this.night = moment().endOf("d").format("HH:mm:ss");
 			this.midnight = moment().startOf("d").format("HH:mm:ss");
 			this.before = moment().startOf("d").subtract(1,"h").format("HH:mm:ss");
@@ -83,12 +88,11 @@ Module.register("timer", {
 		var icon = Array.from(document.querySelectorAll(".wicon"));
 		var weat = Array.from(document.querySelectorAll(".currentweather"));
 		var comp = Array.from(document.querySelectorAll(".pre-line"));
-		var beat = Array.from(document.querySelectorAll(".swatch"));
 		var body = Array.from(document.querySelectorAll("body"));
 
 		body.forEach(function(element) {
-			return element.style["min-height"] = window.innerHeight / (window.innerWidth / self.config.bodysize) + "px",
-			element.style["min-width"] = self.config.bodysize + "px";
+			return element.style.minHeight = window.innerHeight / (window.innerWidth / self.config.bodysize) + "px",
+			element.style.minWidth = self.config.bodysize + "px";
 		});
 
 		if (window.innerWidth < this.config.bodysize) { day_mode();
@@ -105,25 +109,17 @@ Module.register("timer", {
 		}
 
 		function day_mode() {
-			hide.forEach(function(element) {return element.style.opacity = "1";});
+			hide.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static";});
 			icon.forEach(function(element) {return element.style.float = "left";});
-			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)",
-				element.style.textAlign = "inherit", element.style.transition = "translate 1s ease";});
-			comp.forEach(function(element) {return element.style.width = "inherit",
-				element.style.transform = "scale(1)";});
-			beat.forEach(function(element) {return element.style.transform = "translateY(0)",
-				element.style.transition = "translateY 1s ease";});
+			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)", element.style.textAlign = "inherit";});
+			comp.forEach(function(element) {return element.style.width = "inherit", element.style.transform = "scale(1)";});
 		}
 
 		function night_mode() {
-			hide.forEach(function(element) {return element.style.opacity = "0";});
+			hide.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed";});
 			icon.forEach(function(element) {return element.style.float = "right";});
-			weat.forEach(function(element) {return element.style.transform = "translate(-720px, 280px)",
-				element.style.textAlign = "left", element.style.transition = "translate 1s ease";});
-			comp.forEach(function(element) {return element.style.width = "600px",
-				element.style.transform = "translateY(-80px) scale(0.5)";});
-			beat.forEach(function(element) {return element.style.transform = "translateY(-15px)",
-				element.style.transition = "translateY 1s ease";});
+			weat.forEach(function(element) {return element.style.transform = "translate(-720px, 280px)", element.style.textAlign = "left";});
+			comp.forEach(function(element) {return element.style.width = "600px", element.style.transform = "translateY(-80px) scale(0.5)";});
 		}
 	},
 
@@ -157,11 +153,11 @@ Module.register("timer", {
 	notification: function() {
 		var now = this.now; var date = this.date;
 		var mins = this.mins; var secs = this.secs;
-		var ns_box = Array.from(document.querySelectorAll(".ns-box"));
+/*		var ns_box = Array.from(document.querySelectorAll(".ns-box"));
 
 		if (secs >= 58) { //not working this.sendNotification("HIDE_ALERT",{});
 			ns_box.forEach(function(element) {element.style.display = "none";});
-		}
+		} */
 
 		if (this.config.sharpMode) {
 			if ((now == "23:00:00") || (now == "00:00:00") || (now == "01:00:00")) {

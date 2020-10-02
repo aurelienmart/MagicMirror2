@@ -17,9 +17,9 @@ Module.register("monthly", {
 		specialDay: ""
 	},
 	
-//	getScripts: function() {
-//		return ["moment.js"];
-//	},
+	getScripts: function() {
+		return ["moment.js"];
+	},
 
 	start: function() {
 		Log.info("Starting module: " + this.name);

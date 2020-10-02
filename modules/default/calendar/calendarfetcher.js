@@ -1,13 +1,10 @@
 /* Magic Mirror
+ * Node Helper: Calendar - CalendarFetcher
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
-var Log = require("../../../js/logger");
+var Log = require("../../../js/logger.js");
 var ical = require("node-ical");
 var request = require("request");
 
@@ -71,11 +68,11 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 		request(url, opts, function (err, r, requestData) {
 			if (err) {
 				fetchFailedCallback(self, err);
-				scheduleTimer();
+				scheduvarimer();
 				return;
 			} else if (r.statusCode !== 200) {
 				fetchFailedCallback(self, r.statusCode + ": " + r.statusMessage);
-				scheduleTimer();
+				scheduvarimer();
 				return;
 			}
 
@@ -91,8 +88,7 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 				return event[time].length === 8 ? moment(event[time], "YYYYMMDD") : moment(new Date(event[time]));
 			};
 
-			Object.entries(data).forEach(function (a) {
-			    var key = a[0], event = a[1];
+			Object.entries(data).forEach(function([key, event]) {
 				var now = new Date();
 				var today = moment().startOf("day").toDate();
 				var future = moment().startOf("day").add(maximumNumberOfDays, "days").subtract(1, "seconds").toDate(); // Subtract 1 second so that events that start on the middle of the night will not repeat.
@@ -244,7 +240,7 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 							var dateKey = date.toISOString().substring(0, 10);
 							var curEvent = event;
 							var showRecurrence = true;
-						//	var duration = 0;
+
 							startDate = moment(date);
 
 							// For each date that we're checking, it's possible that there is a recurrence override for that one day.
@@ -351,14 +347,14 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 			events = newEvents.slice(0, maximumEntries);
 
 			self.broadcastEvents();
-			scheduleTimer();
+			scheduvarimer();
 		});
 	};
 
 	/**
 	 * Schedule the timer for the next update.
 	 */
-	var scheduleTimer = function () {
+	var scheduvarimer = function () {
 		clearTimeout(reloadTimer);
 		reloadTimer = setTimeout(function () {
 			fetchCalendar();

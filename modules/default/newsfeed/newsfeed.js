@@ -1,20 +1,19 @@
 /* Magic Mirror
+ * Module: NewsFeed
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 Module.register("newsfeed", {
 	// Default module config.
-	defaults: {},
+	defaults: {
+		animationSpeed: config.animation,
+	},
 
 	// Define required scripts.
-//	getScripts: function() {
-//		return ["moment.js"];
-//	},
+	getScripts: function () {
+		return ["moment.js"];
+	},
 
 	// Define required translations.
 	getTranslations: function () {
@@ -241,7 +240,7 @@ Module.register("newsfeed", {
 			}
 		});
 
-		// check if updated items exist, if so and if we should broadcast these updates, then lets do so
+		// check if updated items exist, if so and if we should broadcast these updates, then vars do so
 		if (this.config.broadcastNewsUpdates && updatedItems.length > 0) {
 			this.sendNotification("NEWS_FEED_UPDATE", { items: updatedItems });
 		}

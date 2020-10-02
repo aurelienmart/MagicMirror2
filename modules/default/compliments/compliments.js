@@ -1,22 +1,25 @@
 /* Magic Mirror
+ * Module: Compliments
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
  */
 Module.register("compliments", {
-
+	// Module config defaults.
 	defaults: {
 		fadeSpeed: config.animation,
 	},
 
 	lastIndexUsed: -1,
 	// Set currentweather from module
-	currentWeatherType: "weather",
-	
+	currentWeatherType: "currentweather",
+
+	// Define required scripts.
+	getScripts: function () {
+		return ["moment.js"];
+	},
+
+	// Define start sequence.
 	start: function () {
 		Log.info("Starting module: " + this.name);
 
@@ -88,7 +91,7 @@ Module.register("compliments", {
 		}
 
 		if (typeof compliments === "undefined") {
-			compliments = [];
+			compliments = new Array();
 		}
 
 		if (this.currentWeatherType in this.config.compliments) {
@@ -143,7 +146,6 @@ Module.register("compliments", {
 			index = this.lastIndexUsed >= compliments.length - 1 ? 0 : ++this.lastIndexUsed;
 		}
 
-		// return compliments[index] || "";
 		// https://forum.magicmirror.builders/topic/13332/reloading-config-defaults-or-module
 		// this function calculate a value and get the string to display
 		var f = compliments[index];
@@ -154,7 +156,7 @@ Module.register("compliments", {
 	// Override dom generator.
 	getDom: function () {
 		var wrapper = document.createElement("div");
-		wrapper.className = this.config.classes; // ? this.config.classes : " ";
+		wrapper.className = this.config.classes ? this.config.classes : "thin xlarge bright pre-line";
 		// get the compliment text
 		var complimentText = this.randomCompliment();
 		// split it into parts on newline text
@@ -162,9 +164,8 @@ Module.register("compliments", {
 		// create a span to hold it all
 		var compliment = document.createElement("span");
 		// process all the parts of the compliment text
-//		for (var part of parts) {							keep iOS 9 compatibility
 		for (var i = 0; i < parts.length; i++) {
-            part = parts[i];
+			part = parts[i];
 			// create a text element for each part
 			compliment.appendChild(document.createTextNode(part));
 			// add a break `
@@ -184,12 +185,12 @@ Module.register("compliments", {
 			"01d": "day_sunny",
 			"02d": "day_cloudy",
 			"03d": "cloudy",
-			"04d": "day_cloudy_windy",
-			"09d": "day_showers",
-			"10d": "day_rain",
-			"11d": "day_thunderstorm",
-			"13d": "day_snow",
-			"50d": "day_fog",
+			"04d": "cloudy_windy",
+			"09d": "showers",
+			"10d": "rain",
+			"11d": "thunderstorm",
+			"13d": "snow",
+			"50d": "fog",
 			"01n": "night_clear",
 			"02n": "night_cloudy",
 			"03n": "night_cloudy",
