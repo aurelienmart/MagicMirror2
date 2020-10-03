@@ -397,6 +397,10 @@ header {
 	color: magenta;
 }
 
+.olive {
+	color: olive;
+}
+
 /* Clock */
 
 .clock .date {
@@ -1082,6 +1086,10 @@ header {
 	color: lightgray;
 }
 
+.weatherforecast .wi-umbrella {
+	font-size: 80%;
+}
+
 .weatherforecast .wi-day-sunny {
 	transform: translateX(-2px);
 	color: gold;
@@ -1237,6 +1245,7 @@ header {
 	.daily table tr:nth-child(n+12),
 	.daily2 table tr:nth-child(n+14),
 	.monthly thead, header,
+	.months .month-header,
 	.simpletext, .monthSecond {
 		display: none !important;
 	}
