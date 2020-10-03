@@ -29,11 +29,6 @@ Module.register("timer", {
 
 	start: function() {
 		Log.info("Starting module: " + this.name);
-
-		var meta = document.createElement('meta');
-		document.head.innerHTML += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=yes, user-scalable=no\">"
-		document.getElementsByTagName("head")[0].appendChild(meta);
-
 		var self = this;
 		setInterval(function() {
 			self.variables();
@@ -91,8 +86,7 @@ Module.register("timer", {
 		var body = Array.from(document.querySelectorAll("body"));
 
 		body.forEach(function(element) {
-			return element.style.minHeight = window.innerHeight / (window.innerWidth / self.config.bodysize) + "px",
-			element.style.minWidth = self.config.bodysize + "px";
+			return element.style.minHeight = window.innerHeight / (window.innerWidth / self.config.bodysize) + "px", element.style.minWidth = self.config.bodysize + "px";
 		});
 
 		if (window.innerWidth < this.config.bodysize) { day_mode();
@@ -153,11 +147,6 @@ Module.register("timer", {
 	notification: function() {
 		var now = this.now; var date = this.date;
 		var mins = this.mins; var secs = this.secs;
-/*		var ns_box = Array.from(document.querySelectorAll(".ns-box"));
-
-		if (secs >= 58) { //not working this.sendNotification("HIDE_ALERT",{});
-			ns_box.forEach(function(element) {element.style.display = "none";});
-		} */
 
 		if (this.config.sharpMode) {
 			if ((now == "23:00:00") || (now == "00:00:00") || (now == "01:00:00")) {

@@ -12,9 +12,9 @@ Module.register("lifecounter", {
 		decimalSymbol: config.decimal,
 	},
 
-//	getScripts: function() {
-//		return ["moment.js"];
-//	},
+	getScripts: function() {
+		return ["moment.js"];
+	},
 	
 	start: function() {
 		Log.info("Starting module: " + this.name);
