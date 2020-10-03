@@ -404,7 +404,7 @@ var Module = Class.extend({
 
 		var self = this;
 		MM.hideModule(
-			self,
+			this,
 			speed,
 			function () {
 				self.suspend();
@@ -432,7 +432,7 @@ var Module = Class.extend({
 
 		var self = this;
 		MM.showModule(
-			self,
+			this,
 			speed,
 			function () {
 				self.resume();

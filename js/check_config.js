@@ -64,7 +64,7 @@ function checkConfigFile() {
 		} else {
 			Log.error(Utils.colors.error("Your configuration file contains syntax errors :("));
 			// In case the there errors show messages and return
-			messages.forEach((error) => {
+			messages.forEach(function(error) {
 				Log.error("Line", error.line, "col", error.column, error.message);
 			});
 		}

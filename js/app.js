@@ -68,7 +68,7 @@ var App = function () {
 		try {
 			fs.accessSync(configFilename, fs.F_OK);
 			var c = require(configFilename);
-			checkDeprecatedOptions(c);
+//			checkDeprecatedOptions(c);
 			var config = Object.assign(defaults, c);
 			callback(config);
 		} catch (e) {
@@ -88,7 +88,7 @@ var App = function () {
 	 * if it encounters one option from the deprecated.js list
 	 *
 	 * @param {object} userConfig The user config
-	 */
+	 *
 	var checkDeprecatedOptions = function (userConfig) {
 		var deprecated = require(global.root_path + "/js/deprecated.js");
 		var deprecatedOptions = deprecated.configs;
@@ -271,12 +271,13 @@ var App = function () {
 	 * Note: this is only used if running `server-only`. Otherwise
 	 * this.stop() is called by app.on("before-quit"... in `electron.js`
 	 */
-	process.on("SIGINT", () => {
+	var self = this;
+	process.on("SIGINT", function() {
 		Log.log("[SIGINT] Received. Shutting down server...");
-		setTimeout(() => {
+		setTimeout(function() {
 			process.exit(0);
 		}, 3000); // Force quit after 3 seconds
-		this.stop();
+		self.stop();
 		process.exit(0);
 	});
 
@@ -284,12 +285,12 @@ var App = function () {
 	 * Listen to SIGTERM signals so we can stop everything when we
 	 * are asked to stop by the OS.
 	 */
-	process.on("SIGTERM", () => {
+	process.on("SIGTERM", function() {
 		Log.log("[SIGTERM] Received. Shutting down server...");
-		setTimeout(() => {
+		setTimeout(function() {
 			process.exit(0);
 		}, 3000); // Force quit after 3 seconds
-		this.stop();
+		self.stop();
 		process.exit(0);
 	});
 };
