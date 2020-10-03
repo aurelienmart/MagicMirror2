@@ -276,6 +276,7 @@ var config = {
 				forecastEndpoint: "forecast",
 				calendarClass: "calendar",
 				tableClass: "qsmall",
+				fallBack: false,
 				fullday: "HH [h]"
 			}
 		},
@@ -301,6 +302,7 @@ var config = {
 				forecastEndpoint: "forecast/daily",
 				calendarClass: "calendar",
 				tableClass: "qsmall",
+				fallBack: true,
 				fullday: "ddd"
 			}
 		},
