@@ -8,6 +8,7 @@
 	"RUNNING": "Ends in",
 	"EMPTY": "No upcoming events.",
 
+	"WEEK!": "Week",
 	"WEEK": "Week {weekNumber}",
 	"DAY": "Day {dayNumber}",
 
