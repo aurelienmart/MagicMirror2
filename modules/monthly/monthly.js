@@ -130,11 +130,6 @@ Module.register("monthly", {
 			for (var j = 0; j <= 6; j++) {
 				var bodyTD = document.createElement("td");
 				bodyTD.className = "calendar-day";
-				var squareDiv = document.createElement("div");
-				squareDiv.className = "square-box";
-				var squareContent = document.createElement("div");
-				squareContent.className = "square-content";
-				var squareContentInner = document.createElement("div");
 				var innerSpan = document.createElement("span");
 
 				if (j < startingDay && i == 0) {
@@ -169,10 +164,7 @@ Module.register("monthly", {
 					innerSpan.innerHTML = moment([year, month, monthLength]).add(nextMonth, "days").date();
 					nextMonth++;
 				}
-				squareContentInner.appendChild(innerSpan);
-				squareContent.appendChild(squareContentInner);
-				squareDiv.appendChild(squareContent);
-				bodyTD.appendChild(squareDiv);
+				bodyTD.appendChild(innerSpan);
 				bodyTR.appendChild(bodyTD);
 			}
 			if (day > monthLength) {
