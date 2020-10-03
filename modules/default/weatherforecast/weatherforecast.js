@@ -162,7 +162,7 @@ Module.register("weatherforecast", {
 				var rainCell = document.createElement("td");
 				if (isNaN(forecast.rain)) {
 					rainCell.className = "align-right shade";
-					rainCell.innerHTML = "0.0 mm &nbsp;<i class=\"wi wi-raindrop olive\"></i>&nbsp;" // this.translate("No rain");
+					rainCell.innerHTML = this.translate("No rain") + " &nbsp;<i class=\"wi wi-raindrop olive\"></i>&nbsp;" // this.translate("No rain");
 				} else if (!isNaN(forecast.snow)) {
 					if(config.units !== "imperial") {
 						rainCell.innerHTML = parseFloat(forecast.snow).toFixed(1).replace(".", this.config.decimalSymbol) + " mm <i class=\"wi wi-snowflake-cold lightblue\"></i>";
