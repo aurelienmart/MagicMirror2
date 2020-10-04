@@ -22,7 +22,7 @@ Module.register("swatch", {
 		var self = this;
 		setInterval(function() {
 			self.swatch();
-		}, 20000);
+		}, 1000);
 	},
 
 	swatch: function() {
