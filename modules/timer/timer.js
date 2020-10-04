@@ -34,13 +34,8 @@ Module.register("timer", {
 			self.variables();
 			self.timer(); 
 			self.notification();
-			if (this.config.debugging!==false) {
-				self.dimmer();	
-			}
-		}, 1000);
-		setInterval(function() {
 			self.dimmer();
-		}, 60 * 1000);
+		}, 1000);
 	},
 
 	variables: function() {
