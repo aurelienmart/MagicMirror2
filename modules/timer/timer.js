@@ -53,9 +53,8 @@ Module.register("timer", {
 			this.opac1 = ((1 - this.gray1 / 100) / 1).toPrecision(2);
 			this.gray2 = ((this.grayscale - this.gray1) / 1).toPrecision(2);
 			this.opac2 = ((1 - this.gray2 / 100) / 1).toPrecision(2);
+			this.night = moment().endOf("d").add(this.config.debugging,"h").format("HH:mm:ss");
 			this.midnight = moment().startOf("d").add(this.config.debugging,"h").format("HH:mm:ss");
-			this.night = this.midnight;
-			this.before = moment().startOf("d").add(this.config.debugging - 1,"h").format("HH:mm:ss");
 			this.morning = moment().startOf("d").add(this.config.debugging + 1,"h").format("HH:mm:ss");
 			this.after = moment().startOf("d").add(this.config.debugging + 2,"h").format("HH:mm:ss");
 			Log.log("Dimmer Night " + this.night + " Midnight " + this.midnight + " Before " + this.before + " Morning " + this.morning + " After " + this.after);
