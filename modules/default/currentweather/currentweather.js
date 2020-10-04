@@ -498,7 +498,7 @@ Module.register("currentweather", {
 			this.windSpeed = parseFloat(data.wind.speed).toFixed(0);
 		}
 
-		// ONLY WORKS IF TEMP IN C //
+/*		// ONLY WORKS IF TEMP IN C //
 		var windInMph = parseFloat(data.wind.speed * 2.23694);
 
 		var tempInF = 0;
@@ -557,9 +557,10 @@ Module.register("currentweather", {
 					break;
 			}
 		} else {
-			this.feelsLike = parseFloat(data.main.feels_like).toFixed(0);
+			this.feelsLike = parseFloat(this.temperature).toFixed(0);
 		}
-
+*/
+		this.feelsLike = parseFloat(data.main.feels_like).toFixed(0);
 		this.windDirection = this.deg2Cardinal(data.wind.deg);
 		this.windDeg = data.wind.deg;
 		this.weatherType = this.config.iconTable[data.weather[0].icon];
