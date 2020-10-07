@@ -1,0 +1,109 @@
+/* The parent DIV that contains the entire container */
+.monthly .calendar {
+	display: flex;
+	align-items: stretch;
+	white-space: nowrap;
+	border: 0;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	width: 100%;
+}
+
+.monthly .week:nth-child(odd) {
+  background: rgba(32,32,32,0.25);
+}
+
+.monthly .calendar-vertical {
+    display: block;
+	flex-direction: column;
+}
+
+.monthly .calendar-horizontal {
+	flex-direction: row;
+}
+
+/* The container for the entire month */
+.monthly .month {
+	flex-basis: 100%;
+	padding-top: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+/* The header line containing the name of the month and the year */
+.monthly .month-header {
+	background-color: transparent;
+	color: white;
+	margin-bottom: 10px;
+	border-bottom: 1px solid gray;
+}
+
+/* The sub-header containing the names of the days, and the cell of an individual day */
+.monthly .days-header {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+}
+
+.monthly .day-header {
+	flex: 1 1 0;
+	min-width: 0;
+	padding-left: 4px;
+	padding-right: 4px;
+	margin-bottom: 5px;
+}
+
+.monthly .day-header:nth-child(n+7) {
+	color: skyblue;
+}
+
+.monthly .shade {
+	padding-top: 1px;
+	padding-right: 5px;
+}
+
+/* The line representing an actual week */
+.monthly .week {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	border-bottom: 1px solid #111;
+}
+
+.monthly .weeknumber {
+	flex: 1 1 0;
+	min-width: 0;
+	padding-left: 4px;
+	padding-right: 4px;
+	border: 0;
+	background-color: transparent;
+	color: gray;
+}
+
+.monthly .day {
+	flex: 1 1 0;
+	min-width: 0;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.monthly .day:nth-child(n+7) {
+	color: skyblue;
+}
+
+.monthly .current_day {
+	background-color: transparent;
+	border: 0;
+	font-size: 120%;
+	font-weight: 600;
+	color: lime !important;
+}
+
+.monthly .daydim {
+	flex: 1 1 0px;
+	min-width: 0;
+	padding-left: 4px;
+	padding-right: 4px;
+	color: dimgrey;
+	opacity: 0.75;
+}

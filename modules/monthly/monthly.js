@@ -1,185 +1,102 @@
-/* Magic Mirror
+/* Magic Mirror Module: MMM-Minical
  *
- * calendar_monthly v1.0 - June 2016
- * By Ashley M. Kirchner <kirash4@gmail.com>
- * Beer Licensed (meaning, if you like this module, feel free to have a beer on me, or send me one.)
- *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
+ * v1.0 - October 2020
+ * By Brendan Keyport <brendan.keyport@gmail.com>
+ * Major assistance and rewrite by Volker Wegert <github@volker-wegert.de> 
+ * 
  */
+
 Module.register("monthly", {
+  // Default module config.
+  defaults: {},
 
-	defaults: {
-		fadeSpeed: config.animation,
-		initialLoadDelay: config.delay,
-		updateDelay: config.delay,
-		specialDay: ""
-	},
-	
-	getScripts: function() {
-		return ["moment.js"];
-	},
+  // CSS Add
+  getStyles: function() {
+    return ["monthly.css"];
+  },
 
-	start: function() {
-		Log.info("Starting module: " + this.name);
-		moment.locale(config.language);
-		this.scheduleUpdate(1/5 * this.config.initialLoadDelay);
-	},
-	
-	scheduleUpdate: function() {
-		this.midnight = moment().endOf("day").add(this.config.updateDelay, "seconds");
-		var self = this;
-		setTimeout(function() {
-			self.updateDom(this.config.fadeSpeed);
-			self.scheduleUpdate();
-		}, this.midnight.diff(moment()));
-	},
+  // Update at midnight
+  start: function (){
+    var self = this;
+    setInterval(function() {
+      self.updateDom();
+    }, moment().add(1, 'days').hours(0).minutes(0).seconds(0)-moment());
+  },    
 
-	notificationReceived: function(notification, payload, sender) {
-		var self = this;
-		if (notification === "CALENDAR_EVENTS") {
-			var result = [];
-			for (event of payload) {
-				var startDate = moment(parseInt(event.startDate));
-				var endDate = moment(parseInt(event.endDate));
+  // Override dom generator.
+  getDom: function() {
+    var wrapper = document.createElement("div");
+    var lastMonth = this.config.startMonth + this.config.monthCount - 1;
+    var todayNum = moment().format("D");
 
-				result.push({
-					startDate: startDate,
-					endDate: endDate,
-					color: event.color,
-					title: event.title
-				});
-			}
-			self.events = result;
-			self.loaded = false;
+    // pre-calculcate the header line containing the week days - no need to repeat this for every month
+    var weekdays = moment.weekdaysShort(true);
+    var weekdaysHeader = "<div class='days-header'>";
+    if (this.config.weekNumbers) {
+      // empty cell as a placeholder for the week number
+      weekdaysHeader += "<div class='day-header shade'>" + this.translate("WEEK!") + "</div>";      
+    }
+    for (day = 0; day < 7; day++) {
+      weekdaysHeader += "<div class='day-header'>" + weekdays[day] + "</div>";
+    }
+    weekdaysHeader += "</div>";
 
-//			Log.log("Calendar events: " + event.title);
-			self.updateDom(0); //this.config.fadeSpeed);
-		}
-	},
+    // set calendar main container depending on calendar orientation 
+    if (this.config.monthsVertical) {
+      output = "<div class='calendar calendar-vertical'>";
+    } else {
+      output = "<div class='calendar calendar-horizontal'>";
+    }
 
-	getHeader: function () {
-		var time = moment();
-		if (this.config.monthOffset !== 0) {
-			time = time.add(this.config.monthOffset, "months");
-		}
-		monthname = time.format("MMMM");
-		year = time.year();
-		if (this.config.realHeader) {
-			return monthname + " " + year;
-		}
-	},
+    // iterate through months to display
+    for (currentMonth = this.config.startMonth; currentMonth <= lastMonth; currentMonth++) {
+      output += "<div class='month'>";
 
-	getDom: function() {
-		var time = moment();
-		if (this.config.monthOffset !== 0) {
-			time = time.add(this.config.monthOffset, "months");
-		}
+      // add the month and week day headers
+      monthTitle = moment().add(currentMonth, "month").format("MMMM YYYY");
+      output += "<div class='month-header'>" + monthTitle + "</div>";
+      if ((!this.config.monthsVertical) || ((this.config.repeatWeekdaysVertical || (currentMonth == this.config.startMonth)))) {
+        output += weekdaysHeader;
+      }
 
-		var date = this.config.monthOffset ? 0 : time.date();
-		var month = time.month();
-		var year = time.year();
-		var monthName = time.format("MMMM");
-		var monthLength = time.daysInMonth();
-		var startingDay = time.date(1).weekday();
-		var wrapper = document.createElement("table");
-		wrapper.className = this.config.tableClass;
+      // get the start of the week that contains the first day of the month
+      firstDayOfMonth = moment().add(currentMonth, "month").startOf("month");
+      currentWeekday = moment().add(currentMonth, "month").startOf("month").startOf("week");
 
-		if (this.config.showHeader) {
-			var header = document.createElement("tHead");
-			var headerTR = document.createElement("tr");
-			var headerTH = document.createElement("th");
-			headerTH.colSpan = "7";
-			headerTH.scope = "col";
-			headerTH.className = "calendar-th";
-			var headerMonthSpan = document.createElement("span");
-			headerMonthSpan.className = "monthName";
-			headerMonthSpan.innerHTML = monthName + " ";
-			var headerYearSpan = document.createElement("span");
-			headerYearSpan.className = "yearDigits";
-			headerYearSpan.innerHTML = year;
-			var headerSpace = document.createTextNode(" ");
-			headerTH.appendChild(headerMonthSpan);
-			headerTH.appendChild(headerSpace);
-			headerTH.appendChild(headerYearSpan);
-			headerTR.appendChild(headerTH);
-			header.appendChild(headerTR);
-			wrapper.appendChild(header);
-		}
-		
-		var bodyContent = document.createElement("tBody");
-		var bodyTR = document.createElement("tr");
-		bodyTR.className = "calendar-header";
-		for (var i = 0; i <= 6; i++ ){
-			var bodyTD = document.createElement("td");
-			bodyTD.className = "calendar-header-day";
-			bodyTD.innerHTML = time.weekday(i).format("ddd");
-			bodyTR.appendChild(bodyTD);
-		}
-		bodyContent.appendChild(bodyTR);
-		wrapper.appendChild(bodyContent);
+      // get the end of the week that contains the last day of the month
+      lastWeekday = moment().add(currentMonth, "month").endOf("month").endOf("week");
 
-		var bodyContent = document.createElement("tBody");
-		var bodyTR = document.createElement("tr");
-		bodyTR.className = "weekRow";
+      do {
+        output += "<div class='week'>";
+        if (this.config.weekNumbers) {
+          output += "<div class='weeknumber'>" + currentWeekday.format("W") + "</div>";
+        }
+        for (dow = 0; dow <= 6; dow++) {
+          if (currentWeekday.isSame(firstDayOfMonth, "month")) {
+            if (currentWeekday.isSame(moment(), "day")) {
+              output += "<div class='day current_day'>" + currentWeekday.format("D") + "</div>";
+            } else {
+              output += "<div class='day'>" + currentWeekday.format("D") + "</div>";
+            }
+          } else {
+            // empty cell as placeholder
+            if (this.config.monthCount == 1) {
+              output += "<div class='daydim'>" + currentWeekday.format("D") + "</div>";
+            } else {
+              output += "<div class='daydim'>&nbsp;</div>";
+            }
+          }
+          currentWeekday.add(1, "days");
+        }
+        output += "</div>"; // end of week
+      } while (currentWeekday.isSameOrBefore(lastWeekday, "day"));
 
-		var day = 1; var nextMonth = day;
-		var special = parseInt(moment(this.config.specialDay, "DD").format("DD"));
-		for (var i = 0; i < 9; i++) {
-			for (var j = 0; j <= 6; j++) {
-				var bodyTD = document.createElement("td");
-				bodyTD.className = "calendar-day";
-				var innerSpan = document.createElement("span");
+      output += "</div>"; // end of month
+    }
 
-				if (j < startingDay && i == 0) {
-					innerSpan.className = "monthPrev";
-					innerSpan.innerHTML = time.subtract(1, "months").endOf("month").subtract((startingDay - 1) - j, "days").date();
-				} else if (day <= monthLength && (i > 0 || j >= startingDay)) {
+    output += "</div>"; // end of calendar
 
-					var dayStarts = time.date(day).startOf("day");
-					var dayEnds = time.date(day).endOf("day");
-					var dayEvents = (this.events || []).filter(function(event) { 
-						return event.startDate.isBetween(dayStarts, dayEnds) || event.endDate.isBetween(dayStarts, dayEnds);
-					});
-					if (dayEvents.length != 0) {
-						innerSpan.className = innerSpan.className + " events";
-						innerSpan.style = "--event-count: " + dayEvents.length + "; --event-color: " + dayEvents[0].color;
-					}
-					if (dayStarts.isSame(time, "day")) {
-						innerSpan.className = "events day" + day;
-					}
-				
-					if (day == date) {
-						innerSpan.className = "today day" + day;
-					} else if (day == special) {
-						innerSpan.className = "special day" + day;
-					} else {
-						innerSpan.className = "daily day" + day;
-					}
-					innerSpan.innerHTML = day;
-					day++;
-				} else if (day > monthLength && i > 0) {
-					innerSpan.className = "monthNext";
-					innerSpan.innerHTML = moment([year, month, monthLength]).add(nextMonth, "days").date();
-					nextMonth++;
-				}
-				bodyTD.appendChild(innerSpan);
-				bodyTR.appendChild(bodyTD);
-			}
-			if (day > monthLength) {
-				break;
-			} else {
-				bodyTR.appendChild(bodyTD);
-				bodyContent.appendChild(bodyTR);
-				var bodyTR = document.createElement("tr");
-				bodyTR.className = "weekRow";
-			}
-		}
-
-		bodyContent.appendChild(bodyTR);
-		wrapper.appendChild(bodyContent);
-		this.loaded = true;
-		return wrapper;
-	}
+    wrapper.innerHTML = output;
+    return wrapper;
+  }
 });
