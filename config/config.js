@@ -221,13 +221,13 @@ var config = {
 		{
 			module: "monthly",
 			position: "top_center",
-			classes: "current_month",
-//			classes: "monthSecond monthPosition",
 			disabled: false,
 			config: {
-				monthOffset: 0,
-				showHeader: true,
-				tableClass: "qsmall monthly"
+				startMonth: 0,
+				monthCount: 1,
+				monthsVertical: true,
+				repeatWeekdaysVertical: true,
+				weekNumbers: true
 			}
 		},
 		{
