@@ -281,8 +281,8 @@ header {
 	border-collapse: separate;
 }
 
-.region table tr:nth-child(even) {
-  background: rgba(32,32,32,0.15);
+.region table tr:nth-child(odd) {
+	background: rgba(32,32,32,0.25);
 }
 
 .region table tr {
@@ -302,15 +302,15 @@ header {
 }
 
 .region.upper.third {
-  bottom: 35%;
+	bottom: 35%;
 }
 
 .region.middle.center {
-  bottom: 20%;
+	bottom: 20%;
 }
 
 .region.lower.third {
-  bottom: 15%;
+	bottom: 15%;
 }
 
 .darkred {
@@ -520,119 +520,29 @@ header {
 	margin-top: 2px;
 }
 
+/* swatch */
+
 .swatch {
 	opacity: 0.8;
 }
 
-.ns-box {
-	margin-top: 5px;
-}
+/* notification */
 
-.ns-box .title {
-	font-size: 2.5rem;
-	line-height: 3rem;
-}
-
-.ns-box .message {
-	font-size: 1.4rem;
-	line-height: 1.7rem;
-}
-
-/* connection */
-
-.connection .smart {
+.notification {
 	padding-bottom: 10px;
 }
 
-.connection .warn {
-	color: tomato;
-}
-
-.connection .fa-wifi {
+.fa-wifi {
 	display: inline-block;
-	transform: scale(0.6);
-}
-
-/* monthly */
-
-.monthly {
-	width: 100%;
-	border-spacing: 3px;
-	padding-top: 5px;
-}
-
-.monthly .calendar-th {
-	font-weight: 400;
-	padding-bottom: 7px;
-	border-bottom: 1px solid #cccccc;
-}
-
-.monthly td:nth-child(n+6) {
-	color: skyblue;
-}
-
-.monthly .calendar-header-day {
-	text-align: center;
-	color: lightgray;
-	height: 30px;
-	padding-top: 5px;
-}
-
-.monthly .calendar-day {
-	text-align: center;
-	width: 14.2857%;
-}
-
-.months .calendar-weekday {
-	padding: 5px 0;
-}
-
-.monthly .weekRow {
-	height: 24px;
-}
-
-.monthly .today {
-	color: lime;
-	font-weight: 800;
-	font-size: 120%;
-}
-
-.monthly .special {
-	color: yellow;
-	font-weight: 800;
-	font-size: 120%;
-}
-
-.monthly .monthPrev {
-	color: dimgray;
-	opacity: 0.75;
-}
-
-.monthly .monthNext {
-	color: dimgray;
-	opacity: 0.75;
-}
-
-.monthly .events {
-	color: var(--event-color);
-}
-
-.monthPosition {
-	position: absolute !important;
-	top: 35vh;
-}
-
-.monthSecond {
-	opacity: 0.5 !important;
+	transform: scale(0.75);
 }
 
 /* compliments */
 
 .compliments .wi,
 .compliments .fa {
-	font-size: 70%;
 	display: inline-block;
-	transform: translateY(-5px);
+	transform: translateY(-5px) scale(0.6);
 }
 
 .night_compliments .pre-line {
@@ -1096,7 +1006,7 @@ header {
 }
 
 .weatherforecast .wi-day-cloudy {
-	transform: translateX(1px);
+	transform: translate(3px, 3px);
 	color: lightblue;
 }
 
@@ -1223,30 +1133,34 @@ header {
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
-		bottom: 12%;
+		bottom: 10%;
 	}
 
+	.monthly .week:nth-child(odd),
+	.monthly .week:nth-child(even),
 	.icalendar table tr:nth-child(even),
 	.calendar-table table tr:nth-child(even),
+	.icalendar table tr:nth-child(odd),
+	.calendar-table table tr:nth-child(odd),
+	.region table tr:nth-child(odd),
 	.region table tr:nth-child(even) {
 	  background: none;
 	}
 
+	.monthly .week,
 	.icalendar table td,
 	.calendar-table table td,
 	.region table td {
 		border-bottom: 0;
 	}
 
-	.calendar table tr:nth-child(n+11),
-	.icalendar table tr:nth-child(n+11),
-	.calendar-table tr:nth-child(n+11),
+/*	.icalendar table tr:nth-child(n+13),
+	.calendar-table tr:nth-child(n+13)
+*/	.calendar table tr:nth-child(n+13),
 	.hourly table tr:nth-child(n+5),
-	.daily table tr:nth-child(n+12),
-	.daily2 table tr:nth-child(n+14),
-	.monthly thead, header,
-	.months .month-header,
-	.simpletext, .monthSecond {
+	.daily table tr:nth-child(n+13),
+	.daily2 table tr:nth-child(n+16),
+	header,	.monthly .month-header {
 		display: none !important;
 	}
 
@@ -1255,7 +1169,7 @@ header {
 	}
 
 	.icalendar {
-		height: 268px !important;
+		height: 290px !important;
 	}
 
 	.rssfeed {
