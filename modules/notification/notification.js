@@ -34,7 +34,7 @@ Module.register("notification", {
 		var wrapper = document.createElement("div");
 
 		var title = document.createElement("div");
-		title.className = "xmedium bright";
+		title.className = "medium bright";
 		title.innerHTML = this.config.title;
 
 		var notification = document.createElement("div");
@@ -45,7 +45,7 @@ Module.register("notification", {
 			this.config.title = this.config.title;
 			this.config.notification = this.config.notification;
 		} else if (window.navigator.onLine === false) {
-			title.className = "xmedium orangered";
+			title.className = "medium orangered";
 			title.innerHTML = "<i class=\"orangered fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;";
 			notification.className = "small light orangered";
 			notification.innerHTML = "Fără conexiune la internet!";
