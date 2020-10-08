@@ -48,7 +48,7 @@ Module.register("weatherforecast", {
 	},
 
 	// create a variable for the first upcoming calendar event. Used if no location is specified.
-	firstEvent: false,
+	firstEvent: true,
 
 	// create a variable to hold the location name based on the API result.
 	fetchedLocationName: "",
@@ -171,9 +171,9 @@ Module.register("weatherforecast", {
 					}
 				} else {
 					if (config.units !== "imperial") {
-						rainCell.innerHTML = parseFloat(forecast.rain).toFixed(1).replace(".", this.config.decimalSymbol) + " mm &nbsp;<i class=\"wi wi-umbrella skyblue\"></i>&nbsp;";
+						rainCell.innerHTML = parseFloat(forecast.rain).toFixed(1).replace(".", this.config.decimalSymbol) + " mm &nbsp;<i class=\"wi wi-umbrella skyblue\"></i>";
 					} else {
-						rainCell.innerHTML = (parseFloat(forecast.rain) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in &nbsp;<i class=\"wi wi-umbrella skyblue\"></i>&nbsp;";
+						rainCell.innerHTML = (parseFloat(forecast.rain) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in &nbsp;<i class=\"wi wi-umbrella skyblue\"></i>";
 					}
 				} 
 				rainCell.className = "align-right bright rain";
@@ -336,7 +336,7 @@ Module.register("weatherforecast", {
 		// Forcast16 (paid) API endpoint provides this data.  Onecall endpoint
 		// does not.
 		if (data.city) {
-			this.fetchedLocationName = data.city.name + ", " + data.city.country;
+			this.fetchedLocationName = data.city.name; // + ", " + data.city.country;
 		} else if (this.config.location) {
 			this.fetchedLocationName = this.config.location;
 		} else {

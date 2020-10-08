@@ -47,7 +47,7 @@ Module.register("currentweather", {
 	},
 
 	// create a variable for the first upcoming calendar event. Used if no location is specified.
-	firstEvent: false,
+	firstEvent: true,
 
 	// create a variable to hold the location name based on the API result.
 	fetchedLocationName: "",
@@ -386,7 +386,7 @@ Module.register("currentweather", {
 					var event = payload[e];
 					if (event.location || event.geo) {
 						this.firstEvent = event;
-						//Log.log("First upcoming event with location: ", event);
+					//	Log.log("First upcoming event with location: ", event);
 						break;
 					}
 				}

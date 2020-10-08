@@ -4,10 +4,10 @@
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  */
-const Log = require("../../../js/logger.js");
-const FeedMe = require("feedme");
-const request = require("request");
-const iconv = require("iconv-lite");
+var Log = require("../../../js/logger.js");
+var FeedMe = require("feedme");
+var request = require("request");
+var iconv = require("iconv-lite");
 
 /**
  * Responsible for requesting an update on the set interval and broadcasting the data.
@@ -18,14 +18,14 @@ const iconv = require("iconv-lite");
  * @param {boolean} logFeedWarnings If true log warnings when there is an error parsing a news article.
  * @class
  */
-const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) {
-	const self = this;
+var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) {
+	var self = this;
 
-	let reloadTimer = null;
-	let items = [];
+	var reloadTimer = null;
+	var items = [];
 
-	let fetchFailedCallback = function () {};
-	let itemsReceivedCallback = function () {};
+	var fetchFailedCallback = function () {};
+	var itemsReceivedCallback = function () {};
 
 	if (reloadInterval < 1000) {
 		reloadInterval = 1000;
@@ -36,21 +36,21 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 	/**
 	 * Request the new items.
 	 */
-	const fetchNews = function () {
+	var fetchNews = function () {
 		clearTimeout(reloadTimer);
 		reloadTimer = null;
 		items = [];
 
-		const parser = new FeedMe();
+		var parser = new FeedMe();
 
 		parser.on("item", function (item) {
-			const title = item.title;
-			let description = item.description || item.summary || item.content || "";
-			const pubdate = item.pubdate || item.published || item.updated || item["dc:date"];
-			const url = item.url || item.link || "";
+			var title = item.title;
+			var description = item.description || item.summary || item.content || "";
+			var pubdate = item.pubdate || item.published || item.updated || item["dc:date"];
+			var url = item.url || item.link || "";
 
 			if (title && pubdate) {
-				const regex = /(<([^>]+)>)/gi;
+				var regex = /(<([^>]+)>)/gi;
 				description = description.toString().replace(regex, "");
 
 				items.push({
@@ -70,16 +70,16 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 
 		parser.on("end", function () {
 			self.broadcastItems();
-			scheduleTimer();
+			scheduvarimer();
 		});
 
 		parser.on("error", function (error) {
 			fetchFailedCallback(self, error);
-			scheduleTimer();
+			scheduvarimer();
 		});
 
-		const nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
-		const opts = {
+		var nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
+		var opts = {
 			headers: {
 				"User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)",
 				"Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
@@ -91,7 +91,7 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 		request(url, opts)
 			.on("error", function (error) {
 				fetchFailedCallback(self, error);
-				scheduleTimer();
+				scheduvarimer();
 			})
 			.pipe(iconv.decodeStream(encoding))
 			.pipe(parser);
@@ -100,7 +100,7 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 	/**
 	 * Schedule the timer for the next update.
 	 */
-	const scheduleTimer = function () {
+	var scheduvarimer = function () {
 		clearTimeout(reloadTimer);
 		reloadTimer = setTimeout(function () {
 			fetchNews();
