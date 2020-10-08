@@ -9,7 +9,7 @@
 Module.register("notification", {
 
 	defaults: {
-		title: "<i class=\"lime fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp; &nbsp;",
+		title: "<i class=\"lime fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;",
 		notification: null,
 		timer: 5000
 	},
@@ -46,7 +46,7 @@ Module.register("notification", {
 			this.config.notification = this.config.notification;
 		} else if (window.navigator.onLine === false) {
 			title.className = "xmedium orangered";
-			title.innerHTML = "<i class=\"orangered fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp; &nbsp;";
+			title.innerHTML = "<i class=\"orangered fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;";
 			notification.className = "small light orangered";
 			notification.innerHTML = "Fără conexiune la internet!";
 		}
@@ -57,7 +57,7 @@ Module.register("notification", {
 	},
 
 	reset: function () {
-		this.config.title = "<i class=\"lime fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp; &nbsp;";
+		this.config.title = "<i class=\"lime fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;";
 		this.config.notification = "Platformă modulară inteligentă";
 	},
 
