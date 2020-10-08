@@ -56,7 +56,7 @@ var config = {
 
 				fadeMode: true,
 				dimmMode: true,
-				dimming: 40,
+				dimming: 50,
 
 				sharpMode: true,
 				dateMode: true,
