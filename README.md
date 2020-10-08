@@ -15,7 +15,7 @@ Custom personal smart mirror for HD monitor + Windows PC stick / HP mini netbook
 <b>My test modules:</b>
 <br>swatch.beat https://github.com/hangorazvan/swatch
 <br>lifecounter https://github.com/hangorazvan/lifecounter
-<br>notification https://github.com/hangorazvan/notification (work in progress)
+<br>notification https://github.com/hangorazvan/MagicMirror2/tree/master/modules/notification
 <br>timer-dimmer https://github.com/hangorazvan/timer
 <br>yframe https://github.com/hangorazvan/yframe
 <br>kamasutra https://github.com/hangorazvan/kamasutra (work in progress)
