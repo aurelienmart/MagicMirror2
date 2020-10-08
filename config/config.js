@@ -9,7 +9,7 @@
  */
 var config = {
 	address: "0.0.0.0",
-	port: 8255,
+	port: 8080,
 	basePath: "/",
 	ipWhitelist: [],
 	useHttps: false,
@@ -25,7 +25,7 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
-	appid: "",
+	appid: "xxx",
 	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5",
 	roundTemp: false,
@@ -36,23 +36,16 @@ var config = {
 	header: true,
 	notification: false,
 	customCss: 	"css/custom.css",
-	minVersion: "2.11.0",
+	minVersion: "2.1.0",
 	serverOnly: true,
 	logLevel: ["INFO", "LOG", "WARN", "ERROR"],
 
 	modules: [
 		{
-			module: "alert",
+			module: "notification",
+			position: "top_center",
+			classes: "night",
 			disabled: false,
-			config: {
-				effect: "genie",
-				alert_effect: "genie",
-				position: "center",
-				display_time: 5000,
-				welcome_message: true,
-				title: "[ MagicMirror&sup2; ]", 
-				message: "Redesigned by Răzvan Cristea<br>Framework successfully started!"
-			}
 		},
 		{
 			module: "timer",
@@ -69,7 +62,7 @@ var config = {
 				dateMode: true,
 				name1: "",
 				birthday1: "",
-				name2: "",
+				name2: "Răzvan!",
 				birthday2: "",
 				name3: "",
 				birthday3: ""
@@ -78,7 +71,7 @@ var config = {
 		{
 			module: "clock",
 			position: "top_left",
-			classes: "digital",
+			classes: "digital night",
 			disabled: false,
 			config: {
 				displayType: "digital",
@@ -94,7 +87,7 @@ var config = {
 		{
 			module: "lifecounter",
 			position: "top_left",
-			disabled: false,
+			disabled: true,
 			config: {
 				birthday: "1970-01-01 00:00:00",
 				counter: "seconds",
@@ -106,24 +99,10 @@ var config = {
 		{
 			module: "swatch",
 			position: "top_left",
+			classes: "night",
 			disabled: false,
 			config: {
 				logo_height: 28
-			}
-		},
-		{
-			module: "yframe",
-			position: "top_left",
-			classes: "icalendar",
-			header: "Calendar evenimente și aniversări",
-			disabled: true,
-			config: {
-				url: "modules/icalendar/icalendar.html",
-				media: false,
-				allow: "",
-				width: "100%",
-				height: "700px",
-				cssClass: "icalendar"
 			}
 		},
 		{
@@ -132,7 +111,7 @@ var config = {
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
-				maximumEntries: 14,
+				maximumEntries: 16,
 				maximumNumberOfDays: 365,
 				displaySymbol: true,
 				defaultSymbol: "calendar",
@@ -185,30 +164,9 @@ var config = {
 			}
 		},
 		{
-			module: "simpletext",
-			position: "top_center",
-			disabled: false,
-			config: {
-				text: "[ MagicMirror&sup2; ]",
-				cssClass: "xmedium bright"
-			}
-		},
-		{
-			module: "connection",
-			position: "top_center",
-			disabled: false,
-			config: {
-				updateInterval: 1000,
-				cssClass: "smart small light",
-				onLine: "Platformă modulară inteligentă",
-				onNight: "Mod nocturn estompat activat",
-				offLine: "Fără conexiune la internet!"
-			}
-		},
-		{
 			module: "clock",
 			position: "top_center",
-			classes: "analog",
+			classes: "analog night",
 			disabled: false,
 			config: {
 				displayType: "analog",
@@ -220,7 +178,7 @@ var config = {
 		},
 		{
 			module: "monthly",
-			position: "top_center",
+			position: 'top_center',
 			disabled: false,
 			config: {
 				startMonth: 0,
@@ -233,6 +191,7 @@ var config = {
 		{
 			module: "currentweather",
 			position: "top_right",
+			classes: "night",
 			disabled: false,
 			config: {
 				updateInterval: 10 * 60 * 1000,
@@ -245,7 +204,7 @@ var config = {
 				showPressure: true,
 				showVisibility: true,
 				showHumidity: true,
-				showMinMax: true,
+				showMinMax: false,
 				showFeelsLike: true,
 				showDescription: true,
 				showSun: false,
@@ -259,7 +218,7 @@ var config = {
 		{
 			module: "weatherforecast",
 			position: "top_right",
-			header: "Vremea în următoarele ore",
+			header: "Vremea în următoarele ore la",
 			classes: "hourly",
 			disabled: false,
 			config: {
@@ -267,12 +226,12 @@ var config = {
 				showRainAmount: true,
 				showSnowAmount: false,
 				updateInterval: 10 * 60 * 1000,
-				appendLocationNameToHeader: false,
+				appendLocationNameToHeader: true,
 				fade: false,
 				fadePoint: 0.25,
 				colored: true,
 				initialLoadDelay: 3500,
-				reload: true,
+				reload: false,
 				forecastEndpoint: "forecast",
 				calendarClass: "calendar",
 				tableClass: "qsmall",
@@ -283,7 +242,7 @@ var config = {
 		{
 			module: "weatherforecast",
 			position: "top_right",
-			header: "Vremea în următoarele zile",
+			header: "Vremea în următoarele zile la",
 			classes: "daily",
 			disabled: false,
 			config: {
@@ -291,7 +250,7 @@ var config = {
 				showRainAmount: true,
 				showSnowAmount: false,
 				updateInterval: 10 * 60 * 2000,
-				appendLocationNameToHeader: false,
+				appendLocationNameToHeader: true,
 				fade: true,
 				fadePoint: 0.25,
 				colored: true,
@@ -309,6 +268,7 @@ var config = {
 		{
 			module: "compliments",
 			position: "middle_center",
+			classes: "night",
 			disabled: false,
 			config: {
 				updateInterval: 30000,
@@ -371,27 +331,27 @@ var config = {
 						"<i class=\"skyblue wi wi-cloudy\"></i> Este înorat afară",
 						"<i class=\"skyblue wi wi-cloudy\"></i> Este cam înorat"
 					],
-					day_cloudy_windy : [
+					cloudy_windy : [
 						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este înorat și vânt",
 						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Bate vântul și e înorat"
 					],
-					day_showers : [
+					showers : [
 						"<i class=\"skyblue wi wi-day-showers\"></i> Afară plouă puțin",
 						"<i class=\"skyblue wi wi-day-showers\"></i> Plouă puțin pe afară"
 					],
-					day_rain : [
+					rain : [
 						"<i class=\"deepskyblue wi wi-day-rain\"></i> Vreme ploioasă",
 						"<i class=\"deepskyblue wi wi-day-rain\"></i> Ploaie ușoară"
 					],
-					day_thunderstorm : [
+					thunderstorm : [
 						"<i class=\"dodgerblue wi wi-day-thunderstorm\"></i> Afară este furtună!",
 						"<i class=\"dodgerblue wi wi-day-thunderstorm\"></i> Atenție, furtună!"
 					],
-					day_snow : [
+					snow : [
 						"<i class=\"normal wi wi-day-snow\"></i> Afară ninge!",
 						"<i class=\"normal wi wi-day-snow\"></i> Este ninsoare"
 					],
-					day_fog : [
+					fog : [
 						"<i class=\"bright wi wi-day-fog\"></i> Afară este ceață",
 						"<i class=\"bright wi wi-day-fog\"></i> Vreme cu ceață"
 					],
@@ -459,20 +419,6 @@ var config = {
 			}
 		},
 		{
-			module: "yframe",
-			position: "bottom_bar",
-			classes: "rssfeed",
-			disabled: true,
-			config: {
-				url: "modules/rssfeed/rssfeed.html",
-				media: false,
-				allow: "",
-				width: "99%",
-				height: "300px",
-				cssClass: "rssfeed"
-			}
-		},
-		{
 			module: "newsfeed",
 			position: "bottom_bar",
 			disabled: false,
@@ -485,19 +431,18 @@ var config = {
 				wrapTitle: true,
 				wrapDescription: true,
 				truncDescription: true,
-				lengthDescription: 500,
+				lengthDescription: 400,
 				hideLoading: false,
 				reloadInterval: 5 * 60 * 1000,
 				updateInterval: 60 * 1000,
-				animationSpeed: 2.5 * 1000,
 				maxNewsItems: 0,
 				ignoreOldItems: false,
 				ignoreOlderThan: 12 * 60 * 60 * 1000,
 				removeStartTags: "",
 				removeEndTags: "",
-				startTags: ["VIDEO","FOTO","FOTO, VIDEO","VIDEO, FOTO","presă","presa","horoscop"],
-				endTags: ["VIDEO","FOTO","FOTO, VIDEO","VIDEO, FOTO","presă","presa","horoscop"],
-				prohibitedWords: ["VIDEO","FOTO","FOTO, VIDEO","VIDEO, FOTO, Marius Tucă Show"],
+				startTags: ["VIDEO","FOTO","horoscop"],
+				endTags: ["VIDEO","FOTO","horoscop"],
+				prohibitedWords: ["VIDEO","FOTO","Marius Tucă Show"],
 				scrollLength: 500,
 				logFeedWarnings: false,
 
