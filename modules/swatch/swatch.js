@@ -30,7 +30,7 @@ Module.register("swatch", {
 		var h = t.hours();
 		var m = t.minute();
 		var s = t.seconds();
-		var time = Math.round((h * 3600 + m * 60) / 86.4);
+		time = Math.round((h * 3600 + m * 60) / 86.4);
 		this.beats = "@" + time;
 		if (time <= 9) { this.beats = "@00" + time; }
 		else if (time <= 99) { this.beats = "@0" + time; }

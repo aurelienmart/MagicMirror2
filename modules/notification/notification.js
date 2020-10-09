@@ -54,13 +54,13 @@ Module.register("notification", {
 	onLine: function () {
 		this.config.title = this.config.startTitle;
 		this.config.notification = this.translate(this.config.startNotification);
-		this.updateDom();
+		this.updateDom(config.animation);
 	},
 
 	offLine: function () {
 		this.config.title = "<span class=\"orangered\"><i class=\"fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;</span>";
 		this.config.notification = "<span class=\"orangered\">" + this.translate("No Internet connection!") + "</span>";
-		this.updateDom();
+		this.updateDom(config.animation);
 	},
 
 	notificationReceived: function (notification, payload, sender) {
@@ -68,21 +68,21 @@ Module.register("notification", {
 		if (notification === "ALL_MODULES_STARTED") {
 			this.config.title = this.config.startTitle;
 			this.config.notification = "<div class=\"xxxsmall light shade\">" + this.translate("All modules loaded and started succesfuly!") + "</div><div class=\"xxxsmall light shade\">Redesigned by Răzvan Cristea &copy; " + moment().year() + ", MIT License.</div>";
-			this.updateDom(); setTimeout(function () {self.onLine();}, this.config.timer * 2);
+			this.updateDom(config.animation); setTimeout(function () {self.onLine();}, this.config.timer * 2);
 		}
 
 		if (notification === "ONLINE_NOTIFICATION") {
-			this.onLine(); this.updateDom();
+			this.onLine();
 		}
 
 		if (notification === "OFFLINE_NOTIFICATION") {
-			this.offLine(); this.updateDom();
+			this.offLine();
 		}
 
 		if (notification === "NIGHT_NOTIFICATION") {
 			this.config.title = this.config.startTitle;
 			this.config.notification = this.translate("Dimmed night mode ") + parseInt(payload * 100) + "%";
-			this.updateDom();
+			this.updateDom(config.animation);
 		}
 
 		if (notification === "DAY_NOTIFICATION") {
@@ -97,7 +97,7 @@ Module.register("notification", {
 			if (typeof payload.timer === "undefined") {
 				payload.timer = this.config.timer;
 			} else this.config.timer = payload.timer;
-			this.updateDom(); setTimeout(function () {self.onLine();}, this.config.timer);
+			this.updateDom(config.animation); setTimeout(function () {self.onLine();}, this.config.timer);
 		}
 
 		if (notification === "HIDE_NOTIFICATION") {
