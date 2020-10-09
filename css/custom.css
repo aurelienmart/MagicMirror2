@@ -1138,13 +1138,13 @@ header {
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
-		bottom: 11%;
+		bottom: 12%;
 	}
 
 	.xlarge {
-    	font-size: 6rem;
-    	line-height: 6.4rem;
-    }
+		font-size: 5.6rem;
+		line-height: 5.8rem;
+	}
 
 	.monthly .week:nth-child(odd),
 	.monthly .week:nth-child(even),
