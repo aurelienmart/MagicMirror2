@@ -51,8 +51,10 @@ Module.register("timer", {
 			this.midnight = moment().startOf("d").add(this.config.debugging,"h").format("HH:mm:ss");
 			this.morning = moment().startOf("d").add(this.config.debugging + 2,"h").format("HH:mm:ss");
 			this.after = moment().startOf("d").add(this.config.debugging + 3,"h").format("HH:mm:ss");
-			Log.log("Dimmer Night " + this.night + " Midnight " + this.midnight + " Before " + this.before + " Morning " + this.morning + " After " + this.after);
-			Log.log("Dimmer Opacity 1: " + this.opac1 + ", Grayscale 1: " + this.gray1 + ", Opacity 2: " + this.opac2 + ", Grayscale 2: " + this.gray2);
+			Log.log("Dimmer Night " + this.night + " Midnight " + this.midnight + " Before " 
+				+ this.before + " Morning " + this.morning + " After " + this.after);
+			Log.log("Dimmer Opacity 1: " + this.opac1 + ", Grayscale 1: " + this.gray1 
+				+ ", Opacity 2: " + this.opac2 + ", Grayscale 2: " + this.gray2);
 		} else {
 			this.gray1 = (this.mins * this.grayscale / 60).toPrecision(4);
 			this.opac1 = (1 - this.gray1 / 100).toPrecision(2);
@@ -82,9 +84,8 @@ Module.register("timer", {
 
 		if (window.innerWidth < this.config.bodysize) { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"});
 			if (this.config.nightMode) {
-				if (now >= midnight && now < morning) { night_mode();
-					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize * 1.55 + ")"})
-				} else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"})}
+				if (now >= midnight && now < morning) { night_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize * 1.55 + ")"})} 
+				else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"})}
 			}
 		} else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(1)"})}
 
@@ -131,7 +132,7 @@ Module.register("timer", {
 	notification: function() {
 		now = this.now; date = this.date; mins = this.mins; secs = this.secs;
 
-		if (secs == "15" || secs == "35" || secs == "55") {
+		if (secs == "0" || secs == "20" || secs == "40") {
 			if (window.navigator.onLine === true) {this.sendNotification("ONLINE_NOTIFICATION")}
 			else if (window.navigator.onLine === false) {this.sendNotification("OFFLINE_NOTIFICATION")}
 		}

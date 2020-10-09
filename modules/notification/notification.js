@@ -13,7 +13,8 @@ Module.register("notification", {
 		startNotification: "Modular smart mirror platform",
 		title: null,
 		notification: null,
-		timer: 5000
+		timer: 5000,
+		animationSpeed: config.animation
 	},
 
 	getScripts: function() {
@@ -54,13 +55,13 @@ Module.register("notification", {
 	onLine: function () {
 		this.config.title = this.config.startTitle;
 		this.config.notification = this.translate(this.config.startNotification);
-		this.updateDom(config.animation);
+		this.updateDom(this.config.animationSpeed);
 	},
 
 	offLine: function () {
 		this.config.title = "<span class=\"orangered\"><i class=\"fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;</span>";
 		this.config.notification = "<span class=\"orangered\">" + this.translate("No Internet connection!") + "</span>";
-		this.updateDom(config.animation);
+		this.updateDom(this.config.animationSpeed);
 	},
 
 	notificationReceived: function (notification, payload, sender) {
@@ -68,7 +69,10 @@ Module.register("notification", {
 		if (notification === "ALL_MODULES_STARTED") {this.config.title = this.config.startTitle;
 			this.config.notification = "<div class=\"xxxsmall light shade\">" + this.translate("All modules loaded and started succesfuly!") 
 			+ "</div><div class=\"xxxsmall light shade\">Redesigned by Răzvan Cristea &copy; " + moment().year() + ", MIT License.</div>";
-			this.updateDom(config.animation); setTimeout(function () {self.onLine();}, this.config.timer * 2);
+			this.updateDom(this.config.animationSpeed);
+			setTimeout(function () {
+				self.onLine();
+			}, this.config.timer * 2);
 		}
 
 		if (notification === "ONLINE_NOTIFICATION") {this.onLine();}
@@ -92,11 +96,16 @@ Module.register("notification", {
 			if (typeof payload.timer === "undefined") {
 				payload.timer = this.config.timer;
 			} else this.config.timer = payload.timer;
-			this.updateDom(config.animation); setTimeout(function () {self.onLine();}, this.config.timer);
+			this.updateDom(this.config.animationSpeed);
+			setTimeout(function () {
+				self.onLine();
+			}, this.config.timer);
 		}
 
 		if (notification === "HIDE_NOTIFICATION") {
-			setTimeout(function () {self.onLine();}, this.config.timer);
+			setTimeout(function () {
+				self.onLine();
+			}, this.config.timer);
 		}
 	},
 });
