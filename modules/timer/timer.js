@@ -153,7 +153,7 @@ Module.register("timer", {
 		}
 
 		if (this.config.dateMode) { 
-			if (date == "25.12 00:06" || date == "26.12 00:06" || date == "09.10 05:06") {
+			if (date == "25.12 00:06" || date == "26.12 00:06") {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"fa fa-gifts yellow\"></i> " + this.translate("Marry Christmas!"), notification: this.translate("Happy holidays with many joys!"), timer: 9000})
 			} else if (date == "01.01 00:06" || date == "02.01 00:06") {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"fa fa-glass-cheers yellow\"></i> " + this.translate("Happy New Year ") + moment().format("YYYY") + "!", notification: this.translate("A good new year and good health!"), timer: 9000})
