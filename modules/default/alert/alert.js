@@ -7,7 +7,15 @@
  * MIT Licensed.
  */
 Module.register("alert", {
-	defaults: {},
+	defaults: {
+		effect: "genie",
+		alert_effect: "genie",
+		position: "center",
+		display_time: 5000,
+		welcome_message: true,
+		title: "[ MagicMirror&sup2; ]", 
+		message: "Redesigned by Răzvan Cristea<br>Framework successfully started!"
+	},
 
 	getScripts: function () {
 		return ["notificationFx.js"];
