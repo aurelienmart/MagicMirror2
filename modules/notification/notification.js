@@ -9,7 +9,9 @@
 Module.register("notification", {
 
 	defaults: {
-		title: "<i class=\"lime fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;",
+		startTitle: "<i class=\"lime fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;",
+		startNotification: "Modular smart mirror platform",
+		title: null,
 		notification: null,
 		timer: 5000
 	},
@@ -22,12 +24,15 @@ Module.register("notification", {
 		return ["font-awesome.css"];
 	},
 
+	getTranslations: function() {
+		return {
+			en: "en.json",
+			ro: "ro.json"
+		};
+	},
+
 	start: function() {
 		Log.info("Starting module: " + this.name);
-		var self = this;
-		setInterval(function() {
-			self.updateDom();
-		}, 1000);
 	},
 	
 	getDom: function() {
@@ -41,62 +46,62 @@ Module.register("notification", {
 		notification.className = "small light dimmed";
 		notification.innerHTML = this.config.notification;
 
-		if (window.navigator.onLine === true) {
-			this.config.title = this.config.title;
-			this.config.notification = this.config.notification;
-		} else if (window.navigator.onLine === false) {
-			title.className = "medium orangered";
-			title.innerHTML = "<i class=\"orangered fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;";
-			notification.className = "small light orangered";
-			notification.innerHTML = "Fără conexiune la internet!";
-		}
-
 		wrapper.appendChild(title);
 		wrapper.appendChild(notification);
 		return wrapper;
 	},
 
-	reset: function () {
-		this.config.title = "<i class=\"lime fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;";
-		this.config.notification = "Platformă modulară inteligentă";
+	onLine: function () {
+		this.config.title = this.config.startTitle;
+		this.config.notification = this.translate(this.config.startNotification);
+		this.updateDom();
+	},
+
+	offLine: function () {
+		this.config.title = "<span class=\"orangered\"><i class=\"fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;</span>";
+		this.config.notification = "<span class=\"orangered\">" + this.translate("No Internet connection!") + "</span>";
+		this.updateDom();
 	},
 
 	notificationReceived: function (notification, payload, sender) {
 		var self = this;
 		if (notification === "ALL_MODULES_STARTED") {
-			this.config.title = this.config.title;
-			this.config.notification = "Modulele s-au încărcat cu succes";
-			setTimeout(function () {
-				self.reset();
-			}, this.config.timer);
+			this.config.title = this.config.startTitle;
+			this.config.notification = "<div class=\"xxxsmall light shade\">" + this.translate("All modules loaded and started succesfuly!") + "</div><div class=\"xxxsmall light shade\">Redesigned by Răzvan Cristea &copy; " + moment().year() + ", MIT License.</div>";
+			this.updateDom(); setTimeout(function () {self.onLine();}, this.config.timer * 2);
+		}
+
+		if (notification === "ONLINE_NOTIFICATION") {
+			this.onLine(); this.updateDom();
+		}
+
+		if (notification === "OFFLINE_NOTIFICATION") {
+			this.offLine(); this.updateDom();
 		}
 
 		if (notification === "NIGHT_NOTIFICATION") {
-			this.config.notification = "Mod nocturn estompat " + payload * 100 + "%";
+			this.config.title = this.config.startTitle;
+			this.config.notification = this.translate("Dimmed night mode ") + parseInt(payload * 100) + "%";
+			this.updateDom();
 		}
 
 		if (notification === "DAY_NOTIFICATION") {
 			if (typeof payload.title === "undefined") {
-				payload.title = this.config.title;
+				payload.title = this.config.startTitle;
 			} else this.config.title = payload.title;
 
 			if (typeof payload.notification === "undefined") {
-				payload.notification = this.config.notification;
+				payload.notification = this.translate(this.config.startNotification);
 			} else this.config.notification = payload.notification;
 
 			if (typeof payload.timer === "undefined") {
 				payload.timer = this.config.timer;
 			} else this.config.timer = payload.timer;
-
-			setTimeout(function () {
-				self.reset();
-			}, this.config.timer);
+			this.updateDom(); setTimeout(function () {self.onLine();}, this.config.timer);
 		}
 
 		if (notification === "HIDE_NOTIFICATION") {
-			setTimeout(function () {
-				self.reset();
-			}, this.config.timer);
+			setTimeout(function () {self.onLine();}, this.config.timer);
 		}
 	},
 });
