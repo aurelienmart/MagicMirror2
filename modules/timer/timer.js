@@ -35,14 +35,6 @@ Module.register("timer", {
 			self.dimmer();
 			self.notification();
 		}, 1000);
-
-		setInterval(function() {
-			if (window.navigator.onLine === true) {
-				self.sendNotification("ONLINE_NOTIFICATION")
-			} else if (window.navigator.onLine === false) {
-				self.sendNotification("OFFLINE_NOTIFICATION")
-			}
-		}, 60 * 1000);
 	},
 
 	variables: function() {
@@ -139,6 +131,11 @@ Module.register("timer", {
 	notification: function() {
 		now = this.now; date = this.date; mins = this.mins; secs = this.secs;
 
+		if (secs == "15" || secs == "35" || secs == "55") {
+			if (window.navigator.onLine === true) {this.sendNotification("ONLINE_NOTIFICATION")}
+			else if (window.navigator.onLine === false) {this.sendNotification("OFFLINE_NOTIFICATION")}
+		}
+
 		if (this.config.sharpMode) {
 			if ((now == "23:00:00") || (now == "00:00:00") || (now == "01:00:00")) {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm"), notification: this.translate("Good night!")})
@@ -148,7 +145,7 @@ Module.register("timer", {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm"), notification: this.translate("Good morning!")})
 			} else if (now == "12:00:00" || now == "13:00:00" || now == "14:00:00") {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm"), notification: this.translate("Bon appetit!")})
-			} else if (now == "15:00:00" || now == "16:00:00" || now == "17:00:00") {
+			} else if (now == "15:00:00" || now == "16:40:00" || now == "17:00:00") {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm"), notification: this.translate("Have a nice day!")})
 			} else if (now == "18:00:00" || now == "19:00:00" || now == "20:00:00" || now == "21:00:00" || now == "22:00:00") {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm"), notification: this.translate("Have a nice evening!")})
