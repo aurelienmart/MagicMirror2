@@ -275,7 +275,7 @@ var config = {
 				remoteFile: null,
 				random: true,
 				mockDate: null,
-				classes: "compliments thin large pre-line skyblue",
+				classes: "complimentz thin large pre-line skyblue",
 
 				morning: 5,
 				noon: 12,
