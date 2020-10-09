@@ -98,7 +98,7 @@ Module.register("timer", {
 		function night_mode() {
 			hide.forEach(function(element) {element.style.display = "none"}); icon.forEach(function(element) {element.style.float = "right"});
 			weat.forEach(function(element) {return element.style.transform = "translate(-720px, 280px)", element.style.textAlign = "left"});
-			comp.forEach(function(element) {return element.style.width = "600px", element.style.transform = "translateY(-80px) scale(0.5)"});
+			comp.forEach(function(element) {return element.style.width = "600px", element.style.transform = "translateY(-100%) scale(0.5)"});
 		}
 	},
 
