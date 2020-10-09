@@ -1,4 +1,4 @@
-# timer-dimmer-notification
+# timer-dimmer + notification
 
 https://github.com/hangorazvan/timer
 

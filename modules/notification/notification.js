@@ -45,6 +45,7 @@ Module.register("notification", {
 
 		var notification = document.createElement("div");
 		notification.className = "small light dimmed";
+		notification.style.maxHeight = "25px";
 		notification.innerHTML = this.config.notification;
 
 		wrapper.appendChild(title);
