@@ -101,7 +101,7 @@ Module.register("clock", {
 		secondsWrapper.className = "seconds dimmed";
 		sunWrapper.className = "sun dimmed medium";
 		moonWrapper.className = "moon dimmed medium";
-		weekWrapper.className = "week dimmed medium";
+		weekWrapper.className = "week dimmed ssmall";
 
 		// Set content of wrappers.
 		// The moment().format("h") method has a bug on the Raspberry Pi.
@@ -129,7 +129,7 @@ Module.register("clock", {
 			dateWrapper.innerHTML = now.format(this.config.dateFormat);
 		}
 		if (this.config.showWeek) {
-			weekWrapper.innerHTML = this.translate("WEEK", { weekNumber: now.week() }) + ", " + this.translate("DAY", { dayNumber: now.dayOfYear() }) + ", " + " " + config.location + ", " + (config.language).toUpperCase();
+			weekWrapper.innerHTML = this.translate("WEEK", { weekNumber: now.week() }) + ", " + this.translate("DAY", { dayNumber: now.dayOfYear() }) + ", " + now.format("z") + ", " + config.location + ", " + (config.language).toUpperCase();
 		}
 		timeWrapper.innerHTML = timeString;
 		secondsWrapper.innerHTML = now.format(":ss");
