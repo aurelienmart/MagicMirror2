@@ -1,6 +1,6 @@
 # notification
 
-https://github.com/hangorazvan/timer/tree/notification
+
 
 MagicMirror 2 Notification alert for my own use on iPad3
 

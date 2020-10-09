@@ -65,22 +65,17 @@ Module.register("notification", {
 
 	notificationReceived: function (notification, payload, sender) {
 		var self = this;
-		if (notification === "ALL_MODULES_STARTED") {
-			this.config.title = this.config.startTitle;
-			this.config.notification = "<div class=\"xxxsmall light shade\">" + this.translate("All modules loaded and started succesfuly!") + "</div><div class=\"xxxsmall light shade\">Redesigned by Răzvan Cristea &copy; " + moment().year() + ", MIT License.</div>";
+		if (notification === "ALL_MODULES_STARTED") {this.config.title = this.config.startTitle;
+			this.config.notification = "<div class=\"xxxsmall light shade\">" + this.translate("All modules loaded and started succesfuly!") 
+			+ "</div><div class=\"xxxsmall light shade\">Redesigned by Răzvan Cristea &copy; " + moment().year() + ", MIT License.</div>";
 			this.updateDom(config.animation); setTimeout(function () {self.onLine();}, this.config.timer * 2);
 		}
 
-		if (notification === "ONLINE_NOTIFICATION") {
-			this.onLine();
-		}
+		if (notification === "ONLINE_NOTIFICATION") {this.onLine();}
 
-		if (notification === "OFFLINE_NOTIFICATION") {
-			this.offLine();
-		}
+		if (notification === "OFFLINE_NOTIFICATION") {this.offLine();}
 
-		if (notification === "NIGHT_NOTIFICATION") {
-			this.config.title = this.config.startTitle;
+		if (notification === "NIGHT_NOTIFICATION") {this.config.title = this.config.startTitle;
 			this.config.notification = this.translate("Dimmed night mode ") + parseInt(payload * 100) + "%";
 			this.updateDom();
 		}
