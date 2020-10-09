@@ -69,6 +69,11 @@ a {
 	color: white;
 }
 
+.xxxsmall {
+	font-size: 0.6rem;
+	line-height: 0.8rem;
+}
+
 .xxsmall {
 	font-size: 0.8rem;
 	line-height: 1.1rem;
