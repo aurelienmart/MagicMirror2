@@ -121,12 +121,12 @@ a {
 
 .large {
 	font-size: 6rem;
-	line-height: 6.5rem;
+	line-height: 6.4rem;
 }
 
 .xlarge {
-	font-size: 7.4rem;
-	line-height: 7rem;
+	font-size: 7rem;
+	line-height: 7.4rem;
 	background: -webkit-linear-gradient(white, darkgray);
 	-webkit-text-fill-color: transparent;
 	-webkit-background-clip: text;
@@ -1138,8 +1138,13 @@ header {
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
-		bottom: 10%;
+		bottom: 11%;
 	}
+
+	.xlarge {
+    	font-size: 6rem;
+    	line-height: 6.4rem;
+    }
 
 	.monthly .week:nth-child(odd),
 	.monthly .week:nth-child(even),
