@@ -132,7 +132,7 @@ Module.register("timer", {
 	notification: function() {
 		now = this.now; date = this.date; mins = this.mins; secs = this.secs;
 
-		if (secs == "0" || secs == "20" || secs == "40") {
+		if (secs == "15" || secs == "45") {
 			if (window.navigator.onLine === true) {this.sendNotification("ONLINE_NOTIFICATION")}
 			else if (window.navigator.onLine === false) {this.sendNotification("OFFLINE_NOTIFICATION")}
 		}
