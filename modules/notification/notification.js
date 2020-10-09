@@ -82,7 +82,7 @@ Module.register("notification", {
 		if (notification === "NIGHT_NOTIFICATION") {
 			this.config.title = this.config.startTitle;
 			this.config.notification = this.translate("Dimmed night mode ") + parseInt(payload * 100) + "%";
-			this.updateDom(config.animation);
+			this.updateDom();
 		}
 
 		if (notification === "DAY_NOTIFICATION") {

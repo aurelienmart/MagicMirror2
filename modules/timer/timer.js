@@ -42,7 +42,7 @@ Module.register("timer", {
 			} else if (window.navigator.onLine === false) {
 				self.sendNotification("OFFLINE_NOTIFICATION")
 			}
-		}, 30 * 1000);
+		}, 60 * 1000);
 	},
 
 	variables: function() {
