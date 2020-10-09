@@ -125,8 +125,8 @@ a {
 }
 
 .xlarge {
-	font-size: 7rem;
-	line-height: 7.4rem;
+	font-size: 7.4rem;
+	line-height: 7rem;
 	background: -webkit-linear-gradient(white, darkgray);
 	-webkit-text-fill-color: transparent;
 	-webkit-background-clip: text;
@@ -1138,10 +1138,10 @@ header {
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
-		bottom: 12%;
+		bottom: 11%;
 	}
 
-	.xlarge {
+	.large {
 		font-size: 5.6rem;
 		line-height: 5.8rem;
 	}
