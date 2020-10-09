@@ -77,7 +77,7 @@ Module.register("timer", {
 		var hide = Array.from(document.querySelectorAll(".module:not(.night)"));
 		var icon = Array.from(document.querySelectorAll(".wicon"));
 		var weat = Array.from(document.querySelectorAll(".currentweather"));
-		var comp = Array.from(document.querySelectorAll(".pre-line"));
+		var comp = Array.from(document.querySelectorAll(".complimentz"));
 		var body = Array.from(document.querySelectorAll("body"));
 
 		body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / self.config.bodysize) + "px", element.style.minWidth = self.config.bodysize + "px"});
