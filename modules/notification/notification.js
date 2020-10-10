@@ -104,9 +104,7 @@ Module.register("notification", {
 		}
 
 		if (notification === "HIDE_NOTIFICATION") {
-			setTimeout(function () {
-				self.onLine();
-			}, this.config.timer);
+			this.onLine();
 		}
 	},
 });
