@@ -1201,10 +1201,6 @@ header {
 		display: none !important;
 	}
 
-	.weatherforecast table {
-		margin-bottom: 7px;
-	}
-
 	.icalendar {
 		height: 290px !important;
 	}
