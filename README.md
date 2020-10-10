@@ -18,6 +18,6 @@ Custom personal smart mirror for HD monitor + Windows PC stick / HP mini netbook
 <br>notification https://github.com/hangorazvan/timer/tree/notification
 <br>timer-dimmer https://github.com/hangorazvan/timer
 <br>yframe https://github.com/hangorazvan/yframe
-<br>kamasutra https://github.com/hangorazvan/kamasutra (work in progress)
+<br>kamasutra https://github.com/hangorazvan/kamasutra (working in progress)
 
 <img src=https://github.com/hangorazvan/MagicMirror2/blob/master/hd.png>
