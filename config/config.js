@@ -62,7 +62,7 @@ var config = {
 				dateMode: true,
 				name1: "",
 				birthday1: "",
-				name2: "Răzvan!",
+				name2: "",
 				birthday2: "",
 				name3: "",
 				birthday3: ""
