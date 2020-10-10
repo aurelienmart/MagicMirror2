@@ -529,6 +529,7 @@ header {
 
 .swatch {
 	opacity: 0.85;
+	padding: 2px 0;
 }
 
 /* notification */
