@@ -99,8 +99,8 @@ Module.register("clock", {
 		dateWrapper.className = "date normal xmedium";
 		timeWrapper.className = "time bright xlarge light";
 		secondsWrapper.className = "seconds dimmed";
-		sunWrapper.className = "sun dimmed medium";
-		moonWrapper.className = "moon dimmed medium";
+		sunWrapper.className = "sun dimmed xmedium";
+		moonWrapper.className = "moon dimmed xmedium";
 		weekWrapper.className = "week dimmed ssmall";
 
 		// Set content of wrappers.
