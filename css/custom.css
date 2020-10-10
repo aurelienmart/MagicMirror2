@@ -510,7 +510,7 @@ header {
 
 .clock .sun > *,
 .clock .moon > * {
-	flex: 1;
+	flex: 1 0 120px;
 }
 
 .clock .sun {
