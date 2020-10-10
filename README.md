@@ -12,7 +12,7 @@ Custom personal smart mirror for HD monitor + Windows PC stick / HP mini netbook
 <br>monthly calendar https://github.com/BKeyport/MMM-Multimonth
 <br>random_quotes https://github.com/KirAsh4/random_quotes
 
-<b>My test modules:</b>
+<b>My stupid test modules:</b>
 <br>swatch.beat https://github.com/hangorazvan/swatch
 <br>lifecounter https://github.com/hangorazvan/lifecounter
 <br>notification https://github.com/hangorazvan/timer/tree/notification
