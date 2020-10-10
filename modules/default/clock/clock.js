@@ -22,7 +22,7 @@ Module.register("clock", {
 	},
 	// Define styles.
 	getStyles: function () {
-		return [];
+		return false;
 	},
 	// Define start sequence.
 	start: function () {

@@ -7,6 +7,7 @@
  * https://github.com/hangorazvan
  */
 Module.register("timer", {
+
 	defaults: {
 		debugging: false
 	},
