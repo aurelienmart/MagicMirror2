@@ -184,8 +184,14 @@ Module.register("clock", {
 		if (this.config.showMoonTimes) {
 			var moonIllumination = SunCalc.getMoonIllumination(now.toDate());
 			var moonTimes = SunCalc.getMoonTimes(now, this.config.lat, this.config.lon);
-			var moonRise = moonTimes.rise;
-			var moonSet;
+//			var moonRise = moonTimes.rise;
+			if (moment(moonTimes.rise).isBefore(moonTimes.set)) {
+				moonRise = moonTimes.rise;
+			} else {
+				var nextMoonTimes = SunCalc.getMoonTimes(now.clone().add(1, "day"), this.config.lat, this.config.lon);
+				moonRise = nextMoonTimes.rise;
+			}
+//			var moonSet;
 			if (moment(moonTimes.set).isAfter(moonTimes.rise)) {
 				moonSet = moonTimes.set;
 			} else {
@@ -196,9 +202,10 @@ Module.register("clock", {
 			var illuminatedFractionString = Math.round(moonIllumination.fraction * 100) + "%";
 			if (illuminatedFractionString == 100) {illuminatedFractionString = this.translate("Full Moon")}
 			if (illuminatedFractionString == 0) {illuminatedFractionString = this.translate("New Moon")}
+
 			moonWrapper.innerHTML = "<span class=\"" + (isVisible ? "bright" : "") + "\">&nbsp;<i class=\"wi wi-night-clear\"></i>&nbsp; " + illuminatedFractionString + "</span>" +
 				"<span>&nbsp;<i class=\"wi wi-moonrise\"></i>&nbsp; " + (moonRise ? formatTime(this.config, moonRise) : this.translate("TOMORROW")) + "</span>"+
-				"<span>&nbsp;<i class=\"wi wi-moonset\"></i>&nbsp; " + (moonSet ? formatTime(this.config, moonSet) : this.translate("YESTERDAY")) + "</span>";
+				"<span>&nbsp;<i class=\"wi wi-moonset\"></i>&nbsp; " + (moonSet ? formatTime(this.config, moonSet) : this.translate("TOMORROW")) + "</span>";
 		}
 
 		/****************************************************************
