@@ -35,7 +35,7 @@ var config = {
 	animation: 2000,
 	header: true,
 	notification: false,
-	customCss: 	"css/custom.css",
+	customCss: "css/custom.css",
 	minVersion: "2.1.0",
 	serverOnly: true,
 	logLevel: ["INFO", "LOG", "WARN", "ERROR"],
