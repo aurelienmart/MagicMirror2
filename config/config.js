@@ -111,7 +111,7 @@ var config = {
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
-				maximumEntries: 16,
+				maximumEntries: 15,
 				maximumNumberOfDays: 365,
 				displaySymbol: true,
 				defaultSymbol: "calendar",
