@@ -13,7 +13,7 @@ Module.register("notification", {
 		startNotification: "Modular smart mirror platform",
 		title: null,
 		notification: null,
-		timer: 5000,
+		timer: 9000,
 		animationSpeed: config.animation
 	},
 
@@ -73,7 +73,7 @@ Module.register("notification", {
 			this.updateDom(this.config.animationSpeed);
 			setTimeout(function () {
 				self.onLine();
-			}, this.config.timer * 2);
+			}, this.config.timer);
 		}
 
 		if (notification === "ONLINE_NOTIFICATION") {this.onLine();}

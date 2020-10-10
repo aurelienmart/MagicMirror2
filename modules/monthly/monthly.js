@@ -19,7 +19,7 @@ Module.register("monthly", {
 	start: function (){
 		var self = this;
 		setInterval(function() {
-			self.updateDom();
+			self.updateDom(config.animation);
 		}, moment().add(1, 'days').hours(0).minutes(0).seconds(0)-moment());
 	},		
 
