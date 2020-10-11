@@ -175,8 +175,9 @@ Module.register("clock", {
 			var untilNextEvent = moment.duration(moment(nextEvent).diff(now));
 			var untilNextEventString = untilNextEvent.hours() + ":" + untilNextEvent.minutes();
 
-			if (untilNextEvent.minutes() === 0) {untilNextEventString = untilNextEvent.hours() + "h";}
 			if (untilNextEvent.hours() === 0) {untilNextEventString = untilNextEvent.minutes() + "min";}
+			if (untilNextEvent.minutes() === 0) {untilNextEventString = untilNextEvent.hours() + this.translate("hours");}
+			if (untilNextEvent.hours() === 1 && untilNextEvent.minutes() === 0) {untilNextEventString = untilNextEvent.hours() + this.translate("hour");}
 			if (untilNextEvent.hours() === 0 && untilNextEvent.minutes() === 0 && now.hours() > 16) {untilNextEventString = this.translate("Sunset");}
 			if (untilNextEvent.hours() === 0 && untilNextEvent.minutes() === 0 && now.hours() < 8) {untilNextEventString = this.translate("Sunrise");}
 
