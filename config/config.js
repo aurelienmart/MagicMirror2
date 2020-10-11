@@ -56,7 +56,7 @@ var config = {
 
 				fadeMode: true,
 				dimmMode: true,
-				dimming: 50,
+				dimming: 40,
 
 				sharpMode: true,
 				dateMode: true,
@@ -97,6 +97,60 @@ var config = {
 			}
 		},
 		{
+			module: "calendar",
+			position: "top_left",
+			disabled: false,
+			config: {
+				maximumEntries: 1,
+				maximumNumberOfDays: 365,
+				displaySymbol: true,
+				defaultSymbol: "moon",
+				showLocation: false,
+				displayRepeatingCountTitle: true,
+				defaultRepeatingCountTitle: "",
+				maxTitleLength: 25,
+				maxLocationTitleLength: 25,
+				wrapEvents: false,
+				wrapLocationEvents: false,
+				maxTitleLines: 3,
+				maxEventTitleLines: 3,
+				fetchInterval: 60 * 1000,
+				fade: false,
+				fadePoint: 0.25,
+				colored: false,
+				coloredSymbolOnly: true,
+				urgency: 10,
+				timeFormat: "relative",
+				sliceMultiDayEvents: false,
+				dateFormat: "MMM Do",				
+				dateEndFormat: "LT",
+				fullDayEventDateFormat: "ddd D MMM",
+				showEnd: false,
+				getRelative: 24,
+				hidePrivate: false,
+				hideOngoing: false,
+				tableClass: "qsmall",
+				titleReplace: {
+					"New moon": "Lună nouă",
+					"First quarter": "Primul pătrar",
+					"Full moon": "Lună plină",
+					"Last quarter": "Ultimul pătrar",
+				},
+				locationTitleReplace: {},
+				broadcastEvents: true,
+				excludedEvents: [],
+				broadcastPastEvents: true,
+				nextDaysRelative: true,
+
+				calendars: [
+					{
+						symbol: "moon", symbolClass: "dimmed", titleClass: "dimmed", timeClass: "dimmed",
+						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
+					}
+				]
+			}
+		},
+		{
 			module: "swatch",
 			position: "top_left",
 			classes: "night",
@@ -106,12 +160,42 @@ var config = {
 			}
 		},
 		{
+			module: "yframe",
+			position: "top_left",
+			classes: "icalendar",
+			header: "Calendar evenimente și aniversări",
+			disabled: true,
+			config: {
+				url: "modules/icalendar/icalendar.html",
+				media: false,
+				allow: "",
+				width: "100%",
+				height: "700px",
+				cssClass: "icalendar"
+			}
+		},
+		{
+			module: "empty",
+			position: "top_left",
+			disabled: true,
+			config: {
+				header: "Calendar evenimente și aniversări"
+			}
+		},
+		{
+			module: "calendar_test",
+			position: "top_left",
+			header: "Calendar evenimente și aniversări",
+			disabled: true
+		},
+		{
 			module: "calendar",
 			position: "top_left",
+			classes: "calendarz",
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
-				maximumEntries: 15,
+				maximumEntries: 14,
 				maximumNumberOfDays: 365,
 				displaySymbol: true,
 				defaultSymbol: "calendar",
@@ -125,7 +209,6 @@ var config = {
 				maxTitleLines: 3,
 				maxEventTitleLines: 3,
 				fetchInterval: 60 * 1000,
-				animationSpeed: 2000,
 				fade: true,
 				fadePoint: 0.25,
 				colored: false,
@@ -152,14 +235,14 @@ var config = {
 				locationTitleReplace: {},
 				broadcastEvents: true,
 				excludedEvents: [],
-				broadcastPastEvents: false,
+				broadcastPastEvents: true,
 				nextDaysRelative: true,
 
 				calendars: [
 					{
 						symbol: "calendar-check-o", symbolClass: "skyblue", titleClass: "skyblue", timeClass: "skyblue",
 						url: "https://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
-					},
+					}
 				]
 			}
 		},
@@ -386,6 +469,9 @@ var config = {
 					"14-02-...." : [
 						"<span class=\"orangered\"><i class=\"fa fa-heart\"></i> Happy Valentine's Day!</span>"
 					],
+					"01-12-...." : [
+						"<span class=\"gold\"><i class=\"fa fa-birthday-cake\"></i> La mulți ani România!</span>"
+					],
 					"25-12-...." : [
 						"<i class=\"bright fa fa-snowman\"></i> Crăciun fericit!",
 						"<i class=\"gold fa fa-gifts\"></i> Sărbători fericite!"
@@ -417,6 +503,25 @@ var config = {
 				category: "random",
 				className: "small"
 			}
+		},
+		{
+			module: "yframe",
+			position: "bottom_bar",
+			classes: "rssfeed",
+			disabled: true,
+			config: {
+				url: "modules/rssfeed/rssfeed.html",
+				media: false,
+				allow: "",
+				width: "99%",
+				height: "300px",
+				cssClass: "rssfeed"
+			}
+		},
+		{
+			module: "newsfeed_test",
+			position: "bottom_bar",
+			disabled: true,
 		},
 		{
 			module: "newsfeed",
@@ -491,15 +596,16 @@ var config = {
 						title: "Ziare.com",
 						url: "https://www.ziare.com/rss/12h.xml",
 						encoding: "UTF-8"
-					},
-					{
-						title: "NASA",
-						url: "https://www.nasa.gov/rss/dyn/breaking_news.rss",
-						encoding: "UTF-8"
 					}
 				]
 			}
 		},
+		{
+			module: "kamasutra",
+			position: "top_center",
+			header: "Kama Sutra Sex Positions",
+			disabled: true
+		}
 	]
 };
 
