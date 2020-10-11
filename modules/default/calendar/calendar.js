@@ -8,7 +8,9 @@
  */
 Module.register("calendar", {
 	// Define module defaults
-	defaults: {},
+	defaults: {
+		animationSpeed: config.animation,
+	},
 
 	// Define required scripts.
 	getStyles: function () {
