@@ -308,14 +308,17 @@ header {
 
 .region.upper.third {
 	top: calc(100vh - 50%);
+	bottom: 35%;
 }
 
 .region.middle.center {
 	top: calc(100vh - 25%);
+	bottom: 20%;
 }
 
 .region.lower.third {
 	top: calc(100vh - 20%);
+	bottom: 15%;
 }
 
 .darkred {
@@ -1137,16 +1140,34 @@ header {
 
 	.region.upper.third {
 		top: calc(100vh - 5%);
+		bottom: 35%;
 	}
 
 	.region.middle.center {
 		top: calc(100vh + 20%);
+		bottom: 20%;
 	}
 		
 	.region.lower.third {
 		top: calc(100vh + 25%);
+		bottom: 15%;
+	}
+}
+
+@media screen and (max-height: 1024px) and (orientation: portrait) {
+	.region.upper.third {
+		display: none;
 	}
 
+	.region.middle.center {
+		top: calc(100vh + 20%);
+		bottom: -35%;
+	}
+		
+	.region.lower.third {
+		top: calc(100vh + 25%);
+		bottom: -30%;
+	}
 }
 
 @media screen and (max-height: 1024px) and (orientation: landscape) {
@@ -1158,6 +1179,7 @@ header {
 @media screen and (max-height: 980px) and (orientation: landscape) {
 	.region.middle.center {
 		top: calc(100vh - 22%);
+		bottom: 15%;
 	}
 		
 	.region.lower.third {
@@ -1168,20 +1190,24 @@ header {
 @media screen and (max-height: 960px) and (orientation: portrait) {
 	.region.upper.third {
 		top: calc(100vh - 1%);
+		bottom: 35%;
 	}
 
 	.region.middle.center {
 		top: calc(100vh + 20%);
+		bottom: 20%;
 	}
 		
 	.region.lower.third {
 		top: calc(100vh + 25%);
+		bottom: 15%;
 	}
 }
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
 		top: calc(100vh - 18%);
+		bottom: 11%;
 	}
 
 	.large {
