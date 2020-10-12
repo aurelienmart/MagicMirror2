@@ -21,7 +21,8 @@ var config = {
 	units: "metric",
 	latitude: 44.4323,
 	longitude: 26.1063,
-	location: "București",
+	location: "Bucharest",
+	country: "Romania",
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
@@ -99,6 +100,7 @@ var config = {
 		{
 			module: "calendar",
 			position: "top_left",
+			classes: "moon",
 			disabled: false,
 			config: {
 				maximumEntries: 1,
@@ -124,7 +126,7 @@ var config = {
 				sliceMultiDayEvents: false,
 				dateFormat: "MMM Do",				
 				dateEndFormat: "LT",
-				fullDayEventDateFormat: "ddd D MMM",
+				fullDayEventDateFormat: "ddd D MMM HH:mm",
 				showEnd: false,
 				getRelative: 24,
 				hidePrivate: false,
@@ -175,20 +177,6 @@ var config = {
 			}
 		},
 		{
-			module: "empty",
-			position: "top_left",
-			disabled: true,
-			config: {
-				header: "Calendar evenimente și aniversări"
-			}
-		},
-		{
-			module: "calendar_test",
-			position: "top_left",
-			header: "Calendar evenimente și aniversări",
-			disabled: true
-		},
-		{
 			module: "calendar",
 			position: "top_left",
 			classes: "calendarz",
@@ -218,7 +206,7 @@ var config = {
 				sliceMultiDayEvents: false,
 				dateFormat: "MMM Do",				
 				dateEndFormat: "LT",
-				fullDayEventDateFormat: "ddd D MMM",
+				fullDayEventDateFormat: "ddd D MMM HH:mm",
 				showEnd: false,
 				getRelative: 24,
 				hidePrivate: false,
@@ -463,8 +451,8 @@ var config = {
 						"<i class=\"normal wi wi-night-snow\"></i> Afară ninge!"
 					],
 					night_alt_cloudy_windy : [
-						"<i class=\"skyblue wi wi-night-cloudy-windy\"></i> Noapte noroasă cu ceață",
-						"<i class=\"skyblue wi wi-night-cloudy-windy\"></i> Noapte cu ceață și nori"
+						"<i class=\"skyblue wi wi-night-cloudy-windy\"></i> Nori și ceață",
+						"<i class=\"skyblue wi wi-night-cloudy-windy\"></i> Ceață și nori"
 					],
 					"14-02-...." : [
 						"<span class=\"orangered\"><i class=\"fa fa-heart\"></i> Happy Valentine's Day!</span>"
@@ -517,11 +505,6 @@ var config = {
 				height: "300px",
 				cssClass: "rssfeed"
 			}
-		},
-		{
-			module: "newsfeed_test",
-			position: "bottom_bar",
-			disabled: true,
 		},
 		{
 			module: "newsfeed",
@@ -599,12 +582,6 @@ var config = {
 					}
 				]
 			}
-		},
-		{
-			module: "kamasutra",
-			position: "top_center",
-			header: "Kama Sutra Sex Positions",
-			disabled: true
 		}
 	]
 };
