@@ -382,6 +382,8 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 							startDate = moment(today);
 						}
 
+//	bad coding, not show recurring events
+
 						// if the start and end are the same, then make end the 'end of day' value (start is at 00:00:00)
 //						if (fullDayEvent && startDate.format("x") === endDate.format("x")) {
 							//console.log("end same as start")
@@ -406,6 +408,8 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 			newEvents.sort(function (a, b) {
 				return a.startDate - b.startDate;
 			});
+
+//	bad coding, not show recurring events
 
 //			events = newEvents.slice(0, maximumEntries);
 			events = newEvents;

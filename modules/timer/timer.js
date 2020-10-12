@@ -30,7 +30,7 @@ Module.register("timer", {
 	start: function() {
 		Log.info("Starting module: " + this.name);
 		var self = this;
-		setInterval(function() {
+		setInterval(function () {
 			self.variables();
 			self.timer();
 			self.dimmer();

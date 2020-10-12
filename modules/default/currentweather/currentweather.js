@@ -593,10 +593,12 @@ Module.register("currentweather", {
 		this.sunriseSunsetTime = timeString;
 		this.sunriseSunsetIcon = sunrise < now && sunset > now ? "wi-sunset" : "wi-sunrise";
 
-		this.show(this.config.animationSpeed, { lockString: this.identifier });
-		this.loaded = true;
-		this.updateDom(this.config.animationSpeed);
-		this.sendNotification("CURRENTWEATHER_DATA", { data: data });
+		if (!this.hidden) {
+			this.show(this.config.animationSpeed, { lockString: this.identifier });
+			this.loaded = true;
+			this.updateDom(this.config.animationSpeed);
+			this.sendNotification("CURRENTWEATHER_DATA", { data: data });
+		}
 	},
 
 	/* scheduleUpdate()
@@ -611,7 +613,8 @@ Module.register("currentweather", {
 		}
 
 		var self = this;
-		setTimeout(function () {
+		clearTimeout(this.updateTimer);
+		this.updateTimer = setTimeout(function () {
 			self.updateWeather();
 		}, nextLoad);
 	},

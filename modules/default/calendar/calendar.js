@@ -12,6 +12,8 @@ Module.register("calendar", {
 		animationSpeed: config.animation,
 	},
 
+	requiresVersion: "2.1.0",
+
 	// Define required scripts.
 	getStyles: function () {
 		return ["font-awesome.css"];
@@ -68,12 +70,13 @@ Module.register("calendar", {
 
 			this.addCalendar(calendar.url, calendar.auth, calendarConfig);
 
-			// Trigger ADD_CALENDAR every fetchInterval to make sure there is always a calendar
+/*			// Trigger ADD_CALENDAR every fetchInterval to make sure there is always a calendar
 			// fetcher running on the server side.
 			var self = this;
 			setInterval(function () {
 				self.addCalendar(calendar.url, calendar.auth, calendarConfig);
 			}, self.config.fetchInterval);
+*/
 		}
 
 		this.calendarData = {};
@@ -516,6 +519,11 @@ Module.register("calendar", {
 			auth: auth,
 			broadcastPastEvents: calendarConfig.broadcastPastEvents || this.config.broadcastPastEvents
 		});
+
+		var self = this;
+		setTimeout(function() {
+			self.addCalendar(url, auth, calendarConfig);
+		}, self.config.fetchInterval);
 	},
 
 	/**

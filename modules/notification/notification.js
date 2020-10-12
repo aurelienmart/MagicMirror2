@@ -67,7 +67,9 @@ Module.register("notification", {
 		if (notification === "DOM_OBJECTS_CREATED") {this.title = this.config.startTitle;
 			this.notification = "Răzvan Cristea &copy; " + moment().year() + ", MIT License.";
 			this.updateDom(this.config.animationSpeed);
-			setTimeout(function () {
+
+			clearTimeout(this.updateTimer);
+			this.updateTimer = setTimeout(function () {
 				self.onLine();
 			}, this.config.timer);
 		}
@@ -94,7 +96,9 @@ Module.register("notification", {
 				payload.timer = this.config.timer;
 			} else this.config.timer = payload.timer;
 			this.updateDom(this.config.animationSpeed);
-			setTimeout(function () {
+
+			clearTimeout(this.updateTimer);
+			this.updateTimer = setTimeout(function () {
 				self.onLine();
 			}, this.config.timer);
 		}
