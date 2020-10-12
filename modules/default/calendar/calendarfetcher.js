@@ -304,6 +304,8 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 								showRecurrence = false;
 							}
 
+							//console.log("duration="+duration)
+
 							endDate = moment(parseInt(startDate.format("x")) + duration, "x");
 							if (startDate.format("x") === endDate.format("x")) {
 								endDate = endDate.endOf("day");
@@ -341,7 +343,7 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 					} else {
 						// Single event.
 						var fullDayEvent = isFacebookBirthday ? true : isFullDayEvent(event);
-
+						// console.log("full day event")
 						if (includePastEvents) {
 							// Past event is too far in the past, so skip.
 							if (endDate < past) {
@@ -372,7 +374,6 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 						if (fullDayEvent && startDate <= today) {
 							startDate = moment(today);
 						}
-
 						// if the start and end are the same, then make end the 'end of day' value (start is at 00:00:00)
 						if (fullDayEvent && startDate.format("x") === endDate.format("x")) {
 							//console.log("end same as start")
@@ -398,9 +399,7 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 				return a.startDate - b.startDate;
 			});
 
-			//	bad coding, not show recurring events
-			//	events = newEvents.slice(0, maximumEntries);
-			events = newEvents;
+			events = newEvents.slice(0, maximumEntries);
 
 			self.broadcastEvents();
 			scheduvarimer();
