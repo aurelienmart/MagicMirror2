@@ -141,7 +141,7 @@ var config = {
 				locationTitleReplace: {},
 				broadcastEvents: true,
 				excludedEvents: [],
-				broadcastPastEvents: true,
+				broadcastPastEvents: false,
 				nextDaysRelative: true,
 
 				calendars: [
@@ -213,17 +213,20 @@ var config = {
 				hideOngoing: false,
 				tableClass: "qsmall",
 				titleReplace: {
-					"Orthodox Good Friday": "Vinerea Mare",
-					"Doua zi de Rusalii": "A doua zi de Rusalii",
-					"Ziua Sfîntului Andrei": "Ziua Sf. Andrei",
-					"Adormirea Maicii Domnului": "Adormirea M.D.",
 					"Ziua Internațională a Femeii": "Ziua femeii",
 					"Zi Constantin Brancusi": "Ziua Constantin Brancuși",
 				},
 				locationTitleReplace: {},
 				broadcastEvents: true,
-				excludedEvents: [],
-				broadcastPastEvents: true,
+				excludedEvents: [
+					"Orthodox Good Friday",
+					"Doua zi de Rusalii",
+					"Ziua Sfîntului Andrei",
+					"Adormirea Maicii Domnului",
+					"Rusalii",
+					"Doua zi de Rusalii",
+					],
+				broadcastPastEvents: false,
 				nextDaysRelative: true,
 
 				calendars: [
