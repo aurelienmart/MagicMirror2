@@ -361,8 +361,8 @@ var config = {
 				midnight: 1,
 				compliments: {
 					anytime : [
-						"Fi tu însuți, sexy!",
-						"Orice faci, fă-o bine!"
+						"Orice faci, fă-o bine!",
+						"Fi sexy, fi tu însuți!"
 					],
 					morning : [
 						"Dimineață frumoasă!",
