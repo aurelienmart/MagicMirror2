@@ -12,7 +12,7 @@ Module.register("calendar", {
 		animationSpeed: config.animation,
 	},
 
-	requiresVersion: "2.1.0",
+	requiresVersion: this.config.minVersion,
 
 	// Define required scripts.
 	getStyles: function () {
