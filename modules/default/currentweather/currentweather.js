@@ -50,7 +50,7 @@ Module.register("currentweather", {
 	firstEvent: true,
 
 	// create a variable to hold the location name based on the API result.
-	fetchedLocationName: "",
+	fetchedLocationName: config.location,
 
 	// Define required scripts.
 	getScripts: function () {

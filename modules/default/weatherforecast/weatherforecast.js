@@ -51,7 +51,7 @@ Module.register("weatherforecast", {
 	firstEvent: true,
 
 	// create a variable to hold the location name based on the API result.
-	fetchedLocationName: "",
+	fetchedLocationName: config.location,
 
 	// Define required scripts.
 	getScripts: function () {
@@ -408,12 +408,12 @@ Module.register("weatherforecast", {
 			this.show(this.config.animationSpeed, { lockString: this.identifier });
 			this.loaded = true;
 			this.updateDom(this.config.animationSpeed);
-		} else {
+		} 
+		else {	// only if not working
 			this.show(this.config.animationSpeed, { lockString: this.identifier });
 			this.loaded = true;
 			this.updateDom(this.config.animationSpeed);
 		}
-
 	},
 
 	/* scheduleUpdate()
