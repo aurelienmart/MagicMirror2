@@ -202,13 +202,6 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 						// For recurring events, get the set of start dates that fall within the range
 						// of dates we're looking for.
 						// kblankenship1989 - to fix issue #1798, converting all dates to locale time first, then converting back to UTC time
-	//						var pastLocal = pastMoment.subtract(past.getTimezoneOffset(), "minutes").toDate();	
-//						var futureLocal = futureMoment.subtract(future.getTimezoneOffset(), "minutes").toDate();	
-//						var datesLocal = rule.between(pastLocal, futureLocal, true, limitFunction);	
-//						var dates = datesLocal.map(function (dateLocal) {	
-//							return moment(dateLocal).add(dateLocal.getTimezoneOffset(), "minutes").toDate();	
-//						});
-
 						var pastLocal = 0;
 						var futureLocal = 0;
 						if (isFullDayEvent(event)) {
@@ -332,8 +325,6 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 								addedEvents++;
 								newEvents.push({
 									title: recurrenceTitle,
-//									startDate: startDate.format("x"),
-//									endDate: endDate.format("x"),
 									startDate: (adjustDays ? startDate.subtract(adjustDays, "hours") : startDate).format("x"),
 									endDate: (adjustDays ? endDate.subtract(adjustDays, "hours") : endDate).format("x"),
 									fullDayEvent: isFullDayEvent(event),
@@ -382,13 +373,11 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 							startDate = moment(today);
 						}
 
-//	bad coding, not show recurring events
-
 						// if the start and end are the same, then make end the 'end of day' value (start is at 00:00:00)
-//						if (fullDayEvent && startDate.format("x") === endDate.format("x")) {
+						if (fullDayEvent && startDate.format("x") === endDate.format("x")) {
 							//console.log("end same as start")
-//							endDate = endDate.endOf("day");
-//						}
+							endDate = endDate.endOf("day");
+						}
 
 						// Every thing is good. Add it to the list.
 						newEvents.push({
@@ -409,9 +398,8 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 				return a.startDate - b.startDate;
 			});
 
-//	bad coding, not show recurring events
-
-//			events = newEvents.slice(0, maximumEntries);
+			//	bad coding, not show recurring events
+			//	events = newEvents.slice(0, maximumEntries);
 			events = newEvents;
 
 			self.broadcastEvents();
