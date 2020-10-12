@@ -404,12 +404,12 @@ Module.register("weatherforecast", {
 		}
 
 		//Log.log(this.forecast);
-		if (!this.hidden) {
+		// bad coding, only if not loading
+		if (!this.hidden && !this.config.this_hidden) {
 			this.show(this.config.animationSpeed, { lockString: this.identifier });
 			this.loaded = true;
 			this.updateDom(this.config.animationSpeed);
-		} 
-		else {	// only if not working
+		} else if (this.config.this_hidden) {
 			this.show(this.config.animationSpeed, { lockString: this.identifier });
 			this.loaded = true;
 			this.updateDom(this.config.animationSpeed);
