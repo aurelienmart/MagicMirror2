@@ -326,7 +326,7 @@ Module.register("calendar", {
 						timeWrapper.innerHTML += this.capFirst(moment(event.endDate, "x").format(this.config.dateEndFormat));
 					}
 				}
-				//timeWrapper.innerHTML += ' - '+ moment(event.startDate,'x').format('lll');
+
 				if (!this.config.colored) {
 					timeWrapper.className = "time light ";
 				} else {
