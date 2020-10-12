@@ -518,11 +518,11 @@ header {
 }
 
 .clock .moon {
-	margin-top: 3px;
+	margin-top: 5px;
 }
 
 .clock .week {
-	margin-top: 2px;
+	margin-top: 5px;
 }
 
 /* swatch */
@@ -548,7 +548,7 @@ header {
 .compliments .wi,
 .compliments .fa {
 	display: inline-block;
-	transform: translateY(-5px) scale(0.6);
+	transform: translateY(-3px) scale(0.6);
 }
 
 .night_compliments .pre-line {
@@ -580,10 +580,25 @@ header {
 
 /* Calendar */
 
+.moon table tr {
+	background: transparent !important;
+}
+
+.moon table td {
+	border: 0;
+}
+
+.calendarz {
+	padding-left: 10px;
+}
+
+.calendar header {
+	transform: translateX(-7px);
+}
+
 .calendar table {
 	float: left;
-	padding-left: 5px;
-	padding-bottom: 15px;
+	padding-bottom: 5px;
 }
 
 .calendar .symbol span {
@@ -1170,8 +1185,8 @@ header {
 	}
 
 	.large {
-		font-size: 5.6rem;
-		line-height: 5.8rem;
+		font-size: 5rem;
+		line-height: 5.4rem;
 	}
 
 	.monthly .week:nth-child(odd),
@@ -1194,7 +1209,8 @@ header {
 
 /*	.icalendar table tr:nth-child(n+13),
 	.calendar-table tr:nth-child(n+13)
-*/	.calendar table tr:nth-child(n+13),
+	.calendar table tr:nth-child(n+13),
+*/	.calendar table tr:nth-child(n+12),
 	.hourly table tr:nth-child(n+5),
 	.daily table tr:nth-child(n+13),
 	.daily2 table tr:nth-child(n+16),
