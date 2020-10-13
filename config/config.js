@@ -311,7 +311,6 @@ var config = {
 				calendarClass: "calendar",
 				tableClass: "qsmall",
 				fallBack: false,
-				this_hidden: true,	// bad coding, only if not loading
 				fullday: "HH [h]"
 			}
 		},
@@ -338,7 +337,6 @@ var config = {
 				calendarClass: "calendar",
 				tableClass: "qsmall",
 				fallBack: true,
-				this_hidden: true,	// bad coding, only if not loading
 				fullday: "ddd"
 			}
 		},
