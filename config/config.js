@@ -1,12 +1,13 @@
-/* Magic Mirror
+/* Magic Mirror Config Sample
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
+ * For more information on how you can configure this file
+ * See https://github.com/MichMich/MagicMirror#configuration
+ *
  */
+
 var config = {
 	address: "0.0.0.0",
 	port: 8080,
