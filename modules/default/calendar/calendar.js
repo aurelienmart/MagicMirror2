@@ -517,12 +517,6 @@ Module.register("calendar", {
 			auth: auth,
 			broadcastPastEvents: calendarConfig.broadcastPastEvents || this.config.broadcastPastEvents
 		});
-
-		// Trigger ADD_CALENDAR every fetchInterval to make sure there is always a calendar
-		// fetcher running on the server side.
-		setInterval(function () {
-			self.addCalendar(calendar.url, calendar.auth, calendarConfig);
-		}, self.config.fetchInterval);
 	},
 
 	/**
