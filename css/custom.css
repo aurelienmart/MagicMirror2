@@ -528,6 +528,12 @@ header {
 	margin-top: 5px;
 }
 
+/* moon */
+
+.moon {
+	margin: -1px 0;
+}
+
 /* swatch */
 
 .swatch {
@@ -585,6 +591,7 @@ header {
 
 .moon table tr {
 	background: transparent !important;
+	height: 22px;
 }
 
 .moon table td {
@@ -620,13 +627,15 @@ header {
 
 /* jquery Calendar */
 
-.icalendar {
+.icalendar,
+.moon {
 	padding: 0 1px;
 	text-overflow: clip;
 	overflow: hidden;
 }
 
 .icalendar table,
+.moon table,
 .calendar-table table {
 	width: 100%;
 	white-space: nowrap; 
@@ -662,11 +671,13 @@ header {
 }
 
 .icalendar table .description,
+.moon table .description,
 .calendar-table table .description {
 	white-space: nowrap;
 }
 
 .icalendar table .days,
+.moon table .days,
 .calendar-table table .days {
 	padding-left: 5px;
 	text-align: right;
@@ -1245,7 +1256,7 @@ header {
 	}
 
 	.icalendar {
-		height: 290px !important;
+		height: 265px !important;
 	}
 
 	.rssfeed {
