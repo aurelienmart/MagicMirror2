@@ -126,17 +126,17 @@ var config = {
 				sliceMultiDayEvents: false,
 				dateFormat: "MMM Do",				
 				dateEndFormat: "LT",
-				fullDayEventDateFormat: "ddd D MMM HH:mm",
+				fullDayEventDateFormat: "ddd D MMM",
 				showEnd: false,
 				getRelative: 24,
 				hidePrivate: false,
 				hideOngoing: false,
 				tableClass: "qsmall",
 				titleReplace: {
-					"New moon": "Lună nouă",
-					"First quarter": "Primul pătrar",
-					"Full moon": "Lună plină",
-					"Last quarter": "Ultimul pătrar",
+					"New moon": "Lună nouă la",
+					"First quarter": "Primul pătrar la",
+					"Full moon": "Lună plină la",
+					"Last quarter": "Ultimul pătrar la",
 				},
 				locationTitleReplace: {},
 				broadcastEvents: true,
@@ -146,7 +146,7 @@ var config = {
 
 				calendars: [
 					{
-						symbol: "moon", symbolClass: "dimmed", titleClass: "dimmed", timeClass: "dimmed",
+						symbol: "moon", symbolClass: "bright", titleClass: "normal", timeClass: "normal", color: "dimmed",
 						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
 					}
 				]
@@ -231,7 +231,7 @@ var config = {
 
 				calendars: [
 					{
-						symbol: "calendar-check-o", symbolClass: "skyblue", titleClass: "skyblue", timeClass: "skyblue",
+						symbol: "calendar-check-o", symbolClass: "skyblue", titleClass: "skyblue", timeClass: "skyblue", color: "normal",
 						url: "https://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
 					}
 				]
