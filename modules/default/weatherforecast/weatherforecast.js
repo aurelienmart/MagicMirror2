@@ -404,16 +404,9 @@ Module.register("weatherforecast", {
 		}
 
 		//Log.log(this.forecast);
-		// bad coding, only if not loading
-		if (!this.hidden && !this.config.this_hidden) {
-			this.show(this.config.animationSpeed, { lockString: this.identifier });
-			this.loaded = true;
-			this.updateDom(this.config.animationSpeed);
-		} else if (this.config.this_hidden) {
-			this.show(this.config.animationSpeed, { lockString: this.identifier });
-			this.loaded = true;
-			this.updateDom(this.config.animationSpeed);
-		}
+		this.show(this.config.animationSpeed, { lockString: this.identifier });
+		this.loaded = true;
+		this.updateDom(this.config.animationSpeed);
 	},
 
 	/* scheduleUpdate()
