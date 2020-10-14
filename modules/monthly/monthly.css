@@ -23,9 +23,16 @@
 }
 
 /* The container for the entire month */
-.monthly .month {
+.monthly .calendar-vertical .month {
 	flex-basis: 100%;
 	padding-top: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.monthly .calendar-horizontal .month  {
+	flex-basis: 100%;
+	padding: 10px 10px 0;
 	display: flex;
 	flex-direction: column;
 }

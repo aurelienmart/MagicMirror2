@@ -11,7 +11,7 @@ Module.register("notification", {
 	defaults: {
 		startTitle: "<i class=\"lime fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;",
 		startNotification: "Modular smart mirror platform",
-		timer: 9000,
+		timer: 8000,
 		animationSpeed: config.animation
 	},
 

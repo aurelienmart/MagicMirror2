@@ -100,7 +100,7 @@ Module.register("timer", {
 		function night_mode() { // because this is better that stupid hide.module
 			hide.forEach(function(element) {element.style.display = "none"}); icon.forEach(function(element) {element.style.float = "right"});
 			weat.forEach(function(element) {return element.style.transform = "translate(-720px, 280px)", element.style.textAlign = "left"});
-			comp.forEach(function(element) {return element.style.width = "600px", element.style.transform = "translateY(-100%) scale(0.5)"});
+			comp.forEach(function(element) {return element.style.width = "600px", element.style.transform = "translateY(-120%) scale(0.5)"});
 		}
 	},
 
@@ -135,7 +135,7 @@ Module.register("timer", {
 		var now = this.now; var date = this.date; var mins = this.mins; var secs = this.secs;
 		var sharp = "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm");
 
-		if (secs == "30") {
+		if (secs == "58") {
 			if (window.navigator.onLine === true) {this.sendNotification("ONLINE_NOTIFICATION")}
 			else if (window.navigator.onLine === false) {this.sendNotification("OFFLINE_NOTIFICATION")}
 		}
