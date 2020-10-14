@@ -69,7 +69,8 @@ Module.register("timer", {
 			this.after = moment().startOf("d").add(7,"h").format("HH:mm:ss");
 			this.winter = moment().format("MM");
 			if ((this.winter >= "01" && this.winter <= "03") || (this.winter >= "10" && this.winter <= "12")) {
-				this.morning = this.morning + 1; this.after = this.after + 1;
+				this.morning = moment().startOf("d").add(7,"h").format("HH:mm:ss");
+				this.after = moment().startOf("d").add(8,"h").format("HH:mm:ss");
 			}
 		}
 	},
@@ -136,8 +137,8 @@ Module.register("timer", {
 		var sharp = "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm");
 
 		if (secs == "58") {
-			if (window.navigator.onLine === true) {this.sendNotification("ONLINE_NOTIFICATION")}
-			else if (window.navigator.onLine === false) {this.sendNotification("OFFLINE_NOTIFICATION")}
+			if (window.navigator.onLine == true) {this.sendNotification("ONLINE_NOTIFICATION")}
+			else if (window.navigator.onLine == false) {this.sendNotification("OFFLINE_NOTIFICATION")}
 		}
 
 		if (this.config.sharpMode) {
