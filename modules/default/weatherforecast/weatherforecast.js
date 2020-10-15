@@ -404,8 +404,10 @@ Module.register("weatherforecast", {
 		}
 
 		//Log.log(this.forecast);
-		this.show(this.config.animationSpeed, { lockString: this.identifier });
-		this.loaded = true;
+		if (!this.loaded) {
+			this.show(this.config.animationSpeed, { lockString: this.identifier });
+			this.loaded = true;
+		}
 		this.updateDom(this.config.animationSpeed);
 	},
 
