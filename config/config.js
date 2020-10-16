@@ -423,7 +423,7 @@ var config = {
 					],
 					cloudy_windy : [
 						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este înorat și vânt",
-						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Bate vântul și e înorat"
+						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este vânt și înorat"
 					],
 					showers : [
 						"<i class=\"skyblue wi wi-day-showers\"></i> Afară plouă puțin",
