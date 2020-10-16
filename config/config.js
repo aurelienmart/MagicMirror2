@@ -281,6 +281,7 @@ var config = {
 				showHumidity: true,
 				showMinMax: false,
 				showFeelsLike: true,
+				realFeelsLike: true,
 				showDescription: true,
 				showSun: false,
 				weatherEndpoint: "weather",
