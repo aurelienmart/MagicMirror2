@@ -554,18 +554,14 @@ header {
 
 /* compliments */
 
-.compliments .wi,
-.compliments .fa {
+.complimentz .wi,
+.complimentz .fa {
 	display: inline-block;
 	transform: translateY(-3px) scale(0.6);
 }
 
-.night_compliments .pre-line {
-	padding-top: 20px;
-/*	display: inline-block;
-	transform: translateY(-150px);
-*/	font-size: 3rem;
-	line-height: 3.3rem;
+.complimentz > span {
+	height: 175px;
 }
 
 /* quotes */
@@ -877,24 +873,6 @@ header {
 	transform: translate(0, 20px);
 	height: 70px;
 	float: left;
-}
-
-.night_weather {
-	padding-top: 10px;
-/*	display: inline-block;
-	transform: translateY(-295px);
-*/	margin-left: 2px;
-}
-
-.night_weather .wtemp {
-	display: inline-block;
-	transform: translate(-3px, -5px);
-	letter-spacing: -5px;
-}
-
-.night_weather .wicon {
-	transform: translate(-10px, 20px);
-	float: right;
 }
 
 .currentweather .deg {
