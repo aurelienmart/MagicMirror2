@@ -99,6 +99,20 @@ var config = {
 			}
 		},
 		{
+			module: "yframe",
+			position: "top_left",
+			classes: "imoon night",
+			disabled: true,
+			config: {
+				url: "modules/icalendar/moon.html",
+				media: false,
+				allow: "",
+				width: "100%",
+				height: "22px",
+				cssClass: "moon"
+			}
+		},
+		{
 			module: "calendar",
 			position: "top_left",
 			classes: "moon night",
