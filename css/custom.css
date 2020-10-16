@@ -528,12 +528,6 @@ header {
 	margin-top: 5px;
 }
 
-/* moon */
-
-.moon {
-	margin: -1px 0;
-}
-
 /* swatch */
 
 .swatch {
@@ -586,7 +580,7 @@ header {
 /* Calendar */
 
 .imoon {
-	margin-left: -5px;
+	margin: -1px 0;
 }
 
 .imoon table tr {
