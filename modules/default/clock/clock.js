@@ -204,7 +204,6 @@ Module.register("clock", {
 			var illuminatedFractionString = Math.round(moonIllumination.fraction * 100) + "%";
 			if (Math.round(moonIllumination.fraction * 100) === 100) {illuminatedFractionString = this.translate("Full Moon");}
 			if (Math.round(moonIllumination.fraction * 100) === 0) {illuminatzedFractionString = this.translate("New Moon");}
-			Log.info(Math.round(moonIllumination.fraction * 100) + illuminatzedFractionString);
 
 			moonWrapper.innerHTML = "<span class=\"" + (isVisible ? "bright" : illuminatzedFractionString) + "\"> <i class=\"wi wi-night-clear\"></i>&nbsp; " + illuminatzedFractionString + "</span>" +
 				"<span>&nbsp;<i class=\"wi wi-moonrise\"></i>&nbsp; " + (moonRise ? formatTime(this.config, moonRise) : this.translate("TOMORROW")) + "</span>"+
