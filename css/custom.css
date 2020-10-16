@@ -560,7 +560,7 @@ header {
 	transform: translateY(-3px) scale(0.6);
 }
 
-.complimentz > span {
+.complimentz {
 	height: 175px;
 }
 
@@ -585,11 +585,15 @@ header {
 
 /* Calendar */
 
-.moon table tr {
+.imoon {
+	margin-left: -5px;
+}
+
+.imoon table tr {
 	height: 22px;
 }
 
-.moon table td {
+.imoon table td {
 /*	border: 0; */
 }
 
