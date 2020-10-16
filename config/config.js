@@ -101,7 +101,7 @@ var config = {
 		{
 			module: "calendar",
 			position: "top_left",
-			classes: "moon",
+			classes: "moon night",
 			disabled: false,
 			config: {
 				maximumEntries: 1,
