@@ -87,7 +87,7 @@ Module.register("timer", {
 
 		if (window.innerWidth < this.config.bodysize) { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"});
 			if (this.config.nightMode) {
-				if (now >= midnight && now < morning) { night_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize * 1.55 + ")"})} 
+				if (now >= midnight && now < morning) { night_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize * 1.54 + ")"})} 
 				else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"})}
 			}
 		} else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(1)"})}
@@ -100,8 +100,8 @@ Module.register("timer", {
 
 		function night_mode() { // because this is better that stupid hide.module
 			hide.forEach(function(element) {element.style.display = "none"}); icon.forEach(function(element) {element.style.float = "right"});
-			weat.forEach(function(element) {return element.style.transform = "translate(-720px, 280px)", element.style.textAlign = "left"});
-			comp.forEach(function(element) {return element.style.width = "600px", element.style.transform = "translateY(-120%) scale(0.5)"});
+			weat.forEach(function(element) {return element.style.transform = "translate(-720px, 305px)", element.style.textAlign = "left"});
+			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-125%) scale(0.6)"});
 		}
 	},
 
