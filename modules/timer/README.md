@@ -1,7 +1,6 @@
-# timer + dimmer & notification
+# timer + dimmer
 
 https://github.com/hangorazvan/timer
-https://github.com/hangorazvan/timer/tree/notification
 
 MagicMirror 2 Notification alert & timer trigger for my own use on iPad3
 
