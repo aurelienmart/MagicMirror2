@@ -98,6 +98,12 @@ Module.register("weatherforecast", {
 		if (!this.loaded) {
 			wrapper.innerHTML = this.translate("LOADING");
 			wrapper.className = "dimmed light small";
+
+			var self = this;
+			setInterval(function () {
+				self.updateWeather();
+			}, this.config.updateInterval);
+
 			return wrapper;
 		}
 
