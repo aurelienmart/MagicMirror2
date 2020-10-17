@@ -579,8 +579,12 @@ header {
 
 /* Calendar */
 
+.calendar {
+	transform: translateX(7px);
+}
+
 .calendar header {
-	transform: translateX(-7px);
+	transform: translateX(-5px);
 }
 
 .calendar table {
