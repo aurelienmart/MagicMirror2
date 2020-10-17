@@ -579,22 +579,6 @@ header {
 
 /* Calendar */
 
-.imoon {
-	margin: -1px 0;
-}
-
-.imoon table tr {
-	height: 22px;
-}
-
-.imoon table td {
-/*	border: 0; */
-}
-
-.calendarz {
-	padding-left: 10px;
-}
-
 .calendar header {
 	transform: translateX(-7px);
 }
@@ -620,15 +604,13 @@ header {
 
 /* jquery Calendar */
 
-.icalendar,
-.moon {
+.icalendar {
 	padding: 0 1px;
 	text-overflow: clip;
 	overflow: hidden;
 }
 
 .icalendar table,
-.moon table,
 .calendar-table table {
 	width: 100%;
 	white-space: nowrap; 
@@ -649,7 +631,6 @@ header {
 }
 
 .icalendar table td,
-.moon table td,
 .calendar-table table td {
 	padding: 0;
 }
@@ -664,13 +645,11 @@ header {
 }
 
 .icalendar table .description,
-.moon table .description,
 .calendar-table table .description {
 	white-space: nowrap;
 }
 
 .icalendar table .days,
-.moon table .days,
 .calendar-table table .days {
 	padding-left: 5px;
 	text-align: right;
@@ -678,7 +657,6 @@ header {
 	color: darkgray;
 }
 
-.moon .fa,
 .icalendar .fa {
 	display: inline-block;
 	transform: translate(2px, -2px);
