@@ -7,10 +7,10 @@
  * See https://github.com/MichMich/MagicMirror#configuration
  *
  */
-
+ 
 var config = {
 	address: "0.0.0.0",
-	port: 8080,
+	port: 8255,
 	basePath: "/",
 	ipWhitelist: [],
 	useHttps: false,
@@ -22,12 +22,11 @@ var config = {
 	units: "metric",
 	latitude: 44.4323,
 	longitude: 26.1063,
-	location: "Bucharest",
-	country: "Romania",
+	location: "București",
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
-	appid: "xxx",
+	appid: "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
 	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5",
 	roundTemp: false,
@@ -99,75 +98,6 @@ var config = {
 			}
 		},
 		{
-			module: "yframe",
-			position: "top_left",
-			classes: "imoon night",
-			disabled: true,
-			config: {
-				url: "modules/icalendar/moon.html",
-				media: false,
-				allow: "",
-				width: "100%",
-				height: "22px",
-				cssClass: "moon"
-			}
-		},
-		{
-			module: "calendar",
-			position: "top_left",
-			classes: "moon night",
-			disabled: false,
-			config: {
-				maximumEntries: 1,
-				maximumNumberOfDays: 365,
-				displaySymbol: true,
-				defaultSymbol: "moon",
-				showLocation: false,
-				displayRepeatingCountTitle: true,
-				defaultRepeatingCountTitle: "",
-				maxTitleLength: 25,
-				maxLocationTitleLength: 25,
-				wrapEvents: false,
-				wrapLocationEvents: false,
-				maxTitleLines: 3,
-				maxEventTitleLines: 3,
-				fetchInterval: 60 * 1000,
-				fade: false,
-				fadePoint: 0.25,
-				colored: false,
-				coloredSymbolOnly: true,
-				urgency: 10,
-				timeFormat: "relative",
-				sliceMultiDayEvents: false,
-				dateFormat: "MMM Do",				
-				dateEndFormat: "LT",
-				fullDayEventDateFormat: "ddd D MMM",
-				showEnd: false,
-				getRelative: 24,
-				hidePrivate: false,
-				hideOngoing: false,
-				tableClass: "qsmall",
-				titleReplace: {
-					"New moon": "Lună nouă la",
-					"First quarter": "Primul pătrar la",
-					"Full moon": "Lună plină la",
-					"Last quarter": "Ultimul pătrar la",
-				},
-				locationTitleReplace: {},
-				broadcastEvents: true,
-				excludedEvents: [],
-				broadcastPastEvents: false,
-				nextDaysRelative: true,
-
-				calendars: [
-					{
-						symbol: "moon", symbolClass: "bright", titleClass: "normal", timeClass: "normal", color: "dimmed",
-						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
-					}
-				]
-			}
-		},
-		{
 			module: "swatch",
 			position: "top_left",
 			classes: "night",
@@ -177,18 +107,39 @@ var config = {
 			}
 		},
 		{
-			module: "yframe",
+			module: "simpletext",
 			position: "top_left",
-			classes: "icalendar",
-			header: "Calendar evenimente și aniversări",
 			disabled: true,
 			config: {
-				url: "modules/icalendar/icalendar.html",
-				media: false,
-				allow: "",
-				width: "100%",
-				height: "700px",
-				cssClass: "icalendar"
+				text: "",
+				cssClass: "empty",
+				header: "Calendar evenimente și aniversări",
+			}
+		},
+		{
+			module: "icalendar",
+			position: "top_left",
+			disabled: true,
+			config: {
+				maximumEntries: 14,
+				calendarClass: "icalendar",
+				defaultSymbol: "calendar",
+				displaySymbol: true,
+				updateInterval: 1000,
+				updateDataInterval: 60 * 1000,
+
+				calendar: {
+					urls: [
+						{
+							symbol: "calendar-check-o",
+							url: "https://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
+						},
+						{
+							symbol: "moon",
+							url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
+						},
+					]
+				}
 			}
 		},
 		{
@@ -221,7 +172,7 @@ var config = {
 				sliceMultiDayEvents: false,
 				dateFormat: "MMM Do",				
 				dateEndFormat: "LT",
-				fullDayEventDateFormat: "ddd D MMM HH:mm",
+				fullDayEventDateFormat: "ddd D MMM",
 				showEnd: false,
 				getRelative: 24,
 				hidePrivate: false,
@@ -230,6 +181,10 @@ var config = {
 				titleReplace: {
 					"Ziua Internațională a Femeii": "Ziua femeii",
 					"Zi Constantin Brancusi": "Ziua Constantin Brancuși",
+					"New moon": "Lună nouă la",
+					"First quarter": "Primul pătrar la",
+					"Full moon": "Lună plină la",
+					"Last quarter": "Ultimul pătrar la",
 				},
 				locationTitleReplace: {},
 				broadcastEvents: true,
@@ -248,10 +203,15 @@ var config = {
 					{
 						symbol: "calendar-check-o", symbolClass: "skyblue", titleClass: "skyblue", timeClass: "skyblue", color: "normal",
 						url: "https://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
-					}
-				]
+					},
+					{
+						symbol: "moon", symbolClass: "normal", titleClass: "normal", timeClass: "normal", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
+					},
+			]
 			}
 		},
+
 		{
 			module: "clock",
 			position: "top_center",
@@ -267,7 +227,7 @@ var config = {
 		},
 		{
 			module: "monthly",
-			position: 'top_center',
+			position: "top_center",
 			disabled: false,
 			config: {
 				startMonth: 0,
@@ -276,6 +236,12 @@ var config = {
 				repeatWeekdaysVertical: true,
 				weekNumbers: true
 			}
+		},
+				{
+			module: "kamasutra",
+			position: "top_center",
+			header: "Kama Sutra Sex Positions",
+			disabled: true
 		},
 		{
 			module: "currentweather",
@@ -336,7 +302,7 @@ var config = {
 			classes: "daily",
 			disabled: false,
 			config: {
-				maxNumberOfDays: 14,
+				maxNumberOfDays: 13,
 				showRainAmount: true,
 				showSnowAmount: false,
 				updateInterval: 10 * 60 * 2000,
@@ -474,10 +440,13 @@ var config = {
 						"<i class=\"skyblue wi wi-night-cloudy-windy\"></i> Ceață și nori"
 					],
 					"14-02-...." : [
-						"<span class=\"orangered\"><i class=\"fa fa-heart\"></i> Happy Valentine's Day!</span>"
+						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
+					],
+					"31-10-...." : [
+						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
 					],
 					"01-12-...." : [
-						"<span class=\"gold\"><i class=\"fa fa-birthday-cake\"></i> La mulți ani România!</span>"
+						"<i class=\"gold fa fa-glass-cheers\"></i> La mulți ani România!"
 					],
 					"25-12-...." : [
 						"<i class=\"bright fa fa-snowman\"></i> Crăciun fericit!",
@@ -488,11 +457,11 @@ var config = {
 						"<i class=\"gold fa fa-gifts\"></i> Sărbători fericite!"
 					],
 					"01-01-...." : [
-						"<i class=\"gold fas fa-glass-cheers\"></i> Un An Nou fericit!",
+						"<i class=\"gold fa fa-glass-cheers\"></i> Un An Nou fericit!",
 						function() {return "La mulți ani! " + moment().format("YYYY");}
 					],
 					"02-01-...." : [
-						"<i class=\"gold fas fa-glass-cheers\"></i> Un An Nou fericit!",
+						"<i class=\"gold fa fa-glass-cheers\"></i> Un An Nou fericit!",
 						function() {return "La mulți ani! " + moment().format("YYYY");}
 					],
 					"..-..-...." : [
@@ -512,17 +481,11 @@ var config = {
 			}
 		},
 		{
-			module: "yframe",
+			module: "rssfeed",
 			position: "bottom_bar",
-			classes: "rssfeed",
 			disabled: true,
 			config: {
-				url: "modules/rssfeed/rssfeed.html",
-				media: false,
-				allow: "",
-				width: "99%",
-				height: "300px",
-				cssClass: "rssfeed"
+
 			}
 		},
 		{
@@ -601,7 +564,7 @@ var config = {
 					}
 				]
 			}
-		}
+		},
 	]
 };
 
