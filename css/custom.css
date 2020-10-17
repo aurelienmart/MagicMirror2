@@ -681,7 +681,8 @@ header {
 .moon .fa,
 .icalendar .fa {
 	display: inline-block;
-	transform: translate(-2px, 2px);
+	transform: translate(2px, -2px);
+	padding-right: 5px;
 }
 
 .icalendar .fa-calendar, 
@@ -1225,10 +1226,10 @@ header {
 		border-bottom: 0;
 	}
 
-/*	.icalendar table tr:nth-child(n+13),
-	.calendar-table tr:nth-child(n+13)
+/*	.calendar-table tr:nth-child(n+13)
 	.calendar table tr:nth-child(n+13),
-*/	.calendar table tr:nth-child(n+12),
+*/	.icalendar table tr:nth-child(n+14),
+	.calendar table tr:nth-child(n+13),
 	.hourly table tr:nth-child(n+5),
 	.daily table tr:nth-child(n+13),
 	.daily2 table tr:nth-child(n+16),
@@ -1236,28 +1237,17 @@ header {
 		display: none !important;
 	}
 
-	.icalendar {
-		height: 265px !important;
-	}
-
-	.rssfeed {
-		height: 200px !important;
-		width: 125% !important;
-		transform-origin: 0 0;
-		transform: translate(0, 40px) scale(0.8);
-	}
-
 	.rssfeed .feed,
 	.feed {
-		font-size: 1.8rem;
-		line-height: 2rem;
+		font-size: 1.2rem;
+		line-height: 1.4rem;
 	}
 
 	.rssfeed .feed .date,
 	.rssfeed .feed .source,
 	.feed .date, .feed .source {
-		font-size: 1.6rem;
-		line-height: 1.8rem;
+		font-size: 1.2rem;
+		line-height: 1.4rem;
 	}
 
 	.newsfeed, .newsfeed .light {

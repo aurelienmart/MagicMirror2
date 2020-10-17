@@ -1,7 +1,5 @@
 {
 	"LOADING": "Se încarcă &hellip;",
-	"Bucharest": "București",
-	"Romania": "România",
 
 	"YESTERDAY": "Ieri",
 	"TODAY": "Astăzi",
@@ -21,6 +19,9 @@
 	"DAY": "Ziua {dayNumber}",
 
     "NOW": "Acum",
+
+	"STILL": "still",
+	"UNTIL": "until",
 
 	"No rain": "Nu plouă",
 	"No snow": "Nu ninge",
