@@ -485,7 +485,24 @@ var config = {
 			position: "bottom_bar",
 			disabled: true,
 			config: {
-
+				lengthDescription: 600,
+				fetchNews: 600 * 1000,
+				feeds: {
+				//	"NewsIn"    : "https://newsin.ro/feed",
+				//	"Discovery" : "https://discovery.ro/feed/",
+				//	"Agerpress" : "https://www.agerpres.ro/home.rss",
+				//	"Digi24"    : "https://m.digi24.ro/rss",
+					"ProTV"     : "https://rss.stirileprotv.ro",
+					"Mediafax"  : "https://www.mediafax.ro/rss",
+					"HotNews"   : "https://www.hotnews.ro/rss",
+					"News.ro"   : "https://www.news.ro/rss",
+					"MainNews"  : "https://mainnews.ro/feed",
+					"Ziare.com" : "https://www.ziare.com/rss/12h.xml"
+				},
+				feedMaxAge: {
+					days: 0,
+					hours: 12
+				},
 			}
 		},
 		{
