@@ -42,6 +42,7 @@ Module.register("rssfeed", {
 	},
 
 	newsfeed: function() {
+		var fetchNewsTime = this.config.fetchNewsTime;
 		var feedURLs = this.config.feeds;
 		var feedMaxAge = this.config.feedMaxAge;
 		var lengthDescription = this.config.lengthDescription;
@@ -71,16 +72,15 @@ Module.register("rssfeed", {
 			}
 			function fetchNews() {
 				var cachebuster = new Date().getTime();
-				var index	  = 0;
+				var index = 0;
 				for(var key in feedURLs) {
 					var url = feedURLs[key] + "&_nocache=" + cachebuster;
 					fetchNewsForURL(index++, "modules/rssfeed/rssfeed.php?url=" + encodeURI(url));
 				}
-				setTimeout(fetchNews, this.config.fetchNews);
+				setTimeout(fetchNews, fetchNewsTime);
 			}
 			fetchNews();
-			function fetchNewsForURL(index, url)
-			{
+			function fetchNewsForURL(index, url) {
 				$.get( url, function(rssData, textStatus) {
 					var oldestDate = moment().subtract(feedMaxAge.days, "days").subtract(feedMaxAge.hours, "hours");
 					var stories = [];
@@ -143,15 +143,6 @@ Module.register("rssfeed", {
 					i++;
 				}
 				$(".source").updateWithTextForce("<i class=\"fa fa-rss-square\"></i> " + key, 2000, true);
-				newsFeed = news[newsFeedIndex];
-				newsStory = newsFeed[newsStoryIndex];
-				newsStoryIndex++;
-				var nextTimeout = 1000;
-				if( typeof newsStory != "undefined") {
-					$(".news").updateWithTextForce(newsStory, 2000);
-					nextTimeout = 10000 + (newsStory.length * 100);
-				}
-				setTimeout(showNews, nextTimeout);
 				var dots = "";
 				for(i=0; i < news.length; i++) {
 					if(i == newsFeedIndex)
@@ -167,6 +158,15 @@ Module.register("rssfeed", {
 						dots += "";
 				}
 			//	$(".dots").updateWithTextForce(dots, 2000, true);
+				newsFeed = news[newsFeedIndex];
+				newsStory = newsFeed[newsStoryIndex];
+				var nextTimeout = 1000;
+				if( typeof newsStory != "undefined") {
+					$(".news").updateWithTextForce(newsStory, 2000);
+					nextTimeout = 10000 + (newsStory.length * 100);
+				}
+				newsStoryIndex++;
+				setTimeout(showNews, nextTimeout);
 			})();
 		});
 	}
