@@ -10,7 +10,7 @@
 var config = {
 	lang: "ro",
 	calendar: {
-		maximumEntries: 14,
+		maximumEntries: 12,
 		defaultSymbol: "calendar",
 		displaySymbol: true,
 		urls: [
