@@ -137,8 +137,13 @@ Module.register("timer", {
 		var sharp = "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm");
 
 		if (secs == "58") {
-			if (window.navigator.onLine == true) {this.sendNotification("ONLINE_NOTIFICATION")}
-			else if (window.navigator.onLine == false) {this.sendNotification("OFFLINE_NOTIFICATION")}
+			if (window.navigator.onLine == true) {
+				if ((now >= "00:00:00") && (now < "07:00:00")) {
+					this.sendNotification("NIGHT_ONLINE_NOTIFICATION", this.opacity)
+				} else this.sendNotification("DAY_ONLINE_NOTIFICATION")
+			} else if (window.navigator.onLine == false) {
+				this.sendNotification("OFFLINE_NOTIFICATION")
+			}
 		}
 
 		if (this.config.sharpMode) {

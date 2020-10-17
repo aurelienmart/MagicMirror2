@@ -59,6 +59,7 @@ Module.register("notification", {
 
 	offLine: function () {
 		this.title = "<span class=\"orangered\">" + this.translate("No Internet connection!") + "</span>";
+		this.notification = this.translate("Check Wi-Fi connection and router");
 		this.updateDom(this.config.animationSpeed);
 	},
 
@@ -68,15 +69,19 @@ Module.register("notification", {
 			this.notification = "Răzvan Cristea &copy; " + moment().year() + ", MIT License.";
 			this.updateDom(this.config.animationSpeed);
 
-			clearTimeout(this.updateTimer);
-			this.updateTimer = setTimeout(function () {
+			setTimeout(function () {
 				self.onLine();
 			}, this.config.timer);
 		}
 
-		if (notification === "ONLINE_NOTIFICATION") {this.onLine();}
+		if (notification === "DAY_ONLINE_NOTIFICATION") {this.onLine();}
 
 		if (notification === "OFFLINE_NOTIFICATION") {this.offLine();}
+
+		if (notification === "NIGHT_ONLINE_NOTIFICATION") {
+			this.notification = this.translate("Dimmed night mode ") + parseInt(payload * 100) + "%";
+			this.updateDom(this.config.animationSpeed);
+		}
 
 		if (notification === "NIGHT_NOTIFICATION") {
 			this.notification = this.translate("Dimmed night mode ") + parseInt(payload * 100) + "%";
@@ -97,8 +102,7 @@ Module.register("notification", {
 			} else this.config.timer = payload.timer;
 			this.updateDom(this.config.animationSpeed);
 
-			clearTimeout(this.updateTimer);
-			this.updateTimer = setTimeout(function () {
+			setTimeout(function () {
 				self.onLine();
 			}, this.config.timer);
 		}
