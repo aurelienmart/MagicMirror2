@@ -486,7 +486,7 @@ var config = {
 			disabled: true,
 			config: {
 				lengthDescription: 600,
-				fetchNews: 600 * 1000,
+				fetchNews: 60 * 60 * 1000,
 				feeds: {
 				//	"NewsIn"    : "https://newsin.ro/feed",
 				//	"Discovery" : "https://discovery.ro/feed/",
