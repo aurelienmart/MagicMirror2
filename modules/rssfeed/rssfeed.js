@@ -75,7 +75,7 @@ Module.register("rssfeed", {
 				var index = 0;
 				for(var key in feedURLs) {
 					var url = feedURLs[key] + "&_nocache=" + cachebuster;
-					fetchNewsForURL(index++, "modules/rssfeed/rssfeed.php?url=" + encodeURI(url));
+					fetchNewsForURL(index++, "php/rssfeed.php?url=" + encodeURI(url));
 				}
 				setTimeout(fetchNews, fetchNewsTime);
 			}
