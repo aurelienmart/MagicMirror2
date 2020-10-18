@@ -24,19 +24,19 @@ Module.register("rssfeed", {
 		var wrapper = document.createElement("div");
 		wrapper.className = "feed normal";
 		var RSS = document.createElement("span");
-		RSS.className = "RSS";
+		RSS.className = "RSS dimmed";
 		wrapper.appendChild(RSS);
 		var source = document.createElement("span");
-		source.className = "source";
+		source.className = "source dimmed";
 		wrapper.appendChild(source);
 		var news = document.createElement("span");
 		news.className = "news bright";
 		wrapper.appendChild(news);
 		var story = document.createElement("span");
-		story.className = "story";
+		story.className = "story normal";
 		wrapper.appendChild(story);
 		var dots = document.createElement("span");
-		dots.className = "dots";
+		dots.className = "dots shade";
 		wrapper.appendChild(dots);
 		return wrapper;
 	},
