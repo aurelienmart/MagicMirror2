@@ -145,7 +145,6 @@ var config = {
 		{
 			module: "calendar",
 			position: "top_left",
-			classes: "calendarz",
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
