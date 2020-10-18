@@ -549,7 +549,9 @@ header {
 /* compliments */
 
 .complimentz .wi,
-.complimentz .fa {
+.complimentz .fa,
+.complimentz .fas,
+.complimentz .far {
 	display: inline-block;
 	transform: translateY(-3px) scale(0.6);
 }
