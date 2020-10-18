@@ -14,6 +14,10 @@ Module.register("rssfeed", {
 	getScripts: function() {
 		return ["jquery.js"];
 	},
+
+	getStyles: function () {
+		return ["font-awesome.css"];
+	},
 	
 	start: function() {
 		Log.info("Starting module: " + this.name);
