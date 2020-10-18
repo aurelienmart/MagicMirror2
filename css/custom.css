@@ -548,12 +548,16 @@ header {
 
 /* compliments */
 
-.complimentz .wi,
+.complimentz .wi {
+	display: inline-block;
+	transform: translateY(-3px) scale(0.6);
+}
+
 .complimentz .fa,
 .complimentz .fas,
 .complimentz .far {
 	display: inline-block;
-	transform: translateY(-3px) scale(0.6);
+	transform: scale(0.75);
 }
 
 .complimentz {
