@@ -109,11 +109,11 @@ var config = {
 		{
 			module: "simpletext",
 			position: "top_left",
+			header: "Calendar evenimente și aniversări",
 			disabled: true,
 			config: {
 				text: "",
 				cssClass: "empty",
-				header: "Calendar evenimente și aniversări",
 			}
 		},
 		{
