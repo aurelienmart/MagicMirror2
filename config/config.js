@@ -380,68 +380,68 @@ var config = {
 						"Ai vreun coșmar?"
 					],
 					day_sunny : [
-						"<i class=\"gold wi wi-day-sunny\"></i> Este însorit afară",
-						"<i class=\"gold wi wi-day-sunny\"></i> Este frumos afară"
+						"<i class=\"gold far fa-sun\"></i> Este însorit afară",
+						"<i class=\"gold fas fa-sun\"></i> Este frumos afară"
 					],
 					day_cloud : [
-						"<i class=\"lightblue wi wi-day-cloudy\"></i> Sunt câțiva nori",
-						"<i class=\"lightblue wi wi-day-cloudy\"></i> Nori împrăștiați"
+						"<i class=\"lightblue fa fa-cloud-sun\"></i> Sunt câțiva nori",
+						"<i class=\"lightblue fa fa-cloud-sun\"></i> Nori împrăștiați"
 					],
 					cloudy : [
-						"<i class=\"skyblue wi wi-cloudy\"></i> Este înorat afară",
-						"<i class=\"skyblue wi wi-cloudy\"></i> Este cam înorat"
+						"<i class=\"skyblue fa fa-cloud\"></i> Este înorat afară",
+						"<i class=\"skyblue fa fa-cloud\"></i> Este cam înorat"
 					],
 					cloudy_windy : [
-						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este înorat și vânt",
-						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este vânt și înorat"
+						"<i class=\"powderblue fa fa-cloud\"></i> Este înorat și vânt",
+						"<i class=\"powderblue fa fa-cloud\"></i> Este vânt și înorat"
 					],
 					showers : [
-						"<i class=\"skyblue wi wi-day-showers\"></i> Afară plouă puțin",
-						"<i class=\"skyblue wi wi-day-showers\"></i> Plouă puțin pe afară"
+						"<i class=\"skyblue fa fa-cloud-sun-rain\"></i> Afară plouă puțin",
+						"<i class=\"skyblue fa fa-cloud-sun-rain\"></i> Plouă puțin pe afară"
 					],
 					rain : [
-						"<i class=\"deepskyblue wi wi-day-rain\"></i> Vreme ploioasă",
-						"<i class=\"deepskyblue wi wi-day-rain\"></i> Ploaie ușoară"
+						"<i class=\"deepskyblue fa fa-cloud-rain\"></i> Vreme ploioasă",
+						"<i class=\"deepskyblue fa fa-cloud-rain\"></i> Ploaie ușoară"
 					],
 					thunderstorm : [
-						"<i class=\"dodgerblue wi wi-day-thunderstorm\"></i> Afară este furtună!",
-						"<i class=\"dodgerblue wi wi-day-thunderstorm\"></i> Atenție, furtună!"
+						"<i class=\"dodgerblue fa fa-poo-storm\"></i> Afară este furtună!",
+						"<i class=\"dodgerblue fa fa-umbrella\"></i> Atenție, furtună!"
 					],
 					snow : [
-						"<i class=\"normal wi wi-day-snow\"></i> Afară ninge!",
-						"<i class=\"normal wi wi-day-snow\"></i> Este ninsoare"
+						"<i class=\"normal far fa-snowflake\"></i> Afară ninge!",
+						"<i class=\"normal fas fa-snowflake\"></i> Este ninsoare"
 					],
 					fog : [
-						"<i class=\"bright wi wi-day-fog\"></i> Afară este ceață",
-						"<i class=\"bright wi wi-day-fog\"></i> Vreme cu ceață"
+						"<i class=\"bright fa fa-smog\"></i> Afară este ceață",
+						"<i class=\"bright fa fa-smog\"></i> Vreme cu ceață"
 					],
 					night_clear : [
-						"<i class=\"dimmed wi wi-night-clear\"></i> Noapte senină",
-						"<i class=\"dimmed wi wi-night-clear\"></i> Este senin afară"
+						"<i class=\"dimmed fas fa-moon\"></i> Noapte senină",
+						"<i class=\"dimmed far fa-moon\"></i> Este senin afară"
 					],
 					night_cloudy : [
-						"<i class=\"powderblue wi wi-night-cloudy\"></i> Este înorat afară",
-						"<i class=\"powderblue wi wi-night-cloudy\"></i> Noapte înorată"
+						"<i class=\"powderblue fa fa-cloud-moon\"></i> Este înorat afară",
+						"<i class=\"powderblue fa fa-cloud-moon\"></i> Noapte înorată"
 					],
 					night_showers : [
-						"<i class=\"skyblue wi wi-night-showers\"></i> Afară plouă mărunt",
-						"<i class=\"skyblue wi wi-night-showers\"></i> Ploaie măruntă"
+						"<i class=\"skyblue fa fa-cloud-moon-rain\"></i> Afară plouă mărunt",
+						"<i class=\"skyblue fa fa-cloud-moon-rain\"></i> Ploaie măruntă"
 					],
 					night_rain : [
-						"<i class=\"deepskyblue wi wi-night-rain\"></i> Afară plouă",
-						"<i class=\"deepskyblue wi wi-night-rain\"></i> Noapte ploioasă"
+						"<i class=\"deepskyblue fa fa-cloud-shower-heavy\"></i> Afară plouă",
+						"<i class=\"deepskyblue fa fa-cloud-shower-heavy\"></i> Noapte ploioasă"
 					],
 					night_thunderstorm : [
-						"<i class=\"royalblue wi wi-night-thunderstorm\"></i> Noapte furtunoasă!",
-						"<i class=\"royalblue wi wi-night-thunderstorm\"></i> Nu e vreme de ieșit!"
+						"<i class=\"royalblue fa fa-wind\"></i> Noapte furtunoasă!",
+						"<i class=\"royalblue fa fa-poo-storm\"></i> Nu e vreme de ieșit!"
 					],
 					night_snow : [
-						"<i class=\"normal wi wi-night-snow\"></i> Noapte cu ninsoare",
-						"<i class=\"normal wi wi-night-snow\"></i> Afară ninge!"
+						"<i class=\"normal fas fa-snowflake\"></i> Noapte cu ninsoare",
+						"<i class=\"normal far fa-snowflake\"></i> Afară ninge!"
 					],
 					night_alt_cloudy_windy : [
-						"<i class=\"skyblue wi wi-night-cloudy-windy\"></i> Nori și ceață",
-						"<i class=\"skyblue wi wi-night-cloudy-windy\"></i> Ceață și nori"
+						"<i class=\"skyblue fa fa-cloud-moon\"></i> Nori și ceață",
+						"<i class=\"skyblue fa fa-cloud-moon\"></i> Ceață și nori"
 					],
 					"14-02-...." : [
 						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
