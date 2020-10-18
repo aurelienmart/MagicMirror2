@@ -131,6 +131,7 @@ var config = {
 				defaultSymbol: "calendar",
 				displaySymbol: true,
 				updateInterval: 1000,
+				updateDataInterval: 60 * 1000,
 
 				calendar: {
 					urls: [
