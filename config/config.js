@@ -47,6 +47,11 @@ var config = {
 			position: "top_center",
 			classes: "night",
 			disabled: false,
+			config: {
+				startTitle: "<i class=\"lime fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;",
+				startNotification: "Modular smart mirror platform",
+				timer: 8000,
+			}
 		},
 		{
 			module: "timer",
