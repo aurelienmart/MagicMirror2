@@ -39,6 +39,7 @@ Module.register("icalendar", {
 			eventList: [],
 			calendarLocation: this.config.calendarClass,
 			updateInterval: this.config.updateInterval,
+			updateDataInterval: this.config.updateDataInterval,
 			fadeInterval: config.animation,
 			fade: 1,
 			maximumEntries: this.config.maximumEntries || 52,
@@ -206,6 +207,9 @@ Module.register("icalendar", {
 			setInterval(function () {
 			    this.updateCalendar(this.eventList)
 			}.bind(this), this.updateInterval);
+			setInterval(function () {
+				this.updateData(this.updateCalendar.bind(this));
+			}.bind(this), this.updateDataInterval);
 		};
 
 		/** 
