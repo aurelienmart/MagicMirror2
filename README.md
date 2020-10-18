@@ -9,8 +9,8 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for HD monitor + Wi
 <br>Clock https://github.com/hangorazvan/clock_plus
 
 <b>Some 3rd party modified modules:</b>
-<br>multimonth monthly calendar
-<br>random_quotes
+<br>multi monthly calendar
+<br>random quotes
 
 <b>My own test developed modules:</b>
 <br>swatch.beat https://github.com/hangorazvan/swatch
