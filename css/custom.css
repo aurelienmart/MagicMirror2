@@ -580,11 +580,11 @@ header {
 /* Calendar */
 
 .calendar {
-	transform: translateX(7px);
+	transform: translateX(0);
 }
 
 .calendar header {
-	transform: translateX(-5px);
+	transform: translateX(0);
 }
 
 .calendar table {
@@ -594,7 +594,7 @@ header {
 
 .calendar .symbol span {
 	display: inline-block;
-	transform: translate(-10px, 2px);
+	transform: translate(-5px, 2px);
 }
 
 .calendar .title::first-letter {
@@ -609,7 +609,7 @@ header {
 /* jquery Calendar */
 
 .icalendar {
-	padding: 0 1px;
+	padding-left: 1px;
 	text-overflow: clip;
 	overflow: hidden;
 }
