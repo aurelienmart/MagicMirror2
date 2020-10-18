@@ -19,6 +19,10 @@ Module.register("compliments", {
 		return ["moment.js"];
 	},
 
+	getStyles: function () {
+		return ["font-awesome.css", "weather-icons.css"];
+	},
+
 	// Define start sequence.
 	start: function () {
 		Log.info("Starting module: " + this.name);
