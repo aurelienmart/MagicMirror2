@@ -30,6 +30,6 @@ Module.register("simpletext",{
 	},
 
 	getHeader: function () {
-		return this.config.header;
+		return this.data.header;
 	},
 });

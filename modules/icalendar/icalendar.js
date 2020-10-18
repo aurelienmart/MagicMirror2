@@ -28,6 +28,10 @@ Module.register("icalendar", {
 		wrapper.className = this.config.calendarClass + " qsmall";
 		return wrapper;
 	},
+
+	getHeader: function () {
+		return false;
+	},
 	
 	calendar: function() {
 		var configs = this.config;
