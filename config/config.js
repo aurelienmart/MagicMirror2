@@ -131,7 +131,7 @@ var config = {
 				defaultSymbol: "calendar",
 				displaySymbol: true,
 				updateInterval: 1000,
-				updateDataInterval: 60 * 1000,
+				updateDataInterval: 5 * 60 * 1000,
 
 				calendar: {
 					urls: [
@@ -166,7 +166,7 @@ var config = {
 				wrapLocationEvents: false,
 				maxTitleLines: 3,
 				maxEventTitleLines: 3,
-				fetchInterval: 60 * 1000,
+				fetchInterval: 5 * 60 * 1000,
 				fade: true,
 				fadePoint: 0.25,
 				colored: false,
@@ -490,7 +490,7 @@ var config = {
 			disabled: true,
 			config: {
 				lengthDescription: 600,
-				fetchNewsTime: 60 * 60 * 1000,
+				fetchNewsTime: 15 * 60 * 1000,
 				feeds: {
 				//	"NewsIn"    : "https://newsin.ro/feed",
 				//	"Discovery" : "https://discovery.ro/feed/",
