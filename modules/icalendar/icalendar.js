@@ -39,11 +39,8 @@ Module.register("icalendar", {
 			eventList: [],
 			calendarLocation: this.config.calendarClass,
 			updateInterval: this.config.updateInterval,
-			updateDataInterval: this.config.updateDataInterval,
 			fadeInterval: config.animation,
 			fade: 1,
-			intervalId: null,
-			dataIntervalId: null,
 			maximumEntries: this.config.maximumEntries || 52,
 			calendarUrl: (typeof this.config.calendar.urls == "undefined") ? this.config.calendar.url : this.config.calendar.urls[0].url,
 			calendarPos: 0,
@@ -169,7 +166,7 @@ Module.register("icalendar", {
 				} else {
 					setTimeout(function() {
 						this.updateData(this.updateCalendar.bind(this));
-					}.bind(this), 10);
+					}.bind(this), this.updateInterval);
 				}
 				if (typeof configs.calendar.urls != "undefined") {
 					this.calendarUrl = configs.calendar.urls[this.calendarPos].url;
@@ -206,12 +203,9 @@ Module.register("icalendar", {
 		};
 		calendar.init = function() {
 			this.updateData(this.updateCalendar.bind(this));
-			this.intervalId = setInterval(function () {
+			setInterval(function () {
 			    this.updateCalendar(this.eventList)
 			}.bind(this), this.updateInterval);
-			this.dataIntervalId = setInterval(function () {
-				this.updateData(this.updateCalendar.bind(this));
-			}.bind(this), this.updateDataInterval);
 		};
 
 		/** 
