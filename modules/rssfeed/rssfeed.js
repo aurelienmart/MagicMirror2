@@ -1,6 +1,5 @@
 /* Magic Mirror
  *
- * https://github.com/jangellx/MagicMirror
  * MIT Licensed.
  *
  * Redesigned by Răzvan Cristea
