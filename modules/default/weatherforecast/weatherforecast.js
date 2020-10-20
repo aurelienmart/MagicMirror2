@@ -120,7 +120,11 @@ Module.register("weatherforecast", {
 			table.appendChild(row);
 
 			var dayCell = document.createElement("td");
-			dayCell.className = "day";
+
+			if (config.language == "ro") {
+				dayCell.className = "day azi";
+			} else dayCell.className = "day";
+
 			dayCell.innerHTML = forecast.day;
 			row.appendChild(dayCell);
 
