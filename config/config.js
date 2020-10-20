@@ -57,7 +57,7 @@ var config = {
 			module: "timer",
 			disabled: false,
 			config: {
-				bodysize: 1080,
+				bodysize: 1050,
 				nightMode: true,
 
 				fadeMode: true,
@@ -108,7 +108,7 @@ var config = {
 			classes: "night",
 			disabled: false,
 			config: {
-				logo_height: 28
+				logo_height: 27
 			}
 		},
 		{
