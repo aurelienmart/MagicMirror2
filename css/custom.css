@@ -1122,7 +1122,7 @@ header {
 	}
 }
 
-@media screen and (min-height: 1079px) and (orientation: landscape) {
+@media screen and (min-height: 1023px) and (orientation: landscape) {
 	html {
 		position: absolute;
 		transform: rotate(-90deg);
@@ -1208,8 +1208,8 @@ header {
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
-		top: calc(100vh - 18%);
-		bottom: 11%;
+		top: calc(100vh - 24%);
+		bottom: 24%;
 	}
 
 	.large {
