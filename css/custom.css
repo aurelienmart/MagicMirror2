@@ -872,6 +872,10 @@ header {
     margin-top: -25px;
 }
 
+.currentweather .mmx {
+	font-size: 85%;
+}
+
 .currentweather .maxTemp {
 	color: coral;
 }
@@ -882,6 +886,14 @@ header {
 
 .currentweather .minMax {
 	color: silver;
+}
+
+.currentweather .descr {
+	font-size: 85%;
+}
+
+.currentweather .descr::first-letter {
+	text-transform: capitalize;
 }
 
 .currentweather .wi-day-sunny {
