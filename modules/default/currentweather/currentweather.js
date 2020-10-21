@@ -274,7 +274,6 @@ Module.register("currentweather", {
 
 		wrapper.appendChild(large);
 
-
 		if (this.config.showFeelsLike && this.config.onlyTemp === false) {
 			var small = document.createElement("div");
 			small.className = "normal medium rfd ";
@@ -324,14 +323,14 @@ Module.register("currentweather", {
 			if (this.config.showDescription) {
 				var description = document.createElement("div"); 		// weather description.
 				description.className = "dimmed descr";
-				description.innerHTML = this.translate("NOW") + ": <span class=bright>" + this.desc + "</span>";
+				description.innerHTML = "La ora: " + moment().format("HH:mm") + ": <span class=bright>" + this.desc + "</span>";
 				small.appendChild(description);
 			}
 
 			if (this.config.showMinMax) {
 				var maxTemp = document.createElement("span"); 			// max temperature.
 				maxTemp.className = "maxTemp mmx";
-				maxTemp.innerHTML = "<span class=\"lime\">" + moment().format("HH:mm") + ":&nbsp; </span><span class=\"minMax\">max.</span>&nbsp;" + this.roundValue(this.maxTemp.toFixed(1).replace(".", this.config.decimalSymbol)) + "&deg;" + degreeLabel;
+				maxTemp.innerHTML = "<span class=\"lime\">" + this.translate("NOW") + ":&nbsp; </span><span class=\"minMax\">max.</span>&nbsp;" + this.roundValue(this.maxTemp.toFixed(1).replace(".", this.config.decimalSymbol)) + "&deg;" + degreeLabel;
 				small.appendChild(maxTemp);
 	    		
 				var minTemp = document.createElement("span"); 			// min temperature.
@@ -339,7 +338,7 @@ Module.register("currentweather", {
 				minTemp.innerHTML = "&nbsp; <span class=\"minMax\">min.</span>&nbsp;" + this.roundValue(this.minTemp.toFixed(1).replace(".", this.config.decimalSymbol)) + "&deg;" + degreeLabel;
 				small.appendChild(minTemp);
 
-				var rains = document.createElement("span"); 				// rain. not working, under construction
+				var rains = document.createElement("span"); 			// rain. not working, under construction
 				rains.className = "mmx";
 				if ((isNaN(this.rain)) || (isNaN(this.snow))) {
 					rains.innerHTML = "&nbsp; <i class=\"wi wi-small-craft-advisory lime\"></i>&nbsp;" + this.translate("No rain");
