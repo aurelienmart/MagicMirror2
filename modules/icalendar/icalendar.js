@@ -11,7 +11,7 @@ Module.register("icalendar", {
 	defaults: {},
 
 	getScripts: function() {
-		return ["jquery.js", "nlp.js"];
+		return ["jquery.js"];
 	},
 
 	getStyles: function () {
@@ -1116,13 +1116,13 @@ Module.register("icalendar", {
 		    byeaster: null
 		  }
 
-		  RRule.parseText = function (text, language) {
-		    return getnlp().parseText(text, language)
-		  }
+//		  RRule.parseText = function (text, language) {
+//		    return getnlp().parseText(text, language)
+//		  }
 
-		  RRule.fromText = function (text, language) {
-		    return getnlp().fromText(text, language)
-		  }
+//		  RRule.fromText = function (text, language) {
+//		    return getnlp().fromText(text, language)
+//		  }
 
 		  RRule.optionsToString = function (options) {
 		    var key, value, strValues
@@ -1300,13 +1300,13 @@ Module.register("icalendar", {
 		    * Will convert all rules described in nlp:ToText
 		    * to text.
 		    */
-		    toText: function (gettext, language) {
-		      return getnlp().toText(this, gettext, language)
-		    },
+//		    toText: function (gettext, language) {
+//		      return getnlp().toText(this, gettext, language)
+//		    },
 
-		    isFullyConvertibleToText: function () {
-		      return getnlp().isFullyConvertible(this)
-		    },
+//		    isFullyConvertibleToText: function () {
+//		      return getnlp().isFullyConvertible(this)
+//		    },
 
 		    /**
 		     * @param {String} what - all/before/after/between
@@ -2711,19 +2711,19 @@ Module.register("icalendar", {
 		  RRule.rrulestr = rrulestr
 		  return RRule
 
-		  function getnlp () {
+//		  function getnlp () {
 		    // Lazy, runtime import to avoid circular refs.
-		    if (!getnlp._nlp) {
-		      if (root && root._getRRuleNLP) {
-		        getnlp._nlp = root._getRRuleNLP(RRule)
-		      } else if (typeof require === 'function') {
-		        getnlp._nlp = require('./nlp')(RRule)
-		      } else {
-		        throw new Error('You need to include rrule/nlp.js for fromText/toText to work.')
-		      }
-		    }
-		    return getnlp._nlp
-		  }
+//		    if (!getnlp._nlp) {
+//		      if (root && root._getRRuleNLP) {
+//		        getnlp._nlp = root._getRRuleNLP(RRule)
+//		      } else if (typeof require === 'function') {
+//		        getnlp._nlp = require('./nlp')(RRule)
+//		      } else {
+//		        throw new Error('You need to include rrule/nlp.js for fromText/toText to work.')
+//		      }
+//		    }
+//		    return getnlp._nlp
+//		  }
 		})); // eslint-disable-line
 	}
 });
