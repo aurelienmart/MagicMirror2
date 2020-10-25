@@ -21,6 +21,7 @@ Module.register("icalendar", {
 	start: function() {
 		Log.info("Starting module: " + this.name); 
 			this.calendar();
+			this.rrule();
 	},
 
 	getDom: function() {
@@ -440,6 +441,9 @@ Module.register("icalendar", {
 			//Load the file
 			this.load(this.feed_url);
 		}
+	},
+	
+	rrule: function() {
 
 		/*!
 		 * rrule.js - Library for working with recurrence rules for calendar dates.
