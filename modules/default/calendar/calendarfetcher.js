@@ -1,104 +1,88 @@
 /* Magic Mirror
  * Node Helper: Calendar - CalendarFetcher
  *
- * By Michael Teeuw https://michaelteeuw.nl
+ * By Michael Teeuw http://michaelteeuw.nl
  * MIT Licensed.
  */
-var Log = require("../../../js/logger.js");
-var ical = require("node-ical");
-var request = require("request");
 
-/**
- * Moment date
- *
- * @external Moment
- * @see {@link http://momentjs.com}
- */
+var ical = require("./vendor/ical.js");
 var moment = require("moment");
 
-/**
- *
- * @param {string} url The url of the calendar to fetch
- * @param {number} reloadInterval Time in ms the calendar is fetched again
- * @param {string[]} excludedEvents An array of words / phrases from event titles that will be excluded from being shown.
- * @param {number} maximumEntries The maximum number of events fetched.
- * @param {number} maximumNumberOfDays The maximum number of days an event should be in the future.
- * @param {object} auth The object containing options for authentication against the calendar.
- * @param {boolean} includePastEvents If true events from the past maximumNumberOfDays will be fetched too
- * @class
- */
-var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, includePastEvents) {
+var CalendarFetcher = function(url, reloadInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, includePastEvents) {
 	var self = this;
 
 	var reloadTimer = null;
 	var events = [];
 
-	var fetchFailedCallback = function () {};
-	var eventsReceivedCallback = function () {};
+	var fetchFailedCallback = function() {};
+	var eventsReceivedCallback = function() {};
 
-	/**
+	/* fetchCalendar()
 	 * Initiates calendar fetch.
 	 */
-	var fetchCalendar = function () {
+	var fetchCalendar = function() {
+
 		clearTimeout(reloadTimer);
 		reloadTimer = null;
 
-		var nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
+		nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
 		var opts = {
 			headers: {
-				"User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)"
+				"User-Agent": "Mozilla/5.0 (Node.js "+ nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)"
 			},
 			gzip: true
 		};
 
 		if (auth) {
-			if (auth.method === "bearer") {
+			if(auth.method === "bearer"){
 				opts.auth = {
 					bearer: auth.pass
 				};
+
 			} else {
 				opts.auth = {
 					user: auth.user,
-					pass: auth.pass,
-					sendImmediately: auth.method !== "digest"
+					pass: auth.pass
 				};
+
+				if(auth.method === "digest"){
+					opts.auth.sendImmediately = false;
+				} else {
+					opts.auth.sendImmediately = true;
+				}
 			}
 		}
 
-		request(url, opts, function (err, r, requestData) {
+		ical.fromURL(url, opts, function(err, data) {
 			if (err) {
 				fetchFailedCallback(self, err);
-				scheduvarimer();
-				return;
-			} else if (r.statusCode !== 200) {
-				fetchFailedCallback(self, r.statusCode + ": " + r.statusMessage);
-				scheduvarimer();
+				scheduleTimer();
 				return;
 			}
 
-			var data = ical.parseICS(requestData);
-			var newEvents = [];
+			// console.log(data);
+			newEvents = [];
 
 			// limitFunction doesn't do much limiting, see comment re: the dates array in rrule section below as to why we need to do the filtering ourselves
-			var limitFunction = function (date, i) {
-				return true;
+			var limitFunction = function(date, i) {return true;};
+
+			var eventDate = function(event, time) {
+				return (event[time].length === 8) ? moment(event[time], "YYYYMMDD") : moment(new Date(event[time]));
 			};
 
-			var eventDate = function (event, time) {
-				return event[time].length === 8 ? moment(event[time], "YYYYMMDD") : moment(new Date(event[time]));
-			};
-
-			Object.entries(data).forEach(function([key, event]) {
+			for (var e in data) {
+				var event = data[e];
 				var now = new Date();
 				var today = moment().startOf("day").toDate();
-				var future = moment().startOf("day").add(maximumNumberOfDays, "days").subtract(1, "seconds").toDate(); // Subtract 1 second so that events that start on the middle of the night will not repeat.
+				var future = moment().startOf("day").add(maximumNumberOfDays, "days").subtract(1,"seconds").toDate(); // Subtract 1 second so that events that start on the middle of the night will not repeat.
 				var past = today;
 
 				if (includePastEvents) {
 					past = moment().startOf("day").subtract(maximumNumberOfDays, "days").toDate();
 				}
 
-				// FIXME: Ugly fix to solve the facebook birthday issue.
+				// FIXME:
+				// Ugly fix to solve the facebook birthday issue.
 				// Otherwise, the recurring events only show the birthday for next year.
 				var isFacebookBirthday = false;
 				if (typeof event.uid !== "undefined") {
@@ -108,13 +92,14 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 				}
 
 				if (event.type === "VEVENT") {
+
 					var startDate = eventDate(event, "start");
 					var endDate;
-					// console.log("\nevent="+JSON.stringify(event))
 					if (typeof event.end !== "undefined") {
 						endDate = eventDate(event, "end");
-					} else if (typeof event.duration !== "undefined") {
-						endDate = startDate.clone().add(moment.duration(event.duration));
+					} else if(typeof event.duration !== "undefined") {
+						dur=moment.duration(event.duration);
+						endDate = startDate.clone().add(dur);
 					} else {
 						if (!isFacebookBirthday) {
 							endDate = startDate;
@@ -123,7 +108,7 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 						}
 					}
 
-					// calculate the duration of the event for use with recurring events.
+					// calculate the duration f the event for use with recurring events.
 					var duration = parseInt(endDate.format("x")) - parseInt(startDate.format("x"));
 
 					if (event.start.length === 8) {
@@ -179,7 +164,7 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 					}
 
 					if (excluded) {
-						return;
+						continue;
 					}
 
 					var location = event.location || false;
@@ -190,43 +175,42 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 						var rule = event.rrule;
 						var addedEvents = 0;
 
-						var pastMoment = moment(past);
-						var futureMoment = moment(future);
-
 						// can cause problems with e.g. birthdays before 1900
-						if ((rule.options && rule.origOptions && rule.origOptions.dtstart && rule.origOptions.dtstart.getFullYear() < 1900) || (rule.options && rule.options.dtstart && rule.options.dtstart.getFullYear() < 1900)) {
+						if(rule.options && rule.origOptions && rule.origOptions.dtstart && rule.origOptions.dtstart.getFullYear() < 1900 ||
+							rule.options && rule.options.dtstart && rule.options.dtstart.getFullYear() < 1900){
 							rule.origOptions.dtstart.setYear(1900);
 							rule.options.dtstart.setYear(1900);
 						}
 
 						// For recurring events, get the set of start dates that fall within the range
-						// of dates we're looking for.
+						// of dates we"re looking for.
 						// kblankenship1989 - to fix issue #1798, converting all dates to locale time first, then converting back to UTC time
-						var pastLocal = 0;
-						var futureLocal = 0;
-						if (isFullDayEvent(event)) {
-							// if full day event, only use the date part of the ranges
-							pastLocal = pastMoment.toDate();
-							futureLocal = futureMoment.toDate();
-						} else {
-							pastLocal = pastMoment.subtract(past.getTimezoneOffset(), "minutes").toDate();
-							futureLocal = futureMoment.subtract(future.getTimezoneOffset(), "minutes").toDate();
-						}
+						var pastLocal = moment(past).subtract(past.getTimezoneOffset(), "minutes").toDate();
+						var futureLocal = moment(future).subtract(future.getTimezoneOffset(), "minutes").toDate();
+						var datesLocal = rule.between(pastLocal, futureLocal, true, limitFunction);
+						var dates = datesLocal.map(function(dateLocal) {
+							var date = moment(dateLocal).add(dateLocal.getTimezoneOffset(), "minutes").toDate();
+							return date;
+						});
 
-						var dates = rule.between(pastLocal, futureLocal, true, limitFunction);
-						// console.log("title="+event.summary.val+" dates="+JSON.stringify(dates))
 						// The "dates" array contains the set of dates within our desired date range range that are valid
-						// for the recurrence rule. *However*, it's possible for us to have a specific recurrence that
+						// for the recurrence rule.  *However*, it"s possible for us to have a specific recurrence that
 						// had its date changed from outside the range to inside the range.  For the time being,
-						// we'll handle this by adding *all* recurrence entries into the set of dates that we check,
-						// because the logic below will filter out any recurrences that don't actually belong within
+						// we"ll handle this by adding *all* recurrence entries into the set of dates that we check,
+						// because the logic below will filter out any recurrences that don"t actually belong within
 						// our display range.
 						// Would be great if there was a better way to handle this.
-						if (event.recurrences !== undefined) {
-							for (var r in event.recurrences) {
+						if (event.recurrences != undefined)
+						{
+							var pastMoment = moment(past);
+							var futureMoment = moment(future);
+
+							for (var r in event.recurrences)
+							{
 								// Only add dates that weren't already in the range we added from the rrule so that
 								// we don"t double-add those events.
-								if (moment(new Date(r)).isBetween(pastMoment, futureMoment) !== true) {
+								if (moment(new Date(r)).isBetween(pastMoment, futureMoment) != true)
+								{
 									dates.push(new Date(r));
 								}
 							}
@@ -238,76 +222,35 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 							// ical.js started returning recurrences and exdates as ISOStrings without time information.
 							// .toISOString().substring(0,10) is the method they use to calculate keys, so we'll do the same
 							// (see https://github.com/peterbraden/ical.js/pull/84 )
-							var dateKey = date.toISOString().substring(0, 10);
+							var dateKey = date.toISOString().substring(0,10);
 							var curEvent = event;
 							var showRecurrence = true;
 
-							startDate = moment(date);
-							// console.log("now timezone="+ moment.tz.guess());
-							// whether we need to adjust for RRULE returning the wrong date, with the right time (forward of URC timezones)
-							var adjustDays = 0;
-							// if a timezone was specified
-							if (!event.start.tz) {
-								event.start.tz = moment.tz.guess();
-							}
-							// console.log("tz="+event.start.tz)
-							if (event.start.tz) {
-								// if this is a windows timezone
-								if (event.start.tz.indexOf(" ") > 0) {
-									// use the lookup table to get theIANA name as moment and date don't know MS timezones
-									var tz = getIanaTZFromMS(event.start.tz);
-									// watch out for unregistered windows timezone names
-									// if we had a successfule lookup
-									if (tz) {
-										// change the timezone to the IANA name
-										event.start.tz = getIanaTZFromMS(event.start.tz);
-										// console.log("corrected timezone="+event.start.tz)
-									}
-								}
-								// get the start time in that timezone
-								var mms = moment.tz(moment(event.start), event.start.tz).utcOffset();
-								// console.log("ms offset="+mms)
-								// get the specified date in that timezone
-								var mm = moment.tz(moment(date), event.start.tz);
-								var mmo = mm.utcOffset();
-								// console.log("mm ofset="+ mmo+" hour="+mm.format("H")+" event date="+mm.toDate())
-								// if the offset is greater than 0, east of london
-								if (mmo > 0) {
-									var h = parseInt(mm.format("H"));
-									// check if the event time is less than the offset
-									if (h > 0 && h < mmo / 60) {
-										// if so, rrule created a wrong date (utc day, oops, with utc yesterday adjusted time)
-										// we need to fix that
-										adjustDays = 24;
-										// console.log("adjusting date")
-									}
-									if (mmo > mms) {
-										adjustDays += 1;
-										// console.log("adjust up 1 hour dst change")
-									} else if (mmo < mms) {
-										adjustDays -= 1;
-										//console.log("adjust down 1 hour dst change")
-									}
-								}
+							// Stop parsing this event's recurrences if we've already found maximumEntries worth of recurrences.
+							// (The logic below would still filter the extras, but the check is simple since we're already tracking the count)
+							if (addedEvents >= maximumEntries) {
+								break;
 							}
 
-							// For each date that we're checking, it's possible that there is a recurrence override for that one day.
-							if (curEvent.recurrences !== undefined && curEvent.recurrences[dateKey] !== undefined) {
+							startDate = moment(date);
+
+							// For each date that we"re checking, it"s possible that there is a recurrence override for that one day.
+							if ((curEvent.recurrences != undefined) && (curEvent.recurrences[dateKey] != undefined))
+							{
 								// We found an override, so for this recurrence, use a potentially different title, start date, and duration.
 								curEvent = curEvent.recurrences[dateKey];
 								startDate = moment(curEvent.start);
 								duration = parseInt(moment(curEvent.end).format("x")) - parseInt(startDate.format("x"));
 							}
-							// If there's no recurrence override, check for an exception date.  Exception dates represent exceptions to the rule.
-							else if (curEvent.exdate !== undefined && curEvent.exdate[dateKey] !== undefined) {
+							// If there"s no recurrence override, check for an exception date.  Exception dates represent exceptions to the rule.
+							else if ((curEvent.exdate != undefined) && (curEvent.exdate[dateKey] != undefined))
+							{
 								// This date is an exception date, which means we should skip it in the recurrence pattern.
 								showRecurrence = false;
 							}
 
-							//console.log("duration="+duration)
-
 							endDate = moment(parseInt(startDate.format("x")) + duration, "x");
-							if (startDate.format("x") === endDate.format("x")) {
+							if (startDate.format("x") == endDate.format("x")) {
 								endDate = endDate.endOf("day");
 							}
 
@@ -323,14 +266,13 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 								showRecurrence = false;
 							}
 
-							if (showRecurrence === true) {
+							if ((showRecurrence === true) && (addedEvents < maximumEntries)) {
 								addedEvents++;
 								newEvents.push({
 									title: recurrenceTitle,
-									startDate: (adjustDays ? startDate.subtract(adjustDays, "hours") : startDate).format("x"),
-									endDate: (adjustDays ? endDate.subtract(adjustDays, "hours") : endDate).format("x"),
+									startDate: startDate.format("x"),
+									endDate: endDate.format("x"),
 									fullDayEvent: isFullDayEvent(event),
-									recurringEvent: true,
 									class: event.class,
 									firstYear: event.start.getFullYear(),
 									location: location,
@@ -341,46 +283,43 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 						}
 						// end recurring event parsing
 					} else {
+						// console.log("Single event ...");
 						// Single event.
-						var fullDayEvent = isFacebookBirthday ? true : isFullDayEvent(event);
-						// console.log("full day event")
+						var fullDayEvent = (isFacebookBirthday) ? true : isFullDayEvent(event);
+
 						if (includePastEvents) {
-							// Past event is too far in the past, so skip.
 							if (endDate < past) {
-								return;
+								//console.log("Past event is too far in the past.  So skip: " + title);
+								continue;
 							}
 						} else {
-							// It's not a fullday event, and it is in the past, so skip.
 							if (!fullDayEvent && endDate < new Date()) {
-								return;
+								//console.log("It's not a fullday event, and it is in the past. So skip: " + title);
+								continue;
 							}
 
-							// It's a fullday event, and it is before today, So skip.
 							if (fullDayEvent && endDate <= today) {
-								return;
+								//console.log("It's a fullday event, and it is before today. So skip: " + title);
+								continue;
 							}
 						}
 
-						// It exceeds the maximumNumberOfDays limit, so skip.
 						if (startDate > future) {
-							return;
+							//console.log("It exceeds the maximumNumberOfDays limit. So skip: " + title);
+							continue;
 						}
 
 						if (timeFilterApplies(now, endDate, dateFilter)) {
-							return;
+							continue;
 						}
 
-						// Adjust start date so multiple day events will be displayed as happening today even though they started some days ago already
+						// adjust start date so multiple day events will be displayed as happening today even though they started some days ago already
 						if (fullDayEvent && startDate <= today) {
 							startDate = moment(today);
 						}
-						// if the start and end are the same, then make end the 'end of day' value (start is at 00:00:00)
-						if (fullDayEvent && startDate.format("x") === endDate.format("x")) {
-							//console.log("end same as start")
-							endDate = endDate.endOf("day");
-						}
 
 						// Every thing is good. Add it to the list.
+
 						newEvents.push({
 							title: title,
 							startDate: startDate.format("x"),
@@ -391,54 +330,43 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 							geo: geo,
 							description: description
 						});
+
 					}
 				}
-			});
+			}
 
-			newEvents.sort(function (a, b) {
+			newEvents.sort(function(a, b) {
 				return a.startDate - b.startDate;
 			});
+
+			//console.log(newEvents);
 
 			events = newEvents.slice(0, maximumEntries);
 
 			self.broadcastEvents();
-			scheduvarimer();
+			scheduleTimer();
 		});
 	};
 
-	/**
-	 *
-	 *  lookup iana tz from windows
-	 */
-	var zoneTable = null;
-	var getIanaTZFromMS = function (msTZName) {
-		if (!zoneTable) {
-			var p = require("path");
-			zoneTable = require(p.join(__dirname, "windowsZones.json"));
-		}
-		// Get hash entry
-		var he = zoneTable[msTZName];
-		// If found return iana name, else null
-		return he ? he.iana[0] : null;
-	};
-
-	/**
+	/* scheduleTimer()
 	 * Schedule the timer for the next update.
 	 */
-	var scheduvarimer = function () {
+	var scheduleTimer = function() {
+		//console.log('Schedule update timer.');
 		clearTimeout(reloadTimer);
-		reloadTimer = setTimeout(function () {
+		reloadTimer = setTimeout(function() {
 			fetchCalendar();
 		}, reloadInterval);
 	};
 
-	/**
+	/* isFullDayEvent(event)
 	 * Checks if an event is a fullday event.
 	 *
-	 * @param {object} event The event object to check.
-	 * @returns {boolean} True if the event is a fullday event, false otherwise
+	 * argument event object - The event object to check.
+	 *
+	 * return bool - The event is a fullday event.
 	 */
-	var isFullDayEvent = function (event) {
+	var isFullDayEvent = function(event) {
 		if (event.start.length === 8 || event.start.dateOnly) {
 			return true;
 		}
@@ -446,7 +374,7 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 		var start = event.start || 0;
 		var startDate = new Date(start);
 		var end = event.end || 0;
-		if ((end - start) % (24 * 60 * 60 * 1000) === 0 && startDate.getHours() === 0 && startDate.getMinutes() === 0) {
+		if (((end - start) % (24 * 60 * 60 * 1000)) === 0 && startDate.getHours() === 0 && startDate.getMinutes() === 0) {
 			// Is 24 hours, and starts on the middle of the night.
 			return true;
 		}
@@ -454,19 +382,20 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 		return false;
 	};
 
-	/**
+	/* timeFilterApplies()
 	 * Determines if the user defined time filter should apply
 	 *
-	 * @param {Date} now Date object using previously created object for consistency
-	 * @param {Moment} endDate Moment object representing the event end date
-	 * @param {string} filter The time to subtract from the end date to determine if an event should be shown
-	 * @returns {boolean} True if the event should be filtered out, false otherwise
+	 * argument now Date - Date object using previously created object for consistency
+	 * argument endDate Moment - Moment object representing the event end date
+	 * argument filter string - The time to subtract from the end date to determine if an event should be shown
+	 *
+	 * return bool - The event should be filtered out
 	 */
-	var timeFilterApplies = function (now, endDate, filter) {
+	var timeFilterApplies = function(now, endDate, filter) {
 		if (filter) {
 			var until = filter.split(" "),
 				value = parseInt(until[0]),
-				increment = until[1].slice(-1) === "s" ? until[1] : until[1] + "s", // Massage the data for moment js
+				increment = until[1].slice("-1") === "s" ? until[1] : until[1] + "s", // Massage the data for moment js
 				filterUntil = moment(endDate.format()).subtract(value, increment);
 
 			return now < filterUntil.format("x");
@@ -475,16 +404,17 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 		return false;
 	};
 
-	/**
-	 * Gets the title from the event.
-	 *
-	 * @param {object} event The event object to check.
-	 * @returns {string} The title of the event, or "Event" if no title is found.
-	 */
+	/* getTitleFromEvent(event)
+	* Gets the title from the event.
+	*
+	* argument event object - The event object to check.
+	*
+	* return string - The title of the event, or "Event" if no title is found.
+	*/
 	var getTitleFromEvent = function (event) {
 		var title = "Event";
 		if (event.summary) {
-			title = typeof event.summary.val !== "undefined" ? event.summary.val : event.summary;
+			title = (typeof event.summary.val !== "undefined") ? event.summary.val : event.summary;
 		} else if (event.description) {
 			title = event.description;
 		}
@@ -510,54 +440,54 @@ var CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntr
 
 	/* public methods */
 
-	/**
+	/* startFetch()
 	 * Initiate fetchCalendar();
 	 */
-	this.startFetch = function () {
+	this.startFetch = function() {
 		fetchCalendar();
 	};
 
-	/**
+	/* broadcastItems()
 	 * Broadcast the existing events.
 	 */
-	this.broadcastEvents = function () {
-		Log.info("Calendar-Fetcher: Broadcasting " + events.length + " events.");
+	this.broadcastEvents = function() {
+		//console.log('Broadcasting ' + events.length + ' events.');
 		eventsReceivedCallback(self);
 	};
 
-	/**
+	/* onReceive(callback)
 	 * Sets the on success callback
 	 *
-	 * @param {Function} callback The on success callback.
+	 * argument callback function - The on success callback.
 	 */
-	this.onReceive = function (callback) {
+	this.onReceive = function(callback) {
 		eventsReceivedCallback = callback;
 	};
 
-	/**
+	/* onError(callback)
 	 * Sets the on error callback
 	 *
-	 * @param {Function} callback The on error callback.
+	 * argument callback function - The on error callback.
 	 */
-	this.onError = function (callback) {
+	this.onError = function(callback) {
 		fetchFailedCallback = callback;
 	};
 
-	/**
+	/* url()
 	 * Returns the url of this fetcher.
 	 *
-	 * @returns {string} The url of this fetcher.
+	 * return string - The url of this fetcher.
 	 */
-	this.url = function () {
+	this.url = function() {
 		return url;
 	};
 
-	/**
+	/* events()
 	 * Returns current available events for this fetcher.
 	 *
-	 * @returns {object[]} The current available events for this fetcher.
+	 * return array - The current available events for this fetcher.
 	 */
-	this.events = function () {
+	this.events = function() {
 		return events;
 	};
 };
