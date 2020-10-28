@@ -1,6 +1,6 @@
 # MagicMirror&sup2;
 
-Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile / Full HD monitor + Windows 10 PC stick / Windows 8 HP mini netbook + IKEA frame + see-thru acrylic mirror, powered by consistent css & js, fonts sizes, icons & well structured folders, based on <b>MagicMirror&sup2;</b> open source <b>full of bugs</b> core framework. 
+Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile / Full HD monitor + Windows 10 PC stick / Windows 8.1 HP mini netbook + IKEA frame + see-thru acrylic mirror, powered by consistent css & js, fonts sizes, icons & well structured folders, based on <b>MagicMirror&sup2;</b> open source <b>full of bugs</b> core framework. 
 
 <b>Some modified default original modules:</b>
 <br>Compliments https://github.com/hangorazvan/compliments_plus
