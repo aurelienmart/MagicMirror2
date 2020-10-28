@@ -112,42 +112,6 @@ var config = {
 			}
 		},
 		{
-			module: "simpletext",
-			position: "top_left",
-			header: "Calendar evenimente și aniversări",
-			disabled: true,
-			config: {
-				text: "",
-				cssClass: "empty",
-			}
-		},
-		{
-			module: "icalendar",
-			position: "top_left",
-			disabled: true,
-			config: {
-				maximumEntries: 14,
-				calendarClass: "icalendar",
-				defaultSymbol: "calendar",
-				displaySymbol: true,
-				updateInterval: 1000,
-				updateDataInterval: 5 * 60 * 1000,
-
-				calendar: {
-					urls: [
-						{
-							symbol: "calendar-check-o",
-							url: "https://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
-						},
-						{
-							symbol: "moon",
-							url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
-						},
-					]
-				}
-			}
-		},
-		{
 			module: "calendar",
 			position: "top_left",
 			header: "Calendar evenimente și aniversări",
@@ -215,7 +179,6 @@ var config = {
 			]
 			}
 		},
-
 		{
 			module: "clock",
 			position: "top_center",
@@ -240,12 +203,6 @@ var config = {
 				repeatWeekdaysVertical: true,
 				weekNumbers: true
 			}
-		},
-				{
-			module: "kamasutra",
-			position: "top_center",
-			header: "Kama Sutra Sex Positions",
-			disabled: true
 		},
 		{
 			module: "currentweather",
@@ -482,31 +439,6 @@ var config = {
 				updateInterval: 20000,
 				category: "random",
 				className: "small"
-			}
-		},
-		{
-			module: "rssfeed",
-			position: "bottom_bar",
-			disabled: true,
-			config: {
-				lengthDescription: 600,
-				fetchNewsTime: 15 * 60 * 1000,
-				feeds: {
-				//	"NewsIn"    : "https://newsin.ro/feed",
-				//	"Discovery" : "https://discovery.ro/feed/",
-				//	"Agerpress" : "https://www.agerpres.ro/home.rss",
-				//	"Digi24"    : "https://m.digi24.ro/rss",
-					"ProTV"     : "https://rss.stirileprotv.ro",
-					"Mediafax"  : "https://www.mediafax.ro/rss",
-					"HotNews"   : "https://www.hotnews.ro/rss",
-					"News.ro"   : "https://www.news.ro/rss",
-					"MainNews"  : "https://mainnews.ro/feed",
-					"Ziare.com" : "https://www.ziare.com/rss/12h.xml"
-				},
-				feedMaxAge: {
-					days: 0,
-					hours: 12
-				},
 			}
 		},
 		{
