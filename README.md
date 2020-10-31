@@ -18,6 +18,5 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <br>notification https://github.com/hangorazvan/timer/tree/notification
 <br>timer-dimmer https://github.com/hangorazvan/timer
 <br>yframe https://github.com/hangorazvan/yframe
-<br>kamasutra https://github.com/hangorazvan/kamasutra (work in progress)
 
 <img src=https://github.com/hangorazvan/MagicMirror2/blob/master/hd.png>
