@@ -8,13 +8,16 @@
  */
 Module.register("alert", {
 	defaults: {
-		effect: "genie",
-		alert_effect: "genie",
+		// scale|slide|genie|jelly|flip|bouncyflip|exploader
+		effect: "slide",
+		// scale|slide|genie|jelly|flip|bouncyflip|exploader
+		alert_effect: "jelly",
+		//time a notification is displayed in seconds
+		display_time: 3500,
+		//Position
 		position: "center",
-		display_time: 5000,
-		welcome_message: true,
-		title: "[ MagicMirror&sup2; ]", 
-		message: "Redesigned by Răzvan Cristea<br>Framework successfully started!"
+		//shown at startup
+		welcome_message: false
 	},
 
 	getScripts: function () {
