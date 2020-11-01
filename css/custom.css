@@ -308,7 +308,7 @@ header {
 
 .region.upper.third {
 	top: calc(100vh - 50%);
-	bottom: 35%;
+	bottom: 45%;
 }
 
 .region.middle.center {
@@ -1117,11 +1117,15 @@ header {
 	color: skyblue;
 }
 
-/* media queries */
-
 .video {
-	margin-bottom: -22%;
+	margin-bottom: -25%;
 }
+
+.web {
+	margin-top: -20%;
+}
+
+/* media queries */
 
 @media screen and (max-width: 1080px) {
 	.region.bottom.right, .region.bottom.left,
@@ -1134,7 +1138,7 @@ header {
 	}
 }
 
-@media screen and (min-height: 1023px) and (orientation: landscape) {
+@media screen and (min-height: 1079px) and (orientation: landscape) {
 	html {
 		position: absolute;
 		transform: rotate(-90deg);
@@ -1154,7 +1158,7 @@ header {
 
 	.region.upper.third {
 		top: calc(100vh - 5%);
-		bottom: 35%;
+		bottom: 45%;
 	}
 
 	.region.middle.center {
@@ -1220,8 +1224,8 @@ header {
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
-		top: calc(100vh - 24%);
-		bottom: 24%;
+		top: calc(100vh - 22%);
+		bottom: 22%;
 	}
 
 	.large {
@@ -1258,12 +1262,7 @@ header {
 		display: none !important;
 	}
 
-	.rssfeed .feed,
-	.feed {
-		font-size: 1.2rem;
-		line-height: 1.4rem;
-	}
-
+	.rssfeed .feed,	.feed,
 	.rssfeed .feed .date,
 	.rssfeed .feed .source,
 	.feed .date, .feed .source {
@@ -1272,8 +1271,8 @@ header {
 	}
 
 	.newsfeed, .newsfeed .light {
-		font-size: 1.2rem;
-		line-height: 1.4rem;
+		font-size: 1.1rem;
+		line-height: 1.3rem;
 	}
 }
 
