@@ -9,10 +9,10 @@
  */
  
 var config = {
-	address: "0.0.0.0",
+	address: "192.168.0.107",
 	port: 8255,
 	basePath: "/",
-	ipWhitelist: [],
+	ipWhitelist: ["192.168.0.0/24"],
 	useHttps: false,
 	httpsPrivateKey: "",
 	httpsCertificate: "",
@@ -26,7 +26,7 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
-	appid: "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+	appid: "xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5",
 	roundTemp: false,
@@ -43,26 +43,15 @@ var config = {
 
 	modules: [
 		{
-			module: "notification",
-			position: "top_center",
-			classes: "night",
-			disabled: false,
-			config: {
-				startTitle: "<i class=\"lime fa fa-wifi\"></i> [ MagicMirror&sup2; ] &nbsp;",
-				startNotification: "Modular smart mirror platform",
-				timer: 8000,
-			}
-		},
-		{
 			module: "timer",
 			disabled: false,
 			config: {
-				bodysize: 1050,
+				bodysize: 1080,
 				nightMode: true,
 
 				fadeMode: true,
 				dimmMode: true,
-				dimming: 40,
+				dimming: 50,
 
 				sharpMode: true,
 				dateMode: true,
@@ -72,6 +61,42 @@ var config = {
 				birthday2: "",
 				name3: "",
 				birthday3: ""
+			}
+		},
+		{
+			module: "notification",
+			position: "top_center",
+			classes: "night",
+			disabled: false,
+			config: {
+				startTitle: "<i class=\"lime fa fa-wifi\"></i> MagicMirror&sup2; &nbsp;",
+				startNotification: "Modular smart mirror platform",
+				timer: 8000,
+			}
+		},
+		{
+			module: "clock",
+			position: "top_center",
+			classes: "analog night",
+			disabled: false,
+			config: {
+				displayType: "analog",
+				analogSize: "300px",
+				analogFace: "none",
+				secondsColor: "coral",
+				displaySeconds: true
+			}
+		},
+		{
+			module: "monthly",
+			position: "top_center",
+			disabled: false,
+			config: {
+				startMonth: 0,
+				monthCount: 1,
+				monthsVertical: true,
+				repeatWeekdaysVertical: true,
+				weekNumbers: true
 			}
 		},
 		{
@@ -92,7 +117,7 @@ var config = {
 		},
 		{
 			module: "lifecounter",
-			position: "top_left",
+			position: "top_center",
 			disabled: true,
 			config: {
 				birthday: "1970-01-01 00:00:00",
@@ -176,32 +201,7 @@ var config = {
 						symbol: "moon", symbolClass: "normal", titleClass: "normal", timeClass: "normal", color: "normal",
 						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
 					},
-			]
-			}
-		},
-		{
-			module: "clock",
-			position: "top_center",
-			classes: "analog night",
-			disabled: false,
-			config: {
-				displayType: "analog",
-				analogSize: "300px",
-				analogFace: "none",
-				secondsColor: "coral",
-				displaySeconds: true
-			}
-		},
-		{
-			module: "monthly",
-			position: "top_center",
-			disabled: false,
-			config: {
-				startMonth: 0,
-				monthCount: 1,
-				monthsVertical: true,
-				repeatWeekdaysVertical: true,
-				weekNumbers: true
+				]
 			}
 		},
 		{
@@ -280,6 +280,19 @@ var config = {
 				tableClass: "qsmall",
 				fallBack: true,
 				fullday: "ddd"
+			}
+		},
+		{
+			module: "yframe",
+			position: "upper_third",
+			disabled: true,
+			config: {
+				url: " ",
+				media: false,
+				width: "1080",
+				height: "607",
+				aspect: 9/16,
+				cssClass: "web",
 			}
 		},
 		{
@@ -454,7 +467,7 @@ var config = {
 				wrapTitle: true,
 				wrapDescription: true,
 				truncDescription: true,
-				lengthDescription: 400,
+				lengthDescription: 500,
 				hideLoading: false,
 				reloadInterval: 5 * 60 * 1000,
 				updateInterval: 60 * 1000,
@@ -513,6 +526,16 @@ var config = {
 					{
 						title: "Ziare.com",
 						url: "https://www.ziare.com/rss/12h.xml",
+						encoding: "UTF-8"
+					},
+					{
+						title: "Discovery",
+						url: "https://discovery.ro/feed/",
+						encoding: "UTF-8"
+					},
+					{
+						title: "NASA",
+						url: "https://www.nasa.gov/rss/dyn/breaking_news.rss",
 						encoding: "UTF-8"
 					}
 				]
