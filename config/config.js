@@ -39,7 +39,7 @@ var config = {
 	customCss: "css/custom.css",
 	minVersion: "2.1.0",
 	serverOnly: true,
-	logLevel: ["INFO", "LOG", "WARN", "ERROR"],
+	logLevel: ["DEBUG", "INFO", "LOG", "WARN", "ERROR"],
 
 	modules: [
 		{
