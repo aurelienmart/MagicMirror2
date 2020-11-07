@@ -100,7 +100,7 @@ Module.register("timer", {
 
 		function night_mode() { // because this is better that stupid hide.module
 			hide.forEach(function(element) {element.style.display = "none"}); icon.forEach(function(element) {element.style.float = "right"});
-			weat.forEach(function(element) {return element.style.transform = "translate(-700px, 300px)", element.style.textAlign = "left"});
+			weat.forEach(function(element) {return element.style.transform = "translate(-720px, 280px)", element.style.textAlign = "left"});
 			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-125%) scale(0.6)"});
 		}
 	},
@@ -117,12 +117,12 @@ Module.register("timer", {
 				if (this.config.fadeMode) {
 					if (now >= before && now < night) {
 						body.forEach(function(element) {return element.style.opacity = opac1, element.style.filter = "grayscale(" + gray1 + "%)"})
-						this.sendNotification("NIGHT_NOTIFICATION", this.opac1)
+						this.sendNotification("NIGHT_NOTIFICATION", this.gray1)
 					} else if (now >= midnight && now < morning) {
 						body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)"})
 					} else if (now >= morning && now < after) {
 						body.forEach(function(element) {return element.style.opacity = opac2, element.style.filter = "grayscale(" + gray2 + "%)"})
-						this.sendNotification("NIGHT_NOTIFICATION", this.opac2)
+						this.sendNotification("NIGHT_NOTIFICATION", this.gray2)
 					} else { body.forEach(function(element) {return element.style.opacity = "1", element.style.filter = "grayscale(0%)"})}
 				} else { if (now >= midnight && now < morning) {
 						body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)"})
