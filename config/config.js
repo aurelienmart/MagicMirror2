@@ -9,10 +9,10 @@
  */
  
 var config = {
-	address: "192.168.0.107",
-	port: 8255,
+	address: "localhost",
+	port: 8080,
 	basePath: "/",
-	ipWhitelist: ["192.168.0.0/24"],
+	ipWhitelist: [],
 	useHttps: false,
 	httpsPrivateKey: "",
 	httpsCertificate: "",
