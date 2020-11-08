@@ -280,6 +280,7 @@ Module.register("currentweather", {
 
 			var feelsLike = document.createElement("span");
 						if (this.config.units == "metric") {
+				if (this.feelsLike == -0) {this.feelsLike = 0}
 				if (this.feelsLike >= 45) {
 					feelsLike.className = "real redrf";
 				} else if (this.feelsLike >= 40 && this.feelsLike < 45) {
