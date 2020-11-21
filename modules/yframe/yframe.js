@@ -187,6 +187,10 @@ Module.register("yframe", {
 				media.style.height = this.config.height;
 				media.src = this.config.url;
 			} else
+
+//			if (this.config.url.includes("www.youtube.com/watch?v=")) {
+//				this.config.url == "https://www.youtube.com/embed/";
+//			}
 			media.src = this.config.url + "?autoplay=" + this.config.autoplay
 										+ "&mute=" + this.config.muted
 										+ "&controls=" + this.config.controls

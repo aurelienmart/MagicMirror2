@@ -4,10 +4,10 @@
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  */
-var NodeHelper = require("node_helper");
-var validUrl = require("valid-url");
-var CalendarFetcher = require("./calendarfetcher.js");
-var Log = require("../../../js/logger");
+const NodeHelper = require("node_helper");
+const validUrl = require("valid-url");
+const CalendarFetcher = require("./calendarfetcher.js");
+const Log = require("../../../js/logger");
 
 module.exports = NodeHelper.create({
 	// Override start method.
@@ -70,6 +70,7 @@ module.exports = NodeHelper.create({
 		} else {
 			Log.log("Use existing calendar fetcher for url: " + url);
 			fetcher = self.fetchers[identifier + url];
+			fetcher.broadcastEvents();
 		}
 
 		fetcher.startFetch();
