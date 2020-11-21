@@ -11,6 +11,7 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <b>Some 3rd party modified modules:</b>
 <br>multi monthly calendar
 <br>random quotes
+<br>lunartic
 
 <b>My own test developed modules:</b>
 <br>swatch.beat https://github.com/hangorazvan/swatch
