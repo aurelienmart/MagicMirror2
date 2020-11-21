@@ -9,10 +9,10 @@
  */
  
 var config = {
-	address: "localhost",
-	port: 8080,
+	address: "0.0.0.0",
+	port: 8255,
 	basePath: "/",
-	ipWhitelist: [],
+	ipWhitelist: ["192.168.0.0/24"],
 	useHttps: false,
 	httpsPrivateKey: "",
 	httpsCertificate: "",
@@ -26,7 +26,7 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
-	appid: "xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+	appid: "xxxxxxxxxxxxxxxxxxxxxxxxxx",
 	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5",
 	roundTemp: false,
@@ -69,7 +69,7 @@ var config = {
 			classes: "night",
 			disabled: false,
 			config: {
-				startTitle: "<i class=\"lime fa fa-wifi\"></i> MagicMirror&sup2; &nbsp;",
+				startTitle: "<i class=\"lime fa fa-wifi\"></i> MagicMirror&sup2;&nbsp;",
 				startNotification: "Modular smart mirror platform",
 				timer: 8000,
 			}
@@ -93,9 +93,9 @@ var config = {
 			disabled: false,
 			config: {
 				startMonth: 0,
-				monthCount: 1,
+				monthCount: 2,
 				monthsVertical: true,
-				repeatWeekdaysVertical: true,
+				repeatWeekdaysVertical: false,
 				weekNumbers: true
 			}
 		},
@@ -117,13 +117,13 @@ var config = {
 		},
 		{
 			module: "lifecounter",
-			position: "top_center",
-			disabled: true,
+			position: "top_left",
+			disabled: false,
 			config: {
 				birthday: "1970-01-01 00:00:00",
 				counter: "seconds",
 				before: "UNIX System Time:",
-				after: "secunde",
+				after: "seconds",
 				cssclass: "ssmall"
 			}
 		},
@@ -142,7 +142,7 @@ var config = {
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
-				maximumEntries: 14,
+				maximumEntries: 16,
 				maximumNumberOfDays: 365,
 				displaySymbol: true,
 				defaultSymbol: "calendar",
@@ -155,7 +155,7 @@ var config = {
 				wrapLocationEvents: false,
 				maxTitleLines: 3,
 				maxEventTitleLines: 3,
-				fetchInterval: 5 * 60 * 1000,
+				fetchInterval: 60 * 1000,
 				fade: true,
 				fadePoint: 0.25,
 				colored: false,
@@ -201,9 +201,31 @@ var config = {
 						symbol: "moon", symbolClass: "normal", titleClass: "normal", timeClass: "normal", color: "normal",
 						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
 					},
+					{
+						symbol: "film", symbolClass: "magenta", titleClass: "magenta", timeClass: "magenta", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/emm3k4f4t7dihvfb0c65st0ijo%40group.calendar.google.com/private-caeb9a5112b8aea911cbbb38baac1a77/basic.ics"
+					},
 				]
 			}
 		},
+		{
+			module: "lunartic",
+			position: "top_left",
+			classes: "night",
+			disabled: false,
+			config: {
+				mode: "static",
+				image: "current",
+				useHeader: false,
+				maxWidth: "30px",
+				distance: "km",
+				sounds: "no",
+				initialLoadDelay: 4000,
+				retryDelay: 2500,
+				updateInterval: 60 * 60 * 1000,
+				rotateInterval: 10 * 1000,
+			}
+		},		
 		{
 			module: "currentweather",
 			position: "top_right",
@@ -263,7 +285,7 @@ var config = {
 			classes: "daily",
 			disabled: false,
 			config: {
-				maxNumberOfDays: 13,
+				maxNumberOfDays: 16,
 				showRainAmount: true,
 				showSnowAmount: false,
 				updateInterval: 10 * 60 * 2000,
@@ -285,14 +307,15 @@ var config = {
 		{
 			module: "yframe",
 			position: "upper_third",
+			classes: "night",
 			disabled: true,
 			config: {
-				url: " ",
-				media: false,
+				url: "https://cristea13.ro/video/fishtank.mp4",
+				media: true,
 				width: "1080",
 				height: "607",
 				aspect: 9/16,
-				cssClass: "web",
+				cssClass: "fishtank",
 			}
 		},
 		{
