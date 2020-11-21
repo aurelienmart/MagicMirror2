@@ -8,7 +8,7 @@
  */
 
 html {
-	cursor: text;
+	cursor: auto;
 	overflow: hidden;
 	background: black;
 }
@@ -213,7 +213,6 @@ header {
 	pointer-events: none;
 	background: transparent;
 	background-size: cover;
-	opacity: 0.3;
 	width: 100%;
 	height: 100%;
 	border: 0;
@@ -280,6 +279,17 @@ header {
 	text-align: right;
 }
 
+.region.bottom.right, .region.bottom.left,
+.region.top.right, .region.top.left {
+/*	width: 31%;
+*/	width: 350px;
+}
+
+.region.bottom.center, .region.top.center {
+/*	width: 28%;
+*/	width: 300px;
+}
+
 .region table {
 	width: 100%;
 	border-spacing: 0;
@@ -303,22 +313,21 @@ header {
 .region.middle.center {
 	width: 100%;
 	text-align: center;
-	transform: translateY(-50%);
 }
 
 .region.upper.third {
-	top: calc(100vh - 50%);
-	bottom: 45%;
+/*	top: calc(100vh - 50%);
+*/	bottom: 25%;
 }
 
 .region.middle.center {
-	top: calc(100vh - 25%);
-	bottom: 20%;
+/*	top: calc(100vh - 25%);
+*/	bottom: 13%;
 }
 
 .region.lower.third {
-	top: calc(100vh - 20%);
-	bottom: 15%;
+/*	top: calc(100vh - 20%);
+*/	bottom: 13%;
 }
 
 .darkred {
@@ -528,6 +537,21 @@ header {
 	margin-top: 5px;
 }
 
+.moon .wi-night-clear {
+  display: none;
+}
+
+.clock .brightness {
+  margin-left: 25px;
+  margin-right: -25px;
+}
+
+.lunartic img.photo {
+	position: absolute;
+	top: 173px;
+	left: 0;
+	width: 30px;
+}
 /* swatch */
 
 .swatch {
@@ -1118,7 +1142,7 @@ header {
 }
 
 .video {
-	margin-bottom: -25%;
+	margin-top: -14%;
 }
 
 .web {
@@ -1126,17 +1150,6 @@ header {
 }
 
 /* media queries */
-
-@media screen and (max-width: 1080px) {
-	.region.bottom.right, .region.bottom.left,
-	.region.top.right, .region.top.left {
-		width: 32%;
-	}
-
-	.region.bottom.center, .region.top.center {
-		width: 28%;
-	}
-}
 
 @media screen and (min-height: 1079px) and (orientation: landscape) {
 	html {
@@ -1155,21 +1168,6 @@ header {
 		height: 100vw;
 		width: 100vh;
 	}
-
-	.region.upper.third {
-		top: calc(100vh - 5%);
-		bottom: 45%;
-	}
-
-	.region.middle.center {
-		top: calc(100vh + 20%);
-		bottom: 20%;
-	}
-		
-	.region.lower.third {
-		top: calc(100vh + 25%);
-		bottom: 15%;
-	}
 }
 
 @media screen and (max-height: 1024px) and (orientation: portrait) {
@@ -1177,7 +1175,7 @@ header {
 		display: none;
 	}
 
-	.region.middle.center {
+/*	.region.middle.center {
 		top: calc(100vh + 20%);
 		bottom: -35%;
 	}
@@ -1186,6 +1184,7 @@ header {
 		top: calc(100vh + 25%);
 		bottom: -30%;
 	}
+*/
 }
 
 @media screen and (max-height: 1024px) and (orientation: landscape) {
@@ -1195,18 +1194,18 @@ header {
 }
 
 @media screen and (max-height: 980px) and (orientation: landscape) {
-	.region.middle.center {
+/*	.region.middle.center {
 		top: calc(100vh - 22%);
 		bottom: 15%;
 	}
-		
+*/		
 	.region.lower.third {
 		display: none;
 	}
 }
 
 @media screen and (max-height: 960px) and (orientation: portrait) {
-	.region.upper.third {
+/*	.region.upper.third {
 		top: calc(100vh - 1%);
 		bottom: 35%;
 	}
@@ -1220,12 +1219,13 @@ header {
 		top: calc(100vh + 25%);
 		bottom: 15%;
 	}
+*/
 }
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
-		top: calc(100vh - 22%);
-		bottom: 22%;
+/*		top: calc(100vh - 22%);
+*/		bottom: 7%;
 	}
 
 	.large {
@@ -1251,14 +1251,14 @@ header {
 		border-bottom: 0;
 	}
 
-/*	.calendar-table tr:nth-child(n+13)
+	.calendar .month:nth-child(n+2),
+	.icalendar table tr:nth-child(n+14),
 	.calendar table tr:nth-child(n+13),
-*/	.icalendar table tr:nth-child(n+14),
-	.calendar table tr:nth-child(n+13),
-	.hourly table tr:nth-child(n+5),
+	.hourly table tr:nth-child(n+4),
 	.daily table tr:nth-child(n+13),
 	.daily2 table tr:nth-child(n+16),
-	header,	.monthly .month-header {
+	header,	.monthly .month-header,
+	.lifecounter, .yframe {
 		display: none !important;
 	}
 
