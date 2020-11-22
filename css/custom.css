@@ -1258,7 +1258,7 @@ header {
 	.daily table tr:nth-child(n+13),
 	.daily2 table tr:nth-child(n+16),
 	header,	.monthly .month-header,
-	.lifecounter, .yframe {
+	.lifecounter, .yframe, .traffic {
 		display: none !important;
 	}
 
