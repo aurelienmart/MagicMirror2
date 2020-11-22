@@ -26,7 +26,8 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
-	appid: "xxxxxxxxxxxxxxxxxxxxxxxxxx",
+	appid: "9bb3595ea8a97029639704c7d9ce56a0",
+//	appid: "9d7f18c178753b75e21e704c7c7c51f3",
 	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5",
 	roundTemp: false,
@@ -48,6 +49,12 @@ var config = {
 			config: {
 				bodysize: 1080,
 				nightMode: true,
+
+				traffic: true,
+				workStart: "06:00:00",
+				workEnd: "09:59:59",
+				homeStart: "15:00:00",
+				homeEnd: "19:59:59",
 
 				fadeMode: true,
 				dimmMode: true,
@@ -201,10 +208,6 @@ var config = {
 						symbol: "moon", symbolClass: "normal", titleClass: "normal", timeClass: "normal", color: "normal",
 						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
 					},
-					{
-						symbol: "film", symbolClass: "magenta", titleClass: "magenta", timeClass: "magenta", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/emm3k4f4t7dihvfb0c65st0ijo%40group.calendar.google.com/private-caeb9a5112b8aea911cbbb38baac1a77/basic.ics"
-					},
 				]
 			}
 		},
@@ -217,7 +220,6 @@ var config = {
 				mode: "static",
 				image: "current",
 				useHeader: false,
-				maxWidth: "30px",
 				distance: "km",
 				sounds: "no",
 				initialLoadDelay: 4000,
@@ -303,6 +305,12 @@ var config = {
 				fallBack: true,
 				fullday: "ddd"
 			}
+		},
+		{
+			module: "kamasutra",
+			position: "top_center",
+			header: "Kama Sutra Sex Positions",
+			disabled: true
 		},
 		{
 			module: "yframe",
@@ -475,6 +483,36 @@ var config = {
 				updateInterval: 20000,
 				category: "random",
 				className: "small"
+			}
+		},
+		{
+			module: "traffic",
+			position: "bottom_left",
+			classes: "work",
+			disabled: false,
+			config: {
+				days: [1, 2, 3, 4, 5],
+				loadingText: "Se încarcă...",
+				firstLine: "Trafic estimat birou: {duration} min.",
+				secondLine: "Theodor Pallady -> Alexandru Constatinescu",
+				accessToken: "xxxxxxxxxxxxxxxxxxxx",
+				originCoords: "xxxxxxxxxxxxxxxxxxxx",
+				destinationCoords: "xxxxxxxxxxxxxxxxxxxx",
+			}
+		},
+		{
+			module: "traffic",
+			position: "bottom_left",
+			classes: "home",
+			disabled: false,
+			config: {
+				days: [1, 2, 3, 4, 5],
+				loadingText: "Se încarcă...",
+				firstLine: "Trafic estimat acasa: {duration} min.",
+				secondLine: "Alexandru Constatinescu -> Theodor Pallady",
+				accessToken: "xxxxxxxxxxxxxxxxxxxx",
+				originCoords: "xxxxxxxxxxxxxxxxxxxx",
+				destinationCoords: "xxxxxxxxxxxxxxxxxxxx",
 			}
 		},
 		{
