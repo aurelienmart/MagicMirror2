@@ -26,7 +26,7 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
-	appid: "",
+	appid: "xxx",
 	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5",
 	roundTemp: false,
