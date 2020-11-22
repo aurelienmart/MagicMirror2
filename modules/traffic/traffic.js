@@ -13,8 +13,8 @@ Module.register('traffic', {
     loadingText: "Loading...",
     language: config.language,
     days: [0, 1, 2, 3, 4, 5, 6],
-    hoursStart: "00:00",
-    hoursEnd: "23:59"
+    hoursStart: "00:00:00",
+    hoursEnd: "23:59:59"
   },
 
   start: function () {
@@ -50,11 +50,11 @@ Module.register('traffic', {
   },
 
   getStyles: function () {
-    return ["traffic.css", "font-awesome.css"];
+    return [];
   },
 
   getScripts: function () {
-    return ["moment.js"];
+    return [];
   },
 
   getDom: function () {
@@ -65,9 +65,9 @@ Module.register('traffic', {
 
     // base divs
     var firstLineDiv = document.createElement("div");
-    firstLineDiv.className = "bright medium";
+    firstLineDiv.className = "bright " + this.config.cssclass;
     var secondLineDiv = document.createElement("div");
-    secondLineDiv.className = "normal xsmall";
+    secondLineDiv.className = "normal " + this.config.cssclass2;
 
     // display any errors
     if (this.errorMessage) {
@@ -82,6 +82,16 @@ Module.register('traffic', {
     if (this.config.showSymbol) {
       var symbol = document.createElement("span");
       symbol.className = "fa fa-car symbol";
+      symbol.style.marginRight = "10px";
+
+      if (this.duration > 30) {
+        symbol.style.color = "yellow";
+      } else if (this.duration > 45) {
+        symbol.style.color = "darkorange";
+      } else if (this.duration > 60) {
+        symbol.style.color = "orangered";
+      } else symbol.style.color = "lawngreen";
+
       firstLineDiv.appendChild(symbol);
     }
 
@@ -109,8 +119,8 @@ Module.register('traffic', {
     var hide = true;
     var now = moment();
     if (this.config.days.includes(now.day()) &&
-      moment(this.config.hoursStart, "HH:mm").isBefore(now) &&
-      moment(this.config.hoursEnd, "HH:mm").isAfter(now)
+      moment(this.config.hoursStart, "HH:mm:ss").isBefore(now) &&
+      moment(this.config.hoursEnd, "HH:mm:ss").isAfter(now)
     ) {
       hide = false;
     }

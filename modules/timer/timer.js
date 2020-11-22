@@ -68,7 +68,7 @@ Module.register("timer", {
 			this.before = moment().startOf("d").subtract(1,"h").format("HH:mm:ss");
 			this.morning = moment().startOf("d").add(6,"h").format("HH:mm:ss");
 			this.after = moment().startOf("d").add(7,"h").format("HH:mm:ss");
-			this.winter = moment().format("MM");
+			this.weekday = moment().format("E"); this.winter = moment().format("MM");
 			if ((this.winter >= "01" && this.winter <= "03") || (this.winter >= "10" && this.winter <= "12")) {
 				this.morning = moment().startOf("d").add(7,"h").format("HH:mm:ss");
 				this.after = moment().startOf("d").add(8,"h").format("HH:mm:ss");
@@ -117,17 +117,23 @@ Module.register("timer", {
 		var work = Array.from(document.querySelectorAll(".work"));
 		var home = Array.from(document.querySelectorAll(".home"));
 		var traf = Array.from(document.querySelectorAll(".traffic"));
-		var now = this.now;	if (this.config.traffic) {
+		var life = Array.from(document.querySelectorAll(".lifecounter"));
+		var now = this.now;	var weekday = this.weekday;
+		if (this.config.traffic && weekday < this.config.weekdays) {
 			if (now >= this.config.workStart && now < this.config.workEnd) {
-				work.forEach(function(element) {return element.style.display = "block"});
+				life.forEach(function(element) {return element.style.display = "none"});
 				home.forEach(function(element) {return element.style.display = "none"});
+				work.forEach(function(element) {return element.style.display = "inline"});
 			} else if (now >= this.config.homeStart && now < this.config.homeEnd) {
+				life.forEach(function(element) {return element.style.display = "none"});
 				work.forEach(function(element) {return element.style.display = "none"});
-				home.forEach(function(element) {return element.style.display = "block"});
+				home.forEach(function(element) {return element.style.display = "inline"});
 			} else {
 				traf.forEach(function(element) {return element.style.display = "none"});
+				life.forEach(function(element) {return element.style.display = "inline"});
 			}
 		} else {
+			life.forEach(function(element) {return element.style.display = "inline"});
 			traf.forEach(function(element) {return element.style.display = "none"});
 		}
 	},

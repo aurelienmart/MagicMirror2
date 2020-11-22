@@ -5,12 +5,12 @@
  * MIT Licensed.
  */
 
-var NodeHelper = require('node_helper');
-var fetch = require('node-fetch');
+var NodeHelper = require("node_helper");
+var fetch = require("node-fetch");
 
 module.exports = NodeHelper.create({
   start: function () {
-    console.log('Traffic helper started ...');
+    console.log("Traffic helper started...");
   },
 
   getCommute: function (api_url) {
@@ -19,10 +19,10 @@ module.exports = NodeHelper.create({
       .then(self.checkStatus)
       .then(function(json) {
         var duration = Math.round(json.routes[0].duration / 60);
-        self.sendSocketNotification('TRAFFIC_DURATION', { duration: duration, url: api_url });
+        self.sendSocketNotification("TRAFFIC_DURATION", { duration: duration, url: api_url });
       })
-      .catch(e => {
-        self.sendSocketNotification('TRAFFIC_ERROR', { error: e, url: api_url });
+      .catch(function(e) {
+        self.sendSocketNotification("TRAFFIC_ERROR", { error: e, url: api_url });
       });
 
   },
@@ -40,9 +40,9 @@ module.exports = NodeHelper.create({
   socketNotificationReceived: function (notification, payload) {
     // this.setTimeConfig(payload.timeConfig);
 
-    if (notification === 'TRAFFIC_URL') {
+    if (notification === "TRAFFIC_URL") {
       this.getCommute(payload.url);
-    } else if (notification === 'LEAVE_BY') {
+    } else if (notification === "LEAVE_BY") {
       this.getTiming(payload.url, payload.arrival);
     }
   }
@@ -54,7 +54,7 @@ class TrafficError extends Error {
     // Pass remaining arguments (including vendor specific ones) to parent constructor
     super(...params)
 
-    this.name = 'Traffic_Error'
+    this.name = "Traffic_Error"
     // Custom debugging information
     this.message = message;
     this.description = description;
