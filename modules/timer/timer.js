@@ -33,6 +33,7 @@ Module.register("timer", {
 		setInterval(function () {
 			self.variables();
 			self.timer();
+			self.traffic();
 			self.dimmer();
 			self.notification();
 		}, 1000);
@@ -75,8 +76,9 @@ Module.register("timer", {
 		}
 	},
 
-	timer: function() { var self = this; 
-		var now = this.now; var midnight = this.midnight; var morning = this.morning;
+	timer: function() {
+		var now = this.now; var midnight = this.midnight; 
+		var morning = this.morning; var self = this;
 		var hide = Array.from(document.querySelectorAll(".module:not(.night)"));
 		var icon = Array.from(document.querySelectorAll(".wicon"));
 		var weat = Array.from(document.querySelectorAll(".currentweather"));
@@ -88,7 +90,7 @@ Module.register("timer", {
 
 		if (window.innerWidth < this.config.bodysize) { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"});
 			if (this.config.nightMode) {
-				if (now >= midnight && now < morning)   { night_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize * 1.53 + ")"})} 
+				if (now >= midnight && now < morning) { night_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize * 1.53 + ")"})} 
 				else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"})}
 			}
 		} else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(1)"})
@@ -108,6 +110,25 @@ Module.register("timer", {
 			weat.forEach(function(element) {return element.style.transform = "translate(-730px, 280px)", element.style.textAlign = "left"});
 			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-125%) scale(0.6)"});
 			fish.forEach(function(element) {return element.style.display = "block"});
+		}
+	},
+
+	traffic: function () {
+		var work = Array.from(document.querySelectorAll(".work"));
+		var home = Array.from(document.querySelectorAll(".home"));
+		var traf = Array.from(document.querySelectorAll(".traffic"));
+		var now = this.now;	if (this.config.traffic) {
+			if (now >= this.config.workStart && now < this.config.workEnd) {
+				work.forEach(function(element) {return element.style.display = "block"});
+				home.forEach(function(element) {return element.style.display = "none"});
+			} else if (now >= this.config.homeStart && now < this.config.homeEnd) {
+				work.forEach(function(element) {return element.style.display = "none"});
+				home.forEach(function(element) {return element.style.display = "block"});
+			} else {
+				traf.forEach(function(element) {return element.style.display = "none"});
+			}
+		} else {
+			traf.forEach(function(element) {return element.style.display = "none"});
 		}
 	},
 

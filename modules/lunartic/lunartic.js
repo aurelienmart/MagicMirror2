@@ -62,7 +62,8 @@ Module.register("lunartic", {
 
         if (!this.loaded) {
           this.scheduleUpdate();
-            wrapper.innerHTML = this.translate("When the Moon hits your eye . . .");
+        //  wrapper.innerHTML = this.translate("When the Moon hits your eye...");
+            wrapper.innerHTML = this.translate("Loading...");
             wrapper.classList.add("normal", "light", "msmall");
             return wrapper;
         }
