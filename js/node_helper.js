@@ -121,6 +121,4 @@ NodeHelper.create = function (moduleDefinition) {
 };
 
 /*************** DO NOT EDIT THE LINE BELOW ***************/
-if (typeof module !== "undefined") {
-	module.exports = NodeHelper;
-}
+module.exports = NodeHelper;

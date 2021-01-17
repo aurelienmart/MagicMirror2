@@ -30,7 +30,9 @@ var Server = function (config, callback) {
 	} else {
 		server = require("http").Server(app);
 	}
-	var io = require("socket.io")(server);
+	const io = require("socket.io")(server, {
+		cors: {}
+	});
 
 	Log.log("Starting server on port " + port + " ... ");
 

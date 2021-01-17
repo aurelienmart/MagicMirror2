@@ -18,7 +18,7 @@ var defaults = {
 	kioskmode: false,
 	electronOptions: {},
 	ipWhitelist: ["127.0.0.1", "::ffff:127.0.0.1", "::1"],
-
+	logLevel: ["INFO", "LOG", "WARN", "ERROR"],
 	language: "en",
 	timeFormat: 24,
 	units: "metric",
@@ -78,6 +78,4 @@ var defaults = {
 };
 
 /*************** DO NOT EDIT THE LINE BELOW ***************/
-if (typeof module !== "undefined") {
-	module.exports = defaults;
-}
+module.exports = defaults;

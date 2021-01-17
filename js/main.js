@@ -504,10 +504,9 @@ var MM = (function () {
 		 */
 		modulesStarted: function (moduleObjects) {
 			modules = [];
-			for (var m in moduleObjects) {
-				var module = moduleObjects[m];
-				modules[module.data.index] = module;
-			}
+			moduleObjects.forEach(function (module) {
+			  return modules.push(module);
+			});
 
 			Log.info("All modules started!");
 			sendNotification("ALL_MODULES_STARTED");
