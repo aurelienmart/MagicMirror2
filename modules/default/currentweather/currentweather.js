@@ -246,6 +246,7 @@ Module.register("currentweather", {
 
 			var temperature = document.createElement("span");
 			temperature.className = "wtemp bright light xlarge";
+			if (this.temperature == -0) {this.temperature = 0}
 			temperature.innerHTML = " " + this.temperature.replace(".", this.config.decimalSymbol) + "&deg;<span class=\"deg shade\">" + degreeLabel + "</span>";
 			large.appendChild(temperature);
 		}
