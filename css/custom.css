@@ -11,6 +11,7 @@ html {
 	cursor: auto;
 	overflow: hidden;
 	background: black;
+	user-select: none;
 }
 
 ::-webkit-scrollbar {
@@ -22,7 +23,7 @@ body {
 	position: absolute;
 	height: 100%;
 	width: 100%;
-	background: transparent;
+	background: black;
 	color: lightgray;
 	font-family: "Roboto Condensed", sans-serif;
 	font-weight: 300;
@@ -30,8 +31,16 @@ body {
   	line-height: 1.2em;
 	transform-origin: 0 0;
 	transition: all 1s ease;
-	-webkit-font-smoothing: antialiased;
 	text-rendering: geometricprecision;
+}
+
+* {
+	-webkit-font-smoothing: antialiased !important;
+	-webkit-backface-visibility: hidden !important;
+	-webkit-font-smoothing: antialiased !important;
+	font-smoothing: antialiased !important;
+	-webkit-transform: translateZ(0) scale(1.0, 1.0);
+	transform: translateZ(0);
 }
 
 /* Default styles */
@@ -548,7 +557,7 @@ header {
 
 .lunartic img.photo {
 	position: absolute;
-	top: 174px;
+	top: -162px;
 	left: 0;
 	width: 28px;
 }
@@ -1273,6 +1282,13 @@ header {
 	.newsfeed, .newsfeed .light {
 		font-size: 1.1rem;
 		line-height: 1.3rem;
+	}
+
+	.lunartic img.photo {
+		position: absolute;
+		top: -105px;
+		left: 0;
+		width: 28px;
 	}
 }
 
