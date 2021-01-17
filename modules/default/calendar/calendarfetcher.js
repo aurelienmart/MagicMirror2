@@ -76,7 +76,16 @@ const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEn
 				return;
 			}
 
-			const data = ical.parseICS(requestData);
+			var data = [];
+
+			try {
+				data = ical.parseICS(requestData);
+			} catch (error) {
+				fetchFailedCallback(self, error.message);
+				scheduleTimer();
+				return;
+			}
+			Log.debug(" parsed data=" + JSON.stringify(data));
 			const newEvents = [];
 
 			// limitFunction doesn't do much limiting, see comment re: the dates array in rrule section below as to why we need to do the filtering ourselves
@@ -87,13 +96,13 @@ const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEn
 			const eventDate = function (event, time) {
 				return isFullDayEvent(event) ? moment(event[time], "YYYYMMDD") : moment(new Date(event[time]));
 			};
-
+			Log.debug("there are " + Object.entries(data).length + " calendar entries");
 			Object.entries(data).forEach(function([key, event]) {
 				const now = new Date();
 				const today = moment().startOf("day").toDate();
 				const future = moment().startOf("day").add(maximumNumberOfDays, "days").subtract(1, "seconds").toDate(); // Subtract 1 second so that events that start on the middle of the night will not repeat.
 				var past = today;
-
+				Log.debug("have entries ");
 				if (includePastEvents) {
 					past = moment().startOf("day").subtract(maximumNumberOfDays, "days").toDate();
 				}
@@ -110,7 +119,7 @@ const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEn
 				if (event.type === "VEVENT") {
 					var startDate = eventDate(event, "start");
 					var endDate;
-					// Log.debug("\nevent="+JSON.stringify(event))
+					Log.debug("\nevent="+JSON.stringify(event))
 					if (typeof event.end !== "undefined") {
 						endDate = eventDate(event, "end");
 					} else if (typeof event.duration !== "undefined") {
@@ -212,7 +221,14 @@ const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEn
 							pastLocal = pastMoment.toDate();
 							futureLocal = futureMoment.toDate();
 						} else {
-							pastLocal = pastMoment.subtract(past.getTimezoneOffset(), "minutes").toDate();
+							// if we want past events
+							if (includePastEvents) {
+								// use the calculated past time for the between from
+								pastLocal = pastMoment.toDate();
+							} else {
+								// otherwise use NOW.. cause we shouldnt use any before now
+								pastLocal = moment().toDate(); //now
+							}
 							futureLocal = futureMoment.subtract(future.getTimezoneOffset(), "minutes").toDate();
 						}
 						Log.debug(" between=" + pastLocal + " to " + futureLocal);
@@ -376,7 +392,21 @@ const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEn
 				return a.startDate - b.startDate;
 			});
 
-			events = newEvents.slice(0, maximumEntries);
+			// include up to maximumEntries current or upcoming events
+			// If past events should be included, include all past events
+			const now = moment();
+			var entries = 0;
+			events = [];
+			for (var ne of newEvents) {
+				if (moment(ne.endDate, "x").isBefore(now)) {
+					if (includePastEvents) events.push(ne);
+					continue;
+				}
+				entries++;
+				// If max events has been saved, skip the rest
+				if (entries > maximumEntries) break;
+				events.push(ne);
+			}
 
 			self.broadcastEvents();
 			scheduleTimer();
