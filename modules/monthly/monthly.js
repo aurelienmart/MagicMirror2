@@ -74,9 +74,25 @@ Module.register("monthly", {
 				for (dow = 0; dow <= 6; dow++) {
 					if (currentWeekday.isSame(firstDayOfMonth, "month")) {
 						if (currentWeekday.isSame(moment(), "day")) {
-							output += "<div class='day current_day'>" + currentWeekday.format("D") + "</div>";
-						} else {
-							output += "<div class='day'>" + currentWeekday.format("D") + "</div>";
+							if (this.config.highlightWeekend) {
+								if (currentWeekday.day() == 0 || currentWeekday.day() == 6) {
+									output += "<div class='current_day_weekend'>" + currentWeekday.format("D") + "</div>";
+								} else {
+									output += "<div class='current_day'>" + currentWeekday.format("D") + "</div>";
+								}
+							} else {
+								output += "<div class='current_day'>" + currentWeekday.format("D") + "</div>";
+							}
+						} else { // End of current day 
+							if (this.config.highlightWeekend) {
+								if (currentWeekday.day() == 0 || currentWeekday.day() == 6) {
+									output += "<div class='weekend'>" + currentWeekday.format("D") + "</div>";
+								} else {
+									output += "<div class='day'>" + currentWeekday.format("D") + "</div>";
+								}
+							} else {
+								output += "<div class='day'>" + currentWeekday.format("D") + "</div>";
+							}
 						}
 					} else {
 						// empty cell as placeholder
