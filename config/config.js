@@ -103,7 +103,8 @@ var config = {
 				monthCount: 2,
 				monthsVertical: true,
 				repeatWeekdaysVertical: false,
-				weekNumbers: true
+				weekNumbers: true,
+				highlightWeekend: true
 			}
 		},
 		{
@@ -199,7 +200,6 @@ var config = {
 				coloredSymbolOnly: true,
 				urgency: 10,
 				timeFormat: "relative",
-				sliceMultiDayEvents: false,
 				dateFormat: "MMM Do",				
 				dateEndFormat: "LT",
 				fullDayEventDateFormat: "ddd D MMM",
@@ -208,6 +208,7 @@ var config = {
 				hidePrivate: false,
 				hideOngoing: false,
 				tableClass: "qsmall",
+				customEvents: [],
 				titleReplace: {
 					"Ziua Internațională a Femeii": "Ziua femeii",
 					"Zi Constantin Brancusi": "Ziua Constantin Brancuși",
@@ -226,6 +227,7 @@ var config = {
 					"Rusalii",
 					"Doua zi de Rusalii",
 					],
+				sliceMultiDayEvents: false,
 				broadcastPastEvents: false,
 				nextDaysRelative: true,
 
@@ -255,7 +257,7 @@ var config = {
 				initialLoadDelay: 4000,
 				retryDelay: 2500,
 				updateInterval: 60 * 60 * 1000,
-				rotateInterval: 10 * 1000,
+				rotateInterval: 60 * 1000,
 			}
 		},
 		{
@@ -606,4 +608,4 @@ var config = {
 };
 
 /*************** DO NOT EDIT THE LINE BELOW ***************/
-if (typeof module !== "undefined") {module.exports = config;}
+module.exports = config;
