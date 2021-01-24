@@ -178,7 +178,7 @@ var Module = Class.extend({
 		});
 
 		this._nunjucksEnvironment.addFilter("translate", function (str) {
-			return self.translate(str);
+			return nunjucks.runtime.markSafe(self.translate(str, variables));
 		});
 
 		return this._nunjucksEnvironment;

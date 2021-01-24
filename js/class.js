@@ -105,4 +105,6 @@ function cloneObject(obj) {
 }
 
 /*************** DO NOT EDIT THE LINE BELOW ***************/
-module.exports = Class;
+if (typeof module !== "undefined") {
+	module.exports = Class;
+}

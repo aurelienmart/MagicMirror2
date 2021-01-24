@@ -45,16 +45,16 @@ process.on("uncaughtException", function (err) {
  *
  * @class
  */
-var App = function () {
+function App() {
 	var nodeHelpers = [];
 
 	/**
-	 * Loads the config file. Combines it with the defaults,  and runs the
+	 * Loads the config file. Combines it with the defaults, and runs the
 	 * callback with the found config as argument.
 	 *
 	 * @param {Function} callback Function to be called after loading the config
 	 */
-	var loadConfig = function (callback) {
+	function loadConfig(callback) {
 		Log.log("Loading config ...");
 		var defaults = require(__dirname + "/defaults.js");
 
@@ -88,8 +88,8 @@ var App = function () {
 	 * if it encounters one option from the deprecated.js list
 	 *
 	 * @param {object} userConfig The user config
-	 *
-	var checkDeprecatedOptions = function (userConfig) {
+	 */
+	function checkDeprecatedOptions(userConfig) {
 		var deprecated = require(global.root_path + "/js/deprecated.js");
 		var deprecatedOptions = deprecated.configs;
 
@@ -106,12 +106,9 @@ var App = function () {
 	};
 
 	/**
-	 * Loads a specific module.
 	 *
-	 * @param {string} module The name of the module (including subpath).
-	 * @param {Function} callback Function to be called after loading
 	 */
-	var loadModule = function (module, callback) {
+	function loadModule(module, callback) {
 		var elements = module.split("/");
 		var moduleName = elements[elements.length - 1];
 		var moduleFolder = __dirname + "/../modules/" + module;
@@ -160,10 +157,10 @@ var App = function () {
 	 * @param {Module[]} modules All modules to be loaded
 	 * @param {Function} callback Function to be called after loading
 	 */
-	var loadModules = function (modules, callback) {
+	function loadModules(modules, callback) {
 		Log.log("Loading module helpers ...");
 
-		var loadNextModule = function () {
+		function loadNextModule() {
 			if (modules.length > 0) {
 				var nextModule = modules[0];
 				loadModule(nextModule, function () {
