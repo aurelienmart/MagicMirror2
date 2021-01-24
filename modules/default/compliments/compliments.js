@@ -184,6 +184,9 @@ Module.register("compliments", {
 	},
 
 	// From data currentweather set weather type
+	setCurrentWeatherType: function (type) {
+		this.currentWeatherType = type;
+/*
 	setCurrentWeatherType: function (data) {
 		var weatherIconTable = {
 			"01d": "day_sunny",
@@ -206,12 +209,15 @@ Module.register("compliments", {
 			"50n": "night_alt_cloudy_windy"
 		};
 		this.currentWeatherType = weatherIconTable[data.weather[0].icon];
+*/
 	},
 
 	// Override notification handler.
 	notificationReceived: function (notification, payload, sender) {
-		if (notification === "CURRENTWEATHER_DATA") {
-			this.setCurrentWeatherType(payload.data);
+		if (notification === "CURRENTWEATHER_TYPE") {
+			this.setCurrentWeatherType(payload.type);
+//		if (notification === "CURRENTWEATHER_DATA") {
+//			this.setCurrentWeatherType(payload.data);
 		}
 	}
 });

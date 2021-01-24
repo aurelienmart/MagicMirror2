@@ -26,24 +26,24 @@ Module.register("weatherforecast", {
 		excludes: false,
 
 		iconTable: {
-			"01d": "wi-day-sunny",
-			"02d": "wi-day-cloudy",
-			"03d": "wi-cloudy",
-			"04d": "wi-cloudy-windy",
-			"09d": "wi-showers",
-			"10d": "wi-rain",
-			"11d": "wi-thunderstorm",
-			"13d": "wi-snow",
-			"50d": "wi-fog",
-			"01n": "wi-night-clear",
-			"02n": "wi-night-cloudy",
-			"03n": "wi-night-cloudy",
-			"04n": "wi-night-cloudy",
-			"09n": "wi-night-showers",
-			"10n": "wi-night-rain",
-			"11n": "wi-night-thunderstorm",
-			"13n": "wi-night-snow",
-			"50n": "wi-night-alt-cloudy-windy"
+			"01d": "day-sunny",
+			"02d": "day-cloudy",
+			"03d": "cloudy",
+			"04d": "cloudy-windy",
+			"09d": "showers",
+			"10d": "rain",
+			"11d": "thunderstorm",
+			"13d": "snow",
+			"50d": "fog",
+			"01n": "night-clear",
+			"02n": "night-cloudy",
+			"03n": "night-cloudy",
+			"04n": "night-cloudy",
+			"09n": "night-showers",
+			"10n": "night-rain",
+			"11n": "night-thunderstorm",
+			"13n": "night-snow",
+			"50n": "night-alt-cloudy-windy"
 		}
 	},
 
@@ -133,7 +133,7 @@ Module.register("weatherforecast", {
 			row.appendChild(iconCell);
 
 			var icon = document.createElement("span");
-			icon.className = "wi weathericon " + forecast.icon;
+			icon.className = "wi weathericon wi-" + forecast.icon;
 			iconCell.appendChild(icon);
 
 			var degreeLabel = "";
@@ -360,8 +360,8 @@ Module.register("weatherforecast", {
 		var dayEnds = 18;
 
 		if (data.city && data.city.sunrise && data.city.sunset) {
-			dayStarts = new Date(moment.unix(data.city.sunrise).locale("en").format("YYYY/MM/DD HH:mm:ss")).getHours();
-			dayEnds = new Date(moment.unix(data.city.sunset).locale("en").format("YYYY/MM/DD HH:mm:ss")).getHours();
+			dayStarts = new Date(moment.unix(data.city.sunrise).locale(config.language).format("YYYY/MM/DD HH:mm:ss")).getHours();
+			dayEnds = new Date(moment.unix(data.city.sunset).locale(config.language).format("YYYY/MM/DD HH:mm:ss")).getHours();
 		}
 
 		// Handle different structs between forecast16 and onecall endpoints
@@ -383,7 +383,7 @@ Module.register("weatherforecast", {
 			var hour;
 			if (forecast.dt_txt) {
 				day = moment(forecast.dt_txt, "YYYY-MM-DD hh:mm:ss").format(this.config.fullday);
-				hour = new Date(moment(forecast.dt_txt).locale("en").format("YYYY-MM-DD HH:mm:ss")).getHours();
+				hour = new Date(moment(forecast.dt_txt).locale(config.language).format("YYYY-MM-DD HH:mm:ss")).getHours();
 			} else {
 				day = moment(forecast.dt, "X").format("ddd");
 				hour = new Date(moment(forecast.dt, "X")).getHours();
