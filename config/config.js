@@ -12,7 +12,7 @@ var config = {
 	address: "0.0.0.0",
 	port: 8255,
 	basePath: "/",
-	ipWhitelist: ["192.168.1.0/24"],
+	ipWhitelist: ["192.168.0.0/23"],
 	useHttps: false,
 	httpsPrivateKey: "",
 	httpsCertificate: "",
