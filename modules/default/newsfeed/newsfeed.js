@@ -15,7 +15,7 @@ Module.register("newsfeed", {
 		return ["moment.js"];
 	},
 
-	//Define required styles.
+	// Define required styles.
 	getStyles: function () {
 		return ["newsfeed.css"];
 	},
@@ -62,7 +62,7 @@ Module.register("newsfeed", {
 	},
 
 	// Override dom generator.
-/*	getDom: function () {
+	getDom: function () {
 		var wrapper = document.createElement("div");
 
 		if (this.config.feedUrl) {
@@ -97,7 +97,7 @@ Module.register("newsfeed", {
 				wrapper.appendChild(sourceAndTimestamp);
 			}
 
-			//Remove selected tags from the beginning of rss feed items (title or description)
+			// Remove selected tags from the beginning of rss feed items (title or description)
 
 			if (this.config.removeStartTags === "title" || this.config.removeStartTags === "both") {
 				for (var f = 0; f < this.config.startTags.length; f++) {
@@ -117,7 +117,7 @@ Module.register("newsfeed", {
 				}
 			}
 
-			//Remove selected tags from the end of rss feed items (title or description)
+			// Remove selected tags from the end of rss feed items (title or description)
 
 			if (this.config.removeEndTags) {
 				for (var f = 0; f < this.config.endTags.length; f++) {
@@ -179,9 +179,8 @@ Module.register("newsfeed", {
 
 		return wrapper;
 	},
-*/
-
-	//Override fetching of template name
+/*
+	// Override fetching of template name
 	getTemplate: function () {
 		if (this.config.feedUrl) {
 			return "oldconfig.njk";
@@ -191,7 +190,7 @@ Module.register("newsfeed", {
 		return "newsfeed.njk";
 	},
 
-	//Override template data and return whats used for the current template
+	// Override template data and return whats used for the current template
 	getTemplateData: function () {
 		// this.config.showFullArticle is a run-time configuration, triggered by optional notifications
 		if (this.config.showFullArticle) {
@@ -219,7 +218,7 @@ Module.register("newsfeed", {
 			description: item.description
 		};
 	},
-
+*/
 	getActiveItemURL: function () {
 		return typeof this.newsItems[this.activeItem].url === "string" ? this.newsItems[this.activeItem].url : this.newsItems[this.activeItem].url.href;
 	},
@@ -276,8 +275,8 @@ Module.register("newsfeed", {
 			}, this);
 		}
 
-		newsItems.forEach( function(item) {
-			//Remove selected tags from the beginning of rss feed items (title or description)
+		newsItems.forEach(function (item) {
+			// Remove selected tags from the beginning of rss feed items (title or description)
 			if (this.config.removeStartTags === "title" || this.config.removeStartTags === "both") {
 				for (var f = 0; f < this.config.startTags.length; f++) {
 					if (item.title.slice(0, this.config.startTags[f].length) === this.config.startTags[f]) {
@@ -296,7 +295,7 @@ Module.register("newsfeed", {
 				}
 			}
 
-			//Remove selected tags from the end of rss feed items (title or description)
+			// Remove selected tags from the end of rss feed items (title or description)
 
 			if (this.config.removeEndTags) {
 				for (var f = 0; f < this.config.endTags.length; f++) {
