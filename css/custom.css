@@ -1263,9 +1263,9 @@ header {
 	.calendar .month:nth-child(n+2),
 	.icalendar table tr:nth-child(n+14),
 	.calendar table tr:nth-child(n+13),
-	.hourly table tr:nth-child(n+4),
+	.hourly, /* table tr:nth-child(n+4),
 	.daily table tr:nth-child(n+13),
-	.daily2 table tr:nth-child(n+16),
+*/	.daily table tr:nth-child(n+16),
 	header,	.monthly .month-header,
 	.lifecounter, .yframe, .traffic {
 		display: none !important;
