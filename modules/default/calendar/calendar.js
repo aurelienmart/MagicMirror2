@@ -277,11 +277,34 @@ Module.register("calendar", {
 				eventWrapper.appendChild(titleWrapper);
 				var now = new Date();
 
-				if (this.config.getCompatible) {
-					// start of compatible mode
+				if (this.config.timeFormat === "absolute") {
+					// Use dateFormat
+					timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").format(this.config.dateFormat));
+					// Add end time if showEnd
+					if (this.config.showEnd) {
+						timeWrapper.innerHTML += "-";
+						timeWrapper.innerHTML += this.capFirst(moment(event.endDate, "x").format(this.config.dateEndFormat));
+					}
+					// For full day events we use the fullDayEventDateFormat
 					if (event.fullDayEvent) {
 						//subtract one second so that fullDayEvents end at 23:59:59, and not at 0:00:00 one the next day
 						event.endDate -= oneSecond;
+						timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").format(this.config.fullDayEventDateFormat));
+					}
+					if (this.config.getRelative > 0 && event.startDate < now) {
+						// Ongoing and getRelative is set
+						timeWrapper.innerHTML = this.capFirst(
+							this.translate("RUNNING", {
+								fallback: this.translate("RUNNING") + " {timeUntilEnd}",
+								timeUntilEnd: moment(event.endDate, "x").fromNow(true)
+							})
+						);
+					} else if (this.config.urgency > 0 && event.startDate - now < this.config.urgency * oneDay) {
+						// Within urgency days
+						timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").fromNow());
+					}
+					if (event.fullDayEvent && this.config.nextDaysRelative) {
+						// Full days events within the next two days
 						if (event.today) {
 							timeWrapper.innerHTML = this.capFirst(this.translate("TODAY"));
 						} else if (event.startDate - now < oneDay && event.startDate - now > 0) {
@@ -289,137 +312,26 @@ Module.register("calendar", {
 						} else if (event.startDate - now < 2 * oneDay && event.startDate - now > 0) {
 							if (this.translate("DAYAFTERTOMORROW") !== "DAYAFTERTOMORROW") {
 								timeWrapper.innerHTML = this.capFirst(this.translate("DAYAFTERTOMORROW"));
-							} else {
-								timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").fromNow());
 							}
-						} else {
-							/* Check to see if the user displays absolute or relative dates with their events
-							 * Also check to see if an event is happening within an 'urgency' time frameElement
-							 * For example, if the user set an .urgency of 7 days, those events that fall within that
-							 * time frame will be displayed with 'in xxx' time format or moment.fromNow()
-							 *
-							 * Note: this needs to be put in its own function, as the whole thing repeats again verbatim
-							 */
-							if (this.config.timeFormat === "absolute") {
-								if (this.config.urgency > 1 && event.startDate - now < this.config.urgency * oneDay) {
-									// This event falls within the config.urgency period that the user has set
-									timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").from(moment().format("YYYYMMDD")));
-								} else {
-									timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").format(this.config.fullDayEventDateFormat));
-								}
-							} else {
-								timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").from(moment().format("YYYYMMDD")));
-							}
-						}
-						if (this.config.showEnd) {
-							timeWrapper.innerHTML += "-";
-							timeWrapper.innerHTML += this.capFirst(moment(event.endDate, "x").format(this.config.fullDayEventDateFormat));
-						}
-					} else {
-						if (event.startDate >= new Date()) {
-							if (event.startDate - now < 2 * oneDay) {
-								// This event is within the next 48 hours (2 days)
-								if (event.startDate - now < this.config.getRelative * oneHour) {
-									// If event is within 6 hour, display 'in xxx' time format or moment.fromNow()
-									timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").fromNow());
-								} else {
-									if (this.config.timeFormat === "absolute" && !this.config.nextDaysRelative) {
-										timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").format(this.config.dateFormat));
-									} else {
-										// Otherwise just say 'Today/Tomorrow at such-n-such time'
-										timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").calendar());
-									}
-								}
-							} else {
-								/* Check to see if the user displays absolute or relative dates with their events
-								 * Also check to see if an event is happening within an 'urgency' time frameElement
-								 * For example, if the user set an .urgency of 7 days, those events that fall within that
-								 * time frame will be displayed with 'in xxx' time format or moment.fromNow()
-								 *
-								 * Note: this needs to be put in its own function, as the whole thing repeats again verbatim
-								 */
-								if (this.config.timeFormat === "absolute") {
-									if (this.config.urgency > 1 && event.startDate - now < this.config.urgency * oneDay) {
-										// This event falls within the config.urgency period that the user has set
-										timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").fromNow());
-									} else {
-										timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").format(this.config.dateFormat));
-									}
-								} else {
-									timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").fromNow());
-								}
-							}
-						} else {
-							timeWrapper.innerHTML = this.capFirst(
-								this.translate("RUNNING", {
-									fallback: this.translate("RUNNING") + " {timeUntilEnd}",
-									timeUntilEnd: moment(event.endDate, "x").fromNow(true)
-								})
-							);
-						}
-						if (this.config.showEnd) {
-							timeWrapper.innerHTML += "-";
-							timeWrapper.innerHTML += this.capFirst(moment(event.endDate, "x").format(this.config.dateEndFormat));
 						}
 					}
 				} else {
-					// end of compatible mode
-					if (this.config.timeFormat === "absolute") {
-						// Use dateFormat
-						timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").format(this.config.dateFormat));
-						// Add end time if showEnd
-						if (this.config.showEnd) {
-							timeWrapper.innerHTML += "-";
-							timeWrapper.innerHTML += this.capFirst(moment(event.endDate, "x").format(this.config.dateEndFormat));
-						}
-						// For full day events we use the fullDayEventDateFormat
-						if (event.fullDayEvent) {
-							//subtract one second so that fullDayEvents end at 23:59:59, and not at 0:00:00 one the next day
-							event.endDate -= oneSecond;
-							timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").format(this.config.fullDayEventDateFormat));
-						}
-						if (this.config.getRelative > 0 && event.startDate < now) {
-							// Ongoing and getRelative is set
-							timeWrapper.innerHTML = this.capFirst(
-								this.translate("RUNNING", {
-									fallback: this.translate("RUNNING") + " {timeUntilEnd}",
-									timeUntilEnd: moment(event.endDate, "x").fromNow(true)
-								})
-							);
-						} else if (this.config.urgency > 0 && event.startDate - now < this.config.urgency * oneDay) {
-							// Within urgency days
+					// Show relative times
+					if (event.startDate >= now) {
+						// Use relative  time
+						timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").fromNow());
+						if (event.startDate - now < this.config.getRelative * oneHour) {
+							// If event is within getRelative  hours, display 'in xxx' time format or moment.fromNow()
 							timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").fromNow());
 						}
-						if (event.fullDayEvent && this.config.nextDaysRelative) {
-							// Full days events within the next two days
-							if (event.today) {
-								timeWrapper.innerHTML = this.capFirst(this.translate("TODAY"));
-							} else if (event.startDate - now < oneDay && event.startDate - now > 0) {
-								timeWrapper.innerHTML = this.capFirst(this.translate("TOMORROW"));
-							} else if (event.startDate - now < 2 * oneDay && event.startDate - now > 0) {
-								if (this.translate("DAYAFTERTOMORROW") !== "DAYAFTERTOMORROW") {
-									timeWrapper.innerHTML = this.capFirst(this.translate("DAYAFTERTOMORROW"));
-								}
-							}
-						}
 					} else {
-						// Show relative times
-						if (event.startDate >= now) {
-							// Use relative  time
-							timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").calendar());
-							if (event.startDate - now < this.config.getRelative * oneHour) {
-								// If event is within getRelative  hours, display 'in xxx' time format or moment.fromNow()
-								timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").fromNow());
-							}
-						} else {
-							// Ongoing event
-							timeWrapper.innerHTML = this.capFirst(
-								this.translate("RUNNING", {
-									fallback: this.translate("RUNNING") + " {timeUntilEnd}",
-									timeUntilEnd: moment(event.endDate, "x").fromNow(true)
-								})
-							);
-						}
+						// Ongoing event
+						timeWrapper.innerHTML = this.capFirst(
+							this.translate("RUNNING", {
+								fallback: this.translate("RUNNING") + " {timeUntilEnd}",
+								timeUntilEnd: moment(event.endDate, "x").fromNow(true)
+							})
+						);
 					}
 				}
 
