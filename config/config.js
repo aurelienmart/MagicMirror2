@@ -199,7 +199,7 @@ var config = {
 				fadePoint: 0.25,
 				colored: false,
 				coloredSymbolOnly: true,
-				urgency: 10,
+				urgency: 15,
 				timeFormat: "relative",
 				dateFormat: "MMM Do",				
 				dateEndFormat: "LT",
@@ -231,7 +231,6 @@ var config = {
 				sliceMultiDayEvents: false,
 				broadcastPastEvents: false,
 				nextDaysRelative: true,
-				getCompatible: true,
 
 				calendars: [
 					{
