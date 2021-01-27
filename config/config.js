@@ -200,7 +200,7 @@ var config = {
 				colored: false,
 				coloredSymbolOnly: true,
 				urgency: 10,
-				timeFormat: "absolute",
+				timeFormat: "relative",
 				dateFormat: "MMM Do",				
 				dateEndFormat: "LT",
 				fullDayEventDateFormat: "ddd D MMM",
@@ -231,6 +231,7 @@ var config = {
 				sliceMultiDayEvents: false,
 				broadcastPastEvents: false,
 				nextDaysRelative: true,
+				getCompatible: true,
 
 				calendars: [
 					{
