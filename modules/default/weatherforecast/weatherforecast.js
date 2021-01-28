@@ -22,7 +22,6 @@ Module.register("weatherforecast", {
 		scale: config.scale,
 		retryDelay: config.delay,
 		roundTemp: config.roundTemp,
-		initialLoadDelay: config.delay,
 		excludes: false,
 
 		iconTable: {
@@ -348,7 +347,7 @@ Module.register("weatherforecast", {
 		if (data.city) {
 			this.fetchedLocationName = data.city.name; // + ", " + data.city.country;
 		} else if (this.config.location) {
-			this.fetchedLocationName = this.config.location;
+			this.fetchedLocationName = config.location;
 		} else {
 			this.fetchedLocationName = "Unknown";
 		}
