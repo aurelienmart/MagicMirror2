@@ -104,25 +104,18 @@ var Translator = (function () {
 		 * @param {Function} callback Function called when done.
 		 */
 		load(module, file, isFallback, callback) {
-			if (!isFallback) {
-				Log.log(module.name + " - Load translation: " + file);
-			} else {
-				Log.log(module.name + " - Load translation fallback: " + file);
+			Log.log(`${module.name} - Load translation${isFallback && " fallback"}: ${file}`);
+
+			if (this.translationsFallback[module.name]) {
+				return callback();
 			}
 
 			var self = this;
-			if (!this.translationsFallback[module.name]) {
-				loadJSON(module.file(file), function (json) {
-					if (!isFallback) {
-						self.translations[module.name] = json;
-					} else {
-						self.translationsFallback[module.name] = json;
-					}
-					callback();
-				});
-			} else {
+			loadJSON(module.file(file), function(json) {
+				const property = isFallback ? "translationsFallback" : "translations";
+				self[property][module.name] = json;
 				callback();
-			}
+			});
 		},
 
 		/**
