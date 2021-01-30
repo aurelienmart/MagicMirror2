@@ -1,6 +1,6 @@
 # MagicMirror&sup2;
 
-Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile / Full HD monitor + Windows 8.1 HP mini netbook / eventually Windows 10 PC stick + IKEA frame + see-thru acrylic mirror, powered by consistent css & js, fonts sizes, icons & well structured folders <b>MagicMirror&sup2;</b> based on open source core framework unfortunately <b>full of bugs</b>. 
+Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile / Full HD monitor + Windows 8.1 HP mini netbook / eventually Windows 10 PC stick + IKEA frame + see-thru acrylic mirror, powered by consistent css & js, fonts sizes, icons & well structured folders, based on <b>MagicMirror&sup2;</b> open source <b>full of bugs</b> core framework. 
 
 <b>Some modified default original modules:</b>
 <br>Compliments https://github.com/hangorazvan/compliments_plus
@@ -11,8 +11,7 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <b>Some 3rd party modified modules:</b>
 <br>multi monthly calendar
 <br>random quotes
-<br>lunartic
-<br>traffic
+<br>lunar & traffic
 
 <b>My own test developed modules:</b>
 <br>swatch.beat https://github.com/hangorazvan/swatch
