@@ -9,16 +9,16 @@ const Log = require("./logger.js");
 const express = require("express");
 
 var NodeHelper = Class.extend({
-	init: function () {
+	init() {
 		Log.log("Initializing new module helper ...");
 	},
 
-	loaded: function (callback) {
+	loaded(callback) {
 		Log.log("Module helper loaded: " + this.name);
 		callback();
 	},
 
-	start: function () {
+	start() {
 		Log.log("Starting module helper: " + this.name);
 	},
 
@@ -28,7 +28,7 @@ var NodeHelper = Class.extend({
 	 * gracefully exit the module.
 	 *
 	 */
-	stop: function () {
+	stop() {
 		Log.log("Stopping module helper: " + this.name);
 	},
 
@@ -38,7 +38,7 @@ var NodeHelper = Class.extend({
 	 * argument notification string - The identifier of the notification.
 	 * argument payload mixed - The payload of the notification.
 	 */
-	socketNotificationReceived: function (notification, payload) {
+	socketNotificationReceived(notification, payload) {
 		Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
 	},
 
@@ -47,7 +47,7 @@ var NodeHelper = Class.extend({
 	 *
 	 * argument name string - Module name.
 	 */
-	setName: function (name) {
+	setName(name) {
 		this.name = name;
 	},
 
@@ -56,7 +56,7 @@ var NodeHelper = Class.extend({
 	 *
 	 * argument path string - Module path.
 	 */
-	setPath: function (path) {
+	setPath(path) {
 		this.path = path;
 	},
 
@@ -66,7 +66,7 @@ var NodeHelper = Class.extend({
 	 * argument notification string - The identifier of the notification.
 	 * argument payload mixed - The payload of the notification.
 	 */
-	sendSocketNotification: function (notification, payload) {
+	sendSocketNotification(notification, payload) {
 		this.io.of(this.name).emit(notification, payload);
 	},
 
@@ -76,7 +76,7 @@ var NodeHelper = Class.extend({
 	 *
 	 * argument app Express app - The Express app object.
 	 */
-	setExpressApp: function (app) {
+	setExpressApp(app) {
 		this.expressApp = app;
 
 		var publicPath = this.path + "/public";
@@ -89,7 +89,7 @@ var NodeHelper = Class.extend({
 	 *
 	 * argument io Socket.io - The Socket io object.
 	 */
-	setSocketIO: function (io) {
+	setSocketIO(io) {
 		var self = this;
 		self.io = io;
 

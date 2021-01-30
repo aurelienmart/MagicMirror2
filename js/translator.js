@@ -47,7 +47,7 @@ var Translator = (function () {
 		 * @param {object} variables The variables to use within the translation template (optional)
 		 * @returns {string} the translated key
 		 */
-		translate: function (module, key, variables) {
+		translate(module, key, variables) {
 			variables = variables || {}; //Empty object by default
 
 			/**
@@ -103,7 +103,7 @@ var Translator = (function () {
 		 * @param {boolean} isFallback Flag to indicate fallback translations.
 		 * @param {Function} callback Function called when done.
 		 */
-		load: function (module, file, isFallback, callback) {
+		load(module, file, isFallback, callback) {
 			if (!isFallback) {
 				Log.log(module.name + " - Load translation: " + file);
 			} else {
@@ -130,7 +130,7 @@ var Translator = (function () {
 		 *
 		 * @param {string} lang The language identifier of the core language.
 		 */
-		loadCoreTranslations: function (lang) {
+		loadCoreTranslations(lang) {
 			var self = this;
 
 			if (lang in translations) {
@@ -149,7 +149,7 @@ var Translator = (function () {
 		 * Load the core translations fallback.
 		 * The first language defined in translations.js will be used.
 		 */
-		loadCoreTranslationsFallback: function () {
+		loadCoreTranslationsFallback() {
 			var self = this;
 
 			// The variable `first` will contain the first

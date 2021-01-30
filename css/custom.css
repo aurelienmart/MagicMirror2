@@ -231,6 +231,11 @@ header {
 	pointer-events: auto;
 }
 
+.region.fullscreen.below {
+	background-image: none;
+	filter: opacity(25%);
+}
+
 .region.top {
 	top: 5px;
 }
@@ -557,14 +562,14 @@ header {
 
 .lunartic img.photo {
 	position: absolute;
-	top: -162px;
-	left: 0;
-	width: 28px;
+	top: -150px;
+	left: 3px;
+	width: 27px;
 }
 /* swatch */
 
 .swatch {
-	opacity: 0.85;
+	filter: opacity(85%)
 	padding: 2px 0;
 }
 
