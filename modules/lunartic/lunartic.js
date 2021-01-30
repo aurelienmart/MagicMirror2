@@ -23,28 +23,28 @@ Module.register("lunartic", {
 
     },
 
-    getStyles: function() {
+    getStyles() {
         return ["lunartic.css"];
     },
 
-    getScripts: function() {
+    getScripts() {
         return ["moment.js"];
     },
 
-    getTranslations: function() {
+    getTranslations() {
         return {
             en: "translations/en.json",
             ro: "translations/ro.json",
         };
     },
 
-    start: function() {
+    start() {
         Log.info("Starting module: " + this.name);
 
         requiresVersion: "2.1.0",
 
-            //  Set locale.
-  //      this.url = this.getUrl();
+        //  Set locale.
+  		//  this.url = this.getUrl();
         this.Lunartic = {};
         this.moon = {};
         this.activeItem = 0;
@@ -52,9 +52,7 @@ Module.register("lunartic", {
         this.scheduleUpdate();
     },
 
-
-
-    getDom: function() {
+    getDom() {
 
         var wrapper = document.createElement("div");
         wrapper.className = "wrapper";
@@ -1393,12 +1391,12 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
                         var dateTimeString = moment.unix(this.info[2].fm).format("MMM DD, YYYY");
                     }
                     nextFullMoon.classList.add("msmall", "normal", "nextFullMoon");
-                    //	console.log (Lunartic); // checking data
+                	//	console.log (Lunartic); // checking data
 
 
-                //    console.log(this.info[2].fm * 1000); // unix timestamp of full moon from data
-                //    console.log(new Date().valueOf()); // unix timestamp for right now
-                    // compare date of next full moon to current date and time
+                	//  console.log(this.info[2].fm * 1000); // unix timestamp of full moon from data
+                	//  console.log(new Date().valueOf()); // unix timestamp for right now
+                	// 	compare date of next full moon to current date and time
                     if (this.info[2].fm * 1000 < new Date().valueOf()) {
                     nextFullMoon.innerHTML = this.translate("The last full moon was ") + dateTimeString;
                     wrapper.appendChild(nextFullMoon);
@@ -1652,7 +1650,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
         return wrapper;
     },
 
- //    getUrl: function() {
+ //    getUrl() {
  //    var url = null;
  //    var mType = this.config.image;
  //
@@ -1671,7 +1669,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
 
     /////  Add this function to the modules you want to control with voice //////
 
-    notificationReceived: function(notification, payload) {
+    notificationReceived(notification, payload) {
         if (notification === 'HIDE_MOON') {
             this.hide(1000);
             //    this.updateDom(300);
@@ -1683,21 +1681,21 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
     },
 
 
-    processLunartic: function(data) {
+    processLunartic(data) {
         this.info = data;
-    	console.log(this.info); // for checking
+    //	console.log(this.info); // for checking
         this.loaded = true;
     },
 
 
-    processMOON: function(data) {
+    processMOON(data) {
         this.moon = data;
 //  console.log(this.moon); // for checking
 
     },
 
-    scheduleCarousel: function() {
-        console.log("Carousel of Lunartic fuction");
+    scheduleCarousel() {
+    //  console.log("Carousel of Lunartic fuction");
         var self = this;
         this.rotateInterval = setInterval(function() {
             self.activeItem++;
@@ -1705,7 +1703,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
         }, this.config.rotateInterval);
     },
 
-    scheduleUpdate: function() {
+    scheduleUpdate() {
     	var self = this;
         setInterval(function() {
             self.getLunartic();
@@ -1713,12 +1711,12 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
         this.getLunartic(this.config.initialLoadDelay);
     },
 
-    getLunartic: function() {
+    getLunartic() {
         this.sendSocketNotification('GET_LUNARTIC'); // , this.url);
         this.sendSocketNotification('GET_MOON', this.url);
     },
 
-    socketNotificationReceived: function(notification, payload) {
+    socketNotificationReceived(notification, payload) {
         if (notification === "LUNARTIC_RESULT") {
             this.processLunartic(payload);
           }

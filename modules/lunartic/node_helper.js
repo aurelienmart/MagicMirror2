@@ -10,11 +10,11 @@ const request = require('request');
 
 module.exports = NodeHelper.create({
 
-    start: function() {
+    start() {
         console.log("Starting node_helper for: " + this.name);
     },
 
-    getLunartic: function(url) {
+    getLunartic(url) {
         var self = this;
         var data =[];
         request({
@@ -52,7 +52,7 @@ module.exports = NodeHelper.create({
     },
 
 
-    socketNotificationReceived: function(notification, payload) {
+    socketNotificationReceived(notification, payload) {
         if (notification === 'GET_LUNARTIC') {
             this.getLunartic(payload);
         }
