@@ -1,5 +1,5 @@
 /* Magic Mirror
- * Module: MMM-Lunartic
+ * Module: MMM-lunar
  *
  * By Mykle1
  *
@@ -14,7 +14,7 @@ module.exports = NodeHelper.create({
         console.log("Starting node_helper for: " + this.name);
     },
 
-    getLunartic(url) {
+    getlunar(url) {
         var self = this;
         var data =[];
         request({
@@ -46,15 +46,15 @@ module.exports = NodeHelper.create({
 
                 data.push(dfcoe,dfs,fm,nnm,age,ill,stage); // push the data
 //               console.log(response.statusCode + data); // for checking
-                self.sendSocketNotification('LUNARTIC_RESULT', data);
+                self.sendSocketNotification('lunar_RESULT', data);
             }
         });
     },
 
 
     socketNotificationReceived(notification, payload) {
-        if (notification === 'GET_LUNARTIC') {
-            this.getLunartic(payload);
+        if (notification === 'GET_lunar') {
+            this.getlunar(payload);
         }
     }
 });
