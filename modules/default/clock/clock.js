@@ -17,15 +17,15 @@ Module.register("clock", {
 		showPeriodUpper: config.period,
 	},
 	// Define required scripts.
-	getScripts: function () {
+	getScripts() {
 		return ["moment.js", "moment-timezone.js", "suncalc.js"];
 	},
 	// Define styles.
-	getStyles: function () {
+	getStyles() {
 		return false;
 	},
 	// Define start sequence.
-	start: function () {
+	start() {
 		Log.info("Starting module: " + this.name);
 
 		// Schedule update interval.
@@ -81,7 +81,7 @@ Module.register("clock", {
 		} else moment.locale(config.language);
 	},
 	// Override dom generator.
-	getDom: function () {
+	getDom() {
 		var wrapper = document.createElement("div");
 
 		/************************************

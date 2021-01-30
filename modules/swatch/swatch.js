@@ -12,11 +12,11 @@ Module.register("swatch", {
 		logo_height: 28,
 	},
 
-	getScripts: function() {
+	getScripts() {
 		return ["moment.js"];
 	},
 
-	start: function() {
+	start() {
 		Log.info("Starting module: " + this.name);
 		var self = this;
 		setInterval(function () {
@@ -24,7 +24,7 @@ Module.register("swatch", {
 		}, 1000);
 	},
 
-	swatch: function() {
+	swatch() {
 	//	CET Switzerland, Biel Meantime UTC+1
 		var t = moment().utcOffset(60);
 		var h = t.hours();
@@ -37,7 +37,7 @@ Module.register("swatch", {
 		this.updateDom();
 	},
 
-	getDom: function() {
+	getDom() {
 		var wrapper = document.createElement("div");
 		wrapper.className = "swatch";
 

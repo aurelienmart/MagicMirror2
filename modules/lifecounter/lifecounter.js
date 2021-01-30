@@ -12,11 +12,11 @@ Module.register("lifecounter", {
 		decimalSymbol: config.decimal,
 	},
 
-	getScripts: function() {
+	getScripts() {
 		return ["moment.js"];
 	},
 	
-	start: function() {
+	start() {
 		Log.info("Starting module: " + this.name);
 		var self = this;
 		setInterval(function() {
@@ -24,7 +24,7 @@ Module.register("lifecounter", {
 		}, 1000);
 	},
 
-	getDom: function() {
+	getDom() {
 		var wrapper = document.createElement("div");
 		var yourtime = moment.utc().diff(this.config.birthday, this.config.counter);
 		var lifecounter = this.config.before + " " + yourtime + " " + this.config.after;

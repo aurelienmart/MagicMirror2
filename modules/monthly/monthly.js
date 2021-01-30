@@ -11,7 +11,7 @@ Module.register("monthly", {
 	defaults: {},
 
 	// CSS Add
-	getStyles: function() {
+	getStyles() {
 		return ["monthly.css"];
 	},
 
@@ -24,7 +24,7 @@ Module.register("monthly", {
 	},		
 
 	// Override dom generator.
-	getDom: function() {
+	getDom() {
 		var wrapper = document.createElement("div");
 		var lastMonth = this.config.startMonth + this.config.monthCount - 1;
 		var todayNum = moment().format("D");

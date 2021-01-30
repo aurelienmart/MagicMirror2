@@ -20,20 +20,20 @@ Module.register("alert", {
 		welcome_message: false
 	},
 
-	getScripts: function () {
+	getScripts() {
 		return ["notificationFx.js"];
 	},
 
-	getStyles: function () {
+	getStyles() {
 		return ["notificationFx.css", "font-awesome.css"];
 	},
 
 	// Define required translations.
-	getTranslations: function () {
+	getTranslations() {
 		return null;
 	},
 
-	show_notification: function (message) {
+	show_notification(message) {
 		if (this.config.effect === "slide") {
 			this.config.effect = this.config.effect + "-" + this.config.position;
 		}
@@ -56,7 +56,7 @@ Module.register("alert", {
 		}).show();
 	},
 
-	show_alert: function (params, sender) {
+	show_alert(params, sender) {
 		var image = "";
 		//Set standard params if not provided by module
 		if (typeof params.timer === "undefined") {
@@ -114,7 +114,7 @@ Module.register("alert", {
 		}
 	},
 
-	hide_alert: function (sender) {
+	hide_alert(sender) {
 		//Dismiss alert and remove from this.alerts
 		if (this.alerts[sender.name]) {
 			this.alerts[sender.name].dismiss();
@@ -125,7 +125,7 @@ Module.register("alert", {
 		} else this.sendNotification("HIDE_ALERT",{});
 	},
 
-	setPosition: function (pos) {
+	setPosition(pos) {
 		//Add css to body depending on the set position for notifications
 		var sheet = document.createElement("style");
 		if (pos === "center") {
@@ -140,7 +140,7 @@ Module.register("alert", {
 		document.body.appendChild(sheet);
 	},
 
-	notificationReceived: function (notification, payload, sender) {
+	notificationReceived(notification, payload, sender) {
 		if (notification === "SHOW_ALERT") {
 			if (typeof payload.type === "undefined") {
 				payload.type = "alert";
@@ -155,7 +155,7 @@ Module.register("alert", {
 		}
 	},
 
-	start: function () {
+	start() {
 		this.alerts = {};
 		this.setPosition(this.config.position);
 		if (this.config.welcome_message) {

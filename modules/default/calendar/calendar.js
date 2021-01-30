@@ -15,17 +15,17 @@ Module.register("calendar", {
 	requiresVersion: config.minVersion,
 
 	// Define required scripts.
-	getStyles: function () {
+	getStyles() {
 		return ["font-awesome.css"];
 	},
 
 	// Define required scripts.
-	getScripts: function () {
+	getScripts() {
 		return ["moment.js"];
 	},
 
 	// Define required translations.
-	getTranslations: function () {
+	getTranslations() {
 		// The translations for the default modules are defined in the core translation files.
 		// Therefor we can just return false. Otherwise we should have returned a dictionary.
 		// If you're trying to build your own module including translations, check out the documentation.
@@ -33,7 +33,7 @@ Module.register("calendar", {
 	},
 
 	// Override start method.
-	start: function () {
+	start() {
 		Log.log("Starting module: " + this.name);
 
 		// Set locale.
@@ -81,7 +81,7 @@ Module.register("calendar", {
 	},
 
 	// Override socket notification handler.
-	socketNotificationReceived: function (notification, payload) {
+	socketNotificationReceived(notification, payload) {
 		if (this.identifier !== payload.id) {
 			return;
 		}
@@ -106,7 +106,7 @@ Module.register("calendar", {
 	},
 
 	// Override dom generator.
-	getDom: function () {
+	getDom() {
 		// Define second, minute, hour, and day constants
 		const oneSecond = 1000; // 1,000 milliseconds
 		const oneMinute = oneSecond * 60;
@@ -388,7 +388,7 @@ Module.register("calendar", {
 	 * @param {number} timeFormat Specifies either 12 or 24 hour time format
 	 * @returns {moment.LocaleSpecification} formatted time
 	 */
-	getLocaleSpecification: function (timeFormat) {
+	getLocaleSpecification(timeFormat) {
 		switch (timeFormat) {
 			case 12: {
 				return { longDateFormat: { LT: "h:mm A" } };
@@ -408,7 +408,7 @@ Module.register("calendar", {
 	 * @param {string} url The calendar url
 	 * @returns {boolean} True if the calendar config contains the url, False otherwise
 	 */
-	hasCalendarURL: function (url) {
+	hasCalendarURL(url) {
 		for (var c in this.config.calendars) {
 			var calendar = this.config.calendars[c];
 			if (calendar.url === url) {
@@ -424,7 +424,7 @@ Module.register("calendar", {
 	 *
 	 * @returns {object[]} Array with events.
 	 */
-	createEventList: function () {
+	createEventList() {
 		var events = [];
 		var today = moment().startOf("day");
 		var now = new Date();
@@ -523,7 +523,7 @@ Module.register("calendar", {
 		return events.slice(0, this.config.maximumEntries);
 	},
 
-	listContainsEvent: function (eventList, event) {
+	listContainsEvent(eventList, event) {
 		for (var evt of eventList) {
 			if (evt.title === event.title && parseInt(evt.startDate) === parseInt(event.startDate)) {
 				return true;
@@ -539,7 +539,7 @@ Module.register("calendar", {
 	 * @param {object} auth The authentication method and credentials
 	 * @param {object} calendarConfig The config of the specific calendar
 	 */
-	addCalendar: function (url, auth, calendarConfig) {
+	addCalendar(url, auth, calendarConfig) {
 		var self = this;
 		this.sendSocketNotification("ADD_CALENDAR", {
 			id: this.identifier,
@@ -562,7 +562,7 @@ Module.register("calendar", {
 	 * @param {object} event Event to look for.
 	 * @returns {string[]} The symbols
 	 */
-	symbolsForEvent: function (event) {
+	symbolsForEvent(event) {
 		var symbols = this.getCalendarPropertyAsArray(event.url, "symbol", this.config.defaultSymbol);
 
 		if (event.recurringEvent === true && this.hasCalendarProperty(event.url, "recurringSymbol")) {
@@ -576,7 +576,7 @@ Module.register("calendar", {
 		return symbols;
 	},
 
-	mergeUnique: function (arr1, arr2) {
+	mergeUnique(arr1, arr2) {
 		return arr1.concat(
 			arr2.filter(function (item) {
 				return arr1.indexOf(item) === -1;
@@ -590,7 +590,7 @@ Module.register("calendar", {
 	 * @param {string} url The calendar url
 	 * @returns {string} The class to be used for the symbols of the calendar
 	 */
-	symbolClassForUrl: function (url) {
+	symbolClassForUrl(url) {
 		return this.getCalendarProperty(url, "symbolClass", "");
 	},
 
@@ -600,7 +600,7 @@ Module.register("calendar", {
 	 * @param {string} url The calendar url
 	 * @returns {string} The class to be used for the title of the calendar
 	 */
-	titleClassForUrl: function (url) {
+	titleClassForUrl(url) {
 		return this.getCalendarProperty(url, "titleClass", "");
 	},
 
@@ -610,7 +610,7 @@ Module.register("calendar", {
 	 * @param {string} url The calendar url
 	 * @returns {string} The class to be used for the time of the calendar
 	 */
-	timeClassForUrl: function (url) {
+	timeClassForUrl(url) {
 		return this.getCalendarProperty(url, "timeClass", "");
 	},
 
@@ -620,7 +620,7 @@ Module.register("calendar", {
 	 * @param {string} url The calendar url
 	 * @returns {string} The name of the calendar
 	 */
-	calendarNameForUrl: function (url) {
+	calendarNameForUrl(url) {
 		return this.getCalendarProperty(url, "name", "");
 	},
 
@@ -630,7 +630,7 @@ Module.register("calendar", {
 	 * @param {string} url The calendar url
 	 * @returns {string} The color
 	 */
-	colorForUrl: function (url) {
+	colorForUrl(url) {
 		return this.getCalendarProperty(url, "color", "#fff");
 	},
 
@@ -640,7 +640,7 @@ Module.register("calendar", {
 	 * @param {string} url The calendar url
 	 * @returns {string} The title
 	 */
-	countTitleForUrl: function (url) {
+	countTitleForUrl(url) {
 		return this.getCalendarProperty(url, "repeatingCountTitle", this.config.defaultRepeatingCountTitle);
 	},
 
@@ -652,7 +652,7 @@ Module.register("calendar", {
 	 * @param {string} defaultValue The value if the property is not found
 	 * @returns {*} The property
 	 */
-	getCalendarProperty: function (url, property, defaultValue) {
+	getCalendarProperty(url, property, defaultValue) {
 		for (var c in this.config.calendars) {
 			var calendar = this.config.calendars[c];
 			if (calendar.url === url && calendar.hasOwnProperty(property)) {
@@ -663,13 +663,13 @@ Module.register("calendar", {
 		return defaultValue;
 	},
 
-	getCalendarPropertyAsArray: function (url, property, defaultValue) {
+	getCalendarPropertyAsArray(url, property, defaultValue) {
 		var p = this.getCalendarProperty(url, property, defaultValue);
 		if (!(p instanceof Array)) p = [p];
 		return p;
 	},
 
-	hasCalendarProperty: function (url, property) {
+	hasCalendarProperty(url, property) {
 		return !!this.getCalendarProperty(url, property, undefined);
 	},
 
@@ -682,7 +682,7 @@ Module.register("calendar", {
 	 * @param {number} maxTitleLines The max number of vertical lines before cutting event title
 	 * @returns {string} The shortened string
 	 */
-	shorten: function (string, maxLength, wrapEvents, maxTitleLines) {
+	shorten(string, maxLength, wrapEvents, maxTitleLines) {
 		if (typeof string !== "string") {
 			return "";
 		}
@@ -732,7 +732,7 @@ Module.register("calendar", {
 	 * @param {string} string The string to capitalize
 	 * @returns {string} The capitalized string
 	 */
-	capFirst: function (string) {
+	capFirst(string) {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	},
 
@@ -748,7 +748,7 @@ Module.register("calendar", {
 	 * @param {number} maxTitleLines The max number of vertical lines before cutting event title
 	 * @returns {string} The transformed title.
 	 */
-	titleTransform: function (title, titleReplace, wrapEvents, maxTitleLength, maxTitleLines) {
+	titleTransform(title, titleReplace, wrapEvents, maxTitleLength, maxTitleLines) {
 		for (var needle in titleReplace) {
 			var replacement = titleReplace[needle];
 
@@ -769,7 +769,7 @@ Module.register("calendar", {
 	 * Broadcasts the events to all other modules for reuse.
 	 * The all events available in one array, sorted on startdate.
 	 */
-	broadcastEvents: function () {
+	broadcastEvents() {
 		var eventList = [];
 		for (var url in this.calendarData) {
 			var calendar = this.calendarData[url];

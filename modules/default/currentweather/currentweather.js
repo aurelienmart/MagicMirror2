@@ -53,17 +53,17 @@ Module.register("currentweather", {
 	fetchedLocationName: config.location,
 
 	// Define required scripts.
-	getScripts: function () {
+	getScripts() {
 		return ["moment.js"];
 	},
 
 	// Define required scripts.
-	getStyles: function () {
+	getStyles() {
 		return ["weather-icons.css"];
 	},
 
 	// Define required translations.
-	getTranslations: function () {
+	getTranslations() {
 		// The translations for the default modules are defined in the core translation files.
 		// Therefor we can just return false. Otherwise we should have returned a dictionary.
 		// If you're trying to build your own module including translations, check out the documentation.
@@ -71,7 +71,7 @@ Module.register("currentweather", {
 	},
 
 	// Define start sequence.
-	start: function () {
+	start() {
 		Log.info("Starting module: " + this.name);
 
 		// Set locale.
@@ -194,7 +194,7 @@ Module.register("currentweather", {
 	},
 
 	// Override dom generator.
-	getDom: function () {
+	getDom() {
 		var wrapper = document.createElement("div");
 		wrapper.className = this.config.tableClass;
 
@@ -358,7 +358,7 @@ Module.register("currentweather", {
 	},
 
 	// Override getHeader method.
-	getHeader: function () {
+	getHeader() {
 		if (this.config.useLocationAsHeader && this.config.location !== false) {
 			return this.config.location;
 		}
@@ -407,7 +407,7 @@ Module.register("currentweather", {
 	 * Requests new data from openweather.org.
 	 * Calls processWeather on succesfull response.
 	 */
-	updateWeather: function () {
+	updateWeather() {
 		if (this.config.appid === "") {
 			Log.error("CurrentWeather: APPID not set!");
 			return;
@@ -445,7 +445,7 @@ Module.register("currentweather", {
 	 *
 	 * return String - URL params.
 	 */
-	getParams: function () {
+	getParams() {
 		var params = "?";
 		if (this.config.locationID) {
 			params += "id=" + this.config.locationID;

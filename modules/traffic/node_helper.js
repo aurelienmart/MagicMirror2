@@ -9,11 +9,11 @@ var NodeHelper = require("node_helper");
 var fetch = require("node-fetch");
 
 module.exports = NodeHelper.create({
-  start: function () {
+  start() {
     console.log("Traffic helper started...");
   },
 
-  getCommute: function (api_url) {
+  getCommute(api_url) {
     var self = this;
     fetch(api_url)
       .then(self.checkStatus)
@@ -27,7 +27,7 @@ module.exports = NodeHelper.create({
 
   },
 
-  checkStatus: function (res) {
+  checkStatus(res) {
     if (res.ok) {
       return res.json();
     } else {
@@ -37,7 +37,7 @@ module.exports = NodeHelper.create({
     }
   },
 
-  socketNotificationReceived: function (notification, payload) {
+  socketNotificationReceived(notification, payload) {
     // this.setTimeConfig(payload.timeConfig);
 
     if (notification === "TRAFFIC_URL") {

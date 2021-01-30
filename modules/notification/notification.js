@@ -12,7 +12,7 @@ Module.register("notification", {
 		animationSpeed: config.animation
 	},
 
-	getScripts: function() {
+	getScripts() {
 		return ["moment.js"];
 	},
 
@@ -20,18 +20,18 @@ Module.register("notification", {
 		return ["font-awesome.css"];
 	},
 
-	getTranslations: function() {
+	getTranslations() {
 		return {
 			en: "en.json",
 			ro: "ro.json"
 		};
 	},
 
-	start: function() {
+	start() {
 		Log.info("Starting module: " + this.name);
 	},
 	
-	getDom: function() {
+	getDom() {
 		var wrapper = document.createElement("div");
 
 		var title = document.createElement("div");

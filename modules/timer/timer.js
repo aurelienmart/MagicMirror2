@@ -12,7 +12,7 @@ Module.register("timer", {
 		debugging: false
 	},
 
-	getScripts: function() {
+	getScripts() {
 		return ["moment.js"];
 	},
 
@@ -20,14 +20,14 @@ Module.register("timer", {
 		return ["font-awesome.css"];
 	},
 
-	getTranslations: function() {
+	getTranslations() {
 		return {
 			en: "en.json",
 			ro: "ro.json"
 		};
 	},
 
-	start: function() {
+	start() {
 		Log.info("Starting module: " + this.name);
 		var self = this;
 		setInterval(function () {
@@ -39,7 +39,7 @@ Module.register("timer", {
 		}, 1000);
 	},
 
-	variables: function() {
+	variables() {
 		this.now = moment().format("HH:mm:ss"); this.date = moment().format("DD.MM mm:ss");
 		this.mins = moment().format("m"); this.secs = moment().format("s");
 		this.grayscale = this.config.dimming; this.opacity = (1 - this.grayscale / 100).toPrecision(2);
@@ -76,7 +76,7 @@ Module.register("timer", {
 		}
 	},
 
-	timer: function() {
+	timer() {
 		var now = this.now; var midnight = this.midnight; 
 		var morning = this.morning; var self = this;
 		var hide = Array.from(document.querySelectorAll(".module:not(.night)"));
@@ -138,7 +138,7 @@ Module.register("timer", {
 		}
 	},
 
-	dimmer: function() {
+	dimmer() {
 		var now = this.now; var grayscale = this.grayscale; var opacity = this.opacity;
 		var gray1 = this.gray1; var gray2 = this.gray2; var opac1 = this.opac1;
 		var opac2 = this.opac2; var night = this.night; var midnight = this.midnight;
@@ -149,23 +149,23 @@ Module.register("timer", {
 			if (this.config.dimmMode) {
 				if (this.config.fadeMode) {
 					if (now >= before && now < night) {
-						body.forEach(function(element) {return element.style.opacity = opac1, element.style.filter = "grayscale(" + gray1 + "%)"})
+						body.forEach(function(element) {return element.style.filter = "opacity(" + opac1 + "%)", element.style.filter = "grayscale(" + gray1 + "%)"})
 						this.sendNotification("NIGHT_NOTIFICATION", this.gray1)
 					} else if (now >= midnight && now < morning) {
-						body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)"})
+						body.forEach(function(element) {return element.style.filter = "opacity(" + opacity + "%)", element.style.filter = "grayscale(" + grayscale + "%)"})
 					} else if (now >= morning && now < after) {
-						body.forEach(function(element) {return element.style.opacity = opac2, element.style.filter = "grayscale(" + gray2 + "%)"})
+						body.forEach(function(element) {return element.style.filter = "opacity(" + opac2 + "%)", element.style.filter = "grayscale(" + gray2 + "%)"})
 						this.sendNotification("NIGHT_NOTIFICATION", this.gray2)
-					} else { body.forEach(function(element) {return element.style.opacity = "1", element.style.filter = "grayscale(0%)"})}
+					} else { body.forEach(function(element) {return element.style.filter = "opacity(100%)", element.style.filter = "grayscale(0%)"})}
 				} else { if (now >= midnight && now < morning) {
-						body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)"})
-					} else {body.forEach(function(element) {return element.style.opacity = "1", element.style.filter = "grayscale(0%)"})}
+						body.forEach(function(element) {return element.style.filter = "opacity(" + opacity + "%)", element.style.filter = "grayscale(" + grayscale + "%)"})
+					} else {body.forEach(function(element) {return element.style.filter = "opacity(100%)", element.style.filter = "grayscale(0%)"})}
 				}
 			}
 		}
 	},
 
-	notification: function() {
+	notification() {
 		var now = this.now; var date = this.date; var mins = this.mins; var secs = this.secs;
 		var sharp = "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm");
 

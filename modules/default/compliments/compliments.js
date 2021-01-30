@@ -15,16 +15,16 @@ Module.register("compliments", {
 	currentWeatherType: "currentweather",
 
 	// Define required scripts.
-	getScripts: function () {
+	getScripts() {
 		return ["moment.js"];
 	},
 
-	getStyles: function () {
+	getStyles() {
 		return ["font-awesome.css", "weather-icons.css"];
 	},
 
 	// Define start sequence.
-	start: function () {
+	start() {
 		Log.info("Starting module: " + this.name);
 
 		this.lastComplimentIndex = -1;
@@ -75,7 +75,7 @@ Module.register("compliments", {
 	 *
 	 * return compliments Array<String> - Array with compliments for the time of the day.
 	 */
-	complimentArray: function () {
+	complimentArray() {
 		var hour = moment().hour();
 		var date = this.config.mockDate ? this.config.mockDate : moment().format("DD-MM-YYYY");
 		var compliments;
@@ -135,7 +135,7 @@ Module.register("compliments", {
 	 *
 	 * return compliment string - A compliment.
 	 */
-	randomCompliment: function () {
+	randomCompliment() {
 		// get the current time of day compliments list
 		var compliments = this.complimentArray();
 		// variable for index to next message to display
@@ -158,7 +158,7 @@ Module.register("compliments", {
 	},
 
 	// Override dom generator.
-	getDom: function () {
+	getDom() {
 		var wrapper = document.createElement("div");
 		wrapper.className = this.config.classes ? this.config.classes : "thin xlarge bright pre-line";
 		// get the compliment text

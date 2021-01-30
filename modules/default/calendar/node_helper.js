@@ -11,13 +11,13 @@ const Log = require("../../../js/logger");
 
 module.exports = NodeHelper.create({
 	// Override start method.
-	start: function () {
+	start() {
 		Log.log("Starting node helper for: " + this.name);
 		this.fetchers = [];
 	},
 
 	// Override socketNotificationReceived method.
-	socketNotificationReceived: function (notification, payload) {
+	socketNotificationReceived(notification, payload) {
 		if (notification === "ADD_CALENDAR") {
 			this.createFetcher(payload.url, payload.fetchInterval, payload.excludedEvents, payload.maximumEntries, payload.maximumNumberOfDays, payload.auth, payload.broadcastPastEvents, payload.id);
 		}
@@ -36,28 +36,24 @@ module.exports = NodeHelper.create({
 	 * @param {boolean} broadcastPastEvents If true events from the past maximumNumberOfDays will be included in event broadcasts
 	 * @param {string} identifier ID of the module
 	 */
-	createFetcher: function (url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, identifier) {
+	createFetcher(url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, identifier) {
 		var self = this;
-
 		if (!validUrl.isUri(url)) {
-			self.sendSocketNotification("INCORRECT_URL", { id: identifier, url: url });
+			this.sendSocketNotification("INCORRECT_URL", { id: identifier, url: url });
 			return;
 		}
 
 		var fetcher;
-		if (typeof self.fetchers[identifier + url] === "undefined") {
+
+		if (typeof this.fetchers[identifier + url] === "undefined") {
 			Log.log("Create new calendar fetcher for url: " + url + " - Interval: " + fetchInterval);
 			fetcher = new CalendarFetcher(url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents);
 
-			fetcher.onReceive(function (fetcher) {
-				self.sendSocketNotification("CALENDAR_EVENTS", {
-					id: identifier,
-					url: fetcher.url(),
-					events: fetcher.events()
-				});
+			fetcher.onReceive(function(fetcher) {
+				self.broadcastEvents(fetcher, identifier);
 			});
 
-			fetcher.onError(function (fetcher, error) {
+			fetcher.onError(function(fetcher, error) {
 				Log.error("Calendar Error. Could not fetch calendar: ", fetcher.url(), error);
 				self.sendSocketNotification("FETCH_ERROR", {
 					id: identifier,
@@ -66,12 +62,25 @@ module.exports = NodeHelper.create({
 				});
 			});
 
-			self.fetchers[identifier + url] = fetcher;
+			this.fetchers[identifier + url] = fetcher;
 		} else {
 			Log.log("Use existing calendar fetcher for url: " + url);
-			fetcher = self.fetchers[identifier + url];
+			fetcher = this.fetchers[identifier + url];
+//			fetcher.setReloadInterval(fetchInterval);
+			fetcher.broadcastEvents();
 		}
 
 		fetcher.startFetch();
+	},
+
+	/**
+	 *
+	 */
+	broadcastEvents(fetcher, identifier) {
+		this.sendSocketNotification("CALENDAR_EVENTS", {
+			id: identifier,
+			url: fetcher.url(),
+			events: fetcher.events()
+		});
 	}
 });

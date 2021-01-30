@@ -10,26 +10,26 @@ Module.register("simpletext",{
 
 	defaults: {},
 
-	getScripts: function() {
+	getScripts() {
 	    return false;
 	},
 	
-	getStyles: function() {
+	getStyles() {
 	    return ["font-awesome.css"];
 	},
 
-	start: function() {
+	start() {
 		Log.info("Starting module: " + this.name); 
 	},
 
-	getDom: function() {
+	getDom() {
 		var wrapper = document.createElement("div");
 		wrapper.className = this.config.cssClass;
 		wrapper.innerHTML = this.config.text;
 		return wrapper;
 	},
 
-	getHeader: function () {
+	getHeader() {
 		return this.data.header;
 	},
 });

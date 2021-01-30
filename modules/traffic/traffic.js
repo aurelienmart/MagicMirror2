@@ -17,7 +17,7 @@ Module.register('traffic', {
     hoursEnd: "23:59:59"
   },
 
-  start: function () {
+  start() {
     console.log('Starting module: ' + this.name);
     this.loading = true;
     this.hidden = false;
@@ -32,7 +32,7 @@ Module.register('traffic', {
     }    
   },
 
-  updateCommute: function (self) {
+  updateCommute(self) {
     self.url = encodeURI(`https://api.mapbox.com/directions/v5/mapbox/driving-traffic/${self.config.originCoords};${self.config.destinationCoords}?access_token=${self.config.accessToken}`);
 
     // only run getDom once at the start of a hidden period to remove the module from the screen, then just wait until time to unhide to run again
@@ -49,15 +49,15 @@ Module.register('traffic', {
     setTimeout(self.updateCommute, self.hidden ? 3000 : self.config.interval, self);
   },
 
-  getStyles: function () {
+  getStyles() {
     return [];
   },
 
-  getScripts: function () {
+  getScripts() {
     return [];
   },
 
-  getDom: function () {
+  getDom() {
     var wrapper = document.createElement("div");
 
     // hide when desired (called once on first update during hidden period)
@@ -111,11 +111,11 @@ Module.register('traffic', {
     return wrapper;
   },
 
-  replaceTokens: function (text) {
+  replaceTokens(text) {
     return text.replace("{duration}", this.duration);
   },
 
-  shouldHide: function () {
+  shouldHide() {
     var hide = true;
     var now = moment();
     if (this.config.days.includes(now.day()) &&
@@ -127,16 +127,16 @@ Module.register('traffic', {
     return hide;
   },
 
-  socketNotificationReceived: function (notification, payload) {
+  socketNotificationReceived(notification, payload) {
     this.leaveBy = '';
     if (notification === 'TRAFFIC_DURATION' && payload.url === this.url) {
-      console.log('received TRAFFIC_DURATION');
+  //  console.log('received TRAFFIC_DURATION');
       this.duration = payload.duration;
       this.errorMessage = this.errorDescription = undefined;
       this.loading = false;
       this.updateDom(1000);
     } else if (notification === 'TRAFFIC_ERROR' && payload.url === this.url) {
-      console.log('received TRAFFIC_ERROR');
+  //  console.log('received TRAFFIC_ERROR');
       this.errorMessage = payload.error.message;
       this.errorDescription = payload.error.description;
       this.loading = false;

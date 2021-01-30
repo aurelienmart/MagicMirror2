@@ -12,7 +12,7 @@ const Log = require("../../../js/logger");
 
 module.exports = NodeHelper.create({
 	// Override start method.
-	start: function () {
+	start() {
 		Log.log("Starting node helper for: " + this.name);
 		this.fetchers = [];
 	},
@@ -73,7 +73,7 @@ module.exports = NodeHelper.create({
 	 * Creates an object with all feed items of the different registered feeds,
 	 * and broadcasts these using sendSocketNotification.
 	 */
-	broadcastFeeds: function () {
+	broadcastFeeds() {
 		var feeds = {};
 		for (var f in this.fetchers) {
 			feeds[f] = this.fetchers[f].items();

@@ -85,11 +85,11 @@ Module.register("yframe", {
 		color: false,				// "RRGGBB" custom colors or false
 	},
 
-	start: function() {
+	start() {
 		Log.info("Starting module: " + this.name);
 	},
 
-	getDom: function() {
+	getDom() {
 
 		if (this.config.url.includes(".mp4")  ||
 			this.config.url.includes(".webm") ||
