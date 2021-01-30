@@ -245,7 +245,7 @@ var config = {
 			}
 		},
 		{
-			module: "lunartic",
+			module: "lunar",
 			position: "top_left",
 			classes: "night",
 			disabled: false,
