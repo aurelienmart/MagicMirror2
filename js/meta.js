@@ -25,5 +25,5 @@ function injector() {var meta = document.createElement("meta");	document.head.in
 + "amateur dudes of forum community. When I needed support, no one gave me an answer. They are sometimes so fucking ignorant and incompetent "
 + "that they don't understand what you're simple asking them, even if it's obvious and not very complicated, but you have to follow they stupid "
 + "rules, don't be reckless or rude to comment on something, just talking about how supposed to do things in the fucking right way, no fucking "
-+ "hacking, no fucking cheating. NO FUCKING THANK YOU FAT OLD MAN! I HAVE MY OWN FUCKING RULES!\">"; 
++ "hacking, no fucking cheating. NO FUCKING THANK YOU FAT OLD MAN! I HATE STUPID PEOPLE AND I HAVE MY OWN FUCKING RULES!\">"; 
 document.getElementsByTagName("head")[0].appendChild(meta);} injector();
