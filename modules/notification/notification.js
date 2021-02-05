@@ -49,7 +49,9 @@ Module.register("notification", {
 	},
 
 	onLine: function () {
-		this.title = this.config.startTitle;
+		if (window.innerWidth <= 1024) {
+			this.title = this.config.startTitle2;
+		} else this.title = this.config.startTitle;
 		this.notification = this.translate(this.config.startNotification);
 		this.updateDom(this.config.animationSpeed);
 	},
@@ -62,7 +64,10 @@ Module.register("notification", {
 
 	notificationReceived: function (notification, payload, sender) {
 		var self = this;
-		if (notification === "DOM_OBJECTS_CREATED") {this.title = this.config.startTitle;
+		if (notification === "DOM_OBJECTS_CREATED") {
+			if (window.innerWidth <= 1024) {
+				this.title = this.config.startTitle2;
+			} else this.title = this.config.startTitle;
 			this.notification = "Răzvan Cristea &copy; " + moment().year() + ", MIT License.";
 			this.updateDom(this.config.animationSpeed);
 
@@ -87,7 +92,9 @@ Module.register("notification", {
 
 		if (notification === "DAY_NOTIFICATION") {
 			if (typeof payload.title === "undefined") {
-				payload.title = this.config.startTitle;
+				if (window.innerWidth <= 1024) {
+					payload.title = this.config.startTitle2;
+				} else payload.title = this.config.startTitle;
 			} else this.title = payload.title;
 
 			if (typeof payload.notification === "undefined") {
