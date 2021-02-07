@@ -445,7 +445,6 @@ var MM = (function () {
 		 * Removes a module instance from the collection.
 		 *
 		 * @param {object} module The module instance to remove from the collection.
-		 *
 		 * @returns {Module[]} Filtered collection of modules.
 		 */
 		var exceptModule = function (module) {
@@ -551,6 +550,11 @@ var MM = (function () {
 		updateDom: function (module, speed) {
 			if (!(module instanceof Module)) {
 				Log.error("updateDom: Sender should be a module.");
+				return;
+			}
+
+			if (!module.data.position) {
+				Log.warn("module tries to update the DOM without being displayed.");
 				return;
 			}
 

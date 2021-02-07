@@ -322,14 +322,16 @@ var Module = Class.extend({
 		const fallbackLanguage = languages[0];
 
 		if (languages.length === 0) {
-			return callback();
+			callback();
+			return;
 		}
 
 		const translationFile = translations[language];
 		const translationsFallbackFile = translations[fallbackLanguage];
 
 		if (!translationFile) {
-			return Translator.load(self, translationsFallbackFile, true, callback);
+			Translator.load(self, translationsFallbackFile, true, callback);
+			return;
 		}
 
 		Translator.load(this, translationFile, false, function() {
