@@ -233,8 +233,11 @@ Module.register("calendar", {
 					if (typeof this.config.customEvents[ev].color !== "undefined" && this.config.customEvents[ev].color !== "") {
 						needle = new RegExp(this.config.customEvents[ev].keyword, "gi");
 						if (needle.test(event.title)) {
-							eventWrapper.style.cssText = "color:" + this.config.customEvents[ev].color;
-							titleWrapper.style.cssText = "color:" + this.config.customEvents[ev].color;
+							// Respect parameter ColoredSymbolOnly also for custom events
+							if (!this.config.coloredSymbolOnly) {
+								eventWrapper.style.cssText = "color:" + this.config.customEvents[ev].color;
+								titleWrapper.style.cssText = "color:" + this.config.customEvents[ev].color;
+							}
 							if (this.config.displaySymbol) {
 								symbolWrapper.style.cssText = "color:" + this.config.customEvents[ev].color;
 							}
@@ -319,7 +322,17 @@ Module.register("calendar", {
 					// Show relative times
 					if (event.startDate >= now) {
 						// Use relative  time
-						timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").fromNow());
+						if (!this.config.hideTime) {
+							timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").calendar());
+						} else {
+							timeWrapper.innerHTML = this.capFirst(
+								moment(event.startDate, "x").calendar(null, {
+									sameDay: "[Today]",
+									nextDay: "[Tomorrow]",
+									nextWeek: "dddd"
+								})
+							);
+						}
 						if (event.startDate - now < this.config.getRelative * oneHour) {
 							// If event is within getRelative  hours, display 'in xxx' time format or moment.fromNow()
 							timeWrapper.innerHTML = this.capFirst(moment(event.startDate, "x").fromNow());
