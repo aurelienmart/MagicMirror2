@@ -208,6 +208,7 @@ var config = {
 				getRelative: 48,
 				hidePrivate: false,
 				hideOngoing: false,
+				hideTime: false,
 				tableClass: "qsmall",
 				customEvents: [],
 				titleReplace: {
