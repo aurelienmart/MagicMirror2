@@ -299,7 +299,9 @@ var MM = (function () {
 		// Otherwise cancel show action.
 		if (module.lockStrings.length !== 0 && options.force !== true) {
 			Log.log("Will not show " + module.name + ". LockStrings active: " + module.lockStrings.join(","));
-			callback("Active lock strings");
+			if (typeof options.onError === "function") {
+				options.onError(new Error("LOCK_STRING_ACTIVE"));
+			}
 			return;
 		}
 
