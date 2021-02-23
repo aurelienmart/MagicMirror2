@@ -10,6 +10,7 @@ Module.register("calendar", {
 	// Define module defaults
 	defaults: {
 		animationSpeed: config.animation,
+		selfSignedCert: false
 	},
 
 	requiresVersion: config.minVersion,
@@ -52,7 +53,8 @@ Module.register("calendar", {
 			var calendarConfig = {
 				maximumEntries: calendar.maximumEntries,
 				maximumNumberOfDays: calendar.maximumNumberOfDays,
-				broadcastPastEvents: calendar.broadcastPastEvents
+				broadcastPastEvents: calendar.broadcastPastEvents,
+				selfSignedCert: calendar.selfSignedCert
 			};
 			if (calendar.symbolClass === "undefined" || calendar.symbolClass === null) {
 				calendarConfig.symbolClass = "";
@@ -327,8 +329,8 @@ Module.register("calendar", {
 						} else {
 							timeWrapper.innerHTML = this.capFirst(
 								moment(event.startDate, "x").calendar(null, {
-									sameDay: "[Today]",
-									nextDay: "[Tomorrow]",
+									sameDay: "[" + this.translate("TODAY") + "]",
+									nextDay: "[" + this.translate("TOMORROW") + "]",
 									nextWeek: "dddd"
 								})
 							);
@@ -565,7 +567,8 @@ Module.register("calendar", {
 			titleClass: calendarConfig.titleClass,
 			timeClass: calendarConfig.timeClass,
 			auth: auth,
-			broadcastPastEvents: calendarConfig.broadcastPastEvents || this.config.broadcastPastEvents
+			broadcastPastEvents: calendarConfig.broadcastPastEvents || this.config.broadcastPastEvents,
+			selfSignedCert: calendarConfig.selfSignedCert || this.config.selfSignedCert
 		});
 	},
 

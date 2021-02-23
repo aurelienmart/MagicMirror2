@@ -19,7 +19,7 @@ module.exports = NodeHelper.create({
 	// Override socketNotificationReceived method.
 	socketNotificationReceived(notification, payload) {
 		if (notification === "ADD_CALENDAR") {
-			this.createFetcher(payload.url, payload.fetchInterval, payload.excludedEvents, payload.maximumEntries, payload.maximumNumberOfDays, payload.auth, payload.broadcastPastEvents, payload.id);
+			this.createFetcher(payload.url, payload.fetchInterval, payload.excludedEvents, payload.maximumEntries, payload.maximumNumberOfDays, payload.auth, payload.broadcastPastEvents, payload.selfSignedCert, payload.id);
 		}
 	},
 
@@ -34,10 +34,12 @@ module.exports = NodeHelper.create({
 	 * @param {number} maximumNumberOfDays The maximum number of days an event should be in the future.
 	 * @param {object} auth The object containing options for authentication against the calendar.
 	 * @param {boolean} broadcastPastEvents If true events from the past maximumNumberOfDays will be included in event broadcasts
+	 * @param {boolean} selfSignedCert If true, the server certificate is not verified against the list of supplied CAs.
 	 * @param {string} identifier ID of the module
 	 */
-	createFetcher(url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, identifier) {
+	createFetcher: function (url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, selfSignedCert, identifier) {
 		var self = this;
+
 		if (!validUrl.isUri(url)) {
 			this.sendSocketNotification("INCORRECT_URL", { id: identifier, url: url });
 			return;
@@ -47,7 +49,7 @@ module.exports = NodeHelper.create({
 
 		if (typeof this.fetchers[identifier + url] === "undefined") {
 			Log.log("Create new calendar fetcher for url: " + url + " - Interval: " + fetchInterval);
-			fetcher = new CalendarFetcher(url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents);
+			fetcher = new CalendarFetcher(url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, selfSignedCert);
 
 			fetcher.onReceive(function(fetcher) {
 				self.broadcastEvents(fetcher, identifier);
