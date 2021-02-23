@@ -18,6 +18,7 @@ var config = {
 	httpsCertificate: "",
 
 	language: "ro",
+	locale: "ro-RO",
 	timeFormat: 24,
 	units: "metric",
 	latitude: 44.4323,
@@ -26,7 +27,7 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
-	appid: "xxx",
+	appid: "...",
 	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5",
 	roundTemp: false,
@@ -46,6 +47,7 @@ var config = {
 			disabled: false,
 			config: {
 				bodysize: 1080,
+				zoomMode: false,
 				nightMode: false,
 
 				traffic: true,
@@ -55,16 +57,16 @@ var config = {
 				homeEnd: "19:59:59",
 				weekdays: 6,
 
-				fadeMode: true,
 				dimmMode: true,
+				fadeMode: true,
 				dimming: 50,
 
 				sharpMode: true,
 				dateMode: true,
-				name1: "",
-				birthday1: "",
-				name2: "",
-				birthday2: "",
+				name1: "Paula!",
+				birthday1: "22.08",
+				name2: "Răzvan!",
+				birthday2: "13.10",
 				name3: "",
 				birthday3: ""
 			}
@@ -75,6 +77,7 @@ var config = {
 			classes: "night",
 			disabled: false,
 			config: {
+				nightMode: true,
 				startTitle: "<i class=\"lime fa fa-wifi\"></i> MagicMirror&sup2;&nbsp;",
 				startTitle2: "<i class=\"lime fa fa-wifi\"></i> Magic iPad&sup3;&nbsp;",
 				startNotification: "Modular smart mirror platform",
@@ -143,9 +146,9 @@ var config = {
 			config: {
 				loadingText: "Se încarcă...",
 				firstLine: "Trafic estimat spre birou: {duration} minute",
-				accessToken: "xxx",
-				originCoords: "xxx",
-				destinationCoords: "xxx",
+				accessToken: "",
+				originCoords: "26.173245,44.410515",
+				destinationCoords: "26.072820,44.467675",
 				cssclass: "ssmall",
 				cssclass2: "xsmall"
 			}
@@ -158,9 +161,9 @@ var config = {
 			config: {
 				loadingText: "Se încarcă...",
 				firstLine: "Trafic estimat spre acasa: {duration} minute",
-				accessToken: "xxx",
-				originCoords: "xxx",
-				destinationCoords: "xxx",
+				accessToken: "",
+				originCoords: "26.072820,44.467675",
+				destinationCoords: "26.173245,44.410515",
 				cssclass: "ssmall",
 				cssclass2: "xsmall"
 			}
@@ -242,6 +245,26 @@ var config = {
 						symbol: "moon", symbolClass: "normal", titleClass: "normal", timeClass: "normal", color: "normal",
 						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
 					},
+					{
+						symbol: "registered", symbolClass: "lightgreen", titleClass: "lightgreen", timeClass: "lightgreen", color: "normal",
+						url: ""
+					},
+					{
+						symbol: "product-hunt", symbolClass: "tomato", titleClass: "tomato", timeClass: "tomato", color: "normal",
+						url: ""
+					},
+					{
+						symbol: "birthday-cake", symbolClass: "gold", titleClass: "gold", timeClass: "gold", color: "normal",
+						url: ""
+					},
+					{
+						symbol: "film", symbolClass: "magenta", titleClass: "magenta", timeClass: "magenta", color: "normal",
+						url: ""
+					},
+					{
+						symbol: "suitcase", symbolClass: "coral", titleClass: "coral",timeClass: "coral", color: "normal",
+						url: ""
+					},
 				]
 			}
 		},
@@ -277,6 +300,7 @@ var config = {
 				coloredSymbolOnly: true,
 				showLastSeenWhenOffline: true,
 				devices: [
+
 				],
 			}        
 		},
@@ -496,15 +520,18 @@ var config = {
 						"<i class=\"skyblue fa fa-cloud-moon\"></i> Nori și ceață",
 						"<i class=\"skyblue fa fa-cloud-moon\"></i> Ceață și nori"
 					],
+					
 					"14-02-...." : [
 						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
 					],
+					
 					"30-10-...." : [
 						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
 					],
 					"01-12-...." : [
 						"<i class=\"gold fa fa-glass-cheers\"></i> La mulți ani România!"
 					],
+					
 					"25-12-...." : [
 						"<i class=\"bright fa fa-snowman\"></i> Crăciun fericit!",
 						"<i class=\"gold fa fa-gifts\"></i> Sărbători fericite!"
