@@ -89,7 +89,7 @@ Module.register("timer", {
 		body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / self.config.bodysize) + "px", element.style.minWidth = self.config.bodysize + "px"});
 
 		if (window.innerWidth < this.config.bodysize) { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"});
-			if (this.config.nightMode) {
+			if (this.config.zoomMode) {
 				if (now >= midnight && now < morning) { night_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize * 1.53 + ")"})} 
 				else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"})}
 			}
@@ -149,17 +149,17 @@ Module.register("timer", {
 			if (this.config.dimmMode) {
 				if (this.config.fadeMode) {
 					if (now >= before && now < night) {
-						body.forEach(function(element) {return element.style.filter = "opacity(" + opac1 + "%)", element.style.filter = "grayscale(" + gray1 + "%)"})
+						body.forEach(function(element) {return element.style.opacity = opac1, element.style.filter = "grayscale(" + gray1 + "%)"})
 						this.sendNotification("NIGHT_NOTIFICATION", this.gray1)
 					} else if (now >= midnight && now < morning) {
-						body.forEach(function(element) {return element.style.filter = "opacity(" + opacity + "%)", element.style.filter = "grayscale(" + grayscale + "%)"})
+						body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)"})
 					} else if (now >= morning && now < after) {
-						body.forEach(function(element) {return element.style.filter = "opacity(" + opac2 + "%)", element.style.filter = "grayscale(" + gray2 + "%)"})
+						body.forEach(function(element) {return element.style.opacity = opac2, element.style.filter = "grayscale(" + gray2 + "%)"})
 						this.sendNotification("NIGHT_NOTIFICATION", this.gray2)
-					} else { body.forEach(function(element) {return element.style.filter = "opacity(100%)", element.style.filter = "grayscale(0%)"})}
+					} else { body.forEach(function(element) {return element.style.opacity = "1", element.style.filter = "grayscale(0%)"})}
 				} else { if (now >= midnight && now < morning) {
-						body.forEach(function(element) {return element.style.filter = "opacity(" + opacity + "%)", element.style.filter = "grayscale(" + grayscale + "%)"})
-					} else {body.forEach(function(element) {return element.style.filter = "opacity(100%)", element.style.filter = "grayscale(0%)"})}
+						body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)"})
+					} else {body.forEach(function(element) {return element.style.opacity = "1", element.style.filter = "grayscale(0%)"})}
 				}
 			}
 		}
