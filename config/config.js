@@ -45,6 +45,8 @@ var config = {
 		{
 			module: "timer",
 			disabled: false,
+			hiddenOnStartup: false,
+			configDeepMerge: false,
 			config: {
 				bodysize: 1080,
 				zoomMode: false,
