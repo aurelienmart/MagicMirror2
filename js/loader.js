@@ -47,13 +47,21 @@ var Loader = (function () {
 	 * Loops thru all modules and requests start for every module.
 	 */
 	var startModules = function () {
-		for (var m in moduleObjects) {
-			var module = moduleObjects[m];
+		for (var n in moduleObjects) {
+			var module = moduleObjects[n];
 			module.start();
 		}
 
 		// Notify core of loaded modules.
 		MM.modulesStarted(moduleObjects);
+
+		// Starting modules also hides any modules that have requested to be initially hidden
+		for (var thisModule of moduleObjects) {
+			if (thisModule.data.hiddenOnStartup) {
+				Log.info("Initially hiding " + thisModule.name);
+				thisModule.hide();
+			}
+		}
 	};
 
 	/**
@@ -83,7 +91,7 @@ var Loader = (function () {
 			var moduleFolder = config.paths.modules + "/" + module;
 
 			if (defaultModules.indexOf(moduleName) !== -1) {
-				moduleFolder = config.paths.modules + "/default/" + module;
+				moduleFolder = "modules/default/" + module;
 			}
 
 			if (moduleData.disabled === true) {
@@ -97,6 +105,7 @@ var Loader = (function () {
 				path: moduleFolder + "/",
 				file: moduleName + ".js",
 				position: moduleData.position,
+				hiddenOnStartup: moduleData.hiddenOnStartup,
 				header: moduleData.header,
 				configDeepMerge: typeof moduleData.configDeepMerge === "boolean" ? moduleData.configDeepMerge : false,
 				config: moduleData.config,

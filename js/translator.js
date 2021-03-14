@@ -112,8 +112,8 @@ var Translator = (function () {
 			}
 
 			var self = this;
-			loadJSON(module.file(file), function(json) {
-				const property = isFallback ? "translationsFallback" : "translations";
+			loadJSON(module.file(file), function (json) {
+				var property = isFallback ? "translationsFallback" : "translations";
 				self[property][module.name] = json;
 				callback();
 			});
