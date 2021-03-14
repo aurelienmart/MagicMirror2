@@ -16,14 +16,14 @@ WeatherProvider.register("openweathermap", {
 
 	// Set the default config properties that is specific to this provider
 	defaults: {
-		apiVersion: config.apiVersion,
-		apiBase: config.apiBase,
-		weatherEndpoint: "/onecall",
-		location: config.location,
-		locationID: config.locationID,
-		lat: config.latitude,
-		lon: config.longitude,
-		apiKey: config.appid
+		apiVersion: "2.5",
+		apiBase: "https://api.openweathermap.org/data/",
+		weatherEndpoint: "",
+		locationID: false,
+		location: false,
+		lat: 0,
+		lon: 0,
+		apiKey: ""
 	},
 
 	// Overwrite the fetchCurrentWeather method.
@@ -465,6 +465,8 @@ WeatherProvider.register("openweathermap", {
 			} else {
 				params += "&exclude=minutely";
 			}
+		} else if (this.config.lat && this.config.lon) {
+			params += "lat=" + this.config.lat + "&lon=" + this.config.lon;
 		} else if (this.config.locationID) {
 			params += "id=" + this.config.locationID;
 		} else if (this.config.location) {

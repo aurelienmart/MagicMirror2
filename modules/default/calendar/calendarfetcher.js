@@ -6,7 +6,10 @@
  */
 const Log = require("../../../js/logger.js");
 const ical = require("node-ical");
-const request = require("request");
+const fetch = require("node-fetch");
+const digest = require("digest-fetch");
+const https = require("https");
+const base64 = require("base-64");
 
 /**
  * Moment date
@@ -43,56 +46,54 @@ const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEn
 	const fetchCalendar = function () {
 		clearTimeout(reloadTimer);
 		reloadTimer = null;
-
 		const nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
-		const opts = {
-			headers: {
-				"User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)"
-			},
-			gzip: true
+		var fetcher = null;
+		var httpsAgent = null;
+		var headers = {
+			"User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)"
 		};
 
 		if (selfSignedCert) {
-			var agentOptions = {
+			httpsAgent = new https.Agent({
 				rejectUnauthorized: false
-			};
-			opts.agentOptions = agentOptions;
+			});
 		}
-
 		if (auth) {
 			if (auth.method === "bearer") {
-				opts.auth = {
-					bearer: auth.pass
-				};
+				headers.Authorization = "Bearer " + auth.pass;
+			} else if (auth.method === "digest") {
+				fetcher = new digest(auth.user, auth.pass).fetch(url, { headers: headers, httpsAgent: httpsAgent });
 			} else {
-				opts.auth = {
-					user: auth.user,
-					pass: auth.pass,
-					sendImmediately: auth.method !== "digest"
-				};
+				headers.Authorization = "Basic " + base64.encode(auth.user + ":" + auth.pass);
 			}
 		}
+		if (fetcher === null) {
+			fetcher = fetch(url, { headers: headers, httpsAgent: httpsAgent });
+		}
 
-		request(url, opts, function (err, r, requestData) {
-			if (err) {
-				fetchFailedCallback(self, err);
-				scheduleTimer();
-				return;
-			} else if (r.statusCode !== 200) {
-				fetchFailedCallback(self, r.statusCode + ": " + r.statusMessage);
-				scheduleTimer();
-				return;
-			}
+		fetcher
 
-			var data = [];
-
-			try {
-				data = ical.parseICS(requestData);
-			} catch (error) {
-				fetchFailedCallback(self, error.message);
+			.catch(function (error) {
+				fetchFailedCallback(self, error);
 				scheduleTimer();
-				return;
-			}
+			}).then(function (response) {
+				if (response.status !== 200) {
+					fetchFailedCallback(self, response.statusText);
+					scheduleTimer();
+				}
+				return response;
+			}).then(function (response) {
+				return response.text();
+			}).then(function (responseData) {
+				var data = [];
+
+				try {
+					data = ical.parseICS(responseData);
+				} catch (error) {
+					fetchFailedCallback(self, error.message);
+					scheduleTimer();
+				}
+
 			Log.debug(" parsed data=" + JSON.stringify(data));
 			const newEvents = [];
 

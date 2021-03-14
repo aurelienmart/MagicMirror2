@@ -3,7 +3,7 @@ const simpleGits = [];
 const fs = require("fs");
 const path = require("path");
 const defaultModules = require(__dirname + "/../defaultmodules.js");
-const Log = require(__dirname + "/../../../js/logger.js");
+const Log = require("logger");
 const NodeHelper = require("node_helper");
 
 module.exports = NodeHelper.create({
@@ -14,13 +14,11 @@ module.exports = NodeHelper.create({
 
 	start: function () {},
 
-	configureModules: function (modules) {
+	configureModules: async function (modules) {
 		// Push MagicMirror itself , biggest chance it'll show up last in UI and isn't overwritten
 		// others will be added in front
 		// this method returns promises so we can't wait for every one to resolve before continuing
-		simpleGits.push({ module: "default", git: SimpleGit(path.normalize(__dirname + "/../../../")) });
-
-		var promises = [];
+		simpleGits.push({ module: "default", git: this.createGit(path.normalize(__dirname + "/../../../")) });
 
 		for (var moduleName in modules) {
 			if (!this.ignoreUpdateChecking(moduleName)) {
@@ -29,17 +27,19 @@ module.exports = NodeHelper.create({
 
 				try {
 					Log.info("Checking git for module: " + moduleName);
-					let stat = fs.statSync(path.join(moduleFolder, ".git"));
-					promises.push(this.resolveRemote(moduleName, moduleFolder));
+					// Throws error if file doesn't exist
+					fs.statSync(path.join(moduleFolder, ".git"));
+					// Fetch the git or throw error if no remotes
+					var git = await this.resolveRemote(moduleFolder);
+					// Folder has .git and has at least one git remote, watch this folder
+					simpleGits.unshift({ module: moduleName, git: git });
 				} catch (err) {
-					// Error when directory .git doesn't exist
+					// Error when directory .git doesn't exist or doesn't have any remotes
 					// This module is not managed with git, skip
 					continue;
 				}
 			}
 		}
-
-		return Promise.all(promises);
 	},
 
 	socketNotificationReceived: function (notification, payload) {
@@ -49,41 +49,42 @@ module.exports = NodeHelper.create({
 			// if this is the 1st time thru the update check process
 			if (!this.updateProcessStarted) {
 				this.updateProcessStarted = true;
-				this.configureModules(payload).then(() => this.performFetch());
+				var self = this;
+				this.configureModules(payload).then(function() self.performFetch());
 			}
 		}
 	},
 
-	resolveRemote: function (moduleName, moduleFolder) {
-		return new Promise((resolve, reject) => {
-			var git = SimpleGit(moduleFolder);
-			git.getRemotes(true, (err, remotes) => {
-				if (remotes.length < 1 || remotes[0].name.length < 1) {
-					// No valid remote for folder, skip
-					return resolve();
-				}
-				// Folder has .git and has at least one git remote, watch this folder
-				simpleGits.unshift({ module: moduleName, git: git });
-				resolve();
-			});
-		});
+	resolveRemote: async function (moduleFolder) {
+		var git = this.createGit(moduleFolder);
+		var remotes = await git.getRemotes(true);
+
+		if (remotes.length < 1 || remotes[0].name.length < 1) {
+			throw new Error("No valid remote for folder " + moduleFolder);
+		}
+
+		return git;
 	},
 
-	performFetch: function () {
-		var self = this;
-		simpleGits.forEach((sg) => {
-			sg.git.fetch(["--dry-run"]).status((err, data) => {
-				data.module = sg.module;
-				if (!err) {
-					sg.git.log({ "-1": null }, (err, data2) => {
-						if (!err && data2.latest && "hash" in data2.latest) {
-							data.hash = data2.latest.hash;
-							self.sendSocketNotification("STATUS", data);
-						}
+	performFetch: async function () {
+		for (var sg of simpleGits) {
+			try {
+				var fetchData = await sg.git.fetch(["--dry-run"]).status();
+				var logData = await sg.git.log({ "-1": null });
+
+				if (logData.latest && "hash" in logData.latest) {
+					this.sendSocketNotification("STATUS", {
+						module: sg.module,
+						behind: fetchData.behind,
+						current: fetchData.current,
+						hash: logData.latest.hash,
+						tracking: fetchData.tracking
 					});
 				}
-			});
-		});
+			} catch (err) {
+				Log.error("Failed to fetch git data for " + sg.module + ": " + err);
+			}
+		}
 
 		this.scheduleNextFetch(this.config.updateInterval);
 	},
@@ -98,6 +99,10 @@ module.exports = NodeHelper.create({
 		this.updateTimer = setTimeout(function () {
 			self.performFetch();
 		}, delay);
+	},
+
+	createGit: function (folder) {
+		return SimpleGit({ baseDir: folder, timeout: { block: this.config.timeout } });
 	},
 
 	ignoreUpdateChecking: function (moduleName) {

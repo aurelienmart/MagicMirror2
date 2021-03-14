@@ -85,11 +85,6 @@ Module.register("notification", {
 				this.notification = this.translate("Dimmed night mode ") + parseInt(payload) + "%";
 				this.updateDom(this.config.animationSpeed);
 			}
-
-			if (notification === "NIGHT_NOTIFICATION") {
-				this.notification = this.translate("Dimmed night mode ") + parseInt(payload) + "%";
-				this.updateDom();
-			}
 		}
 
 		if (notification === "DAY_NOTIFICATION") {

@@ -4,10 +4,10 @@
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  */
-var Log = require("../../../js/logger.js");
-var FeedMe = require("feedme");
-var request = require("request");
-var iconv = require("iconv-lite");
+const Log = require("../../../js/logger.js");
+const FeedMe = require("feedme");
+const fetch = require("node-fetch");
+const iconv = require("iconv-lite");
 
 /**
  * Responsible for requesting an update on the set interval and broadcasting the data.
@@ -79,22 +79,20 @@ var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) 
 		});
 
 		var nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
-		var opts = {
-			headers: {
-				"User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)",
-				"Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
-				Pragma: "no-cache"
-			},
-			encoding: null
+		const headers = {
+			"User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)",
+			"Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
+			Pragma: "no-cache"
 		};
 
-		request(url, opts)
-			.on("error", function (error) {
+		fetch(url, { headers: headers })
+			.catch(function(error) {
 				fetchFailedCallback(self, error);
-				scheduvarimer();
+				scheduleTimer();
 			})
-			.pipe(iconv.decodeStream(encoding))
-			.pipe(parser);
+			.then(function(res) {
+				res.body.pipe(iconv.decodeStream(encoding)).pipe(parser);
+			});
 	};
 
 	/**
