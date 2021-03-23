@@ -1,4 +1,4 @@
-/* Magic Mirror Config Sample
+/* Magic Mirror Config
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
@@ -54,7 +54,7 @@ var config = {
 
 				traffic: true,
 				workStart: "06:00:00",
-				workEnd: "09:59:59",
+				workEnd: "10:59:59",
 				homeStart: "15:00:00",
 				homeEnd: "19:59:59",
 				weekdays: 6,
@@ -65,10 +65,10 @@ var config = {
 
 				sharpMode: true,
 				dateMode: true,
-				name1: "Paula!",
-				birthday1: "22.08",
-				name2: "Răzvan!",
-				birthday2: "13.10",
+				name1: "",
+				birthday1: "",
+				name2: "",
+				birthday2: "",
 				name3: "",
 				birthday3: ""
 			}
@@ -148,9 +148,9 @@ var config = {
 			config: {
 				loadingText: "Se încarcă...",
 				firstLine: "Trafic estimat spre birou: {duration} minute",
-				accessToken: "",
-				originCoords: "26.173245,44.410515",
-				destinationCoords: "26.072820,44.467675",
+				accessToken: "...",
+				originCoords: "...",
+				destinationCoords: "...",
 				cssclass: "ssmall",
 				cssclass2: "xsmall"
 			}
@@ -163,11 +163,21 @@ var config = {
 			config: {
 				loadingText: "Se încarcă...",
 				firstLine: "Trafic estimat spre acasa: {duration} minute",
-				accessToken: "",
-				originCoords: "26.072820,44.467675",
-				destinationCoords: "26.173245,44.410515",
+				accessToken: "...",
+				originCoords: "...",
+				destinationCoords: "...",
 				cssclass: "ssmall",
 				cssclass2: "xsmall"
+			}
+		},
+		{
+			module: "simpletext",
+			position: "top_left",
+			classes: "space",
+			disabled: false,
+			config: {
+	    		text: " ",
+	    		cssClass: "",
 			}
 		},
 		{
@@ -177,6 +187,16 @@ var config = {
 			disabled: false,
 			config: {
 				logo_height: 27
+			}
+		},
+		{
+			module: "simpletext",
+			position: "top_left",
+			classes: "space",
+			disabled: false,
+			config: {
+	    		text: " ",
+	    		cssClass: "",
 			}
 		},
 		{
@@ -200,7 +220,7 @@ var config = {
 				maxTitleLines: 3,
 				maxEventTitleLines: 3,
 				fetchInterval: 60 * 1000,
-				fade: true,
+				fade: false,
 				fadePoint: 0.25,
 				colored: false,
 				coloredSymbolOnly: true,
@@ -240,38 +260,38 @@ var config = {
 
 				calendars: [
 					{
-						symbol: "calendar-check-o", symbolClass: "skyblue", titleClass: "skyblue", timeClass: "skyblue", color: "normal",
+						symbol: "calendar-check-o", symbolClass: "skyblue", // titleClass: "skyblue", timeClass: "skyblue", color: "normal",
 						url: "https://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
 					},
 					{
-						symbol: "moon", symbolClass: "normal", titleClass: "normal", timeClass: "normal", color: "normal",
+						symbol: "moon", symbolClass: "normal", // titleClass: "normal", timeClass: "normal", color: "normal",
 						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
 					},
 					{
-						symbol: "registered", symbolClass: "lightgreen", titleClass: "lightgreen", timeClass: "lightgreen", color: "normal",
-						url: ""
+						symbol: "registered", symbolClass: "lightgreen", // titleClass: "lightgreen", timeClass: "lightgreen", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
 					},
 					{
-						symbol: "product-hunt", symbolClass: "tomato", titleClass: "tomato", timeClass: "tomato", color: "normal",
-						url: ""
+						symbol: "product-hunt", symbolClass: "tomato", // titleClass: "tomato", timeClass: "tomato", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
 					},
 					{
-						symbol: "birthday-cake", symbolClass: "gold", titleClass: "gold", timeClass: "gold", color: "normal",
-						url: ""
+						symbol: "birthday-cake", symbolClass: "gold", // titleClass: "gold", timeClass: "gold", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
 					},
 					{
-						symbol: "film", symbolClass: "magenta", titleClass: "magenta", timeClass: "magenta", color: "normal",
-						url: ""
+						symbol: "film", symbolClass: "magenta", // titleClass: "magenta", timeClass: "magenta", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
 					},
 					{
-						symbol: "suitcase", symbolClass: "coral", titleClass: "coral",timeClass: "coral", color: "normal",
-						url: ""
+						symbol: "suitcase", symbolClass: "coral", // titleClass: "coral",timeClass: "coral", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
 					},
 				]
 			}
 		},
 		{
-			module: "lunar",
+			module: "lunartic",
 			position: "top_left",
 			classes: "night",
 			disabled: false,
@@ -292,7 +312,7 @@ var config = {
 			position: "top_left",
 			disabled: true,
 			config: {
-				network: "192.168.0.0/24",
+				network: "192.168.0.0/23",
 				showUnknown: false,
 				showOffline: true,
 				keepAlive: 300,
@@ -370,7 +390,7 @@ var config = {
 				showSnowAmount: false,
 				updateInterval: 10 * 60 * 2000,
 				appendLocationNameToHeader: true,
-				fade: true,
+				fade: false,
 				fadePoint: 0.25,
 				colored: true,
 				initialLoadDelay: 4500,
@@ -522,18 +542,9 @@ var config = {
 						"<i class=\"skyblue fa fa-cloud-moon\"></i> Nori și ceață",
 						"<i class=\"skyblue fa fa-cloud-moon\"></i> Ceață și nori"
 					],
-					
 					"14-02-...." : [
 						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
 					],
-					
-					"30-10-...." : [
-						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
-					],
-					"01-12-...." : [
-						"<i class=\"gold fa fa-glass-cheers\"></i> La mulți ani România!"
-					],
-					
 					"25-12-...." : [
 						"<i class=\"bright fa fa-snowman\"></i> Crăciun fericit!",
 						"<i class=\"gold fa fa-gifts\"></i> Sărbători fericite!"
