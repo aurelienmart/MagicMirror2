@@ -311,8 +311,9 @@ header {
 	border-collapse: separate;
 }
 
-.region table tr:nth-child(even) {
-	background: rgba(32,32,32,0.25);
+.region table tr:nth-child(even),
+.monthly .week:nth-child(odd) {
+	background: rgba(64,64,64,0.35);
 }
 
 .region table tr {
@@ -332,17 +333,17 @@ header {
 
 .region.upper.third {
 /*	top: calc(100vh - 50%);
-*/	bottom: 25%;
+*/	bottom: 22%;
 }
 
 .region.middle.center {
 /*	top: calc(100vh - 25%);
-*/	bottom: 13%;
+*/	bottom: 18%;
 }
 
 .region.lower.third {
 /*	top: calc(100vh - 20%);
-*/	bottom: 13%;
+*/	bottom: 15%;
 }
 
 .darkred {
@@ -563,7 +564,7 @@ header {
 
 .lunar img.photo {
 	position: absolute;
-	top: -150px;
+	top: -163px;
 	left: 3px;
 	width: 27px;
 }
@@ -572,7 +573,11 @@ header {
 
 .swatch {
 	filter: opacity(85%)
-	padding: 2px 0;
+	padding: 5px 0;
+}
+
+.traffic, .lifecounter, .simpletext {
+	margin-bottom: 9px;
 }
 
 /* notification */
@@ -861,7 +866,8 @@ header {
 .currentweather .wi-humidity, 
 .currentweather .wi-alien, 
 .currentweather .wi-sunset, 
-.currentweather .wi-sunrise {
+.currentweather .wi-sunrise,
+.fa-binoculars {
 	display: inline-block;
 	transform: scale(0.65);
 }
@@ -875,7 +881,7 @@ header {
 	margin-right: -10px;
 }
 
-.currentweather .wi-alien {
+.currentweather .wi-alien, .fa-binoculars {
 	color: violet;
 }
 
@@ -1165,6 +1171,12 @@ header {
 	margin-top: -20%;
 }
 
+/*
+.monthly .calendar-vertical .month:nth-child(n+2) {
+	filter: opacity(50%);
+}
+*/
+
 /* media queries */
 
 @media screen and (min-height: 1079px) and (orientation: landscape) {
@@ -1241,7 +1253,7 @@ header {
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
 /*		top: calc(100vh - 22%);
-*/		bottom: 7%;
+*/		bottom: 5%;
 	}
 
 	.large {
@@ -1270,10 +1282,10 @@ header {
 	.calendar .month:nth-child(n+2),
 	.icalendar table tr:nth-child(n+14),
 	.calendar table tr:nth-child(n+13),
-	.hourly, /* table tr:nth-child(n+4),
+	.hourly table tr:nth-child(n+4),
 	.daily table tr:nth-child(n+13),
-*/	.daily table tr:nth-child(n+16),
-	header,	.monthly .month-header,
+/*	.daily table tr:nth-child(n+16),
+*/	header,	.monthly .month-header,
 	.lifecounter, .yframe, .traffic {
 		display: none !important;
 	}
@@ -1293,7 +1305,7 @@ header {
 
 	.lunar img.photo {
 		position: absolute;
-		top: -98px;
+		top: -105px;
 		left: 3px;
 		width: 27px;
 	}
