@@ -18,7 +18,7 @@ module.exports = NodeHelper.create({
     fetch(api_url)
       .then(self.checkStatus)
       .then(function(json) {
-        var duration = Math.round(json.routes[0].duration / 60);
+        var duration = Math.round(json.routes[0].duration / 40); // normal 60
         self.sendSocketNotification("TRAFFIC_DURATION", { duration: duration, url: api_url });
       })
       .catch(function(e) {

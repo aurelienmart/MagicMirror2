@@ -10,10 +10,6 @@
 	transform: translateX(-3px);
 }
 
-.monthly .week:nth-child(odd) {
-  background: rgba(32,32,32,0.25);
-}
-
 .monthly .calendar-vertical {
     display: block;
 	flex-direction: column;
@@ -29,10 +25,6 @@
 	padding-top: 10px;
 	display: flex;
 	flex-direction: column;
-}
-
-.monthly .calendar-vertical .month:nth-child(n+2) {
-	filter: opacity(50%);
 }
 
 .monthly .calendar-horizontal .month  {
