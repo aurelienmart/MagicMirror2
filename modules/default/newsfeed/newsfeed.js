@@ -40,10 +40,7 @@ Module.register("newsfeed", {
 		this.error = null;
 		this.activeItem = 0;
 		this.scrollPosition = 0;
-
 		this.registerFeeds();
-
-		this.isShowingDescription = this.config.showDescription;
 	},
 
 	// Override socket notification handler.
@@ -64,6 +61,125 @@ Module.register("newsfeed", {
 			this.error = `Incorrect url: ${payload.url}`;
 			this.scheduleUpdateInterval();
 		}
+	},
+
+	// Override dom generator. Keep for compatibility.
+	getDom: function () {
+		const wrapper = document.createElement("div");
+
+		if (this.config.feedUrl) {
+			wrapper.className = "small bright";
+			wrapper.innerHTML = this.translate("MODULE_CONFIG_CHANGED", { MODULE_NAME: "Newsfeed" });
+			return wrapper;
+		}
+
+		if (this.activeItem >= this.newsItems.length) {
+			this.activeItem = 0;
+		}
+
+		if (this.newsItems.length > 0) {
+			// this.config.showFullArticle is a run-time configuration, triggered by optional notifications
+			if (!this.config.showFullArticle && (this.config.showSourceTitle || this.config.showPublishDate)) {
+				const sourceAndTimestamp = document.createElement("div");
+				sourceAndTimestamp.className = "newsfeed-source light small dimmed";
+
+				if (this.config.showSourceTitle && this.newsItems[this.activeItem].sourceTitle !== "") {
+					sourceAndTimestamp.innerHTML = this.newsItems[this.activeItem].sourceTitle;
+				}
+				if (this.config.showSourceTitle && this.newsItems[this.activeItem].sourceTitle !== "" && this.config.showPublishDate) {
+					sourceAndTimestamp.innerHTML += ", ";
+				}
+				if (this.config.showPublishDate) {
+					sourceAndTimestamp.innerHTML += moment(new Date(this.newsItems[this.activeItem].pubdate)).fromNow();
+				}
+				if ((this.config.showSourceTitle && this.newsItems[this.activeItem].sourceTitle !== "") || this.config.showPublishDate) {
+					sourceAndTimestamp.innerHTML += ":";
+				}
+
+				wrapper.appendChild(sourceAndTimestamp);
+			}
+
+			//Remove selected tags from the beginning of rss feed items (title or description)
+
+			if (this.config.removeStartTags === "title" || this.config.removeStartTags === "both") {
+				for (let f = 0; f < this.config.startTags.length; f++) {
+					if (this.newsItems[this.activeItem].title.slice(0, this.config.startTags[f].length) === this.config.startTags[f]) {
+						this.newsItems[this.activeItem].title = this.newsItems[this.activeItem].title.slice(this.config.startTags[f].length, this.newsItems[this.activeItem].title.length);
+					}
+				}
+			}
+
+			if (this.config.removeStartTags === "description" || this.config.removeStartTags === "both") {
+				if (this.config.showDescription) {
+					for (let f = 0; f < this.config.startTags.length; f++) {
+						if (this.newsItems[this.activeItem].description.slice(0, this.config.startTags[f].length) === this.config.startTags[f]) {
+							this.newsItems[this.activeItem].description = this.newsItems[this.activeItem].description.slice(this.config.startTags[f].length, this.newsItems[this.activeItem].description.length);
+						}
+					}
+				}
+			}
+
+			//Remove selected tags from the end of rss feed items (title or description)
+
+			if (this.config.removeEndTags) {
+				for (let f = 0; f < this.config.endTags.length; f++) {
+					if (this.newsItems[this.activeItem].title.slice(-this.config.endTags[f].length) === this.config.endTags[f]) {
+						this.newsItems[this.activeItem].title = this.newsItems[this.activeItem].title.slice(0, -this.config.endTags[f].length);
+					}
+				}
+
+				if (this.config.showDescription) {
+					for (let f = 0; f < this.config.endTags.length; f++) {
+						if (this.newsItems[this.activeItem].description.slice(-this.config.endTags[f].length) === this.config.endTags[f]) {
+							this.newsItems[this.activeItem].description = this.newsItems[this.activeItem].description.slice(0, -this.config.endTags[f].length);
+						}
+					}
+				}
+			}
+
+			if (!this.config.showFullArticle) {
+				const title = document.createElement("div");
+				title.className = "newsfeed-title bright medium light" + (!this.config.wrapTitle ? " no-wrap" : "");
+				title.innerHTML = this.newsItems[this.activeItem].title;
+				wrapper.appendChild(title);
+			}
+
+			if (this.config.showDescription) {
+				const description = document.createElement("div");
+				description.className = "newsfeed-desc small light" + (!this.config.wrapDescription ? " no-wrap" : "");
+				const txtDesc = this.newsItems[this.activeItem].description;
+				description.innerHTML = this.config.truncDescription ? (txtDesc.length > this.config.lengthDescription ? txtDesc.substring(0, this.config.lengthDescription) + "..." : txtDesc) : txtDesc;
+				wrapper.appendChild(description);
+			}
+
+			if (this.config.showFullArticle) {
+				const fullArticle = document.createElement("iframe");
+				fullArticle.className = "";
+				fullArticle.style.width = "100vw";
+				// very large height value to allow scrolling
+				fullArticle.height = "3000";
+				fullArticle.style.height = "3000";
+				fullArticle.style.top = "0";
+				fullArticle.style.left = "0";
+				fullArticle.style.border = "none";
+				fullArticle.src = this.getActiveItemURL();
+				fullArticle.style.zIndex = 1;
+				wrapper.appendChild(fullArticle);
+			}
+
+			if (this.config.hideLoading) {
+				this.show();
+			}
+		} else {
+			if (this.config.hideLoading) {
+				this.hide();
+			} else {
+				wrapper.innerHTML = this.translate("LOADING");
+				wrapper.className = "small dimmed";
+			}
+		}
+
+		return wrapper;
 	},
 
 	//Override fetching of template name
@@ -176,7 +292,7 @@ Module.register("newsfeed", {
 			}
 
 			if (self.config.removeStartTags === "description" || self.config.removeStartTags === "both") {
-				if (self.isShowingDescription) {
+				if (self.config.showDescription) {
 					for (var startTag of this.config.startTags) {
 						if (item.description.slice(0, startTag.length) === startTag) {
 							item.description = item.description.slice(startTag.length, item.description.length);
@@ -194,7 +310,7 @@ Module.register("newsfeed", {
 					}
 				}
 
-				if (self.isShowingDescription) {
+				if (self.config.showDescription) {
 					for (var endTag of this.config.endTags) {
 						if (item.description.slice(-endTag.length) === endTag) {
 							item.description = item.description.slice(0, -endTag.length);
@@ -275,7 +391,7 @@ Module.register("newsfeed", {
 	},
 
 	resetDescrOrFullArticleAndTimer: function () {
-		this.isShowingDescription = this.config.showDescription;
+		this.config.showDescription = this.config.showDescription;
 		this.config.showFullArticle = false;
 		this.scrollPosition = 0;
 		// reset bottom bar alignment
@@ -347,15 +463,15 @@ Module.register("newsfeed", {
 	},
 
 	showFullArticle: function () {
-		this.isShowingDescription = !this.isShowingDescription;
-		this.config.showFullArticle = !this.isShowingDescription;
+		this.config.showDescription = !this.config.showDescription;
+		this.config.showFullArticle = !this.config.showDescription;
 		// make bottom bar align to top to allow scrolling
 		if (this.config.showFullArticle === true) {
 			document.getElementsByClassName("region bottom bar")[0].classList.add("newsfeed-fullarticle");
 		}
 		clearInterval(this.timer);
 		this.timer = null;
-		Log.debug(this.name + " - showing " + this.isShowingDescription ? "article description" : "full article");
+		Log.debug(this.name + " - showing " + this.config.showDescription ? "article description" : "full article");
 		this.updateDom(100);
 	}
 });
