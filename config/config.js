@@ -45,8 +45,7 @@ var config = {
 		{
 			module: "timer",
 			disabled: false,
-			hiddenOnStartup: false,
-			configDeepMerge: false,
+			configDeepMerge: true,
 			config: {
 				bodysize: 1080,
 				zoomMode: false,
@@ -65,10 +64,10 @@ var config = {
 
 				sharpMode: true,
 				dateMode: true,
-				name1: "",
-				birthday1: "",
-				name2: "",
-				birthday2: "",
+				name1: "..",
+				birthday1: "...",
+				name2: "...!",
+				birthday2: "...",
 				name3: "",
 				birthday3: ""
 			}
@@ -77,6 +76,7 @@ var config = {
 			module: "notification",
 			position: "top_center",
 			classes: "night",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				nightMode: true,
@@ -90,6 +90,7 @@ var config = {
 			module: "clock",
 			position: "top_center",
 			classes: "analog night",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				displayType: "analog",
@@ -102,6 +103,7 @@ var config = {
 		{
 			module: "monthly",
 			position: "top_center",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				startMonth: 0,
@@ -116,6 +118,7 @@ var config = {
 			module: "clock",
 			position: "top_left",
 			classes: "digital night",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				displayType: "digital",
@@ -131,6 +134,7 @@ var config = {
 		{
 			module: "lifecounter",
 			position: "top_left",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				birthday: "1970-01-01 00:00:00",
@@ -144,6 +148,7 @@ var config = {
 			module: "traffic",
 			position: "top_left",
 			classes: "work",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
@@ -159,6 +164,7 @@ var config = {
 			module: "traffic",
 			position: "top_left",
 			classes: "home",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
@@ -174,6 +180,7 @@ var config = {
 			module: "simpletext",
 			position: "top_left",
 			classes: "space",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 	    		text: " ",
@@ -184,6 +191,7 @@ var config = {
 			module: "swatch",
 			position: "top_left",
 			classes: "night",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				logo_height: 27
@@ -193,6 +201,7 @@ var config = {
 			module: "simpletext",
 			position: "top_left",
 			classes: "space",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 	    		text: " ",
@@ -203,6 +212,7 @@ var config = {
 			module: "calendar",
 			position: "top_left",
 			header: "Calendar evenimente și aniversări",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				maximumEntries: 16,
@@ -294,6 +304,7 @@ var config = {
 			module: "lunartic",
 			position: "top_left",
 			classes: "night",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				mode: "static",
@@ -310,6 +321,7 @@ var config = {
 		{
 			module: "network",
 			position: "top_left",
+			configDeepMerge: true,
 			disabled: true,
 			config: {
 				network: "192.168.0.0/23",
@@ -330,6 +342,7 @@ var config = {
 			module: "currentweather",
 			position: "top_right",
 			classes: "night",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				updateInterval: 10 * 60 * 1000,
@@ -359,6 +372,7 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele ore la",
 			classes: "hourly",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				maxNumberOfDays: 3,
@@ -383,6 +397,7 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
 			classes: "daily",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				maxNumberOfDays: 16,
@@ -408,12 +423,14 @@ var config = {
 			module: "kamasutra",
 			position: "top_center",
 			header: "Kama Sutra Sex Positions",
+			configDeepMerge: true,
 			disabled: true
 		},
 		{
 			module: "yframe",
 			position: "upper_third",
 			classes: "night",
+			configDeepMerge: true,
 			disabled: true,
 			config: {
 				url: "https://cristea13.ro/video/fishtank.mp4",
@@ -428,6 +445,7 @@ var config = {
 			module: "compliments",
 			position: "middle_center",
 			classes: "night",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				updateInterval: 30000,
@@ -570,6 +588,7 @@ var config = {
 		{
 			module: "quotes",
 			position: "lower_third",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				updateInterval: 20000,
@@ -580,6 +599,7 @@ var config = {
 		{
 			module: "newsfeed",
 			position: "bottom_bar",
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				showSourceTitle: true,
@@ -590,7 +610,7 @@ var config = {
 				wrapTitle: true,
 				wrapDescription: true,
 				truncDescription: true,
-				lengthDescription: 500,
+				lengthDescription: 400,
 				hideLoading: true,
 				reloadInterval: 5 * 60 * 1000,
 				updateInterval: 60 * 1000,
@@ -650,7 +670,42 @@ var config = {
 						title: "Ziare.com",
 						url: "https://www.ziare.com/rss/12h.xml",
 						encoding: "UTF-8"
-					},
+					}
+				]
+			}
+		},
+		{
+			module: "newsfeed",
+			position: "bottom_bar",
+			classes: "international",
+			hiddenOnStartup: true,
+			configDeepMerge: true,
+			disabled: true,
+			config: {
+				showSourceTitle: true,
+				showPublishDate: true,
+				broadcastNewsFeeds: true,
+				broadcastNewsUpdates: true,
+				showDescription: true,
+				wrapTitle: true,
+				wrapDescription: true,
+				truncDescription: true,
+				lengthDescription: 500,
+				hideLoading: true,
+				reloadInterval: 5 * 60 * 1000,
+				updateInterval: 60 * 1000,
+				maxNewsItems: 0,
+				ignoreOldItems: false,
+				ignoreOlderThan: 12 * 60 * 60 * 1000,
+				removeStartTags: "",
+				removeEndTags: "",
+				startTags: ["VIDEO","FOTO","horoscop"],
+				endTags: ["VIDEO","FOTO","horoscop"],
+				prohibitedWords: ["VIDEO","FOTO","Marius Tucă Show"],
+				scrollLength: 500,
+				logFeedWarnings: false,
+
+				feeds: [
 					{
 						title: "Discovery",
 						url: "https://discovery.ro/feed/",
@@ -660,7 +715,32 @@ var config = {
 						title: "NASA",
 						url: "https://www.nasa.gov/rss/dyn/breaking_news.rss",
 						encoding: "UTF-8"
-					}
+					},
+					{
+						title: "BBC World",
+						url: "http://feeds.bbci.co.uk/news/world/rss.xml",
+						encoding: "UTF-8"
+					},
+					{
+						title: "NY Times",
+						url: "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+						encoding: "UTF-8"
+					},
+					{
+						title: "WP World",
+						url: "http://feeds.washingtonpost.com/rss/world?itid=lk_inline_manual_43",
+						encoding: "UTF-8"
+					},
+					{
+						title: "CNN World",
+						url: "http://rss.cnn.com/rss/edition.rss",
+						encoding: "UTF-8"
+					},
+					{
+						title: "Reuters",
+						url: "https://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best",
+						encoding: "UTF-8"
+					},
 				]
 			}
 		},
