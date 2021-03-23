@@ -6,13 +6,12 @@
  */
 
 const NodeHelper = require("node_helper");
-const validUrl = require("valid-url");
 const NewsfeedFetcher = require("./newsfeedfetcher.js");
-const Log = require("../../../js/logger");
+const Log = require("logger");
 
 module.exports = NodeHelper.create({
 	// Override start method.
-	start() {
+	start: function () {
 		Log.log("Starting node helper for: " + this.name);
 		this.fetchers = [];
 	},
@@ -36,12 +35,14 @@ module.exports = NodeHelper.create({
 		const encoding = feed.encoding || "UTF-8";
 		const reloadInterval = feed.reloadInterval || config.reloadInterval || 5 * 60 * 1000;
 
-		if (!validUrl.isUri(url)) {
-			this.sendSocketNotification("INCORRECT_URL", url);
+		try {
+			new URL(url);
+		} catch (error) {
+			this.sendSocketNotification("INCORRECT_URL", { url: url });
 			return;
 		}
 
-		let fetcher;
+		var fetcher;
 		if (typeof this.fetchers[url] === "undefined") {
 			Log.log("Create new news fetcher for url: " + url + " - Interval: " + reloadInterval);
 			fetcher = new NewsfeedFetcher(url, reloadInterval, encoding, config.logFeedWarnings);
@@ -73,8 +74,8 @@ module.exports = NodeHelper.create({
 	 * Creates an object with all feed items of the different registered feeds,
 	 * and broadcasts these using sendSocketNotification.
 	 */
-	broadcastFeeds() {
-		var feeds = {};
+	broadcastFeeds: function () {
+		const feeds = {};
 		for (var f in this.fetchers) {
 			feeds[f] = this.fetchers[f].items();
 		}

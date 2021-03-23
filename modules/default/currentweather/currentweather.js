@@ -59,7 +59,7 @@ Module.register("currentweather", {
 
 	// Define required scripts.
 	getStyles() {
-		return ["weather-icons.css"];
+		return ["font-awesome.css", "weather-icons.css"];
 	},
 
 	// Define required translations.
@@ -149,13 +149,13 @@ Module.register("currentweather", {
 		}
 
 		if (this.config.showVisibility) {
-			var visibilityIcon = document.createElement("span");
-			visibilityIcon.className = "wi wi-alien dimmed";
-			small.appendChild(visibilityIcon);
+//			var visibilityIcon = document.createElement("span");
+//			visibilityIcon.className = "wi wi-alien dimmed";
+//			small.appendChild(visibilityIcon);
 
 			var visibility = document.createElement("span"); 			// visibility.
 			visibility.className = "visibility";
-			visibility.innerHTML = this.visibility / 1000 + "<span class=\"subs\"> km</span> ";
+			visibility.innerHTML = "<i class=\"fas fa-binoculars\"></i>" + this.visibility / 1000 + "<span class=\"subs\"> km</span> ";
 			small.appendChild(visibility);
 		}
 //		var spacer = document.createElement("span");

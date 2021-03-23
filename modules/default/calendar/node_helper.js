@@ -5,19 +5,18 @@
  * MIT Licensed.
  */
 const NodeHelper = require("node_helper");
-const validUrl = require("valid-url");
 const CalendarFetcher = require("./calendarfetcher.js");
-const Log = require("../../../js/logger");
+const Log = require("logger");
 
 module.exports = NodeHelper.create({
 	// Override start method.
-	start() {
+	start: function () {
 		Log.log("Starting node helper for: " + this.name);
 		this.fetchers = [];
 	},
 
 	// Override socketNotificationReceived method.
-	socketNotificationReceived(notification, payload) {
+	socketNotificationReceived: function (notification, payload) {
 		if (notification === "ADD_CALENDAR") {
 			this.createFetcher(payload.url, payload.fetchInterval, payload.excludedEvents, payload.maximumEntries, payload.maximumNumberOfDays, payload.auth, payload.broadcastPastEvents, payload.selfSignedCert, payload.id);
 		}
@@ -38,19 +37,19 @@ module.exports = NodeHelper.create({
 	 * @param {string} identifier ID of the module
 	 */
 	createFetcher: function (url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, selfSignedCert, identifier) {
-		var self = this;
-
-		if (!validUrl.isUri(url)) {
+		try {
+			new URL(url);
+		} catch (error) {
 			this.sendSocketNotification("INCORRECT_URL", { id: identifier, url: url });
 			return;
 		}
 
 		var fetcher;
-
 		if (typeof this.fetchers[identifier + url] === "undefined") {
 			Log.log("Create new calendar fetcher for url: " + url + " - Interval: " + fetchInterval);
 			fetcher = new CalendarFetcher(url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, selfSignedCert);
 
+			var self = this;
 			fetcher.onReceive(function(fetcher) {
 				self.broadcastEvents(fetcher, identifier);
 			});
@@ -68,7 +67,6 @@ module.exports = NodeHelper.create({
 		} else {
 			Log.log("Use existing calendar fetcher for url: " + url);
 			fetcher = this.fetchers[identifier + url];
-//			fetcher.setReloadInterval(fetchInterval);
 			fetcher.broadcastEvents();
 		}
 
@@ -77,8 +75,10 @@ module.exports = NodeHelper.create({
 
 	/**
 	 *
+	 * @param {object} fetcher the fetcher associated with the calendar
+	 * @param {string} identifier the identifier of the calendar
 	 */
-	broadcastEvents(fetcher, identifier) {
+	broadcastEvents: function (fetcher, identifier) {
 		this.sendSocketNotification("CALENDAR_EVENTS", {
 			id: identifier,
 			url: fetcher.url(),

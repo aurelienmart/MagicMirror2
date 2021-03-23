@@ -4,7 +4,7 @@
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  */
-const Log = require("../../../js/logger.js");
+const Log = require("logger");
 const FeedMe = require("feedme");
 const fetch = require("node-fetch");
 const iconv = require("iconv-lite");
@@ -18,9 +18,7 @@ const iconv = require("iconv-lite");
  * @param {boolean} logFeedWarnings If true log warnings when there is an error parsing a news article.
  * @class
  */
-var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) {
-	var self = this;
-
+const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) {
 	var reloadTimer = null;
 	var items = [];
 
@@ -36,7 +34,8 @@ var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) 
 	/**
 	 * Request the new items.
 	 */
-	var fetchNews = function () {
+	var self = this;
+	var fetchNews = function fetchNews() {
 		clearTimeout(reloadTimer);
 		reloadTimer = null;
 		items = [];
@@ -70,27 +69,27 @@ var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) 
 
 		parser.on("end", function () {
 			self.broadcastItems();
-			scheduvarimer();
+			scheduleTimer();
 		});
 
 		parser.on("error", function (error) {
 			fetchFailedCallback(self, error);
-			scheduvarimer();
+			scheduleTimer();
 		});
 
 		var nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
-		const headers = {
+		var headers = {
 			"User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)",
 			"Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
 			Pragma: "no-cache"
 		};
 
 		fetch(url, { headers: headers })
-			.catch(function(error) {
+			.catch(function (error) {
 				fetchFailedCallback(self, error);
 				scheduleTimer();
 			})
-			.then(function(res) {
+			.then(function (res) {
 				res.body.pipe(iconv.decodeStream(encoding)).pipe(parser);
 			});
 	};
@@ -98,7 +97,7 @@ var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) 
 	/**
 	 * Schedule the timer for the next update.
 	 */
-	var scheduvarimer = function () {
+	const scheduleTimer = function () {
 		clearTimeout(reloadTimer);
 		reloadTimer = setTimeout(function () {
 			fetchNews();
@@ -134,7 +133,7 @@ var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) 
 			return;
 		}
 		Log.info("Newsfeed-Fetcher: Broadcasting " + items.length + " items.");
-		itemsReceivedCallback(self);
+		itemsReceivedCallback(this);
 	};
 
 	this.onReceive = function (callback) {
