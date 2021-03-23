@@ -11,7 +11,7 @@ Module.register("lunartic", {
         mode: "rotating", // rotating or static
         image: "current", // animation, current, DayNight or static (phases image)
         useHeader: false, // true if you want a header
-        header: "The Lunartic is in my head", // Any text you want. useHeader must be true
+        header: "The lunartic is in my head", // Any text you want. useHeader must be true
         maxWidth: "300px",
         distance: "miles", // miles or km
         sounds: "yes", // for wolf howls, only on a full moon
@@ -45,7 +45,7 @@ Module.register("lunartic", {
 
         //  Set locale.
   		//  this.url = this.getUrl();
-        this.Lunartic = {};
+        this.lunartic = {};
         this.moon = {};
         this.activeItem = 0;
         this.rotateInterval = null;
@@ -73,7 +73,7 @@ Module.register("lunartic", {
             wrapper.appendChild(header);
         }
 
-        var Lunartic = this.Lunartic;
+        var lunartic = this.lunartic;
         var distance = this.config.distance; // miles or km
         var image = this.config.image; // animation, current, DayNight or static
 
@@ -1391,7 +1391,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
                         var dateTimeString = moment.unix(this.info[2].fm).format("MMM DD, YYYY");
                     }
                     nextFullMoon.classList.add("msmall", "normal", "nextFullMoon");
-                	//	console.log (Lunartic); // checking data
+                	//	console.log (lunartic); // checking data
 
 
                 	//  console.log(this.info[2].fm * 1000); // unix timestamp of full moon from data
@@ -1540,7 +1540,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
                 var dateTimeString = moment.unix(this.info[2].fm).format("MMM DD, YYYY");
             }
             nextFullMoon.classList.add("msmall", "normal", "nextFullMoon");
-            //	console.log (Lunartic); // checking data
+            //	console.log (lunartic); // checking data
 
 
             // Because next FM data doesn't occur till after the new moon
@@ -1583,7 +1583,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
             var stage = document.createElement("div");
                 stage.classList.add("msmall", "normal", "stage");
 
-            if (Math.round(this.info[5].ill) < 1 && Lunartic.stage == "waning") {
+            if (Math.round(this.info[5].ill) < 1 && lunartic.stage == "waning") {
                 stage.innerHTML = this.translate("New Moon - No visible moon");
                 wrapper.appendChild(stage);
 
@@ -1681,7 +1681,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
     },
 
 
-    processLunartic(data) {
+    processlunartic(data) {
         this.info = data;
     //	console.log(this.info); // for checking
         this.loaded = true;
@@ -1695,7 +1695,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
     },
 
     scheduleCarousel() {
-    //  console.log("Carousel of Lunartic fuction");
+    //  console.log("Carousel of lunartic fuction");
         var self = this;
         this.rotateInterval = setInterval(function() {
             self.activeItem++;
@@ -1706,19 +1706,19 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
     scheduleUpdate() {
     	var self = this;
         setInterval(function() {
-            self.getLunartic();
+            self.getlunartic();
         }, this.config.updateInterval);
-        this.getLunartic(this.config.initialLoadDelay);
+        this.getlunartic(this.config.initialLoadDelay);
     },
 
-    getLunartic() {
-        this.sendSocketNotification('GET_LUNARTIC'); // , this.url);
+    getlunartic() {
+        this.sendSocketNotification('GET_lunartic'); // , this.url);
         this.sendSocketNotification('GET_MOON', this.url);
     },
 
     socketNotificationReceived(notification, payload) {
-        if (notification === "LUNARTIC_RESULT") {
-            this.processLunartic(payload);
+        if (notification === "lunartic_RESULT") {
+            this.processlunartic(payload);
           }
           if (notification === "MOON_RESULT") {
               this.processMOON(payload);
