@@ -4,12 +4,14 @@
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  */
-const CalendarUtils = require("./calendarutils");
-const Log = require("logger");
-const ical = require("node-ical");
-const fetch = require("node-fetch");
-const digest = require("digest-fetch");
-const https = require("https");
+"use strict";
+
+var CalendarUtils = require("./calendarutils");
+var Log = require("logger");
+var ical = require("node-ical");
+var fetch = require("node-fetch");
+var digest = require("digest-fetch");
+var https = require("https");
 
 /**
  *
@@ -23,16 +25,18 @@ const https = require("https");
  * @param {boolean} selfSignedCert If true, the server certificate is not verified against the list of supplied CAs.
  * @class
  */
-const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, includePastEvents, selfSignedCert) {
+var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, includePastEvents, selfSignedCert) {
+	var _this = this;
+
 	var reloadTimer = null;
 	var events = [];
 
-	var fetchFailedCallback = function () {};
-	var eventsReceivedCallback = function () {};
+	var fetchFailedCallback = function fetchFailedCallback() {};
+	var eventsReceivedCallback = function eventsReceivedCallback() {};
+
 	/**
-	 * Initiates calendar fetch.
-	 */
-	var self = this;
+  * Initiates calendar fetch.
+  */
 	var fetchCalendar = function fetchCalendar() {
 		clearTimeout(reloadTimer);
 		reloadTimer = null;
@@ -61,23 +65,19 @@ const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEn
 			fetcher = fetch(url, { headers: headers, httpsAgent: httpsAgent });
 		}
 
-		fetcher
-			.catch(function (error) {
-				fetchFailedCallback(self, error);
+		fetcher["catch"](function (error) {
+			fetchFailedCallback(_this, error);
+			scheduleTimer();
+		}).then(function (response) {
+			if (response.status !== 200) {
+				fetchFailedCallback(_this, response.statusText);
 				scheduleTimer();
-			})
-			.then(function (response) {
-				if (response.status !== 200) {
-					fetchFailedCallback(self, response.statusText);
-					scheduleTimer();
-				}
-				return response;
-			})
-			.then(function (response) {
-				return response.text();
-			})
-			.then(function (responseData) {
-				var data = [];
+			}
+			return response;
+		}).then(function (response) {
+			return response.text();
+		}).then(function (responseData) {
+			var data = [];
 
 			try {
 				data = ical.parseICS(responseData);
@@ -93,15 +93,15 @@ const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEn
 				scheduleTimer();
 				return;
 			}
-			self.broadcastEvents();
+			_this.broadcastEvents();
 			scheduleTimer();
 		});
 	};
 
 	/**
-	 * Schedule the timer for the next update.
-	 */
-	const scheduleTimer = function () {
+  * Schedule the timer for the next update.
+  */
+	var scheduleTimer = function scheduleTimer() {
 		clearTimeout(reloadTimer);
 		reloadTimer = setTimeout(function () {
 			fetchCalendar();
@@ -111,52 +111,52 @@ const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEn
 	/* public methods */
 
 	/**
-	 * Initiate fetchCalendar();
-	 */
+  * Initiate fetchCalendar();
+  */
 	this.startFetch = function () {
 		fetchCalendar();
 	};
 
 	/**
-	 * Broadcast the existing events.
-	 */
+  * Broadcast the existing events.
+  */
 	this.broadcastEvents = function () {
 		Log.info("Calendar-Fetcher: Broadcasting " + events.length + " events.");
 		eventsReceivedCallback(this);
 	};
 
 	/**
-	 * Sets the on success callback
-	 *
-	 * @param {Function} callback The on success callback.
-	 */
+  * Sets the on success callback
+  *
+  * @param {Function} callback The on success callback.
+  */
 	this.onReceive = function (callback) {
 		eventsReceivedCallback = callback;
 	};
 
 	/**
-	 * Sets the on error callback
-	 *
-	 * @param {Function} callback The on error callback.
-	 */
+  * Sets the on error callback
+  *
+  * @param {Function} callback The on error callback.
+  */
 	this.onError = function (callback) {
 		fetchFailedCallback = callback;
 	};
 
 	/**
-	 * Returns the url of this fetcher.
-	 *
-	 * @returns {string} The url of this fetcher.
-	 */
+  * Returns the url of this fetcher.
+  *
+  * @returns {string} The url of this fetcher.
+  */
 	this.url = function () {
 		return url;
 	};
 
 	/**
-	 * Returns current available events for this fetcher.
-	 *
-	 * @returns {object[]} The current available events for this fetcher.
-	 */
+  * Returns current available events for this fetcher.
+  *
+  * @returns {object[]} The current available events for this fetcher.
+  */
 	this.events = function () {
 		return events;
 	};

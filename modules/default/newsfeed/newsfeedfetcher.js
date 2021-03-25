@@ -4,10 +4,12 @@
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  */
-const Log = require("logger");
-const FeedMe = require("feedme");
-const fetch = require("node-fetch");
-const iconv = require("iconv-lite");
+"use strict";
+
+var Log = require("logger");
+var FeedMe = require("feedme");
+var fetch = require("node-fetch");
+var iconv = require("iconv-lite");
 
 /**
  * Responsible for requesting an update on the set interval and broadcasting the data.
@@ -18,12 +20,14 @@ const iconv = require("iconv-lite");
  * @param {boolean} logFeedWarnings If true log warnings when there is an error parsing a news article.
  * @class
  */
-const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) {
+var NewsfeedFetcher = function NewsfeedFetcher(url, reloadInterval, encoding, logFeedWarnings) {
+	var _this = this;
+
 	var reloadTimer = null;
 	var items = [];
 
-	var fetchFailedCallback = function () {};
-	var itemsReceivedCallback = function () {};
+	var fetchFailedCallback = function fetchFailedCallback() {};
+	var itemsReceivedCallback = function itemsReceivedCallback() {};
 
 	if (reloadInterval < 1000) {
 		reloadInterval = 1000;
@@ -32,9 +36,8 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 	/* private methods */
 
 	/**
-	 * Request the new items.
-	 */
-	var self = this;
+  * Request the new items.
+  */
 	var fetchNews = function fetchNews() {
 		clearTimeout(reloadTimer);
 		reloadTimer = null;
@@ -68,12 +71,12 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 		});
 
 		parser.on("end", function () {
-			self.broadcastItems();
+			_this.broadcastItems();
 			scheduleTimer();
 		});
 
 		parser.on("error", function (error) {
-			fetchFailedCallback(self, error);
+			fetchFailedCallback(_this, error);
 			scheduleTimer();
 		});
 
@@ -84,20 +87,18 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 			Pragma: "no-cache"
 		};
 
-		fetch(url, { headers: headers })
-			.catch(function (error) {
-				fetchFailedCallback(self, error);
-				scheduleTimer();
-			})
-			.then(function (res) {
-				res.body.pipe(iconv.decodeStream(encoding)).pipe(parser);
-			});
+		fetch(url, { headers: headers })["catch"](function (error) {
+			fetchFailedCallback(_this, error);
+			scheduleTimer();
+		}).then(function (res) {
+			res.body.pipe(iconv.decodeStream(encoding)).pipe(parser);
+		});
 	};
 
 	/**
-	 * Schedule the timer for the next update.
-	 */
-	const scheduleTimer = function () {
+  * Schedule the timer for the next update.
+  */
+	var scheduleTimer = function scheduleTimer() {
 		clearTimeout(reloadTimer);
 		reloadTimer = setTimeout(function () {
 			fetchNews();
@@ -107,10 +108,10 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 	/* public methods */
 
 	/**
-	 * Update the reload interval, but only if we need to increase the speed.
-	 *
-	 * @param {number} interval Interval for the update in milliseconds.
-	 */
+  * Update the reload interval, but only if we need to increase the speed.
+  *
+  * @param {number} interval Interval for the update in milliseconds.
+  */
 	this.setReloadInterval = function (interval) {
 		if (interval > 1000 && interval < reloadInterval) {
 			reloadInterval = interval;
@@ -118,15 +119,15 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 	};
 
 	/**
-	 * Initiate fetchNews();
-	 */
+  * Initiate fetchNews();
+  */
 	this.startFetch = function () {
 		fetchNews();
 	};
 
 	/**
-	 * Broadcast the existing items.
-	 */
+  * Broadcast the existing items.
+  */
 	this.broadcastItems = function () {
 		if (items.length <= 0) {
 			Log.info("Newsfeed-Fetcher: No items to broadcast yet.");

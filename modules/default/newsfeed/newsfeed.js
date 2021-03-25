@@ -4,6 +4,8 @@
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  */
+"use strict";
+
 Module.register("newsfeed", {
 	// Default module config.
 	defaults: {
@@ -15,7 +17,7 @@ Module.register("newsfeed", {
 		return ["moment.js"];
 	},
 
-	// Define required styles.
+	//Define required styles.
 	getStyles() {
 		return ["newsfeed.css"];
 	},
@@ -29,7 +31,7 @@ Module.register("newsfeed", {
 	},
 
 	// Define start sequence.
-	start: function () {
+	start() {
 		Log.info("Starting module: " + this.name);
 
 		// Set locale.
@@ -40,11 +42,14 @@ Module.register("newsfeed", {
 		this.error = null;
 		this.activeItem = 0;
 		this.scrollPosition = 0;
+
 		this.registerFeeds();
+
+		this.isShowingDescription = this.config.showDescription;
 	},
 
 	// Override socket notification handler.
-	socketNotificationReceived: function (notification, payload) {
+	socketNotificationReceived(notification, payload) {
 		if (notification === "NEWS_ITEMS") {
 			this.generateFeed(payload);
 
@@ -58,132 +63,13 @@ Module.register("newsfeed", {
 			this.loaded = true;
 			this.error = null;
 		} else if (notification === "INCORRECT_URL") {
-			this.error = `Incorrect url: ${payload.url}`;
+			this.error = "Incorrect url: " + payload.url;
 			this.scheduleUpdateInterval();
 		}
 	},
 
-	// Override dom generator. Keep for compatibility.
-	getDom: function () {
-		const wrapper = document.createElement("div");
-
-		if (this.config.feedUrl) {
-			wrapper.className = "small bright";
-			wrapper.innerHTML = this.translate("MODULE_CONFIG_CHANGED", { MODULE_NAME: "Newsfeed" });
-			return wrapper;
-		}
-
-		if (this.activeItem >= this.newsItems.length) {
-			this.activeItem = 0;
-		}
-
-		if (this.newsItems.length > 0) {
-			// this.config.showFullArticle is a run-time configuration, triggered by optional notifications
-			if (!this.config.showFullArticle && (this.config.showSourceTitle || this.config.showPublishDate)) {
-				const sourceAndTimestamp = document.createElement("div");
-				sourceAndTimestamp.className = "newsfeed-source light small dimmed";
-
-				if (this.config.showSourceTitle && this.newsItems[this.activeItem].sourceTitle !== "") {
-					sourceAndTimestamp.innerHTML = this.newsItems[this.activeItem].sourceTitle;
-				}
-				if (this.config.showSourceTitle && this.newsItems[this.activeItem].sourceTitle !== "" && this.config.showPublishDate) {
-					sourceAndTimestamp.innerHTML += ", ";
-				}
-				if (this.config.showPublishDate) {
-					sourceAndTimestamp.innerHTML += moment(new Date(this.newsItems[this.activeItem].pubdate)).fromNow();
-				}
-				if ((this.config.showSourceTitle && this.newsItems[this.activeItem].sourceTitle !== "") || this.config.showPublishDate) {
-					sourceAndTimestamp.innerHTML += ":";
-				}
-
-				wrapper.appendChild(sourceAndTimestamp);
-			}
-
-			//Remove selected tags from the beginning of rss feed items (title or description)
-
-			if (this.config.removeStartTags === "title" || this.config.removeStartTags === "both") {
-				for (let f = 0; f < this.config.startTags.length; f++) {
-					if (this.newsItems[this.activeItem].title.slice(0, this.config.startTags[f].length) === this.config.startTags[f]) {
-						this.newsItems[this.activeItem].title = this.newsItems[this.activeItem].title.slice(this.config.startTags[f].length, this.newsItems[this.activeItem].title.length);
-					}
-				}
-			}
-
-			if (this.config.removeStartTags === "description" || this.config.removeStartTags === "both") {
-				if (this.config.showDescription) {
-					for (let f = 0; f < this.config.startTags.length; f++) {
-						if (this.newsItems[this.activeItem].description.slice(0, this.config.startTags[f].length) === this.config.startTags[f]) {
-							this.newsItems[this.activeItem].description = this.newsItems[this.activeItem].description.slice(this.config.startTags[f].length, this.newsItems[this.activeItem].description.length);
-						}
-					}
-				}
-			}
-
-			//Remove selected tags from the end of rss feed items (title or description)
-
-			if (this.config.removeEndTags) {
-				for (let f = 0; f < this.config.endTags.length; f++) {
-					if (this.newsItems[this.activeItem].title.slice(-this.config.endTags[f].length) === this.config.endTags[f]) {
-						this.newsItems[this.activeItem].title = this.newsItems[this.activeItem].title.slice(0, -this.config.endTags[f].length);
-					}
-				}
-
-				if (this.config.showDescription) {
-					for (let f = 0; f < this.config.endTags.length; f++) {
-						if (this.newsItems[this.activeItem].description.slice(-this.config.endTags[f].length) === this.config.endTags[f]) {
-							this.newsItems[this.activeItem].description = this.newsItems[this.activeItem].description.slice(0, -this.config.endTags[f].length);
-						}
-					}
-				}
-			}
-
-			if (!this.config.showFullArticle) {
-				const title = document.createElement("div");
-				title.className = "newsfeed-title bright medium light" + (!this.config.wrapTitle ? " no-wrap" : "");
-				title.innerHTML = this.newsItems[this.activeItem].title;
-				wrapper.appendChild(title);
-			}
-
-			if (this.config.showDescription) {
-				const description = document.createElement("div");
-				description.className = "newsfeed-desc small light" + (!this.config.wrapDescription ? " no-wrap" : "");
-				const txtDesc = this.newsItems[this.activeItem].description;
-				description.innerHTML = this.config.truncDescription ? (txtDesc.length > this.config.lengthDescription ? txtDesc.substring(0, this.config.lengthDescription) + "..." : txtDesc) : txtDesc;
-				wrapper.appendChild(description);
-			}
-
-			if (this.config.showFullArticle) {
-				const fullArticle = document.createElement("iframe");
-				fullArticle.className = "";
-				fullArticle.style.width = "100vw";
-				// very large height value to allow scrolling
-				fullArticle.height = "3000";
-				fullArticle.style.height = "3000";
-				fullArticle.style.top = "0";
-				fullArticle.style.left = "0";
-				fullArticle.style.border = "none";
-				fullArticle.src = this.getActiveItemURL();
-				fullArticle.style.zIndex = 1;
-				wrapper.appendChild(fullArticle);
-			}
-
-			if (this.config.hideLoading) {
-				this.show();
-			}
-		} else {
-			if (this.config.hideLoading) {
-				this.hide();
-			} else {
-				wrapper.innerHTML = this.translate("LOADING");
-				wrapper.className = "small dimmed";
-			}
-		}
-
-		return wrapper;
-	},
-
 	//Override fetching of template name
-	getTemplate: function () {
+	getTemplate() {
 		if (this.config.feedUrl) {
 			return "oldconfig.njk";
 		} else if (this.config.showFullArticle) {
@@ -193,7 +79,7 @@ Module.register("newsfeed", {
 	},
 
 	//Override template data and return whats used for the current template
-	getTemplateData: function () {
+	getTemplateData() {
 		// this.config.showFullArticle is a run-time configuration, triggered by optional notifications
 		if (this.config.showFullArticle) {
 			return {
@@ -214,7 +100,7 @@ Module.register("newsfeed", {
 			this.activeItem = 0;
 		}
 
-		const item = this.newsItems[this.activeItem];
+		var item = this.newsItems[this.activeItem];
 
 		return {
 			loaded: true,
@@ -226,43 +112,87 @@ Module.register("newsfeed", {
 		};
 	},
 
-	getActiveItemURL: function () {
+	getActiveItemURL() {
 		return typeof this.newsItems[this.activeItem].url === "string" ? this.newsItems[this.activeItem].url : this.newsItems[this.activeItem].url.href;
 	},
 
 	/**
-	 * Registers the feeds to be used by the backend.
-	 */
-	registerFeeds: function () {
-		for (var feed of this.config.feeds) {
-			this.sendSocketNotification("ADD_FEED", {
-				feed: feed,
-				config: this.config
-			});
+  * Registers the feeds to be used by the backend.
+  */
+	registerFeeds() {
+		var _iteratorNormalCompletion = true;
+		var _didIteratorError = false;
+		var _iteratorError = undefined;
+
+		try {
+			for (var _iterator = this.config.feeds[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+				var feed = _step.value;
+
+				this.sendSocketNotification("ADD_FEED", {
+					feed: feed,
+					config: this.config
+				});
+			}
+		} catch (err) {
+			_didIteratorError = true;
+			_iteratorError = err;
+		} finally {
+			try {
+				if (!_iteratorNormalCompletion && _iterator["return"]) {
+					_iterator["return"]();
+				}
+			} finally {
+				if (_didIteratorError) {
+					throw _iteratorError;
+				}
+			}
 		}
 	},
 
 	/**
-	 * Generate an ordered list of items for this configured module.
-	 *
-	 * @param {object} feeds An object with feeds returned by the node helper.
-	 */
-	generateFeed: function (feeds) {
+  * Generate an ordered list of items for this configured module.
+  *
+  * @param {object} feeds An object with feeds returned by the node helper.
+  */
+	generateFeed(feeds) {
+		var _this = this;
+
 		var newsItems = [];
 		for (var feed in feeds) {
-			const feedItems = feeds[feed];
+			var feedItems = feeds[feed];
 			if (this.subscribedToFeed(feed)) {
-				for (var item of feedItems) {
-					item.sourceTitle = this.titleForFeed(feed);
-					if (!(this.config.ignoreOldItems && Date.now() - new Date(item.pubdate) > this.config.ignoreOlderThan)) {
-						newsItems.push(item);
+				var _iteratorNormalCompletion2 = true;
+				var _didIteratorError2 = false;
+				var _iteratorError2 = undefined;
+
+				try {
+					for (var _iterator2 = feedItems[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+						var item = _step2.value;
+
+						item.sourceTitle = this.titleForFeed(feed);
+						if (!(this.config.ignoreOldItems && Date.now() - new Date(item.pubdate) > this.config.ignoreOlderThan)) {
+							newsItems.push(item);
+						}
+					}
+				} catch (err) {
+					_didIteratorError2 = true;
+					_iteratorError2 = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion2 && _iterator2["return"]) {
+							_iterator2["return"]();
+						}
+					} finally {
+						if (_didIteratorError2) {
+							throw _iteratorError2;
+						}
 					}
 				}
 			}
 		}
 		newsItems.sort(function (a, b) {
-			const dateA = new Date(a.pubdate);
-			const dateB = new Date(b.pubdate);
+			var dateA = new Date(a.pubdate);
+			var dateB = new Date(b.pubdate);
 			return dateB - dateA;
 		});
 		if (this.config.maxNewsItems > 0) {
@@ -271,31 +201,94 @@ Module.register("newsfeed", {
 
 		if (this.config.prohibitedWords.length > 0) {
 			newsItems = newsItems.filter(function (value) {
-				for (var word of this.config.prohibitedWords) {
-					if (value["title"].toLowerCase().indexOf(word.toLowerCase()) > -1) {
-						return false;
+				var _iteratorNormalCompletion3 = true;
+				var _didIteratorError3 = false;
+				var _iteratorError3 = undefined;
+
+				try {
+					for (var _iterator3 = this.config.prohibitedWords[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+						var word = _step3.value;
+
+						if (value["title"].toLowerCase().indexOf(word.toLowerCase()) > -1) {
+							return false;
+						}
+					}
+				} catch (err) {
+					_didIteratorError3 = true;
+					_iteratorError3 = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion3 && _iterator3["return"]) {
+							_iterator3["return"]();
+						}
+					} finally {
+						if (_didIteratorError3) {
+							throw _iteratorError3;
+						}
 					}
 				}
+
 				return true;
 			}, this);
 		}
 
-		var self = this;
-		newsItems.forEach(function(item) {
+		newsItems.forEach(function (item) {
 			//Remove selected tags from the beginning of rss feed items (title or description)
-			if (self.config.removeStartTags === "title" || self.config.removeStartTags === "both") {
-				for (var startTag of self.config.startTags) {
-					if (item.title.slice(0, startTag.length) === startTag) {
-						item.title = item.title.slice(startTag.length, item.title.length);
+			if (_this.config.removeStartTags === "title" || _this.config.removeStartTags === "both") {
+				var _iteratorNormalCompletion4 = true;
+				var _didIteratorError4 = false;
+				var _iteratorError4 = undefined;
+
+				try {
+					for (var _iterator4 = _this.config.startTags[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+						var startTag = _step4.value;
+
+						if (item.title.slice(0, startTag.length) === startTag) {
+							item.title = item.title.slice(startTag.length, item.title.length);
+						}
+					}
+				} catch (err) {
+					_didIteratorError4 = true;
+					_iteratorError4 = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion4 && _iterator4["return"]) {
+							_iterator4["return"]();
+						}
+					} finally {
+						if (_didIteratorError4) {
+							throw _iteratorError4;
+						}
 					}
 				}
 			}
 
-			if (self.config.removeStartTags === "description" || self.config.removeStartTags === "both") {
-				if (self.config.showDescription) {
-					for (var startTag of this.config.startTags) {
-						if (item.description.slice(0, startTag.length) === startTag) {
-							item.description = item.description.slice(startTag.length, item.description.length);
+			if (_this.config.removeStartTags === "description" || _this.config.removeStartTags === "both") {
+				if (_this.isShowingDescription) {
+					var _iteratorNormalCompletion5 = true;
+					var _didIteratorError5 = false;
+					var _iteratorError5 = undefined;
+
+					try {
+						for (var _iterator5 = _this.config.startTags[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+							var startTag = _step5.value;
+
+							if (item.description.slice(0, startTag.length) === startTag) {
+								item.description = item.description.slice(startTag.length, item.description.length);
+							}
+						}
+					} catch (err) {
+						_didIteratorError5 = true;
+						_iteratorError5 = err;
+					} finally {
+						try {
+							if (!_iteratorNormalCompletion5 && _iterator5["return"]) {
+								_iterator5["return"]();
+							}
+						} finally {
+							if (_didIteratorError5) {
+								throw _iteratorError5;
+							}
 						}
 					}
 				}
@@ -303,17 +296,59 @@ Module.register("newsfeed", {
 
 			//Remove selected tags from the end of rss feed items (title or description)
 
-			if (self.config.removeEndTags) {
-				for (var endTag of this.config.endTags) {
-					if (item.title.slice(-endTag.length) === endTag) {
-						item.title = item.title.slice(0, -endTag.length);
+			if (_this.config.removeEndTags) {
+				var _iteratorNormalCompletion6 = true;
+				var _didIteratorError6 = false;
+				var _iteratorError6 = undefined;
+
+				try {
+					for (var _iterator6 = _this.config.endTags[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+						var endTag = _step6.value;
+
+						if (item.title.slice(-endTag.length) === endTag) {
+							item.title = item.title.slice(0, -endTag.length);
+						}
+					}
+				} catch (err) {
+					_didIteratorError6 = true;
+					_iteratorError6 = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion6 && _iterator6["return"]) {
+							_iterator6["return"]();
+						}
+					} finally {
+						if (_didIteratorError6) {
+							throw _iteratorError6;
+						}
 					}
 				}
 
-				if (self.config.showDescription) {
-					for (var endTag of this.config.endTags) {
-						if (item.description.slice(-endTag.length) === endTag) {
-							item.description = item.description.slice(0, -endTag.length);
+				if (_this.isShowingDescription) {
+					var _iteratorNormalCompletion7 = true;
+					var _didIteratorError7 = false;
+					var _iteratorError7 = undefined;
+
+					try {
+						for (var _iterator7 = _this.config.endTags[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+							var endTag = _step7.value;
+
+							if (item.description.slice(-endTag.length) === endTag) {
+								item.description = item.description.slice(0, -endTag.length);
+							}
+						}
+					} catch (err) {
+						_didIteratorError7 = true;
+						_iteratorError7 = err;
+					} finally {
+						try {
+							if (!_iteratorNormalCompletion7 && _iterator7["return"]) {
+								_iterator7["return"]();
+							}
+						} finally {
+							if (_didIteratorError7) {
+								throw _iteratorError7;
+							}
 						}
 					}
 				}
@@ -321,11 +356,13 @@ Module.register("newsfeed", {
 		});
 
 		// get updated news items and broadcast them
-		const updatedItems = [];
-		newsItems.forEach(function(value) {
-			if (self.newsItems.findIndex(function (value1) { return value1 === value; }) === -1) {
-			    // Add item to updated items list
-			    updatedItems.push(value);
+		var updatedItems = [];
+		newsItems.forEach(function (value) {
+			if (_this.newsItems.findIndex(function (value1) {
+				return value1 === value;
+			}) === -1) {
+				// Add item to updated items list
+				updatedItems.push(value);
 			}
 		});
 
@@ -338,39 +375,85 @@ Module.register("newsfeed", {
 	},
 
 	/**
-	 * Check if this module is configured to show this feed.
-	 *
-	 * @param {string} feedUrl Url of the feed to check.
-	 * @returns {boolean} True if it is subscribed, false otherwise
-	 */
-	subscribedToFeed: function (feedUrl) {
-		for (var feed of this.config.feeds) {
-			if (feed.url === feedUrl) {
-				return true;
+  * Check if this module is configured to show this feed.
+  *
+  * @param {string} feedUrl Url of the feed to check.
+  * @returns {boolean} True if it is subscribed, false otherwise
+  */
+	subscribedToFeed(feedUrl) {
+		var _iteratorNormalCompletion8 = true;
+		var _didIteratorError8 = false;
+		var _iteratorError8 = undefined;
+
+		try {
+			for (var _iterator8 = this.config.feeds[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+				var feed = _step8.value;
+
+				if (feed.url === feedUrl) {
+					return true;
+				}
+			}
+		} catch (err) {
+			_didIteratorError8 = true;
+			_iteratorError8 = err;
+		} finally {
+			try {
+				if (!_iteratorNormalCompletion8 && _iterator8["return"]) {
+					_iterator8["return"]();
+				}
+			} finally {
+				if (_didIteratorError8) {
+					throw _iteratorError8;
+				}
 			}
 		}
+
 		return false;
 	},
 
 	/**
-	 * Returns title for the specific feed url.
-	 *
-	 * @param {string} feedUrl Url of the feed
-	 * @returns {string} The title of the feed
-	 */
-	titleForFeed: function (feedUrl) {
-		for (var feed of this.config.feeds) {
-			if (feed.url === feedUrl) {
-				return feed.title || "";
+  * Returns title for the specific feed url.
+  *
+  * @param {string} feedUrl Url of the feed
+  * @returns {string} The title of the feed
+  */
+	titleForFeed(feedUrl) {
+		var _iteratorNormalCompletion9 = true;
+		var _didIteratorError9 = false;
+		var _iteratorError9 = undefined;
+
+		try {
+			for (var _iterator9 = this.config.feeds[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+				var feed = _step9.value;
+
+				if (feed.url === feedUrl) {
+					return feed.title || "";
+				}
+			}
+		} catch (err) {
+			_didIteratorError9 = true;
+			_iteratorError9 = err;
+		} finally {
+			try {
+				if (!_iteratorNormalCompletion9 && _iterator9["return"]) {
+					_iterator9["return"]();
+				}
+			} finally {
+				if (_didIteratorError9) {
+					throw _iteratorError9;
+				}
 			}
 		}
+
 		return "";
 	},
 
 	/**
-	 * Schedule visual update.
-	 */
-	scheduleUpdateInterval: function () {
+  * Schedule visual update.
+  */
+	scheduleUpdateInterval() {
+		var _this2 = this;
+
 		this.updateDom(this.config.animationSpeed);
 
 		// Broadcast NewsFeed if needed
@@ -378,20 +461,19 @@ Module.register("newsfeed", {
 			this.sendNotification("NEWS_FEED", { items: this.newsItems });
 		}
 
-		var self = this;
-		this.timer = setInterval(function() {
-			self.activeItem++;
-			self.updateDom(this.config.animationSpeed);
+		this.timer = setInterval(function () {
+			_this2.activeItem++;
+			_this2.updateDom(_this2.config.animationSpeed);
 
 			// Broadcast NewsFeed if needed
-			if (self.config.broadcastNewsFeeds) {
-				self.sendNotification("NEWS_FEED", { items: this.newsItems });
+			if (_this2.config.broadcastNewsFeeds) {
+				_this2.sendNotification("NEWS_FEED", { items: _this2.newsItems });
 			}
-		}, self.config.updateInterval);
+		}, this.config.updateInterval);
 	},
 
-	resetDescrOrFullArticleAndTimer: function () {
-		this.config.showDescription = this.config.showDescription;
+	resetDescrOrFullArticleAndTimer() {
+		this.isShowingDescription = this.config.showDescription;
 		this.config.showFullArticle = false;
 		this.scrollPosition = 0;
 		// reset bottom bar alignment
@@ -401,8 +483,8 @@ Module.register("newsfeed", {
 		}
 	},
 
-	notificationReceived: function (notification, payload, sender) {
-		const before = this.activeItem;
+	notificationReceived(notification, payload, sender) {
+		var before = this.activeItem;
 		if (notification === "MODULE_DOM_CREATED" && this.config.hideLoading) {
 			this.hide();
 		} else if (notification === "ARTICLE_NEXT") {
@@ -424,54 +506,54 @@ Module.register("newsfeed", {
 		}
 		// if "more details" is received the first time: show article summary, on second time show full article
 		else if (notification === "ARTICLE_MORE_DETAILS") {
-			// full article is already showing, so scrolling down
-			if (this.config.showFullArticle === true) {
-				this.scrollPosition += this.config.scrollLength;
-				window.scrollTo(0, this.scrollPosition);
-				Log.debug(this.name + " - scrolling down");
-				Log.debug(this.name + " - ARTICLE_MORE_DETAILS, scroll position: " + this.config.scrollLength);
-			} else {
-				this.showFullArticle();
-			}
-		} else if (notification === "ARTICLE_SCROLL_UP") {
-			if (this.config.showFullArticle === true) {
-				this.scrollPosition -= this.config.scrollLength;
-				window.scrollTo(0, this.scrollPosition);
-				Log.debug(this.name + " - scrolling up");
-				Log.debug(this.name + " - ARTICLE_SCROLL_UP, scroll position: " + this.config.scrollLength);
-			}
-		} else if (notification === "ARTICLE_LESS_DETAILS") {
-			this.resetDescrOrFullArticleAndTimer();
-			Log.debug(this.name + " - showing only article titles again");
-			this.updateDom(100);
-		} else if (notification === "ARTICLE_TOGGLE_FULL") {
-			if (this.config.showFullArticle) {
-				this.activeItem++;
+				// full article is already showing, so scrolling down
+				if (this.config.showFullArticle === true) {
+					this.scrollPosition += this.config.scrollLength;
+					window.scrollTo(0, this.scrollPosition);
+					Log.debug(this.name + " - scrolling down");
+					Log.debug(this.name + " - ARTICLE_MORE_DETAILS, scroll position: " + this.config.scrollLength);
+				} else {
+					this.showFullArticle();
+				}
+			} else if (notification === "ARTICLE_SCROLL_UP") {
+				if (this.config.showFullArticle === true) {
+					this.scrollPosition -= this.config.scrollLength;
+					window.scrollTo(0, this.scrollPosition);
+					Log.debug(this.name + " - scrolling up");
+					Log.debug(this.name + " - ARTICLE_SCROLL_UP, scroll position: " + this.config.scrollLength);
+				}
+			} else if (notification === "ARTICLE_LESS_DETAILS") {
 				this.resetDescrOrFullArticleAndTimer();
-			} else {
-				this.showFullArticle();
+				Log.debug(this.name + " - showing only article titles again");
+				this.updateDom(100);
+			} else if (notification === "ARTICLE_TOGGLE_FULL") {
+				if (this.config.showFullArticle) {
+					this.activeItem++;
+					this.resetDescrOrFullArticleAndTimer();
+				} else {
+					this.showFullArticle();
+				}
+			} else if (notification === "ARTICLE_INFO_REQUEST") {
+				this.sendNotification("ARTICLE_INFO_RESPONSE", {
+					title: this.newsItems[this.activeItem].title,
+					source: this.newsItems[this.activeItem].sourceTitle,
+					date: this.newsItems[this.activeItem].pubdate,
+					desc: this.newsItems[this.activeItem].description,
+					url: this.getActiveItemURL()
+				});
 			}
-		} else if (notification === "ARTICLE_INFO_REQUEST") {
-			this.sendNotification("ARTICLE_INFO_RESPONSE", {
-				title: this.newsItems[this.activeItem].title,
-				source: this.newsItems[this.activeItem].sourceTitle,
-				date: this.newsItems[this.activeItem].pubdate,
-				desc: this.newsItems[this.activeItem].description,
-				url: this.getActiveItemURL()
-			});
-		}
 	},
 
-	showFullArticle: function () {
-		this.config.showDescription = !this.config.showDescription;
-		this.config.showFullArticle = !this.config.showDescription;
+	showFullArticle() {
+		this.isShowingDescription = !this.isShowingDescription;
+		this.config.showFullArticle = !this.isShowingDescription;
 		// make bottom bar align to top to allow scrolling
 		if (this.config.showFullArticle === true) {
 			document.getElementsByClassName("region bottom bar")[0].classList.add("newsfeed-fullarticle");
 		}
 		clearInterval(this.timer);
 		this.timer = null;
-		Log.debug(this.name + " - showing " + this.config.showDescription ? "article description" : "full article");
+		Log.debug(this.name + " - showing " + this.isShowingDescription ? "article description" : "full article");
 		this.updateDom(100);
 	}
 });
