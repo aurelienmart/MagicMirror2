@@ -19,7 +19,7 @@ Module.register("newsfeed", {
 
 	//Define required styles.
 	getStyles() {
-		return ["newsfeed.css"];
+		return ["font-awesome.css", "newsfeed.css"];
 	},
 
 	// Define required translations.
