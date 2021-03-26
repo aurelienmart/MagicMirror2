@@ -489,7 +489,7 @@ var MM = (function () {
 		/**
 		 * Main init method.
 		 */
-		init: function () {
+		init() {
 			Log.info("Initializing MagicMirror.");
 			loadConfig();
 
@@ -504,7 +504,7 @@ var MM = (function () {
 		 *
 		 * @param {Module[]} moduleObjects All module instances.
 		 */
-		modulesStarted: function (moduleObjects) {
+		modulesStarted(moduleObjects) {
 			modules = [];
 			moduleObjects.forEach(function (module) {
 			  return modules.push(module);
@@ -523,7 +523,7 @@ var MM = (function () {
 		 * @param {*} payload The payload of the notification.
 		 * @param {Module} sender The module that sent the notification.
 		 */
-		sendNotification: function (notification, payload, sender) {
+		sendNotification(notification, payload, sender) {
 			if (arguments.length < 3) {
 				Log.error("sendNotification: Missing arguments.");
 				return;
@@ -549,7 +549,7 @@ var MM = (function () {
 		 * @param {Module} module The module that needs an update.
 		 * @param {number} [speed] The number of microseconds for the animation.
 		 */
-		updateDom: function (module, speed) {
+		updateDom(module, speed) {
 			if (!(module instanceof Module)) {
 				Log.error("updateDom: Sender should be a module.");
 				return;
@@ -569,7 +569,7 @@ var MM = (function () {
 		 *
 		 * @returns {Module[]} A collection of all modules currently active.
 		 */
-		getModules: function () {
+		getModules() {
 			setSelectionMethodsForModules(modules);
 			return modules;
 		},
@@ -582,7 +582,7 @@ var MM = (function () {
 		 * @param {Function} callback Called when the animation is done.
 		 * @param {object} [options] Optional settings for the hide method.
 		 */
-		hideModule: function (module, speed, callback, options) {
+		hideModule(module, speed, callback, options) {
 			module.hidden = true;
 			hideModule(module, speed, callback, options);
 		},
@@ -595,7 +595,7 @@ var MM = (function () {
 		 * @param {Function} callback Called when the animation is done.
 		 * @param {object} [options] Optional settings for the show method.
 		 */
-		showModule: function (module, speed, callback, options) {
+		showModule(module, speed, callback, options) {
 			// do not change module.hidden yet, only if we really show it later
 			showModule(module, speed, callback, options);
 		}

@@ -228,7 +228,7 @@ var Loader = (function () {
 		/**
 		 * Load all modules as defined in the config.
 		 */
-		loadModules: function () {
+		loadModules() {
 			loadModules();
 		},
 
@@ -240,7 +240,7 @@ var Loader = (function () {
 		 * @param {Module} module The module that calls the loadFile function.
 		 * @param {Function} callback Function called when done.
 		 */
-		loadFile: function (fileName, module, callback) {
+		loadFile(fileName, module, callback) {
 			if (loadedFiles.indexOf(fileName.toLowerCase()) !== -1) {
 				Log.log("File already loaded: " + fileName);
 				callback();

@@ -91,7 +91,7 @@ var NodeHelper = Class.extend({
 	 */
 	setSocketIO(io) {
 		var self = this;
-		self.io = io;
+		this.io = io;
 
 		Log.log("Connecting socket for: " + this.name);
 		var namespace = this.name;

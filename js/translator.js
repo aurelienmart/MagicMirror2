@@ -49,7 +49,7 @@ var Translator = (function () {
    * @param {object} variables The variables to use within the translation template (optional)
    * @returns {string} the translated key
    */
-		translate: function translate(module, key, variables) {
+		translate(module, key, variables) {
 			variables = variables || {}; //Empty object by default
 
 			/**
@@ -105,8 +105,8 @@ var Translator = (function () {
    * @param {boolean} isFallback Flag to indicate fallback translations.
    * @param {Function} callback Function called when done.
    */
-		load: function load(module, file, isFallback, callback) {
-			var _this = this;
+		load(module, file, isFallback, callback) {
+			var self = this;
 
 			Log.log(module.name + " - Load translation" + (isFallback && " fallback") + ": " + file);
 
@@ -117,7 +117,7 @@ var Translator = (function () {
 
 			loadJSON(module.file(file), function (json) {
 				var property = isFallback ? "translationsFallback" : "translations";
-				_this[property][module.name] = json;
+				self[property][module.name] = json;
 				callback();
 			});
 		},
@@ -127,13 +127,13 @@ var Translator = (function () {
    *
    * @param {string} lang The language identifier of the core language.
    */
-		loadCoreTranslations: function loadCoreTranslations(lang) {
-			var _this2 = this;
+		loadCoreTranslations(lang) {
+			var self = this;
 
 			if (lang in translations) {
 				Log.log("Loading core translation file: " + translations[lang]);
 				loadJSON(translations[lang], function (translations) {
-					_this2.coreTranslations = translations;
+					self.coreTranslations = translations;
 				});
 			} else {
 				Log.log("Configured language not found in core translations.");
@@ -146,8 +146,8 @@ var Translator = (function () {
    * Load the core translations fallback.
    * The first language defined in translations.js will be used.
    */
-		loadCoreTranslationsFallback: function loadCoreTranslationsFallback() {
-			var _this3 = this;
+		loadCoreTranslationsFallback() {
+			var self = this;
 
 			// The variable `first` will contain the first
 			// defined translation after the following line.
@@ -158,7 +158,7 @@ var Translator = (function () {
 			if (first) {
 				Log.log("Loading core translation fallback file: " + translations[first]);
 				loadJSON(translations[first], function (translations) {
-					_this3.coreTranslationsFallback = translations;
+					self.coreTranslationsFallback = translations;
 				});
 			}
 		}
