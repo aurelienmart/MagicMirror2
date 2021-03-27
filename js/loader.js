@@ -47,8 +47,8 @@ var Loader = (function () {
 	 * Loops thru all modules and requests start for every module.
 	 */
 	var startModules = function () {
-		for (var n in moduleObjects) {
-			var module = moduleObjects[n];
+		for (var m in moduleObjects) {
+			var module = moduleObjects[m];
 			module.start();
 		}
 
@@ -91,7 +91,7 @@ var Loader = (function () {
 			var moduleFolder = config.paths.modules + "/" + module;
 
 			if (defaultModules.indexOf(moduleName) !== -1) {
-				moduleFolder = "modules/default/" + module;
+				moduleFolder = config.paths.modules + "/default/" + module;
 			}
 
 			if (moduleData.disabled === true) {
@@ -228,7 +228,7 @@ var Loader = (function () {
 		/**
 		 * Load all modules as defined in the config.
 		 */
-		loadModules() {
+		loadModules: function () {
 			loadModules();
 		},
 
@@ -240,7 +240,7 @@ var Loader = (function () {
 		 * @param {Module} module The module that calls the loadFile function.
 		 * @param {Function} callback Function called when done.
 		 */
-		loadFile(fileName, module, callback) {
+		loadFile: function (fileName, module, callback) {
 			if (loadedFiles.indexOf(fileName.toLowerCase()) !== -1) {
 				Log.log("File already loaded: " + fileName);
 				callback();

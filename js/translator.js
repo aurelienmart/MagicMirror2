@@ -6,17 +6,15 @@
  * By Christopher Fenner https://github.com/CFenner
  * MIT Licensed.
  */
-"use strict";
-
 var Translator = (function () {
 	/**
-  * Load a JSON file via XHR.
-  *
-  * @param {string} file Path of the file we want to load.
-  * @param {Function} callback Function called when done.
-  */
+	 * Load a JSON file via XHR.
+	 *
+	 * @param {string} file Path of the file we want to load.
+	 * @param {Function} callback Function called when done.
+	 */
 	function loadJSON(file, callback) {
-		var xhr = new XMLHttpRequest();
+		const xhr = new XMLHttpRequest();
 		xhr.overrideMimeType("application/json");
 		xhr.open("GET", file, true);
 		xhr.onreadystatechange = function () {
@@ -42,26 +40,26 @@ var Translator = (function () {
 		translationsFallback: {},
 
 		/**
-   * Load a translation for a given key for a given module.
-   *
-   * @param {Module} module The module to load the translation for.
-   * @param {string} key The key of the text to translate.
-   * @param {object} variables The variables to use within the translation template (optional)
-   * @returns {string} the translated key
-   */
-		translate(module, key, variables) {
+		 * Load a translation for a given key for a given module.
+		 *
+		 * @param {Module} module The module to load the translation for.
+		 * @param {string} key The key of the text to translate.
+		 * @param {object} variables The variables to use within the translation template (optional)
+		 * @returns {string} the translated key
+		 */
+		translate: function (module, key, variables) {
 			variables = variables || {}; //Empty object by default
 
 			/**
-    * Combines template and variables like:
-    * template: "Please wait for {timeToWait} before continuing with {work}."
-    * variables: {timeToWait: "2 hours", work: "painting"}
-    * to: "Please wait for 2 hours before continuing with painting."
-    *
-    * @param {string} template Text with placeholder
-    * @param {object} variables Variables for the placeholder
-    * @returns {string} the template filled with the variables
-    */
+			 * Combines template and variables like:
+			 * template: "Please wait for {timeToWait} before continuing with {work}."
+			 * variables: {timeToWait: "2 hours", work: "painting"}
+			 * to: "Please wait for 2 hours before continuing with painting."
+			 *
+			 * @param {string} template Text with placeholder
+			 * @param {object} variables Variables for the placeholder
+			 * @returns {string} the template filled with the variables
+			 */
 			function createStringFromTemplate(template, variables) {
 				if (Object.prototype.toString.call(template) !== "[object String]") {
 					return template;
@@ -98,23 +96,22 @@ var Translator = (function () {
 		},
 
 		/**
-   * Load a translation file (json) and remember the data.
-   *
-   * @param {Module} module The module to load the translation file for.
-   * @param {string} file Path of the file we want to load.
-   * @param {boolean} isFallback Flag to indicate fallback translations.
-   * @param {Function} callback Function called when done.
-   */
+		 * Load a translation file (json) and remember the data.
+		 *
+		 * @param {Module} module The module to load the translation file for.
+		 * @param {string} file Path of the file we want to load.
+		 * @param {boolean} isFallback Flag to indicate fallback translations.
+		 * @param {Function} callback Function called when done.
+		 */
 		load(module, file, isFallback, callback) {
-			var self = this;
-
-			Log.log(module.name + " - Load translation" + (isFallback && " fallback") + ": " + file);
+			Log.log(`${module.name} - Load translation${isFallback && " fallback"}: ${file}`);
 
 			if (this.translationsFallback[module.name]) {
 				callback();
 				return;
 			}
 
+			var self = this;
 			loadJSON(module.file(file), function (json) {
 				var property = isFallback ? "translationsFallback" : "translations";
 				self[property][module.name] = json;
@@ -123,15 +120,14 @@ var Translator = (function () {
 		},
 
 		/**
-   * Load the core translations.
-   *
-   * @param {string} lang The language identifier of the core language.
-   */
-		loadCoreTranslations(lang) {
-			var self = this;
-
+		 * Load the core translations.
+		 *
+		 * @param {string} lang The language identifier of the core language.
+		 */
+		loadCoreTranslations: function (lang) {
 			if (lang in translations) {
 				Log.log("Loading core translation file: " + translations[lang]);
+				var self = this;
 				loadJSON(translations[lang], function (translations) {
 					self.coreTranslations = translations;
 				});
@@ -143,12 +139,10 @@ var Translator = (function () {
 		},
 
 		/**
-   * Load the core translations fallback.
-   * The first language defined in translations.js will be used.
-   */
-		loadCoreTranslationsFallback() {
-			var self = this;
-
+		 * Load the core translations fallback.
+		 * The first language defined in translations.js will be used.
+		 */
+		loadCoreTranslationsFallback: function () {
 			// The variable `first` will contain the first
 			// defined translation after the following line.
 			for (var first in translations) {
@@ -157,6 +151,7 @@ var Translator = (function () {
 
 			if (first) {
 				Log.log("Loading core translation fallback file: " + translations[first]);
+				var self= this;
 				loadJSON(translations[first], function (translations) {
 					self.coreTranslationsFallback = translations;
 				});
