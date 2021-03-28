@@ -50,7 +50,7 @@ Module.register("compliments", {
 	 *
 	 * return Number - Random index.
 	 */
-	randomIndex: function (compliments) {
+	randomIndex(compliments) {
 		if (compliments.length === 1) {
 			return 0;
 		}
@@ -116,7 +116,7 @@ Module.register("compliments", {
 	/* complimentFile(callback)
 	 * Retrieve a file from the local filesystem
 	 */
-	complimentFile: function (callback) {
+	complimentFile(callback) {
 		var xobj = new XMLHttpRequest(),
 			isRemote = this.config.remoteFile.indexOf("http://") === 0 || this.config.remoteFile.indexOf("https://") === 0,
 			path = isRemote ? this.config.remoteFile : this.file(this.config.remoteFile);
@@ -184,7 +184,7 @@ Module.register("compliments", {
 	},
 
 	// From data currentweather set weather type
-	setCurrentWeatherType: function (type) {
+	setCurrentWeatherType(type) {
 		this.currentWeatherType = type;
 /*
 	setCurrentWeatherType: function (data) {
@@ -213,7 +213,7 @@ Module.register("compliments", {
 	},
 
 	// Override notification handler.
-	notificationReceived: function (notification, payload, sender) {
+	notificationReceived(notification, payload, sender) {
 		if (notification === "CURRENTWEATHER_TYPE") {
 			this.setCurrentWeatherType(payload.type);
 //		if (notification === "CURRENTWEATHER_DATA") {

@@ -100,7 +100,7 @@ Module.register("currentweather", {
 
 	// add extra information of current weather
 	// windDirection, humidity, sunrise and sunset
-	addExtraInfoWeather: function (wrapper) {
+	addExtraInfoWeather(wrapper) {
 		var small = document.createElement("div");
 		small.className = "normal xmedium wis";
 
@@ -372,7 +372,7 @@ Module.register("currentweather", {
 	},
 
 	// Override notification handler.
-	notificationReceived: function (notification, payload, sender) {
+	notificationReceived(notification, payload, sender) {
 		if (notification === "DOM_OBJECTS_CREATED") {
 			if (this.config.appendLocationNameToHeader) {
 				this.hide(0, { lockString: this.identifier });
@@ -472,7 +472,7 @@ Module.register("currentweather", {
 	 *
 	 * argument data object - Weather information received form openweather.org.
 	 */
-	processWeather: function (data) {
+	processWeather(data) {
 		if (!data || !data.main || typeof data.main.temp === "undefined") {
 			// Did not receive usable new data.
 			// Maybe this needs a better check?
@@ -608,7 +608,7 @@ Module.register("currentweather", {
 	 *
 	 * argument delay number - Milliseconds before next update. If empty, this.config.updateInterval is used.
 	 */
-	scheduleUpdate: function (delay) {
+	scheduleUpdate(delay) {
 		var nextLoad = this.config.updateInterval;
 		if (typeof delay !== "undefined" && delay >= 0) {
 			nextLoad = delay;
@@ -632,7 +632,7 @@ Module.register("currentweather", {
 	 *
 	 * return number - Windspeed in beaufort.
 	 */
-	ms2Beaufort: function (ms) {
+	ms2Beaufort(ms) {
 		var kmh = (ms * 60 * 60) / 1000;
 		var speeds = [1, 5, 11, 19, 28, 38, 49, 61, 74, 88, 102, 117, 1000];
 		for (var beaufort in speeds) {
@@ -644,7 +644,7 @@ Module.register("currentweather", {
 		return 12;
 	},
 
-	deg2Cardinal: function (deg) {
+	deg2Cardinal(deg) {
 		if (deg > 11.25 && deg <= 33.75) {
 			return "NNE";
 		} else if (deg > 33.75 && deg <= 56.25) {
@@ -687,7 +687,7 @@ Module.register("currentweather", {
 	 *
 	 * return string - Rounded Temperature.
 	 */
-	roundValue: function (temperature) {
+	roundValue(temperature) {
 		var decimals = this.config.roundTemp ? 0 : 1;
 		return parseFloat(temperature).toFixed(decimals);
 	}

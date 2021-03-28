@@ -80,7 +80,6 @@ Module.register("weatherforecast", {
 		this.forecast = [];
 		this.loaded = false;
 		this.scheduleUpdate(this.config.initialLoadDelay);
-
 		this.updateTimer = null;
 	},
 
@@ -216,7 +215,7 @@ Module.register("weatherforecast", {
 	},
 
 	// Override notification handler.
-	notificationReceived: function (notification, payload, sender) {
+	notificationReceived(notification, payload, sender) {
 		if (notification === "DOM_OBJECTS_CREATED") {
 			if (this.config.appendLocationNameToHeader) {
 				this.hide(0, { lockString: this.identifier });
@@ -329,7 +328,7 @@ Module.register("weatherforecast", {
 	 * from openweather.org
 	 *
 	 */
-	parserDataWeather: function (data) {
+	parserDataWeather(data) {
 		if (data.hasOwnProperty("main")) {
 			data["temp"] = { min: data.main.temp_min, max: data.main.temp_max };
 		}
@@ -341,7 +340,7 @@ Module.register("weatherforecast", {
 	 *
 	 * argument data object - Weather information received form openweather.org.
 	 */
-	processWeather: function (data) {
+	processWeather(data) {
 		// Forcast16 (paid) API endpoint provides this data.  Onecall endpoint
 		// does not.
 		if (data.city) {
@@ -432,7 +431,7 @@ Module.register("weatherforecast", {
 	 *
 	 * argument delay number - Milliseconds before next update. If empty, this.config.updateInterval is used.
 	 */
-	scheduleUpdate: function (delay) {
+	scheduleUpdate(delay) {
 		var nextLoad = this.config.updateInterval;
 		if (typeof delay !== "undefined" && delay >= 0) {
 			nextLoad = delay;
@@ -456,7 +455,7 @@ Module.register("weatherforecast", {
 	 *
 	 * return number - Windspeed in beaufort.
 	 */
-	ms2Beaufort: function (ms) {
+	ms2Beaufort(ms) {
 		var kmh = (ms * 60 * 60) / 1000;
 		var speeds = [1, 5, 11, 19, 28, 38, 49, 61, 74, 88, 102, 117, 1000];
 		for (var beaufort in speeds) {
@@ -475,7 +474,7 @@ Module.register("weatherforecast", {
 	 *
 	 * return string - Rounded Temperature.
 	 */
-	roundValue: function (temperature) {
+	roundValue(temperature) {
 		var decimals = this.config.roundTemp ? 0 : 1;
 		return parseFloat(temperature).toFixed(decimals);
 	},
@@ -487,7 +486,7 @@ Module.register("weatherforecast", {
 	 * That object has a property "3h" which contains the amount of rain since the previous forecast in the list.
 	 * This code finds all forecasts that is for the same day and sums the amount of rain and returns that.
 	 */
-	processRain: function (forecast, allForecasts) {
+	processRain(forecast, allForecasts) {
 		//If the amount of rain actually is a number, return it
 		if (!isNaN(forecast.rain)) {
 			return forecast.rain;
@@ -515,7 +514,7 @@ Module.register("weatherforecast", {
 			}, 0);
 	},
 
-	processSnow: function(forecast, allForecasts) {
+	processSnow(forecast, allForecasts) {
 		if (!isNaN(forecast.snow)) {
 			return forecast.snow;
 		}
