@@ -16,7 +16,7 @@ Module.register("notification", {
 		return ["moment.js"];
 	},
 
-	getStyles:() {
+	getStyles() {
 		return ["font-awesome.css"];
 	},
 

@@ -113,7 +113,7 @@ Module.register("timer", {
 		}
 	},
 
-	traffic: function () {
+	traffic() {
 		var work = Array.from(document.querySelectorAll(".work"));
 		var home = Array.from(document.querySelectorAll(".home"));
 		var traf = Array.from(document.querySelectorAll(".traffic"));
