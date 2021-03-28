@@ -80,8 +80,7 @@ var config = {
 			disabled: false,
 			config: {
 				nightMode: true,
-				startTitle: "<i class=\"lime fa fa-wifi\"></i> MagicMirror&sup2;&nbsp;",
-				startTitle2: "<i class=\"lime fa fa-wifi\"></i> Magic iPad&sup3;&nbsp;",
+				startTitle: "<i class=\"lime fa fa-wifi\"></i> SmartBoard&sup3;&nbsp;",
 				startNotification: "Modular smart mirror platform",
 				timer: 8000,
 			}
