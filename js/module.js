@@ -34,14 +34,14 @@ var Module = Class.extend({
 	/**
 	 * Called when the module is instantiated.
 	 */
-	init: function () {
+	init() {
 		//Log.log(this.defaults);
 	},
 
 	/**
 	 * Called when the module is started.
 	 */
-	start: function () {
+	start() {
 		Log.info("Starting module: " + this.name);
 	},
 
@@ -50,7 +50,7 @@ var Module = Class.extend({
 	 *
 	 * @returns {string[]} An array with filenames.
 	 */
-	getScripts: function () {
+	getScripts() {
 		return [];
 	},
 
@@ -59,7 +59,7 @@ var Module = Class.extend({
 	 *
 	 * @returns {string[]} An array with filenames.
 	 */
-	getStyles: function () {
+	getStyles() {
 		return [];
 	},
 
@@ -70,7 +70,7 @@ var Module = Class.extend({
 	 *
 	 * @returns {*} A map with langKeys and filenames.
 	 */
-	getTranslations: function () {
+	getTranslations() {
 		return false;
 	},
 
@@ -81,7 +81,7 @@ var Module = Class.extend({
 	 *
 	 * @returns {HTMLElement|Promise} The dom or a promise with the dom to display.
 	 */
-	getDom: function () {
+	getDom() {
 		var self = this;
 		return new Promise(function (resolve) {
 			var div = document.createElement("div");
@@ -116,7 +116,7 @@ var Module = Class.extend({
 	 *
 	 * @returns {string} The header to display above the header.
 	 */
-	getHeader: function () {
+	getHeader() {
 		return this.data.header;
 	},
 
@@ -128,7 +128,7 @@ var Module = Class.extend({
 	 *
 	 * @returns {string} The template string of filename.
 	 */
-	getTemplate: function () {
+	getTemplate() {
 		return '<div class="normal">' + this.name + '</div><div class="small dimmed">' + this.identifier + "</div>";
 	},
 
@@ -138,7 +138,7 @@ var Module = Class.extend({
 	 *
 	 * @returns {object} The data for the template
 	 */
-	getTemplateData: function () {
+	getTemplateData() {
 		return {};
 	},
 
@@ -149,7 +149,7 @@ var Module = Class.extend({
 	 * @param {*} payload The payload of the notification.
 	 * @param {Module} sender The module that sent the notification.
 	 */
-	notificationReceived: function (notification, payload, sender) {
+	notificationReceived(notification, payload, sender) {
 		if (sender) {
 			// Log.log(this.name + " received a module notification: " + notification + " from sender: " + sender.name);
 		} else {
@@ -163,7 +163,7 @@ var Module = Class.extend({
 	 *
 	 * @returns {object} The Nunjucks Environment
 	 */
-	nunjucksEnvironment: function () {
+	nunjucksEnvironment() {
 		if (this._nunjucksEnvironment !== null) {
 			return this._nunjucksEnvironment;
 		}
@@ -188,21 +188,21 @@ var Module = Class.extend({
 	 * @param {string} notification The identifier of the notification.
 	 * @param {*} payload The payload of the notification.
 	 */
-	socketNotificationReceived: function (notification, payload) {
+	socketNotificationReceived(notification, payload) {
 		Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
 	},
 
 	/*
 	 * Called when the module is hidden.
 	 */
-	suspend: function () {
+	suspend() {
 		Log.log(this.name + " is suspended.");
 	},
 
 	/*
 	 * Called when the module is shown.
 	 */
-	resume: function () {
+	resume() {
 		Log.log(this.name + " is resumed.");
 	},
 
@@ -215,7 +215,7 @@ var Module = Class.extend({
 	 *
 	 * @param {Module} data The module data
 	 */
-	setData: function (data) {
+	setData(data) {
 		this.data = data;
 		this.name = data.name;
 		this.identifier = data.identifier;
@@ -230,7 +230,7 @@ var Module = Class.extend({
 	 * @param {object} config The combined module config.
 	 * @param {boolean} deep Merge module config in deep.
 	 */
-	setConfig: function (config, deep) {
+	setConfig(config, deep) {
 		this.config = deep ? configMerge({}, this.defaults, config) : Object.assign({}, this.defaults, config);
 	},
 
@@ -240,7 +240,7 @@ var Module = Class.extend({
 	 *
 	 * @returns {MMSocket} a socket object
 	 */
-	socket: function () {
+	socket() {
 		if (typeof this._socket === "undefined") {
 			this._socket = new MMSocket(this.name);
 		}
@@ -259,7 +259,7 @@ var Module = Class.extend({
 	 * @param {string} file Filename
 	 * @returns {string} the file path
 	 */
-	file: function (file) {
+	file(file) {
 		return (this.data.path + "/" + file).replace("//", "/");
 	},
 
@@ -268,7 +268,7 @@ var Module = Class.extend({
 	 *
 	 * @param {Function} callback Function called when done.
 	 */
-	loadStyles: function (callback) {
+	loadStyles(callback) {
 		this.loadDependencies("getStyles", callback);
 	},
 
@@ -277,7 +277,7 @@ var Module = Class.extend({
 	 *
 	 * @param {Function} callback Function called when done.
 	 */
-	loadScripts: function (callback) {
+	loadScripts(callback) {
 		this.loadDependencies("getScripts", callback);
 	},
 
@@ -287,7 +287,7 @@ var Module = Class.extend({
 	 * @param {string} funcName Function name to call to get scripts or styles.
 	 * @param {Function} callback Function called when done.
 	 */
-	loadDependencies: function (funcName, callback) {
+	loadDependencies(funcName, callback) {
 		var self = this;
 		var dependencies = this[funcName]();
 
@@ -349,7 +349,7 @@ var Module = Class.extend({
 	 * @param {string} [defaultValue] The default value with variables.
 	 * @returns {string} the translated key
 	 */
-	translate: function (key, defaultValueOrVariables, defaultValue) {
+	translate(key, defaultValueOrVariables, defaultValue) {
 		if (typeof defaultValueOrVariables === "object") {
 			return Translator.translate(this, key, defaultValueOrVariables) || defaultValue || "";
 		}
@@ -361,7 +361,7 @@ var Module = Class.extend({
 	 *
 	 * @param {number} [speed] The speed of the animation.
 	 */
-	updateDom: function (speed) {
+	updateDom(speed) {
 		MM.updateDom(this, speed);
 	},
 
@@ -371,7 +371,7 @@ var Module = Class.extend({
 	 * @param {string} notification The identifier of the notification.
 	 * @param {*} payload The payload of the notification.
 	 */
-	sendNotification: function (notification, payload) {
+	sendNotification(notification, payload) {
 		MM.sendNotification(notification, payload, this);
 	},
 
@@ -381,7 +381,7 @@ var Module = Class.extend({
 	 * @param {string} notification The identifier of the notification.
 	 * @param {*} payload The payload of the notification.
 	 */
-	sendSocketNotification: function (notification, payload) {
+	sendSocketNotification(notification, payload) {
 		this.socket().sendNotification(notification, payload);
 	},
 
@@ -392,7 +392,7 @@ var Module = Class.extend({
 	 * @param {Function} callback Called when the animation is done.
 	 * @param {object} [options] Optional settings for the hide method.
 	 */
-	hide: function (speed, callback, options) {
+	hide(speed, callback, options) {
 		if (typeof callback === "object") {
 			options = callback;
 			callback = function () {};
@@ -420,7 +420,7 @@ var Module = Class.extend({
 	 * @param {Function} callback Called when the animation is done.
 	 * @param {object} [options] Optional settings for the show method.
 	 */
-	show: function (speed, callback, options) {
+	show(speed, callback, options) {
 		if (typeof callback === "object") {
 			options = callback;
 			callback = function () {};
