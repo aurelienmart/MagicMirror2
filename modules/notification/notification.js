@@ -16,7 +16,7 @@ Module.register("notification", {
 		return ["moment.js"];
 	},
 
-	getStyles: function () {
+	getStyles:() {
 		return ["font-awesome.css"];
 	},
 
@@ -48,19 +48,19 @@ Module.register("notification", {
 		return wrapper;
 	},
 
-	onLine: function () {
+	onLine() {
 		this.title = this.config.startTitle;
 		this.notification = this.translate(this.config.startNotification);
 		this.updateDom(this.config.animationSpeed);
 	},
 
-	offLine: function () {
+	offLine() {
 		this.title = "<span class=\"orangered\">" + this.translate("No Internet connection!") + "</span>";
 		this.notification = this.translate("Check Wi-Fi connection and router");
 		this.updateDom(this.config.animationSpeed);
 	},
 
-	notificationReceived: function (notification, payload, sender) {
+	notificationReceived(notification, payload, sender) {
 		var self = this;
 		if (notification === "DOM_OBJECTS_CREATED") {
 			this.title = this.config.startTitle;
