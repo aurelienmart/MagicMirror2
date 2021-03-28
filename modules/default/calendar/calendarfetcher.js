@@ -26,7 +26,7 @@ var https = require("https");
  * @class
  */
 var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, includePastEvents, selfSignedCert) {
-	var _this = this;
+	var self = this;
 
 	var reloadTimer = null;
 	var events = [];
@@ -66,11 +66,11 @@ var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEven
 		}
 
 		fetcher["catch"](function (error) {
-			fetchFailedCallback(_this, error);
+			fetchFailedCallback(self, error);
 			scheduleTimer();
 		}).then(function (response) {
 			if (response.status !== 200) {
-				fetchFailedCallback(_this, response.statusText);
+				fetchFailedCallback(self, response.statusText);
 				scheduleTimer();
 			}
 			return response;
@@ -93,7 +93,7 @@ var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEven
 				scheduleTimer();
 				return;
 			}
-			_this.broadcastEvents();
+			self.broadcastEvents();
 			scheduleTimer();
 		});
 	};

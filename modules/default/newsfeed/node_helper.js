@@ -33,7 +33,7 @@ module.exports = NodeHelper.create({
   * @param {object} config The configuration object.
   */
 	createFetcher(feed, config) {
-		var _this = this;
+		var self = this;
 
 		var url = feed.url || "";
 		var encoding = feed.encoding || "UTF-8";
@@ -52,11 +52,11 @@ module.exports = NodeHelper.create({
 			fetcher = new NewsfeedFetcher(url, reloadInterval, encoding, config.logFeedWarnings);
 
 			fetcher.onReceive(function () {
-				_this.broadcastFeeds();
+				self.broadcastFeeds();
 			});
 
 			fetcher.onError(function (fetcher, error) {
-				_this.sendSocketNotification("FETCH_ERROR", {
+				self.sendSocketNotification("FETCH_ERROR", {
 					url: fetcher.url(),
 					error: error
 				});

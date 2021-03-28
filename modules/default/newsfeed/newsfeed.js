@@ -155,7 +155,7 @@ Module.register("newsfeed", {
   * @param {object} feeds An object with feeds returned by the node helper.
   */
 	generateFeed(feeds) {
-		var _this = this;
+		var self = this;
 
 		var newsItems = [];
 		for (var feed in feeds) {
@@ -234,13 +234,13 @@ Module.register("newsfeed", {
 
 		newsItems.forEach(function (item) {
 			//Remove selected tags from the beginning of rss feed items (title or description)
-			if (_this.config.removeStartTags === "title" || _this.config.removeStartTags === "both") {
+			if (self.config.removeStartTags === "title" || self.config.removeStartTags === "both") {
 				var _iteratorNormalCompletion4 = true;
 				var _didIteratorError4 = false;
 				var _iteratorError4 = undefined;
 
 				try {
-					for (var _iterator4 = _this.config.startTags[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+					for (var _iterator4 = self.config.startTags[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
 						var startTag = _step4.value;
 
 						if (item.title.slice(0, startTag.length) === startTag) {
@@ -263,14 +263,14 @@ Module.register("newsfeed", {
 				}
 			}
 
-			if (_this.config.removeStartTags === "description" || _this.config.removeStartTags === "both") {
-				if (_this.isShowingDescription) {
+			if (self.config.removeStartTags === "description" || self.config.removeStartTags === "both") {
+				if (self.isShowingDescription) {
 					var _iteratorNormalCompletion5 = true;
 					var _didIteratorError5 = false;
 					var _iteratorError5 = undefined;
 
 					try {
-						for (var _iterator5 = _this.config.startTags[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+						for (var _iterator5 = self.config.startTags[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
 							var startTag = _step5.value;
 
 							if (item.description.slice(0, startTag.length) === startTag) {
@@ -296,13 +296,13 @@ Module.register("newsfeed", {
 
 			//Remove selected tags from the end of rss feed items (title or description)
 
-			if (_this.config.removeEndTags) {
+			if (self.config.removeEndTags) {
 				var _iteratorNormalCompletion6 = true;
 				var _didIteratorError6 = false;
 				var _iteratorError6 = undefined;
 
 				try {
-					for (var _iterator6 = _this.config.endTags[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+					for (var _iterator6 = self.config.endTags[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
 						var endTag = _step6.value;
 
 						if (item.title.slice(-endTag.length) === endTag) {
@@ -324,13 +324,13 @@ Module.register("newsfeed", {
 					}
 				}
 
-				if (_this.isShowingDescription) {
+				if (self.isShowingDescription) {
 					var _iteratorNormalCompletion7 = true;
 					var _didIteratorError7 = false;
 					var _iteratorError7 = undefined;
 
 					try {
-						for (var _iterator7 = _this.config.endTags[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+						for (var _iterator7 = self.config.endTags[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
 							var endTag = _step7.value;
 
 							if (item.description.slice(-endTag.length) === endTag) {
@@ -358,7 +358,7 @@ Module.register("newsfeed", {
 		// get updated news items and broadcast them
 		var updatedItems = [];
 		newsItems.forEach(function (value) {
-			if (_this.newsItems.findIndex(function (value1) {
+			if (self.newsItems.findIndex(function (value1) {
 				return value1 === value;
 			}) === -1) {
 				// Add item to updated items list
@@ -452,7 +452,7 @@ Module.register("newsfeed", {
   * Schedule visual update.
   */
 	scheduleUpdateInterval() {
-		var _this2 = this;
+		var self2 = this;
 
 		this.updateDom(this.config.animationSpeed);
 
@@ -462,12 +462,12 @@ Module.register("newsfeed", {
 		}
 
 		this.timer = setInterval(function () {
-			_this2.activeItem++;
-			_this2.updateDom(_this2.config.animationSpeed);
+			self2.activeItem++;
+			self2.updateDom(self2.config.animationSpeed);
 
 			// Broadcast NewsFeed if needed
-			if (_this2.config.broadcastNewsFeeds) {
-				_this2.sendNotification("NEWS_FEED", { items: _this2.newsItems });
+			if (self2.config.broadcastNewsFeeds) {
+				self2.sendNotification("NEWS_FEED", { items: self2.newsItems });
 			}
 		}, this.config.updateInterval);
 	},

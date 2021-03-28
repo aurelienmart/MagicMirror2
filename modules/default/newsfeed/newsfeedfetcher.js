@@ -21,7 +21,7 @@ var iconv = require("iconv-lite");
  * @class
  */
 var NewsfeedFetcher = function NewsfeedFetcher(url, reloadInterval, encoding, logFeedWarnings) {
-	var _this = this;
+	var self = this;
 
 	var reloadTimer = null;
 	var items = [];
@@ -71,12 +71,12 @@ var NewsfeedFetcher = function NewsfeedFetcher(url, reloadInterval, encoding, lo
 		});
 
 		parser.on("end", function () {
-			_this.broadcastItems();
+			self.broadcastItems();
 			scheduleTimer();
 		});
 
 		parser.on("error", function (error) {
-			fetchFailedCallback(_this, error);
+			fetchFailedCallback(self, error);
 			scheduleTimer();
 		});
 
@@ -88,7 +88,7 @@ var NewsfeedFetcher = function NewsfeedFetcher(url, reloadInterval, encoding, lo
 		};
 
 		fetch(url, { headers: headers })["catch"](function (error) {
-			fetchFailedCallback(_this, error);
+			fetchFailedCallback(self, error);
 			scheduleTimer();
 		}).then(function (res) {
 			res.body.pipe(iconv.decodeStream(encoding)).pipe(parser);

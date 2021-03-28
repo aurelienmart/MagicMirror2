@@ -39,7 +39,7 @@ module.exports = NodeHelper.create({
   * @param {string} identifier ID of the module
   */
 	createFetcher: function createFetcher(url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, selfSignedCert, identifier) {
-		var _this = this;
+		var self = this;
 
 		try {
 			new URL(url);
@@ -54,12 +54,12 @@ module.exports = NodeHelper.create({
 			fetcher = new CalendarFetcher(url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, selfSignedCert);
 
 			fetcher.onReceive(function (fetcher) {
-				_this.broadcastEvents(fetcher, identifier);
+				self.broadcastEvents(fetcher, identifier);
 			});
 
 			fetcher.onError(function (fetcher, error) {
 				Log.error("Calendar Error. Could not fetch calendar: ", fetcher.url(), error);
-				_this.sendSocketNotification("FETCH_ERROR", {
+				self.sendSocketNotification("FETCH_ERROR", {
 					id: identifier,
 					url: fetcher.url(),
 					error: error
