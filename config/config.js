@@ -176,17 +176,6 @@ var config = {
 			}
 		},
 		{
-			module: "simpletext",
-			position: "top_left",
-			classes: "space",
-			configDeepMerge: true,
-			disabled: false,
-			config: {
-	    		text: " ",
-	    		cssClass: "",
-			}
-		},
-		{
 			module: "swatch",
 			position: "top_left",
 			classes: "night",
@@ -199,12 +188,12 @@ var config = {
 		{
 			module: "simpletext",
 			position: "top_left",
-			classes: "space",
+			header: "Calendar evenimente și aniversări",
 			configDeepMerge: true,
-			disabled: false,
+			disabled: true,
 			config: {
-	    		text: " ",
-	    		cssClass: "",
+				text: "",
+				cssClass: "empty",
 			}
 		},
 		{
