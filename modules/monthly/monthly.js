@@ -16,7 +16,7 @@ Module.register("monthly", {
 	},
 
 	// Update at midnight
-	start: function (){
+	start(){
 		var self = this;
 		setInterval(function() {
 			self.updateDom(config.animation);
