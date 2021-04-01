@@ -39,7 +39,7 @@ var config = {
 	notification: false,
 	minVersion: "2.14.0",
 	serverOnly: true,
-	logLevel: ["DEBUG", "INFO", "LOG", "WARN", "ERROR"],
+	logLevel: ["INFO", "LOG", "WARN", "ERROR"], //"DEBUG", 
 
 	modules: [
 		{
