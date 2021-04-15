@@ -13,22 +13,22 @@ Module.register("weather", {
 		roundTemp: false,
 		type: "current", // current, forecast, daily (equivalent to forecast), hourly (only with OpenWeatherMap /onecall endpoint)
 		units: config.units,
-		useKmh: true,
+		useKmh: false,
 		tempUnits: config.units,
 		windUnits: config.units,
 		updateInterval: 10 * 60 * 1000, // every 10 minutes
-		animationSpeed: config.animation,
+		animationSpeed: 1000,
 		timeFormat: config.timeFormat,
-		showPeriod: false,
+		showPeriod: true,
 		showPeriodUpper: false,
 		showWindDirection: true,
-		showWindDirectionAsArrow: true,
-		useBeaufort: false,
+		showWindDirectionAsArrow: false,
+		useBeaufort: true,
 		lang: config.language,
-		showHumidity: true,
-		showSun: false,
-		degreeLabel: true,
-		decimalSymbol: config.decimal,
+		showHumidity: false,
+		showSun: true,
+		degreeLabel: false,
+		decimalSymbol: ".",
 		showIndoorTemperature: false,
 		showIndoorHumidity: false,
 		maxNumberOfDays: 5,
@@ -40,13 +40,13 @@ Module.register("weather", {
 		calendarClass: "calendar",
 		tableClass: "small",
 		onlyTemp: false,
-		showPrecipitationAmount: true,
-		colored: true,
+		showPrecipitationAmount: false,
+		colored: false,
 		showFeelsLike: true
 	},
 
 	// Module properties.
-	weatherProvider: "OpenWeatherMap",
+	weatherProvider: null,
 
 	// Define required scripts.
 	getStyles: function () {

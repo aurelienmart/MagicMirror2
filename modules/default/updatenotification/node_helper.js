@@ -20,17 +20,17 @@ module.exports = NodeHelper.create({
 		// this method returns promises so we can't wait for every one to resolve before continuing
 		simpleGits.push({ module: "default", git: this.createGit(path.normalize(__dirname + "/../../../")) });
 
-		for (var moduleName in modules) {
+		for (let moduleName in modules) {
 			if (!this.ignoreUpdateChecking(moduleName)) {
 				// Default modules are included in the main MagicMirror repo
-				var moduleFolder = path.normalize(__dirname + "/../../" + moduleName);
+				let moduleFolder = path.normalize(__dirname + "/../../" + moduleName);
 
 				try {
 					Log.info("Checking git for module: " + moduleName);
 					// Throws error if file doesn't exist
 					fs.statSync(path.join(moduleFolder, ".git"));
 					// Fetch the git or throw error if no remotes
-					var git = await this.resolveRemote(moduleFolder);
+					let git = await this.resolveRemote(moduleFolder);
 					// Folder has .git and has at least one git remote, watch this folder
 					simpleGits.unshift({ module: moduleName, git: git });
 				} catch (err) {
@@ -49,15 +49,14 @@ module.exports = NodeHelper.create({
 			// if this is the 1st time thru the update check process
 			if (!this.updateProcessStarted) {
 				this.updateProcessStarted = true;
-				var self = this;
-				this.configureModules(payload).then(function() self.performFetch());
+				this.configureModules(payload).then(() => this.performFetch());
 			}
 		}
 	},
 
 	resolveRemote: async function (moduleFolder) {
-		var git = this.createGit(moduleFolder);
-		var remotes = await git.getRemotes(true);
+		let git = this.createGit(moduleFolder);
+		let remotes = await git.getRemotes(true);
 
 		if (remotes.length < 1 || remotes[0].name.length < 1) {
 			throw new Error("No valid remote for folder " + moduleFolder);
@@ -67,10 +66,10 @@ module.exports = NodeHelper.create({
 	},
 
 	performFetch: async function () {
-		for (var sg of simpleGits) {
+		for (let sg of simpleGits) {
 			try {
-				var fetchData = await sg.git.fetch(["--dry-run"]).status();
-				var logData = await sg.git.log({ "-1": null });
+				let fetchData = await sg.git.fetch(["--dry-run"]).status();
+				let logData = await sg.git.log({ "-1": null });
 
 				if (logData.latest && "hash" in logData.latest) {
 					this.sendSocketNotification("STATUS", {
@@ -94,7 +93,7 @@ module.exports = NodeHelper.create({
 			delay = 60 * 1000;
 		}
 
-		var self = this;
+		let self = this;
 		clearTimeout(this.updateTimer);
 		this.updateTimer = setTimeout(function () {
 			self.performFetch();

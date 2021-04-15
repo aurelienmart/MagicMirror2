@@ -19,33 +19,33 @@ Module.register("alert", {
 		//shown at startup
 		welcome_message: false
 	},
-
-	getScripts() {
+	getScripts: function () {
 		return ["notificationFx.js"];
 	},
-
-	getStyles() {
+	getStyles: function () {
 		return ["notificationFx.css", "font-awesome.css"];
 	},
-
 	// Define required translations.
-	getTranslations() {
-		return null;
+	getTranslations: function () {
+		return {
+			en: "translations/en.json",
+			de: "translations/de.json",
+			nl: "translations/nl.json"
+		};
 	},
-
-	show_notification(message) {
+	show_notification: function (message) {
 		if (this.config.effect === "slide") {
 			this.config.effect = this.config.effect + "-" + this.config.position;
 		}
-		var msg = "";
+		let msg = "";
 		if (message.title) {
-			msg += "<span class='title thin dimmed medium'>" + message.title + "</span>";
+			msg += "<span class='thin dimmed medium'>" + message.title + "</span>";
 		}
 		if (message.message) {
 			if (msg !== "") {
 				msg += "<br />";
 			}
-			msg += "<span class='message light bright xsmall'>" + message.message + "</span>";
+			msg += "<span class='light bright small'>" + message.message + "</span>";
 		}
 
 		new NotificationFx({
@@ -55,9 +55,8 @@ Module.register("alert", {
 			ttl: message.timer !== undefined ? message.timer : this.config.display_time
 		}).show();
 	},
-
-	show_alert(params, sender) {
-		var image = "";
+	show_alert: function (params, sender) {
+		let image = "";
 		//Set standard params if not provided by module
 		if (typeof params.timer === "undefined") {
 			params.timer = null;
@@ -73,18 +72,18 @@ Module.register("alert", {
 			image = "<span class='bright " + "fa fa-" + params.imageFA + "' style='margin-bottom: 10px;font-size:" + params.imageHeight.toString() + ";'/></span><br />";
 		}
 		//Create overlay
-		var overlay = document.createElement("div");
+		const overlay = document.createElement("div");
 		overlay.id = "overlay";
 		overlay.innerHTML += '<div class="black_overlay"></div>';
 		document.body.insertBefore(overlay, document.body.firstChild);
 
 		//If module already has an open alert close it
 		if (this.alerts[sender.name]) {
-			this.hide_alert(sender);
+			this.hide_alert(sender, false);
 		}
 
 		//Display title and message only if they are provided in notification parameters
-		var message = "";
+		let message = "";
 		if (params.title) {
 			message += "<span class='light dimmed medium'>" + params.title + "</span>";
 		}
@@ -101,33 +100,33 @@ Module.register("alert", {
 			message: image + message,
 			effect: this.config.alert_effect,
 			ttl: params.timer,
+			onClose: () => this.hide_alert(sender),
 			al_no: "ns-alert"
 		});
+
 		//Show alert
 		this.alerts[sender.name].show();
+
 		//Add timer to dismiss alert and overlay
-		var self = this;
 		if (params.timer) {
-			setTimeout(function () {
-				self.hide_alert(sender);
+			setTimeout(() => {
+				this.hide_alert(sender);
 			}, params.timer);
 		}
 	},
-
-	hide_alert(sender) {
+	hide_alert: function (sender, close = true) {
 		//Dismiss alert and remove from this.alerts
 		if (this.alerts[sender.name]) {
-			this.alerts[sender.name].dismiss();
+			this.alerts[sender.name].dismiss(close);
 			this.alerts[sender.name] = null;
 			//Remove overlay
-			var overlay = document.getElementById("overlay");
+			const overlay = document.getElementById("overlay");
 			overlay.parentNode.removeChild(overlay);
-		} else this.sendNotification("HIDE_ALERT",{});
+		}
 	},
-
-	setPosition(pos) {
+	setPosition: function (pos) {
 		//Add css to body depending on the set position for notifications
-		var sheet = document.createElement("style");
+		const sheet = document.createElement("style");
 		if (pos === "center") {
 			sheet.innerHTML = ".ns-box {margin-left: auto; margin-right: auto;text-align: center;}";
 		}
@@ -139,8 +138,7 @@ Module.register("alert", {
 		}
 		document.body.appendChild(sheet);
 	},
-
-	notificationReceived(notification, payload, sender) {
+	notificationReceived: function (notification, payload, sender) {
 		if (notification === "SHOW_ALERT") {
 			if (typeof payload.type === "undefined") {
 				payload.type = "alert";
@@ -154,15 +152,14 @@ Module.register("alert", {
 			this.hide_alert(sender);
 		}
 	},
-
-	start() {
+	start: function () {
 		this.alerts = {};
 		this.setPosition(this.config.position);
 		if (this.config.welcome_message) {
 			if (this.config.welcome_message === true) {
-				this.show_notification({title: this.config.title, message: this.config.message});
+				this.show_notification({ title: this.translate("sysTitle"), message: this.translate("welcome") });
 			} else {
-				this.show_notification({title: this.config.message.title, message: this.config.welcome_message});
+				this.show_notification({ title: this.translate("sysTitle"), message: this.config.welcome_message });
 			}
 		}
 		Log.info("Starting module: " + this.name);

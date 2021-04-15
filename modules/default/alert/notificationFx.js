@@ -19,7 +19,7 @@
 	 * @returns {object} The merged object
 	 */
 	function extend(a, b) {
-		for (var key in b) {
+		for (let key in b) {
 			if (b.hasOwnProperty(key)) {
 				a[key] = b[key];
 			}
@@ -28,7 +28,7 @@
 	}
 
 	/**
-	 * NotificationFx varructor
+	 * NotificationFx constructor
 	 *
 	 * @param {object} options The configuration options
 	 * @class
@@ -79,7 +79,7 @@
 		// create HTML structure
 		this.ntf = document.createElement("div");
 		this.ntf.className = this.options.al_no + " ns-" + this.options.layout + " ns-effect-" + this.options.effect + " ns-type-" + this.options.type;
-		var strinner = '<div class="ns-box-inner">';
+		let strinner = '<div class="ns-box-inner">';
 		strinner += this.options.message;
 		strinner += "</div>";
 		this.ntf.innerHTML = strinner;
@@ -88,11 +88,10 @@
 		this.options.wrapper.insertBefore(this.ntf, this.options.wrapper.nextSibling);
 
 		// dismiss after [options.ttl]ms
-		var self = this;
 		if (this.options.ttl) {
-			this.dismissttl = setTimeout(function () {
-				if (self.active) {
-					self.dismiss();
+			this.dismissttl = setTimeout(() => {
+				if (this.active) {
+					this.dismiss();
 				}
 			}, this.options.ttl);
 		}
@@ -106,9 +105,8 @@
 	 */
 	NotificationFx.prototype._initEvents = function () {
 		// dismiss notification by tapping on it if someone has a touchscreen
-		var self = this;
-		this.ntf.querySelector(".ns-box-inner").addEventListener("click", function() {
-			self.dismiss();
+		this.ntf.querySelector(".ns-box-inner").addEventListener("click", () => {
+			this.dismiss();
 		});
 	};
 
@@ -125,28 +123,26 @@
 	/**
 	 * Dismiss the notification
 	 */
-	NotificationFx.prototype.dismiss = function () {
+	NotificationFx.prototype.dismiss = function (close = true) {
 		this.active = false;
 		clearTimeout(this.dismissttl);
 		this.ntf.classList.remove("ns-show");
-		var self = this;
-		setTimeout(function() {
-			self.ntf.classList.add("ns-hide");
+		setTimeout(() => {
+			this.ntf.classList.add("ns-hide");
 
 			// callback
-			self.options.onClose();
+			if (close) this.options.onClose();
 		}, 25);
 
 		// after animation ends remove ntf from the DOM
-		var self = this;
-		var onEndAnimationFn = function(ev) {
-			if (ev.target !== self.ntf) {
+		const onEndAnimationFn = (ev) => {
+			if (ev.target !== this.ntf) {
 				return false;
 			}
-			self.ntf.removeEventListener("animationend", onEndAnimationFn);
+			this.ntf.removeEventListener("animationend", onEndAnimationFn);
 
-			if (ev.target.parentNode === self.options.wrapper) {
-				self.options.wrapper.removeChild(self.ntf);
+			if (ev.target.parentNode === this.options.wrapper) {
+				this.options.wrapper.removeChild(this.ntf);
 			}
 		};
 

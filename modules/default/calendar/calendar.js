@@ -322,12 +322,15 @@ Module.register("calendar", {
 					if (event.startDate >= now) {
 						// Use relative  time
 						if (!_this2.config.hideTime) {
-							timeWrapper.innerHTML = _this2.capFirst(moment(event.startDate, "x").calendar());
+							timeWrapper.innerHTML = _this2.capFirst(moment(event.startDate, "x").calendar(null, {
+								sameElse: _this2.config.dateFormat
+							}));
 						} else {
 							timeWrapper.innerHTML = _this2.capFirst(moment(event.startDate, "x").calendar(null, {
 								sameDay: "[" + _this2.translate("TODAY") + "]",
 								nextDay: "[" + _this2.translate("TOMORROW") + "]",
-								nextWeek: "dddd"
+								nextWeek: "dddd",
+								sameElse: _this2.config.dateFormat
 							}));
 						}
 						if (event.startDate - now < _this2.config.getRelative * oneHour) {

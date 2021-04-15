@@ -17,8 +17,8 @@ Module.register("updatenotification", {
 
 	start: function () {
 		var self = this;
-		Log.log("Start updatenotification");
-		setInterval(function() {
+		Log.info("Starting module: " + this.name);
+		setInterval(() => {
 			self.moduleList = {};
 			self.updateDom(2);
 		}, self.config.refreshInterval);
@@ -70,7 +70,7 @@ Module.register("updatenotification", {
 		if (this.suspended === false) {
 			// process the hash of module info found
 			for (var key of Object.keys(this.moduleList)) {
-				var m = this.moduleList[key];
+				let m = this.moduleList[key];
 
 				var message = document.createElement("div");
 				message.className = "small bright";
