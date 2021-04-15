@@ -313,7 +313,7 @@ header {
 
 .region table tr:nth-child(even),
 .monthly .week:nth-child(odd) {
-	background: rgba(64,64,64,0.35);
+	background: rgba(128,128,128,0.35);
 }
 
 .region table tr {
