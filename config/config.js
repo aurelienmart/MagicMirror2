@@ -10,7 +10,7 @@
  
 var config = {
 	address: "0.0.0.0",
-	port: 8080,
+	port: 8081,
 	basePath: "/",
 	ipWhitelist: [],
 	useHttps: false,
@@ -450,8 +450,7 @@ var config = {
 				midnight: 1,
 				compliments: {
 					anytime : [
-						"Orice faci, fă-o bine!",
-						"Fi sexy, fi tu însuți!"
+						function() {return moment().locale(config.language).format("dddd, D MMMM");}
 					],
 					morning : [
 						"Dimineață frumoasă!",
@@ -566,9 +565,6 @@ var config = {
 					"02-01-...." : [
 						"<i class=\"gold fa fa-glass-cheers\"></i> Un An Nou fericit!",
 						function() {return "La mulți ani! " + moment().format("YYYY");}
-					],
-					"..-..-...." : [
-						function() {return moment().locale(config.language).format("dddd, D MMMM");}
 					]
 				}
 			}
