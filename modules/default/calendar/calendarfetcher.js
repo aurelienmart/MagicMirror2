@@ -56,13 +56,13 @@ var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEven
 			if (auth.method === "bearer") {
 				headers.Authorization = "Bearer " + auth.pass;
 			} else if (auth.method === "digest") {
-				fetcher = new digest(auth.user, auth.pass).fetch(url, { headers: headers, httpsAgent: httpsAgent });
+				fetcher = new digest(auth.user, auth.pass).fetch(url, { headers: headers, agent: httpsAgent });
 			} else {
 				headers.Authorization = "Basic " + Buffer.from(auth.user + ":" + auth.pass).toString("base64");
 			}
 		}
 		if (fetcher === null) {
-			fetcher = fetch(url, { headers: headers, httpsAgent: httpsAgent });
+			fetcher = fetch(url, { headers: headers, agent: httpsAgent });
 		}
 
 		fetcher["catch"](function (error) {
