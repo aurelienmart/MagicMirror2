@@ -728,6 +728,23 @@ var config = {
 				]
 			}
 		},
+		{
+			module: "alert",
+			configDeepMerge: true,
+			disabled: true,
+		},
+		{
+			module: "updatenotification",
+			position: "top_center",
+			configDeepMerge: true,
+			disabled: true,
+		},
+		{
+			module: "weather",
+			position: "top_right",
+			configDeepMerge: true,
+			disabled: true,
+		}
 	]
 };
 
