@@ -162,7 +162,7 @@ Module.register("quotes",{
 		quote.innerHTML = qMsg;
 		wrapper.appendChild(quote);
 		var author = document.createElement("div");
-		author.className = this.config.className + "autor";
+		author.className = this.config.className + " autor";
 		author.innerHTML = "&nbsp;~ &nbsp;" + qAuthor;
 		wrapper.appendChild(author);
 		return wrapper;
