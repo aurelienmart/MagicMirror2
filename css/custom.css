@@ -1,4 +1,4 @@
-/* Magic Mirror
+/* Magic Mirror Custom CSS
  *
  * MIT Licensed.
  *
@@ -7,11 +7,25 @@
  * https://github.com/hangorazvan
  */
 
+:root {
+  --color-text: lightgray;
+  --color-text-dimmed: silver;
+  --color-text-bright: white;
+  --color-text-shade: gray;
+  --color-text-fade: dimgray;
+  --color-text-dark: darkgray;
+  --color-background: black;
+  --font-size: 1em;
+  --font-primary: "Roboto Condensed", sans-serif;
+  --font-secondary: "Roboto", sans-serif;
+}
+
 html {
-	cursor: auto;
+	cursor: none;
 	overflow: hidden;
-	background-color: black;
+	background: var(--color-background);
 	user-select: none;
+	font-size: var(--font-size);
 }
 
 ::-webkit-scrollbar {
@@ -23,11 +37,11 @@ body {
 	position: absolute;
 	height: 100%;
 	width: 100%;
-	background-color: black;
-	color: lightgray;
-	font-family: "Roboto Condensed", sans-serif;
+	background-color: var(--color-background);
+	color: var(--color-text);
+	font-family: var(--font-primary);
 	font-weight: 300;
-	font-size: 1em;
+	font-size: var(--font-size);
   	line-height: 1.2em;
 	transform-origin: 0 0;
 	transition: all 1s ease;
@@ -48,7 +62,7 @@ body {
 
 a {
 	text-decoration: none;
-	color: white;
+	color: var(--color-text-bright);
 }
 
 .empty {
@@ -60,23 +74,23 @@ a {
 }
 
 .fade {
-	color: dimgray;
+	color: var(--color-text-fade);
 }
 
 .shade {
-	color: gray;
+	color: var(--color-text-shade);
 }
 
 .dimmed {
-	color: silver;
+	color: var(--color-text-dimmed);
 }
 
 .normal {
-	color: lightgray;
+	color: var(--color-text);
 }
 
 .bright {
-	color: white;
+	color: var(--color-text-bright);
 }
 
 .xxxsmall {
@@ -143,22 +157,19 @@ a {
 }
 
 .thin {
-	font-family: Roboto, sans-serif;
+	font-family: var(--font-secondary);
 	font-weight: 100;
 }
 
 .light {
-	font-family: "Roboto Condensed", sans-serif;
 	font-weight: 300;
 }
 
 .regular {
-	font-family: "Roboto Condensed", sans-serif;
 	font-weight: 400;
 }
 
 .bold {
-	font-family: "Roboto Condensed", sans-serif;
 	font-weight: 500;
 }
 
@@ -173,13 +184,12 @@ a {
 header {
 	text-transform: none;
 	font-size: 1rem;
-	font-family: "Roboto Condensed", sans-serif;
 	font-weight: 400;
 	border-bottom: 1px solid gray;
 	line-height: 1.2rem;
 	padding-bottom: 5px;
 	margin: 5px 0 5px;
-	color: silver;
+	color: var(--color-text-dimmed);
 	width: 100%;
 }
 
@@ -613,19 +623,18 @@ header {
 
 .quotes {
 	text-align: center;
-	font-family: Roboto, sans-serif;
 	font-weight: 400;
 	font-style: italic;
-	color: silver;
+	color: var(--color-text-dimmed);
 	padding-top: 15px;
 }
 
 .quotes .autor {
 	text-align: center;
-	font-family: Roboto, sans-serif;
+	font-family: var(--font-secondary);
 	font-weight: 300;
 	font-style: normal;
-	color: gray;
+	color: var(--color-text-shade);
 }
 
 /* Calendar */
@@ -709,7 +718,7 @@ header {
 	padding-left: 5px;
 	text-align: right;
 	white-space: nowrap; 
-	color: darkgray;
+	color: var(--color-text-dark);
 }
 
 .icalendar .fa {
@@ -757,7 +766,7 @@ header {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: center;
-	font-family: Roboto, sans-serif;
+	font-family: var(--font-secondary);
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 5;
@@ -780,7 +789,6 @@ header {
 .feed .date, .feed .source {
 	font-size: 1.4rem;
 	font-weight: 300;
-	color: lightgray;
 }
 
 .rssfeed .feed .desc,
@@ -788,7 +796,7 @@ header {
 .news .feed .desc,
 .feed .desc {
 	font-style: italic;
-	color: silver;
+	color: var(--color-text-dimmed);
 }
 
 .rssfeed .feed .news,
@@ -804,7 +812,7 @@ header {
 .feed .RSS, .feed .count,
 .feed .story, .feed .update,
 .feed .dots {
-	color: dimgray;
+	color: var(--color-text-fade);
 }
 
 .rssfeed .feed .desc ul,
@@ -829,7 +837,7 @@ header {
 }
 
 .newsfeed .light {
-	font-family: Roboto, sans-serif;
+	font-family: var(--font-secondary);
 	font-size: 1.4rem;
 	line-height: 1.6rem;
 }
