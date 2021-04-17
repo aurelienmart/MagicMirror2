@@ -28,9 +28,7 @@ Module.register("alert", {
 	// Define required translations.
 	getTranslations: function () {
 		return {
-			en: "translations/en.json",
-			de: "translations/de.json",
-			nl: "translations/nl.json"
+			en: "translations/en.json"
 		};
 	},
 	show_notification: function (message) {
