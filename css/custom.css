@@ -21,10 +21,10 @@
 }
 
 html {
-	cursor: none;
-	overflow: hidden;
-	background: var(--color-background);
+/*	cursor: text;
 	user-select: none;
+*/	overflow: hidden;
+	background: var(--color-background);
 	font-size: var(--font-size);
 }
 
@@ -46,7 +46,6 @@ body {
 	transform-origin: 0 0;
 	transition: all 1s ease;
 	text-rendering: geometricprecision;
-	visibility: visible;
 }
 
 * {
