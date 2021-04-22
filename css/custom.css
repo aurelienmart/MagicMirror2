@@ -305,13 +305,11 @@ header {
 
 .region.bottom.right, .region.bottom.left,
 .region.top.right, .region.top.left {
-/*	width: 31%;
-*/	width: 350px;
+	width: 350px;
 }
 
 .region.bottom.center, .region.top.center {
-/*	width: 28%;
-*/	width: 300px;
+	width: 300px;
 }
 
 .region table {
@@ -326,7 +324,7 @@ header {
 }
 
 .region table tr {
-	height: 24px;
+	height: 25px;
 }
 
 .region table td {
@@ -341,18 +339,15 @@ header {
 }
 
 .region.upper.third {
-/*	top: calc(100vh - 50%);
-*/	bottom: 22%;
+	bottom: 22%;
 }
 
 .region.middle.center {
-/*	top: calc(100vh - 25%);
-*/	bottom: 18%;
+	bottom: 18%;
 }
 
 .region.lower.third {
-/*	top: calc(100vh - 20%);
-*/	bottom: 15%;
+	bottom: 15%;
 }
 
 .darkred {
@@ -441,6 +436,10 @@ header {
 
 .olive {
 	color: olive;
+}
+
+.purple {
+	color: purple;
 }
 
 /* Clock */
@@ -572,8 +571,8 @@ header {
 }
 
 .lunartic .photo {
-	position: absolute;
-	top: -163px;
+	position: fixed;
+	top: -190px;
 	left: 3px;
 	width: 27px;
 }
@@ -582,7 +581,7 @@ header {
 
 .swatch {
 	filter: opacity(85%);
-	padding: 3px 0;
+	padding: 4px 0;
 }
 
 .traffic, .lifecounter, .simpletext {
@@ -879,6 +878,10 @@ header {
 	transform: scale(0.65);
 }
 
+.currentweather .wi-humidity {
+	
+}
+
 .currentweather .wi-thermometer {
 	color: gold;
 	margin-left: 10px;
@@ -894,7 +897,8 @@ header {
 
 .currentweather .wi-humidity, 
 .currentweather .wi-raindrop {
-	color: skyblue;
+/*	transform: translate(0, 8px);
+*/	color: skyblue;
 }
 
 .currentweather .wi-sunset, 
@@ -909,7 +913,7 @@ header {
 	padding-right: 3px;
 }
 
-.currentweather .wicon {
+.currentweather .weathericon {
 	transform: translate(0, 20px);
 	height: 70px;
 	float: left;
@@ -1033,7 +1037,7 @@ header {
 	float: right;
 	margin-bottom: 5px;
 }
-
+/*
 .daily tr:nth-child(1) .azi:nth-child(1),
 .daily tr:nth-child(2) .azi:nth-child(1) {
   text-indent: -9999px;
@@ -1054,9 +1058,13 @@ header {
   display: block;
   line-height: initial;
 }
-
+*/
 .weatherforecast table tr:nth-child(1) td:nth-child(1) {
 	color: lime;
+}
+
+.daily table tr:nth-child(2) td:nth-child(1) {
+	color: greenyellow;
 }
 
 .weatherforecast .colored .day {
@@ -1064,6 +1072,7 @@ header {
 	width: 20%;
 }
 
+.weatherforecast .colored .weather-icon,
 .weatherforecast .colored .currentweather-icon {
 	width: 10%;
 	text-align: center;
@@ -1074,9 +1083,17 @@ header {
 	color: coral;
 }
 
+.weatherforecast .colored .day-temp {
+	width: 20%;
+}
+
 .weatherforecast .colored .min-temp {
 	width: 20%;
 	color: skyblue;
+}
+
+.weatherforecast .colored .uvi {
+	width: 20%;
 }
 
 .weatherforecast .colored .shade {
@@ -1178,6 +1195,10 @@ header {
 	margin-top: -20%;
 }
 
+.ipad {
+	display: none !important;
+}
+
 /*
 .monthly .calendar-vertical .month:nth-child(n+2) {
 	filter: opacity(50%);
@@ -1211,12 +1232,10 @@ header {
 	}
 
 /*	.region.middle.center {
-		top: calc(100vh + 20%);
 		bottom: -35%;
 	}
 		
 	.region.lower.third {
-		top: calc(100vh + 25%);
 		bottom: -30%;
 	}
 */
@@ -1230,7 +1249,6 @@ header {
 
 @media screen and (max-height: 980px) and (orientation: landscape) {
 /*	.region.middle.center {
-		top: calc(100vh - 22%);
 		bottom: 15%;
 	}
 */		
@@ -1241,17 +1259,14 @@ header {
 
 @media screen and (max-height: 960px) and (orientation: portrait) {
 /*	.region.upper.third {
-		top: calc(100vh - 1%);
 		bottom: 35%;
 	}
 
 	.region.middle.center {
-		top: calc(100vh + 20%);
 		bottom: 20%;
 	}
 		
 	.region.lower.third {
-		top: calc(100vh + 25%);
 		bottom: 15%;
 	}
 */
@@ -1259,8 +1274,7 @@ header {
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
-/*		top: calc(100vh - 22%);
-*/		bottom: 5%;
+		bottom: 5%;
 	}
 
 	.large {
@@ -1270,13 +1284,18 @@ header {
 
 	.monthly .week:nth-child(odd),
 	.monthly .week:nth-child(even),
-	.icalendar table tr:nth-child(even),
-	.calendar-table table tr:nth-child(even),
-	.icalendar table tr:nth-child(odd),
-	.calendar-table table tr:nth-child(odd),
 	.region table tr:nth-child(odd),
 	.region table tr:nth-child(even) {
 	  background: none;
+	}
+
+	.icalendar table tr:nth-child(even),
+	.calendar-table table tr:nth-child(even),
+	.calendar .event:nth-child(even),
+	.hourly .colored:nth-child(odd),
+	.daily .colored:nth-child(even),
+	.monthly .week:nth-child(odd) {
+		background: rgba(128,128,128,0.10);
 	}
 
 	.monthly .week,
@@ -1286,6 +1305,7 @@ header {
 		border-bottom: 0;
 	}
 
+	.weather,
 	.calendar .month:nth-child(n+2),
 	.icalendar table tr:nth-child(n+14),
 	.calendar table tr:nth-child(n+13),
@@ -1295,6 +1315,10 @@ header {
 */	header,	.monthly .month-header,
 	.lifecounter, .yframe, .traffic {
 		display: none !important;
+	}
+
+	.ipad {
+		display: block !important;
 	}
 
 	.rssfeed .feed,	.feed,
@@ -1312,9 +1336,14 @@ header {
 
 	.lunartic .photo {
 		position: absolute;
-		top: -107px;
+		top: -112px;
 		left: 3px;
 		width: 27px;
+	}
+
+	.swatch {
+		filter: opacity(85%);
+		padding: 1px 0;
 	}
 }
 
