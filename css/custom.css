@@ -940,11 +940,11 @@ header {
 	color: silver;
 }
 
-.currentweather .descr {
+.currentweather .description {
 	font-size: 85%;
 }
 
-.currentweather .descr::first-letter {
+.currentweather .bright .description::first-letter {
 	text-transform: capitalize;
 }
 
