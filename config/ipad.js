@@ -178,6 +178,7 @@ var config = {
 				displaySymbol: true,
 				updateInterval: 1000,
 				updateDataInterval: 5 * 60 * 1000,
+				fade: 0,
 
 				calendar: {
 					urls: [
