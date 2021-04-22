@@ -172,7 +172,7 @@ var config = {
 			position: "top_left",
 			disabled: false,
 			config: {
-				maximumEntries: 14,
+				maximumEntries: 18,
 				calendarClass: "icalendar",
 				defaultSymbol: "calendar",
 				displaySymbol: true,
