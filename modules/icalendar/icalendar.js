@@ -42,7 +42,7 @@ Module.register("icalendar", {
 			updateInterval: this.config.updateInterval,
 			updateDataInterval: this.config.updateDataInterval,
 			fadeInterval: config.animation,
-			fade: 1,
+			fade: this.config.fade,,
 			maximumEntries: this.config.maximumEntries || 52,
 			calendarUrl: (typeof this.config.calendar.urls == "undefined") ? this.config.calendar.url : this.config.calendar.urls[0].url,
 			calendarPos: 0,
