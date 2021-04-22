@@ -9,14 +9,6 @@
  */
  
 var config = {
-	address: "0.0.0.0",
-	port: 8081,
-	basePath: "/",
-	ipWhitelist: [],
-	useHttps: false,
-	httpsPrivateKey: "",
-	httpsCertificate: "",
-
 	language: "ro",
 	locale: "ro-RO",
 	timeFormat: 24,
