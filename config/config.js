@@ -45,12 +45,12 @@ var config = {
 	modules: [
 		{
 			module: "timer",
-			disabled: false,
 			configDeepMerge: true,
+			disabled: false,
 			config: {
 				bodysize: 1080,
 				zoomMode: false,
-				nightMode: true,
+				nightMode: false,
 
 				traffic: true,
 				alternate: false,
@@ -66,10 +66,10 @@ var config = {
 
 				sharpMode: true,
 				dateMode: true,
-				name1: " ",
-				birthday1: " ",
-				name2: " ",
-				birthday2: " ",
+				name1: "",
+				birthday1: "",
+				name2: "",
+				birthday2: "",
 				name3: "",
 				birthday3: ""
 			}
@@ -78,6 +78,7 @@ var config = {
 			module: "notification",
 			position: "top_center",
 			classes: "night",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
@@ -93,27 +94,30 @@ var config = {
 		},
 		{
 			module: "updatenotification",
-			position: "top_center",
+			position: "top_bar",
+			hiddenOnStartup: true,
 			configDeepMerge: true,
-			disabled: true,
+			disabled: false,
 		},
 		{
 			module: "clock",
 			position: "top_center",
 			classes: "analog night",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
 				displayType: "analog",
+				showDate: false,
 				analogSize: "300px",
 				analogFace: "none",
 				secondsColor: "coral",
-				displaySeconds: true
 			}
 		},
 		{
 			module: "monthly",
 			position: "top_center",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
@@ -129,13 +133,11 @@ var config = {
 			module: "clock",
 			position: "top_left",
 			classes: "digital night",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
 				displayType: "digital",
-				displaySeconds: true,
-				clockBold: false,
-				showDate: true,
 				showWeek: true,
 				dateFormat: "dddd, D MMMM Y",
 				showSunTimes: true,
@@ -145,6 +147,7 @@ var config = {
 		{
 			module: "lifecounter",
 			position: "top_left",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
@@ -159,6 +162,7 @@ var config = {
 			module: "traffic",
 			position: "top_left",
 			classes: "work",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
@@ -175,6 +179,7 @@ var config = {
 			module: "traffic",
 			position: "top_left",
 			classes: "home",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
@@ -191,6 +196,7 @@ var config = {
 			module: "swatch",
 			position: "top_left",
 			classes: "night",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
@@ -201,8 +207,8 @@ var config = {
 			module: "simpletext",
 			position: "top_left",
 			header: "",
-			configDeepMerge: true,
 			hiddenOnStartup: true,
+			configDeepMerge: true,
 			disabled: false,
 			config: {
 				text: "",
@@ -213,40 +219,22 @@ var config = {
 			module: "calendar",
 			position: "top_left",
 			header: "Calendar evenimente și aniversări",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
 				maximumEntries: 16,
-				maximumNumberOfDays: 365,
-				limitDays: 0,
-				displaySymbol: true,
-				defaultSymbol: "calendar",
-				showLocation: false,
 				displayRepeatingCountTitle: true,
-				defaultRepeatingCountTitle: "",
-				maxTitleLength: 25,
-				maxLocationTitleLength: 25,
-				wrapEvents: false,
-				wrapLocationEvents: false,
-				maxTitleLines: 3,
-				maxEventTitleLines: 3,
 				fetchInterval: 60 * 1000,
 				fade: false,
-				fadePoint: 0.25,
-				colored: false,
-				coloredSymbolOnly: true,
 				urgency: 15,
-				timeFormat: "absolute",
-				dateFormat: "MMM Do",				
-				dateEndFormat: "LT",
 				fullDayEventDateFormat: "ddd D MMM",
-				showEnd: false,
 				getRelative: 48,
 				hidePrivate: false,
 				hideOngoing: false,
 				hideTime: false,
+				coloredSymbolOnly: true,
 				tableClass: "qsmall",
-				customEvents: [],
 				titleReplace: {
 					"Ziua Internațională a Femeii": "Ziua femeii",
 					"Zi Constantin Brancusi": "Ziua Constantin Brancuși",
@@ -256,7 +244,6 @@ var config = {
 					"Last quarter": "Ultimul pătrar la",
 				},
 				locationTitleReplace: {},
-				broadcastEvents: true,
 				excludedEvents: [
 					"Orthodox Good Friday",
 					"Doua zi de Rusalii",
@@ -265,8 +252,6 @@ var config = {
 					"Rusalii",
 					"Doua zi de Rusalii",
 					],
-				sliceMultiDayEvents: false,
-				broadcastPastEvents: false,
 				nextDaysRelative: true,
 
 				calendars: [
@@ -305,6 +290,7 @@ var config = {
 			module: "lunartic",
 			position: "top_left",
 			classes: "night",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
@@ -322,6 +308,7 @@ var config = {
 		{
 			module: "network",
 			position: "top_left",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: true,
 			config: {
@@ -335,14 +322,14 @@ var config = {
 				coloredSymbolOnly: true,
 				showLastSeenWhenOffline: true,
 				devices: [
-					{ macAddress: "...", name: "Mirror server", icon: "laptop"},
-					{ macAddress: "...", name: "Magic iPad 3", icon: "mobile"},
-					{ macAddress: "...", name: "Desktop PC", icon: "desktop"},
-					{ macAddress: "...", name: "Razvan iPhone", icon: "male"},
-					{ macAddress: "...", name: "Paula Huawei", icon: "female"},
-					{ macAddress: "...", name: "Paula Samsung", icon: "female"},
-					{ macAddress: "...", name: "Google Nexus 7 ", icon: "mobile"},
-					{ macAddress: "...", name: "Sony Smart TV", icon: "mobile"},
+					{ macAddress: "", name: "Mirror server", icon: "laptop"},
+					{ macAddress: "", name: "Magic iPad 3", icon: "mobile"},
+					{ macAddress: "", name: "Desktop PC", icon: "desktop"},
+					{ macAddress: "", name: "Razvan iPhone", icon: "male"},
+					{ macAddress: "", name: "Paula Huawei", icon: "female"},
+					{ macAddress: "", name: "Paula Samsung", icon: "female"},
+					{ macAddress: "", name: "Google Nexus 7 ", icon: "mobile"},
+					{ macAddress: "", name: "Sony Smart TV", icon: "mobile"},
 				],
 			}        
 		},
@@ -350,14 +337,32 @@ var config = {
 			module: "currentweather",
 			position: "top_right",
 			classes: "night current",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
+			config: {
+				showWindDirectionAsArrow: true,
+				useBeaufort: false,
+				useKMPHwind: true,
+				showVisibility: true,
+				showHumidity: true,
+				showSun: false,
+				showFeelsLike: true,
+				realFeelsLike: true,
+				showPressure: true,
+				showMinMax: false,
+				showPrecip: true,
+				showDescription: true,
+				appendLocationNameToHeader: false,
+				tableClass: "xmedium",
+			}
 		},
 		{
 			module: "weatherforecast",
 			position: "top_right",
 			header: "Vremea în următoarele ore la",
 			classes: "hourly forecast ipad",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
@@ -366,6 +371,10 @@ var config = {
 				fallBack: false,
 				fullday: "HH [h]",
 				initialLoadDelay: 2000,
+				showRainAmount: true,
+				fade: false,
+				colored: true,
+				tableClass: "qsmall",
 			}
 		},
 		{
@@ -373,22 +382,27 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
 			classes: "daily forecast ipad",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
 				maxNumberOfDays: 16,
 //				locationID: false,
 //				forecastEndpoint: "onecall",
-				forecastEndpoint: "/forecast/daily",
 				fallBack: true,
 				fullday: "ddd",
 				initialLoadDelay: 3000,
+				showRainAmount: true,
+				fade: false,
+				colored: true,
+				tableClass: "qsmall",
 			}
 		},
 		{
 			module: "weather",	// not fully operational
 			position: "top_right",
 			classes: "night currentweather current",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: true,
 			config: {
@@ -402,6 +416,7 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele 4 ore",
 			classes: "hourly weatherforecast forecast",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
@@ -416,6 +431,7 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele 15 zile",
 			classes: "daily weatherforecast forecast",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
@@ -429,6 +445,7 @@ var config = {
 			module: "kamasutra",
 			position: "top_center",
 			header: "Kama Sutra Sex Positions",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: true
 		},
@@ -436,6 +453,7 @@ var config = {
 			module: "yframe",
 			position: "upper_third",
 			classes: "night",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: true,
 			config: {
@@ -451,15 +469,11 @@ var config = {
 			module: "compliments",
 			position: "middle_center",
 			classes: "night",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
-				updateInterval: 30000,
-				remoteFile: null,
-				random: true,
-				mockDate: null,
 				classes: "complimentz thin large pre-line skyblue",
-
 				morning: 5,
 				noon: 12,
 				afternoon: 14,
@@ -592,13 +606,13 @@ var config = {
 						"<i class=\"gold fa fa-glass-cheers\"></i> Un An Nou fericit!",
 						function() {return "La mulți ani! " + moment().format("YYYY");}
 					],
-
 				}
 			}
 		},
 		{
 			module: "quotes",
 			position: "lower_third",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
@@ -610,31 +624,19 @@ var config = {
 		{
 			module: "newsfeed",
 			position: "bottom_bar",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: false,
 			config: {
-				showSourceTitle: true,
-				showPublishDate: true,
-				broadcastNewsFeeds: true,
-				broadcastNewsUpdates: true,
 				showDescription: true,
-				wrapTitle: true,
-				wrapDescription: true,
-				truncDescription: true,
-				lengthDescription: 400,
 				hideLoading: true,
-				reloadInterval: 5 * 60 * 1000,
 				updateInterval: 60 * 1000,
-				maxNewsItems: 0,
-				ignoreOldItems: false,
 				ignoreOlderThan: 12 * 60 * 60 * 1000,
-				removeStartTags: "",
-				removeEndTags: "",
+				removeStartTags: "both",
+				removeEndTags: "both",
 				startTags: ["VIDEO","FOTO","horoscop"],
 				endTags: ["VIDEO","FOTO","horoscop"],
 				prohibitedWords: ["VIDEO","FOTO","Marius Tucă Show"],
-				scrollLength: 500,
-				logFeedWarnings: false,
 
 				feeds: [
 					{
@@ -689,31 +691,14 @@ var config = {
 			module: "newsfeed",
 			position: "bottom_bar",
 			classes: "international",
+			hiddenOnStartup: false,
 			configDeepMerge: true,
 			disabled: true,
 			config: {
-				showSourceTitle: true,
-				showPublishDate: true,
-				broadcastNewsFeeds: true,
-				broadcastNewsUpdates: true,
 				showDescription: true,
-				wrapTitle: true,
-				wrapDescription: true,
-				truncDescription: true,
-				lengthDescription: 400,
 				hideLoading: true,
-				reloadInterval: 5 * 60 * 1000,
 				updateInterval: 60 * 1000,
-				maxNewsItems: 0,
-				ignoreOldItems: false,
 				ignoreOlderThan: 12 * 60 * 60 * 1000,
-				removeStartTags: "",
-				removeEndTags: "",
-				startTags: ["VIDEO","FOTO","horoscop"],
-				endTags: ["VIDEO","FOTO","horoscop"],
-				prohibitedWords: ["VIDEO","FOTO","Marius Tucă Show"],
-				scrollLength: 500,
-				logFeedWarnings: false,
 
 				feeds: [
 					{
