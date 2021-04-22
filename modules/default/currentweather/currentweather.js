@@ -9,7 +9,7 @@ Module.register("currentweather", {
 	defaults: {
 		location: config.location,
 		locationID: config.locationID,
-		appid: config.appid,
+		appid: config.appid2,
 		units: config.units,
 		timeFormat: config.timeFormat,
 		lang: config.language,
@@ -22,7 +22,27 @@ Module.register("currentweather", {
 		degreeLabel: config.scale,
 		retryDelay: config.delay,
 		roundTemp: config.roundTemp,
-		initialLoadDelay: config.delay,
+		initialLoadDelay: 0,
+		updateInterval: 10 * 60 * 1000,
+		showWindDirection: true,
+		showWindDirectionAsArrow: true,
+		appendLocationNameToHeader: false,
+		useLocationAsHeader: false,
+		useBeaufort: false,
+		useKMPHwind: true,
+		showPressure: true,
+		showVisibility: true,
+		showHumidity: true,
+		showMinMax: false,
+		showFeelsLike: true,
+		realFeelsLike: true,
+		showDescription: true,
+		showSun: false,
+		weatherEndpoint: "weather",
+		calendarClass: "calendar",
+		tableClass: "xmedium",
+		onlyTemp: false,
+		hideTemp: false,
 
 		iconTable: {
 			"01d": "day-sunny",
@@ -116,7 +136,7 @@ Module.register("currentweather", {
 		} else if (this.windSpeed > 100) {
 			windSpeed.className = "wisw coral";
 		} else windSpeed.className = "wisw";
-		windSpeed.innerHTML = " " + this.windSpeed + "<span class=\"subs\"> km/h</span>";
+		windSpeed.innerHTML = " " + this.windSpeed + "<span class=\"subs\"> km/h</span>&nbsp ";
 		small.appendChild(windSpeed);
 
 		if (this.config.showWindDirection) {
@@ -144,7 +164,7 @@ Module.register("currentweather", {
 				} else if (atpressure > 775) {
 				    pressure.className = "pressure yellow";
 				} else pressure.className = "pressure";
-			pressure.innerHTML = Math.round(this.pressure * 750.062 / 1000) + "<span class=\"subs\"> Hg</span><span class=\"sups\">mm</span>";
+			pressure.innerHTML = Math.round(this.pressure * 750.062 / 1000) + "<span class=\"subs\"> Hg</span><span class=\"sups\">mm</span>&nbsp;";
 			small.appendChild(pressure);
 		}
 
@@ -155,7 +175,7 @@ Module.register("currentweather", {
 
 			var visibility = document.createElement("span"); 			// visibility.
 			visibility.className = "visibility";
-			visibility.innerHTML = "<i class=\"fas fa-binoculars\"></i>" + this.visibility / 1000 + "<span class=\"subs\"> km</span> ";
+			visibility.innerHTML = "<i class=\"fas fa-binoculars\"></i>" + this.visibility / 1000 + "<span class=\"subs\"> km</span>&nbsp;";
 			small.appendChild(visibility);
 		}
 //		var spacer = document.createElement("span");
@@ -319,13 +339,15 @@ Module.register("currentweather", {
 				}
 			} else feelsLike.className = "dimmed real";
 
-			feelsLike.innerHTML = "<span class=normal> În " + this.fetchedLocationName + " " + this.translate("FEELS") + "</span> " + this.feelsLike + "&deg;" + degreeLabel;
+//			feelsLike.innerHTML = "<span class=normal> În " + this.fetchedLocationName + " " + this.translate("FEELS!") + "</span>" + this.feelsLike + "&deg;" + degreeLabel;
+			feelsLike.innerHTML = "<span class=normal>" + this.translate("FEELS!") + "</span>" + this.feelsLike + "&deg;" + degreeLabel;
 			small.appendChild(feelsLike);
 
 			if (this.config.showDescription) {
 				var description = document.createElement("div"); 		// weather description.
 				description.className = "dimmed descr";
-				description.innerHTML = "La ora: " + moment().format("HH:mm") + ": <span class=bright>" + this.desc + "</span>";
+//				description.innerHTML = "La ora: " + moment().format("HH:mm") + ": <span class=bright>" + this.desc + "</span>";
+				description.innerHTML = "<span class=bright>" + this.desc + "</span>";
 				small.appendChild(description);
 			}
 
@@ -413,7 +435,7 @@ Module.register("currentweather", {
 			return;
 		}
 
-		var url = this.config.apiBase + this.config.apiVersion + "/" + this.config.weatherEndpoint + this.getParams();
+		var url = this.config.apiBase + this.config.apiVersion + this.config.weatherEndpoint + this.getParams();
 		var self = this;
 		var retry = true;
 

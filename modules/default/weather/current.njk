@@ -1,6 +1,6 @@
 {% if current %}
     {% if not config.onlyTemp %}
-        <div class="normal medium">
+        <div class="normal xmedium">
             <span class="wi wi-strong-wind dimmed"></span>
             <span>
                 {% if config.useBeaufort %}
@@ -38,7 +38,7 @@
             {% endif %}
         </div>
     {% endif %}
-    <div class="large light">
+    <div class="xlarge light">
         <span class="wi weathericon wi-{{current.weatherType}}"></span>
         <span class="bright">
             {{ current.temperature | roundValue | unit("temperature") | decimalSymbol }}

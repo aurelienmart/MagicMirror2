@@ -11,7 +11,7 @@ Module.register("weatherforecast", {
 		locationID: config.locationID,
 		lat: config.latitude,
 		lon: config.longitude,
-		appid: config.appid,
+		appid: config.appid2,
 		units: config.units,
 		timeFormat: config.timeFormat,
 		lang: config.language,
@@ -23,6 +23,18 @@ Module.register("weatherforecast", {
 		retryDelay: config.delay,
 		roundTemp: config.roundTemp,
 		excludes: false,
+		showRainAmount: true,
+		showSnowAmount: false,
+		updateInterval: 10 * 60 * 1000,
+		appendLocationNameToHeader: true,
+		fade: false,
+		fadePoint: 0.25,
+		colored: true,
+		reload: false,
+		calendarClass: "calendar",
+		tableClass: "qsmall",
+
+		roundTemp: false,
 
 		iconTable: {
 			"01d": "day-sunny",
@@ -248,7 +260,7 @@ Module.register("weatherforecast", {
 			return;
 		}
 
-		var url = this.config.apiBase + this.config.apiVersion + "/" + this.config.forecastEndpoint + this.getParams();
+		var url = this.config.apiBase + this.config.apiVersion + this.config.forecastEndpoint + this.getParams();
 		var self = this;
 		var retry = true;
 

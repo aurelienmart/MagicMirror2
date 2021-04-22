@@ -10,16 +10,18 @@
  * Copyright 2014, Codrops
  * https://tympanus.net/codrops/
  */
+"use strict";
+
 (function (window) {
 	/**
-	 * Extend one object with another one
-	 *
-	 * @param {object} a The object to extend
-	 * @param {object} b The object which extends the other, overwrites existing keys
-	 * @returns {object} The merged object
-	 */
+  * Extend one object with another one
+  *
+  * @param {object} a The object to extend
+  * @param {object} b The object which extends the other, overwrites existing keys
+  * @returns {object} The merged object
+  */
 	function extend(a, b) {
-		for (let key in b) {
+		for (var key in b) {
 			if (b.hasOwnProperty(key)) {
 				a[key] = b[key];
 			}
@@ -28,11 +30,11 @@
 	}
 
 	/**
-	 * NotificationFx constructor
-	 *
-	 * @param {object} options The configuration options
-	 * @class
-	 */
+  * NotificationFx constructor
+  *
+  * @param {object} options The configuration options
+  * @class
+  */
 	function NotificationFx(options) {
 		this.options = extend({}, this.options);
 		extend(this.options, options);
@@ -40,8 +42,8 @@
 	}
 
 	/**
-	 * NotificationFx options
-	 */
+  * NotificationFx options
+  */
 	NotificationFx.prototype.options = {
 		// element to which the notification will be appended
 		// defaults to the document.body
@@ -64,22 +66,24 @@
 		ttl: 6000,
 		al_no: "ns-box",
 		// callbacks
-		onClose: function () {
+		onClose: function onClose() {
 			return false;
 		},
-		onOpen: function () {
+		onOpen: function onOpen() {
 			return false;
 		}
 	};
 
 	/**
-	 * Initialize and cache some vars
-	 */
+  * Initialize and cache some vars
+  */
 	NotificationFx.prototype._init = function () {
+		var _this = this;
+
 		// create HTML structure
 		this.ntf = document.createElement("div");
 		this.ntf.className = this.options.al_no + " ns-" + this.options.layout + " ns-effect-" + this.options.effect + " ns-type-" + this.options.type;
-		let strinner = '<div class="ns-box-inner">';
+		var strinner = '<div class="ns-box-inner">';
 		strinner += this.options.message;
 		strinner += "</div>";
 		this.ntf.innerHTML = strinner;
@@ -89,9 +93,9 @@
 
 		// dismiss after [options.ttl]ms
 		if (this.options.ttl) {
-			this.dismissttl = setTimeout(() => {
-				if (this.active) {
-					this.dismiss();
+			this.dismissttl = setTimeout(function () {
+				if (_this.active) {
+					_this.dismiss();
 				}
 			}, this.options.ttl);
 		}
@@ -101,18 +105,20 @@
 	};
 
 	/**
-	 * Init events
-	 */
+  * Init events
+  */
 	NotificationFx.prototype._initEvents = function () {
+		var _this2 = this;
+
 		// dismiss notification by tapping on it if someone has a touchscreen
-		this.ntf.querySelector(".ns-box-inner").addEventListener("click", () => {
-			this.dismiss();
+		this.ntf.querySelector(".ns-box-inner").addEventListener("click", function () {
+			_this2.dismiss();
 		});
 	};
 
 	/**
-	 * Show the notification
-	 */
+  * Show the notification
+  */
 	NotificationFx.prototype.show = function () {
 		this.active = true;
 		this.ntf.classList.remove("ns-hide");
@@ -121,28 +127,32 @@
 	};
 
 	/**
-	 * Dismiss the notification
-	 */
-	NotificationFx.prototype.dismiss = function (close = true) {
+  * Dismiss the notification
+  */
+	NotificationFx.prototype.dismiss = function () {
+		var _this3 = this;
+
+		var close = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+
 		this.active = false;
 		clearTimeout(this.dismissttl);
 		this.ntf.classList.remove("ns-show");
-		setTimeout(() => {
-			this.ntf.classList.add("ns-hide");
+		setTimeout(function () {
+			_this3.ntf.classList.add("ns-hide");
 
 			// callback
-			if (close) this.options.onClose();
+			if (close) _this3.options.onClose();
 		}, 25);
 
 		// after animation ends remove ntf from the DOM
-		const onEndAnimationFn = (ev) => {
-			if (ev.target !== this.ntf) {
+		var onEndAnimationFn = function onEndAnimationFn(ev) {
+			if (ev.target !== _this3.ntf) {
 				return false;
 			}
-			this.ntf.removeEventListener("animationend", onEndAnimationFn);
+			_this3.ntf.removeEventListener("animationend", onEndAnimationFn);
 
-			if (ev.target.parentNode === this.options.wrapper) {
-				this.options.wrapper.removeChild(this.ntf);
+			if (ev.target.parentNode === _this3.options.wrapper) {
+				_this3.options.wrapper.removeChild(_this3.ntf);
 			}
 		};
 
@@ -150,7 +160,7 @@
 	};
 
 	/**
-	 * Add to global namespace
-	 */
+  * Add to global namespace
+  */
 	window.NotificationFx = NotificationFx;
 })(window);

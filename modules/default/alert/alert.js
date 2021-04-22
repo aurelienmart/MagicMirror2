@@ -6,6 +6,8 @@
  * By Paul-Vincent Roll https://paulvincentroll.com/
  * MIT Licensed.
  */
+"use strict";
+
 Module.register("alert", {
 	defaults: {
 		// scale|slide|genie|jelly|flip|bouncyflip|exploader
@@ -17,25 +19,25 @@ Module.register("alert", {
 		//Position
 		position: "center",
 		//shown at startup
-		welcome_message: false
+		welcome_message: true
 	},
-	getScripts: function () {
+	getScripts: function getScripts() {
 		return ["notificationFx.js"];
 	},
-	getStyles: function () {
+	getStyles: function getStyles() {
 		return ["notificationFx.css", "font-awesome.css"];
 	},
 	// Define required translations.
-	getTranslations: function () {
+	getTranslations: function getTranslations() {
 		return {
 			en: "translations/en.json"
 		};
 	},
-	show_notification: function (message) {
+	show_notification: function show_notification(message) {
 		if (this.config.effect === "slide") {
 			this.config.effect = this.config.effect + "-" + this.config.position;
 		}
-		let msg = "";
+		var msg = "";
 		if (message.title) {
 			msg += "<span class='thin dimmed medium'>" + message.title + "</span>";
 		}
@@ -53,8 +55,10 @@ Module.register("alert", {
 			ttl: message.timer !== undefined ? message.timer : this.config.display_time
 		}).show();
 	},
-	show_alert: function (params, sender) {
-		let image = "";
+	show_alert: function show_alert(params, sender) {
+		var _this = this;
+
+		var image = "";
 		//Set standard params if not provided by module
 		if (typeof params.timer === "undefined") {
 			params.timer = null;
@@ -70,7 +74,7 @@ Module.register("alert", {
 			image = "<span class='bright " + "fa fa-" + params.imageFA + "' style='margin-bottom: 10px;font-size:" + params.imageHeight.toString() + ";'/></span><br />";
 		}
 		//Create overlay
-		const overlay = document.createElement("div");
+		var overlay = document.createElement("div");
 		overlay.id = "overlay";
 		overlay.innerHTML += '<div class="black_overlay"></div>';
 		document.body.insertBefore(overlay, document.body.firstChild);
@@ -81,7 +85,7 @@ Module.register("alert", {
 		}
 
 		//Display title and message only if they are provided in notification parameters
-		let message = "";
+		var message = "";
 		if (params.title) {
 			message += "<span class='light dimmed medium'>" + params.title + "</span>";
 		}
@@ -98,7 +102,9 @@ Module.register("alert", {
 			message: image + message,
 			effect: this.config.alert_effect,
 			ttl: params.timer,
-			onClose: () => this.hide_alert(sender),
+			onClose: function onClose() {
+				return _this.hide_alert(sender);
+			},
 			al_no: "ns-alert"
 		});
 
@@ -107,24 +113,26 @@ Module.register("alert", {
 
 		//Add timer to dismiss alert and overlay
 		if (params.timer) {
-			setTimeout(() => {
-				this.hide_alert(sender);
+			setTimeout(function () {
+				_this.hide_alert(sender);
 			}, params.timer);
 		}
 	},
-	hide_alert: function (sender, close = true) {
+	hide_alert: function hide_alert(sender) {
+		var close = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
+
 		//Dismiss alert and remove from this.alerts
 		if (this.alerts[sender.name]) {
 			this.alerts[sender.name].dismiss(close);
 			this.alerts[sender.name] = null;
 			//Remove overlay
-			const overlay = document.getElementById("overlay");
+			var overlay = document.getElementById("overlay");
 			overlay.parentNode.removeChild(overlay);
 		}
 	},
-	setPosition: function (pos) {
+	setPosition: function setPosition(pos) {
 		//Add css to body depending on the set position for notifications
-		const sheet = document.createElement("style");
+		var sheet = document.createElement("style");
 		if (pos === "center") {
 			sheet.innerHTML = ".ns-box {margin-left: auto; margin-right: auto;text-align: center;}";
 		}
@@ -136,7 +144,7 @@ Module.register("alert", {
 		}
 		document.body.appendChild(sheet);
 	},
-	notificationReceived: function (notification, payload, sender) {
+	notificationReceived: function notificationReceived(notification, payload, sender) {
 		if (notification === "SHOW_ALERT") {
 			if (typeof payload.type === "undefined") {
 				payload.type = "alert";
@@ -150,7 +158,7 @@ Module.register("alert", {
 			this.hide_alert(sender);
 		}
 	},
-	start: function () {
+	start: function start() {
 		this.alerts = {};
 		this.setPosition(this.config.position);
 		if (this.config.welcome_message) {

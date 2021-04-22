@@ -4,6 +4,6 @@ const Log = require("../../../js/logger");
 module.exports = NodeHelper.create({
 	// Override start method.
 	start() {
-		Log.warn(`The module '${this.name}' is not deprecated in favor of the 'weather'-module, no migration path`);
+		Log.warn(`The module '${this.name}' is deprecated in favor of the 'weather'-module, no migration path`);
 	}
 });

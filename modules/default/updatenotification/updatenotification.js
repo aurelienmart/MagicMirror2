@@ -4,6 +4,8 @@
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  */
+"use strict";
+
 Module.register("updatenotification", {
 	defaults: {
 		updateInterval: 10 * 60 * 1000, // every 10 minutes
@@ -15,16 +17,16 @@ Module.register("updatenotification", {
 	suspended: false,
 	moduleList: {},
 
-	start: function () {
+	start: function start() {
 		var self = this;
 		Log.info("Starting module: " + this.name);
-		setInterval(() => {
+		setInterval(function () {
 			self.moduleList = {};
 			self.updateDom(2);
 		}, self.config.refreshInterval);
 	},
 
-	notificationReceived: function (notification, payload, sender) {
+	notificationReceived: function notificationReceived(notification, payload, sender) {
 		if (notification === "DOM_OBJECTS_CREATED") {
 			this.sendSocketNotification("CONFIG", this.config);
 			this.sendSocketNotification("MODULES", Module.definitions);
@@ -32,13 +34,13 @@ Module.register("updatenotification", {
 		}
 	},
 
-	socketNotificationReceived: function (notification, payload) {
+	socketNotificationReceived: function socketNotificationReceived(notification, payload) {
 		if (notification === "STATUS") {
 			this.updateUI(payload);
 		}
 	},
 
-	updateUI: function (payload) {
+	updateUI: function updateUI(payload) {
 		var self = this;
 		if (payload && payload.behind > 0) {
 			// if we haven't seen info for this module
@@ -49,70 +51,91 @@ Module.register("updatenotification", {
 			}
 			//self.show(1000, { lockString: self.identifier });
 		} else if (payload && payload.behind === 0) {
-			// if the module WAS in the list, but shouldn't be
-			if (this.moduleList[payload.module] !== undefined) {
-				// remove it
-				delete this.moduleList[payload.module];
-				self.updateDom(2);
+				// if the module WAS in the list, but shouldn't be
+				if (this.moduleList[payload.module] !== undefined) {
+					// remove it
+					delete this.moduleList[payload.module];
+					self.updateDom(2);
+				}
 			}
-		}
 	},
 
-	diffLink: function (module, text) {
+	diffLink: function diffLink(module, text) {
 		var localRef = module.hash;
 		var remoteRef = module.tracking.replace(/.*\//, "");
 		return '<a href="https://github.com/MichMich/MagicMirror/compare/' + localRef + "..." + remoteRef + '" ' + 'class="xsmall dimmed" ' + 'style="text-decoration: none;" ' + 'target="_blank" >' + text + "</a>";
 	},
 
 	// Override dom generator.
-	getDom: function () {
+	getDom: function getDom() {
 		var wrapper = document.createElement("div");
 		if (this.suspended === false) {
 			// process the hash of module info found
-			for (var key of Object.keys(this.moduleList)) {
-				let m = this.moduleList[key];
+			var _iteratorNormalCompletion = true;
+			var _didIteratorError = false;
+			var _iteratorError = undefined;
 
-				var message = document.createElement("div");
-				message.className = "small bright";
+			try {
+				for (var _iterator = Object.keys(this.moduleList)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+					var key = _step.value;
 
-				var icon = document.createElement("i");
-				icon.className = "fa fa-exclamation-circle";
-				icon.innerHTML = "&nbsp;";
-				message.appendChild(icon);
+					var m = this.moduleList[key];
 
-				var updateInfoKeyName = m.behind === 1 ? "UPDATE_INFO_SINGLE" : "UPDATE_INFO_MULTIPLE";
+					var message = document.createElement("div");
+					message.className = "small bright";
 
-				var subtextHtml = this.translate(updateInfoKeyName, {
-					COMMIT_COUNT: m.behind,
-					BRANCH_NAME: m.current
-				});
+					var icon = document.createElement("i");
+					icon.className = "fa fa-exclamation-circle";
+					icon.innerHTML = "&nbsp;";
+					message.appendChild(icon);
 
-				var text = document.createElement("span");
-				if (m.module === "default") {
-					text.innerHTML = this.translate("UPDATE_NOTIFICATION");
-					subtextHtml = this.diffLink(m, subtextHtml);
-				} else {
-					text.innerHTML = this.translate("UPDATE_NOTIFICATION_MODULE", {
-						MODULE_NAME: m.module
+					var updateInfoKeyName = m.behind === 1 ? "UPDATE_INFO_SINGLE" : "UPDATE_INFO_MULTIPLE";
+
+					var subtextHtml = this.translate(updateInfoKeyName, {
+						COMMIT_COUNT: m.behind,
+						BRANCH_NAME: m.current
 					});
+
+					var text = document.createElement("span");
+					if (m.module === "default") {
+						text.innerHTML = this.translate("UPDATE_NOTIFICATION");
+						subtextHtml = this.diffLink(m, subtextHtml);
+					} else {
+						text.innerHTML = this.translate("UPDATE_NOTIFICATION_MODULE", {
+							MODULE_NAME: m.module
+						});
+					}
+					message.appendChild(text);
+
+					wrapper.appendChild(message);
+
+					var subtext = document.createElement("div");
+					subtext.innerHTML = subtextHtml;
+					subtext.className = "xsmall dimmed";
+					wrapper.appendChild(subtext);
 				}
-				message.appendChild(text);
-
-				wrapper.appendChild(message);
-
-				var subtext = document.createElement("div");
-				subtext.innerHTML = subtextHtml;
-				subtext.className = "xsmall dimmed";
-				wrapper.appendChild(subtext);
+			} catch (err) {
+				_didIteratorError = true;
+				_iteratorError = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion && _iterator["return"]) {
+						_iterator["return"]();
+					}
+				} finally {
+					if (_didIteratorError) {
+						throw _iteratorError;
+					}
+				}
 			}
 		}
 		return wrapper;
 	},
 
-	suspend: function () {
+	suspend: function suspend() {
 		this.suspended = true;
 	},
-	resume: function () {
+	resume: function resume() {
 		this.suspended = false;
 		this.updateDom(2);
 	}

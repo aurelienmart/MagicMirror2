@@ -8,6 +8,8 @@
  *
  * This class is the blueprint for a weather provider.
  */
+"use strict";
+
 var WeatherProvider = Class.extend({
 	// Weather Provider Properties
 	providerName: null,
@@ -30,89 +32,92 @@ var WeatherProvider = Class.extend({
 	// All the following methods can be overwritten, although most are good as they are.
 
 	// Called when a weather provider is initialized.
-	init: function (config) {
+	init(config) {
 		this.config = config;
-		Log.info(`Weather provider: ${this.providerName} initialized.`);
+		Log.info("Weather provider: " + this.providerName + " initialized.");
 	},
 
 	// Called to set the config, this config is the same as the weather module's config.
-	setConfig: function (config) {
+	setConfig(config) {
 		this.config = config;
-		Log.info(`Weather provider: ${this.providerName} config set.`, this.config);
+		Log.info("Weather provider: " + this.providerName + " config set.", this.config);
 	},
 
 	// Called when the weather provider is about to start.
-	start: function () {
-		Log.info(`Weather provider: ${this.providerName} started.`);
+	start() {
+		Log.info("Weather provider: " + this.providerName + " started.");
 	},
 
 	// This method should start the API request to fetch the current weather.
 	// This method should definitely be overwritten in the provider.
-	fetchCurrentWeather: function () {
-		Log.warn(`Weather provider: ${this.providerName} does not subclass the fetchCurrentWeather method.`);
+	fetchCurrentWeather() {
+		Log.warn("Weather provider: " + this.providerName + " does not subclass the fetchCurrentWeather method.");
 	},
 
 	// This method should start the API request to fetch the weather forecast.
 	// This method should definitely be overwritten in the provider.
-	fetchWeatherForecast: function () {
-		Log.warn(`Weather provider: ${this.providerName} does not subclass the fetchWeatherForecast method.`);
+	fetchWeatherForecast() {
+		Log.warn("Weather provider: " + this.providerName + " does not subclass the fetchWeatherForecast method.");
 	},
 
 	// This method should start the API request to fetch the weather hourly.
 	// This method should definitely be overwritten in the provider.
-	fetchWeatherHourly: function () {
-		Log.warn(`Weather provider: ${this.providerName} does not subclass the fetchWeatherHourly method.`);
+	fetchWeatherHourly() {
+		Log.warn("Weather provider: " + this.providerName + " does not subclass the fetchWeatherHourly method.");
 	},
 
 	// This returns a WeatherDay object for the current weather.
-	currentWeather: function () {
+	currentWeather() {
 		return this.currentWeatherObject;
 	},
 
 	// This returns an array of WeatherDay objects for the weather forecast.
-	weatherForecast: function () {
+	weatherForecast() {
 		return this.weatherForecastArray;
 	},
 
 	// This returns an object containing WeatherDay object(s) depending on the type of call.
-	weatherHourly: function () {
+	weatherHourly() {
 		return this.weatherHourlyArray;
 	},
 
 	// This returns the name of the fetched location or an empty string.
-	fetchedLocation: function () {
+	fetchedLocation() {
 		return this.fetchedLocationName || "";
 	},
 
 	// Set the currentWeather and notify the delegate that new information is available.
-	setCurrentWeather: function (currentWeatherObject) {
+	setCurrentWeather(currentWeatherObject) {
 		// We should check here if we are passing a WeatherDay
 		this.currentWeatherObject = currentWeatherObject;
 	},
 
 	// Set the weatherForecastArray and notify the delegate that new information is available.
-	setWeatherForecast: function (weatherForecastArray) {
+	setWeatherForecast(weatherForecastArray) {
 		// We should check here if we are passing a WeatherDay
 		this.weatherForecastArray = weatherForecastArray;
 	},
 
 	// Set the weatherHourlyArray and notify the delegate that new information is available.
-	setWeatherHourly: function (weatherHourlyArray) {
+	setWeatherHourly(weatherHourlyArray) {
 		this.weatherHourlyArray = weatherHourlyArray;
 	},
 
 	// Set the fetched location name.
-	setFetchedLocation: function (name) {
+	setFetchedLocation(name) {
 		this.fetchedLocationName = name;
 	},
 
 	// Notify the delegate that new weather is available.
-	updateAvailable: function () {
+	updateAvailable() {
 		this.delegate.updateAvailable(this);
 	},
 
 	// A convenience function to make requests. It returns a promise.
-	fetchData: function (url, method = "GET", data = null) {
+	fetchData(url) {
+		var method = arguments.length <= 1 || arguments[1] === undefined ? "GET" : arguments[1];
+		var data = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+
 		return new Promise(function (resolve, reject) {
 			var request = new XMLHttpRequest();
 			request.open(method, url, true);
@@ -155,8 +160,8 @@ WeatherProvider.register = function (providerIdentifier, providerDetails) {
 WeatherProvider.initialize = function (providerIdentifier, delegate) {
 	providerIdentifier = providerIdentifier.toLowerCase();
 
-	const provider = new WeatherProvider.providers[providerIdentifier]();
-	const config = Object.assign({}, provider.defaults, delegate.config);
+	var provider = new WeatherProvider.providers[providerIdentifier]();
+	var config = Object.assign({}, provider.defaults, delegate.config);
 
 	provider.delegate = delegate;
 	provider.setConfig(config);
