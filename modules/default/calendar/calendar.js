@@ -12,7 +12,46 @@
 Module.register("calendar", {
 	// Define module defaults
 	defaults: {
+		maximumEntries: 10, // Total Maximum Entries
+		maximumNumberOfDays: 365,
+		limitDays: 0, // Limit the number of days shown, 0 = no limit
+		displaySymbol: true,
+		defaultSymbol: "calendar", // Fontawesome Symbol see https://fontawesome.com/cheatsheet?from=io
+		showLocation: false,
+		displayRepeatingCountTitle: false,
+		defaultRepeatingCountTitle: "",
+		maxTitleLength: 25,
+		maxLocationTitleLength: 25,
+		wrapEvents: false, // wrap events to multiple lines breaking at maxTitleLength
+		wrapLocationEvents: false,
+		maxTitleLines: 3,
+		maxEventTitleLines: 3,
+		fetchInterval: 5 * 60 * 1000, // Update every 5 minutes.
 		animationSpeed: config.animation,
+		fade: true,
+		urgency: 7,
+		timeFormat: "relative",
+		dateFormat: "MMM Do",
+		dateEndFormat: "LT",
+		fullDayEventDateFormat: "MMM Do",
+		showEnd: false,
+		getRelative: 6,
+		fadePoint: 0.25, // Start on 1/4th of the list.
+		hidePrivate: false,
+		hideOngoing: false,
+		hideTime: false,
+		colored: false,
+		coloredSymbolOnly: false,
+		customEvents: [], // Array of {keyword: "", symbol: "", color: ""} where Keyword is a regexp and symbol/color are to be applied for matched
+		tableClass: "small",
+		calendars: [],
+		titleReplace: {},
+		locationTitleReplace: {},
+		broadcastEvents: true,
+		excludedEvents: [],
+		sliceMultiDayEvents: false,
+		broadcastPastEvents: false,
+		nextDaysRelative: false,
 		selfSignedCert: false
 	},
 

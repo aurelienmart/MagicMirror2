@@ -9,12 +9,29 @@
 Module.register("clock", {
 	// Module config defaults.
 	defaults: {
-	    timeFormat: config.timeFormat,
-	    timezone: config.timezone,
-        lat: config.latitude,
-		lon: config.longitude,
+		displayType: "digital", // options: digital, analog, both
+
+		timeFormat: config.timeFormat,
+		displaySeconds: true,
 		showPeriod: config.period,
 		showPeriodUpper: config.period,
+		clockBold: false,
+		showDate: true,
+		showWeek: false,
+		dateFormat: "dddd, LL",
+
+		/* specific to the analog clock */
+		analogSize: "200px",
+		analogFace: "simple", // options: 'none', 'simple', 'face-###' (where ### is 001 to 012 inclusive)
+		analogPlacement: "bottom", // options: 'top', 'bottom', 'left', 'right'
+		analogShowDate: "top", // options: false, 'top', or 'bottom'
+		secondsColor: "#888888",
+		timezone: config.timezone,
+
+		showSunTimes: false,
+		showMoonTimes: false,
+        lat: config.latitude,
+		lon: config.longitude,
 	},
 	// Define required scripts.
 	getScripts() {

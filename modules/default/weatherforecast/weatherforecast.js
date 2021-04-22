@@ -13,28 +13,32 @@ Module.register("weatherforecast", {
 		lon: config.longitude,
 		appid: config.appid2,
 		units: config.units,
+		maxNumberOfDays: 7,
+		showRainAmount: false,
+		updateInterval: 10 * 60 * 1000, // every 10 minutes
+		animationSpeed: config.animation,
 		timeFormat: config.timeFormat,
 		lang: config.language,
 		decimalSymbol: config.decimal,
+		fade: true,
+		fadePoint: 0.25, // Start on 1/4th of the list.
+		colored: false,
+		scale: config.scale,
+
+		initialLoadDelay: 2500, // 2.5 seconds delay. This delay is used to keep the OpenWeather API happy.
+		retryDelay: config.delay,
+
+		decimalSymbol: config.decimal,
 		apiVersion: config.apiVersion,
 		apiBase: config.apiBase,
-		animationSpeed: config.animation,
-		scale: config.scale,
-		retryDelay: config.delay,
-		roundTemp: config.roundTemp,
+		forecastEndpoint: "forecast/daily",
 		excludes: false,
-		showRainAmount: true,
-		showSnowAmount: false,
-		updateInterval: 10 * 60 * 1000,
-		appendLocationNameToHeader: true,
-		fade: false,
-		fadePoint: 0.25,
-		colored: true,
-		reload: false,
-		calendarClass: "calendar",
-		tableClass: "qsmall",
 
-		roundTemp: false,
+		appendLocationNameToHeader: true,
+		calendarClass: "calendar",
+		tableClass: "small",
+
+		roundTemp: config.roundTemp,
 
 		iconTable: {
 			"01d": "day-sunny",
@@ -182,7 +186,7 @@ Module.register("weatherforecast", {
 				var rainCell = document.createElement("td");
 				if (isNaN(forecast.rain)) {
 					rainCell.className = "align-right shade";
-					rainCell.innerHTML = this.translate("No rain") + " &nbsp;<i class=\"wi wi-raindrop olive\"></i>&nbsp;" // this.translate("No rain");
+					rainCell.innerHTML = this.translate("No rain") + " &nbsp;<i class=\"wi wi-small-craft-advisory lime\"></i>&nbsp;" // this.translate("No rain");
 				} else if (!isNaN(forecast.snow)) {
 					if(config.units !== "imperial") {
 						rainCell.innerHTML = parseFloat(forecast.snow).toFixed(1).replace(".", this.config.decimalSymbol) + " mm <i class=\"wi wi-snowflake-cold lightblue\"></i>";
