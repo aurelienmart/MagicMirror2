@@ -119,22 +119,28 @@ Module.register("timer", {
 		var traf = Array.from(document.querySelectorAll(".traffic"));
 		var life = Array.from(document.querySelectorAll(".lifecounter"));
 		var now = this.now;	var weekday = this.weekday;
-		if (this.config.traffic && weekday < this.config.weekdays) {
-			if (now >= this.config.workStart && now < this.config.workEnd) {
-				life.forEach(function(element) {return element.style.display = "none"});
-				home.forEach(function(element) {return element.style.display = "none"});
-				work.forEach(function(element) {return element.style.display = "inline"});
-			} else if (now >= this.config.homeStart && now < this.config.homeEnd) {
-				life.forEach(function(element) {return element.style.display = "none"});
-				work.forEach(function(element) {return element.style.display = "none"});
-				home.forEach(function(element) {return element.style.display = "inline"});
+		if (this.config.alternate) {
+			if (this.config.traffic && weekday < this.config.weekdays) {
+				if (now >= this.config.workStart && now < this.config.workEnd) {
+					life.forEach(function(element) {return element.style.display = "none"});
+					home.forEach(function(element) {return element.style.display = "none"});
+					work.forEach(function(element) {return element.style.display = "inline"});
+				} else if (now >= this.config.homeStart && now < this.config.homeEnd) {
+					life.forEach(function(element) {return element.style.display = "none"});
+					work.forEach(function(element) {return element.style.display = "none"});
+					home.forEach(function(element) {return element.style.display = "inline"});
+				} else {
+					traf.forEach(function(element) {return element.style.display = "none"});
+					life.forEach(function(element) {return element.style.display = "inline"});
+				}
 			} else {
-				traf.forEach(function(element) {return element.style.display = "none"});
 				life.forEach(function(element) {return element.style.display = "inline"});
+				traf.forEach(function(element) {return element.style.display = "none"});
 			}
 		} else {
-			life.forEach(function(element) {return element.style.display = "inline"});
-			traf.forEach(function(element) {return element.style.display = "none"});
+			life.forEach(function(element) {return element.style.display = "none"});
+			home.forEach(function(element) {return element.style.display = "inline"});
+			work.forEach(function(element) {return element.style.display = "inline"});
 		}
 	},
 
@@ -171,8 +177,10 @@ Module.register("timer", {
 
 		if (secs == "58") {
 			if (window.navigator.onLine == true) {
-				if ((now >= "00:00:00") && (now < "07:00:00")) {
-					this.sendNotification("NIGHT_ONLINE_NOTIFICATION", this.opacity)
+				if (this.config.nightMode) {
+					if ((now >= "23:00:00") && (now < "23:59:59") || (now >= "06:00:00") && (now < "06:59:59")) {
+						this.sendNotification("NIGHT_ONLINE_NOTIFICATION", this.opacity)
+					} else this.sendNotification("DAY_ONLINE_NOTIFICATION")
 				} else this.sendNotification("DAY_ONLINE_NOTIFICATION")
 			} else if (window.navigator.onLine == false) {
 				this.sendNotification("OFFLINE_NOTIFICATION")

@@ -76,13 +76,11 @@ Module.register("notification", {
 
 		if (notification === "OFFLINE_NOTIFICATION") {this.offLine();}
 
-		if (this.config.nightMode) {
-			if (notification === "NIGHT_ONLINE_NOTIFICATION") {
-				this.notification = this.translate("Dimmed night mode ") + parseInt(payload) + "%";
-				this.updateDom(this.config.animationSpeed);
-			}
+		if (notification === "NIGHT_ONLINE_NOTIFICATION") {
+			this.notification = this.translate("Dimmed night mode ") + parseInt(payload) + "%";
+			this.updateDom(this.config.animationSpeed);
 		}
-
+		
 		if (notification === "DAY_NOTIFICATION") {
 			if (typeof payload.title === "undefined") {
 				payload.title = this.config.startTitle;
