@@ -7,7 +7,18 @@
 Module.register("compliments", {
 	// Module config defaults.
 	defaults: {
+		compliments: {},
+		updateInterval: 30000,
+		remoteFile: null,
 		fadeSpeed: config.animation,
+		morning: 5,
+		noon: 12,
+		afternoon: 14,
+		evening: 18,
+		night: 22,
+		midnight: 1,
+		random: true,
+		mockDate: null
 	},
 
 	lastIndexUsed: -1,

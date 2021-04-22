@@ -9,7 +9,30 @@
 Module.register("newsfeed", {
 	// Default module config.
 	defaults: {
-		animationSpeed: config.animation,
+        feeds: [],
+        showSourceTitle: true,
+        showPublishDate: true,
+        broadcastNewsFeeds: true,
+        broadcastNewsUpdates: true,
+        showDescription: false,
+        wrapTitle: true,
+        wrapDescription: true,
+        truncDescription: true,
+        lengthDescription: 400,
+        hideLoading: false,
+        reloadInterval: 5 * 60 * 1000, // every 5 minutes
+        updateInterval: 10 * 1000,
+        animationSpeed: config.animation,
+        maxNewsItems: 0, // 0 for unlimited
+        ignoreOldItems: false,
+        ignoreOlderThan: 24 * 60 * 60 * 1000, // 1 day
+        removeStartTags: "",
+        removeEndTags: "",
+        startTags: [],
+        endTags: [],
+        prohibitedWords: [],
+        scrollLength: 500,
+        logFeedWarnings: false
 	},
 
     // Define required scripts.
@@ -123,10 +146,10 @@ Module.register("newsfeed", {
         var newsItems = [];
         for (var feed in feeds) {
             var feedItems = feeds[feed];
-            if (this.subscribedToFeed(feed)) {
+            if (self.subscribedToFeed(feed)) {
                 for (var item of feedItems) {
-                    item.sourceTitle = this.titleForFeed(feed);
-                    if (!(this.config.ignoreOldItems && Date.now() - new Date(item.pubdate) > this.config.ignoreOlderThan)) {
+                    item.sourceTitle = self.titleForFeed(feed);
+                    if (!(self.config.ignoreOldItems && Date.now() - new Date(item.pubdate) > self.config.ignoreOlderThan)) {
                         newsItems.push(item);
                     }
                 }
@@ -138,11 +161,11 @@ Module.register("newsfeed", {
             return dateB - dateA;
         });
         if (this.config.maxNewsItems > 0) {
-            newsItems = newsItems.slice(0, this.config.maxNewsItems);
+            newsItems = newsItems.slice(0, self.config.maxNewsItems);
         }
         if (this.config.prohibitedWords.length > 0) {
             newsItems = newsItems.filter(function (value) {
-                for (var word of this.config.prohibitedWords) {
+                for (var word of self.config.prohibitedWords) {
                     if (value["title"].toLowerCase().indexOf(word.toLowerCase()) > -1) {
                         return false;
                     }
@@ -153,7 +176,7 @@ Module.register("newsfeed", {
         newsItems.forEach(function (item) {
             //Remove selected tags from the beginning of rss feed items (title or description)
             if (self.config.removeStartTags === "title" || self.config.removeStartTags === "both") {
-                for (var startTag of this.config.startTags) {
+                for (var startTag of self.config.startTags) {
                     if (item.title.slice(0, startTag.length) === startTag) {
                         item.title = item.title.slice(startTag.length, item.title.length);
                     }
@@ -161,7 +184,7 @@ Module.register("newsfeed", {
             }
             if (self.config.removeStartTags === "description" || self.config.removeStartTags === "both") {
                 if (self.isShowingDescription) {
-                    for (var startTag of this.config.startTags) {
+                    for (var startTag of self.config.startTags) {
                         if (item.description.slice(0, startTag.length) === startTag) {
                             item.description = item.description.slice(startTag.length, item.description.length);
                         }
@@ -170,13 +193,13 @@ Module.register("newsfeed", {
             }
             //Remove selected tags from the end of rss feed items (title or description)
             if (self.config.removeEndTags) {
-                for (var endTag of this.config.endTags) {
+                for (var endTag of self.config.endTags) {
                     if (item.title.slice(-endTag.length) === endTag) {
                         item.title = item.title.slice(0, -endTag.length);
                     }
                 }
                 if (self.isShowingDescription) {
-                    for (var endTag of this.config.endTags) {
+                    for (var endTag of self.config.endTags) {
                         if (item.description.slice(-endTag.length) === endTag) {
                             item.description = item.description.slice(0, -endTag.length);
                         }
@@ -194,7 +217,7 @@ Module.register("newsfeed", {
         });
         // check if updated items exist, if so and if we should broadcast these updates, then lets do so
         if (this.config.broadcastNewsUpdates && updatedItems.length > 0) {
-            this.sendNotification("NEWS_FEED_UPDATE", { items: updatedItems });
+            self.sendNotification("NEWS_FEED_UPDATE", { items: updatedItems });
         }
         this.newsItems = newsItems;
     },
@@ -234,7 +257,7 @@ Module.register("newsfeed", {
         this.updateDom(this.config.animationSpeed);
         // Broadcast NewsFeed if needed
         if (this.config.broadcastNewsFeeds) {
-            this.sendNotification("NEWS_FEED", { items: this.newsItems });
+            self.sendNotification("NEWS_FEED", { items: this.newsItems });
         }
         this.timer = setInterval(function () {
             self.activeItem++;

@@ -11,38 +11,40 @@ Module.register("currentweather", {
 		locationID: config.locationID,
 		appid: config.appid2,
 		units: config.units,
+		updateInterval: 10 * 60 * 1000, // every 10 minutes
+		animationSpeed: config.animation,
 		timeFormat: config.timeFormat,
-		lang: config.language,
-		decimalSymbol: config.decimal,
-		apiVersion: config.apiVersion,
-		apiBase: config.apiBase,
 		showPeriod: config.period,
 		showPeriodUpper: config.period,
-		animationSpeed: config.animation,
-		degreeLabel: config.scale,
-		retryDelay: config.delay,
-		roundTemp: config.roundTemp,
-		initialLoadDelay: 0,
-		updateInterval: 10 * 60 * 1000,
 		showWindDirection: true,
-		showWindDirectionAsArrow: true,
-		appendLocationNameToHeader: false,
-		useLocationAsHeader: false,
-		useBeaufort: false,
-		useKMPHwind: true,
-		showPressure: true,
-		showVisibility: true,
-		showHumidity: true,
-		showMinMax: false,
+		showWindDirectionAsArrow: false,
+		useBeaufort: true,
+		useKMPHwind: false,
+		lang: config.language,
+		decimalSymbol: config.decimal,
+		showHumidity: false,
+		showSun: true,
+		degreeLabel: config.scale,
+		showIndoorTemperature: false,
+		showIndoorHumidity: false,
 		showFeelsLike: true,
-		realFeelsLike: true,
-		showDescription: true,
-		showSun: false,
+
+		initialLoadDelay: 0, // 0 seconds delay
+		retryDelay: config.delay,
+
+		apiVersion: config.apiVersion,
+		apiBase: config.apiBase,
 		weatherEndpoint: "weather",
+
+		appendLocationNameToHeader: true,
+		useLocationAsHeader: false,
+
 		calendarClass: "calendar",
-		tableClass: "xmedium",
+		tableClass: "large",
+
 		onlyTemp: false,
 		hideTemp: false,
+		roundTemp: config.roundTemp,
 
 		iconTable: {
 			"01d": "day-sunny",
@@ -299,7 +301,7 @@ Module.register("currentweather", {
 			var small = document.createElement("div");
 			small.className = "normal medium rfd ";
 
-			var feelsLike = document.createElement("span");
+			var feelsLike = document.createElement("div");
 					if (this.config.units == "metric") {
 				if (this.feelsLike == -0) {this.feelsLike = 0}
 				if (this.feelsLike >= 45) {
@@ -339,16 +341,27 @@ Module.register("currentweather", {
 				}
 			} else feelsLike.className = "dimmed real";
 
-//			feelsLike.innerHTML = "<span class=normal> În " + this.fetchedLocationName + " " + this.translate("FEELS!") + "</span>" + this.feelsLike + "&deg;" + degreeLabel;
 			feelsLike.innerHTML = "<span class=normal>" + this.translate("FEELS!") + "</span>" + this.feelsLike + "&deg;" + degreeLabel;
 			small.appendChild(feelsLike);
 
 			if (this.config.showDescription) {
-				var description = document.createElement("div"); 		// weather description.
-				description.className = "dimmed descr";
-//				description.innerHTML = "La ora: " + moment().format("HH:mm") + ": <span class=bright>" + this.desc + "</span>";
-				description.innerHTML = "<span class=bright>" + this.desc + "</span>";
+				var description = document.createElement("span"); 		// weather description.
+				description.className = "bright description";
+				description.innerHTML = this.desc;
 				small.appendChild(description);
+			}
+
+			if (this.config.showPrecip) {
+				var rains = document.createElement("span"); 			// rain. not working, under construction
+				rains.className = "mmx";
+				if ((isNaN(this.rain)) || (isNaN(this.snow))) {
+					rains.innerHTML = "&nbsp; <i class=\"wi wi-small-craft-advisory lime\"></i>&nbsp;" + this.translate("No rain");
+				} else if (isNaN(this.rain)) {
+					rains.innerHTML = "&nbsp; <i class=\"wi wi-snowflake-cold lightblue\"></i>&nbsp;" + this.snow.toFixed(1).replace(".", this.config.decimalSymbol) + "&nbsp;mm";
+				} else if (isNaN(this.snow)) {
+					rains.innerHTML = "&nbsp; <i class=\"wi wi-umbrella yellow\"></i>&nbsp;" + this.rain.toFixed(1).replace(".", this.config.decimalSymbol) + "&nbsp;mm";
+				}
+				small.appendChild(rains);
 			}
 
 			if (this.config.showMinMax) {
@@ -361,17 +374,6 @@ Module.register("currentweather", {
 				minTemp.className = "minTemp mmx";
 				minTemp.innerHTML = "&nbsp; <span class=\"minMax\">min.</span>&nbsp;" + this.roundValue(this.minTemp.toFixed(1).replace(".", this.config.decimalSymbol)) + "&deg;" + degreeLabel;
 				small.appendChild(minTemp);
-
-				var rains = document.createElement("span"); 			// rain. not working, under construction
-				rains.className = "mmx";
-				if ((isNaN(this.rain)) || (isNaN(this.snow))) {
-					rains.innerHTML = "&nbsp; <i class=\"wi wi-small-craft-advisory lime\"></i>&nbsp;" + this.translate("No rain");
-				} else if (isNaN(this.rain)) {
-					rains.innerHTML = "&nbsp; <i class=\"wi wi-snowflake-cold lightblue\"></i>&nbsp;" + this.snow.toFixed(1).replace(".", this.config.decimalSymbol) + "&nbsp;mm";
-				} else if (isNaN(this.snow)) {
-					rains.innerHTML = "&nbsp; <i class=\"wi wi-umbrella yellow\"></i>&nbsp;" + this.rain.toFixed(1).replace(".", this.config.decimalSymbol) + "&nbsp;mm";
-				}
-				small.appendChild(rains);
 			}
 			wrapper.appendChild(small);
 		}
