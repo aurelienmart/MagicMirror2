@@ -18,10 +18,10 @@
 	"WEEK": "Săptămâna {weekNumber}",
 	"DAY": "Ziua {dayNumber}",
 
-    "NOW": "Acum",
+	"NOW": "Acum",
 
-	"STILL": "still",
-	"UNTIL": "until",
+	"STILL": "încă",
+	"UNTIL": "până",
 
 	"No rain": "Nu plouă",
 	"No snow": "Nu ninge",
