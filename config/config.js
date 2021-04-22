@@ -27,19 +27,20 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
-	appid: "...",
+ 	appid: '...', // ios9 ipad
+ 	appid2: '...', // magic mirror
 	apiBase: "https://api.openweathermap.org/data/",
-	apiVersion: "2.5",
+	apiVersion: "2.5/",
 	roundTemp: false,
 	period: false,
 	scale: true,
-	delay: 2500,
+	delay: 2000,
 	animation: 2000,
 	header: true,
 	notification: false,
 	minVersion: "2.14.0",
 	serverOnly: true,
-	logLevel: ["INFO", "LOG", "WARN", "ERROR"], //"DEBUG", 
+	logLevel: ["INFO", "LOG", "WARN", "ERROR"], // "DEBUG", 
 
 	modules: [
 		{
@@ -49,9 +50,10 @@ var config = {
 			config: {
 				bodysize: 1080,
 				zoomMode: false,
-				nightMode: false,
+				nightMode: true,
 
 				traffic: true,
+				alternate: false,
 				workStart: "06:00:00",
 				workEnd: "10:59:59",
 				homeStart: "15:00:00",
@@ -64,10 +66,10 @@ var config = {
 
 				sharpMode: true,
 				dateMode: true,
-				name1: "..",
-				birthday1: "...",
-				name2: "...!",
-				birthday2: "...",
+				name1: " ",
+				birthday1: " ",
+				name2: " ",
+				birthday2: " ",
 				name3: "",
 				birthday3: ""
 			}
@@ -79,11 +81,21 @@ var config = {
 			configDeepMerge: true,
 			disabled: false,
 			config: {
-				nightMode: true,
-				startTitle: "<i class=\"lime fa fa-wifi\"></i> SmartBoard&sup3;&nbsp;",
+				startTitle: "<i class=\"lime fa fa-wifi\"></i> Smart Board&sup3;&nbsp;",
 				startNotification: "Modular smart mirror platform",
 				timer: 8000,
 			}
+		},
+		{
+			module: "alert",
+			configDeepMerge: true,
+			disabled: true,
+		},
+		{
+			module: "updatenotification",
+			position: "top_center",
+			configDeepMerge: true,
+			disabled: true,
 		},
 		{
 			module: "clock",
@@ -167,7 +179,7 @@ var config = {
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
-				firstLine: "Trafic estimat spre acasa: {duration} minute",
+				firstLine: "Trafic estimat spre casa: {duration} minute",
 				accessToken: "...",
 				originCoords: "...",
 				destinationCoords: "...",
@@ -188,9 +200,10 @@ var config = {
 		{
 			module: "simpletext",
 			position: "top_left",
-			header: "Calendar evenimente și aniversări",
+			header: "",
 			configDeepMerge: true,
-			disabled: true,
+			hiddenOnStartup: true,
+			disabled: false,
 			config: {
 				text: "",
 				cssClass: "empty",
@@ -322,89 +335,94 @@ var config = {
 				coloredSymbolOnly: true,
 				showLastSeenWhenOffline: true,
 				devices: [
-
+					{ macAddress: "...", name: "Mirror server", icon: "laptop"},
+					{ macAddress: "...", name: "Magic iPad 3", icon: "mobile"},
+					{ macAddress: "...", name: "Desktop PC", icon: "desktop"},
+					{ macAddress: "...", name: "Razvan iPhone", icon: "male"},
+					{ macAddress: "...", name: "Paula Huawei", icon: "female"},
+					{ macAddress: "...", name: "Paula Samsung", icon: "female"},
+					{ macAddress: "...", name: "Google Nexus 7 ", icon: "mobile"},
+					{ macAddress: "...", name: "Sony Smart TV", icon: "mobile"},
 				],
 			}        
 		},
 		{
 			module: "currentweather",
 			position: "top_right",
-			classes: "night",
+			classes: "night current weather",
 			configDeepMerge: true,
 			disabled: false,
-			config: {
-				updateInterval: 10 * 60 * 1000,
-				showWindDirection: true,
-				showWindDirectionAsArrow: true,
-				appendLocationNameToHeader: false,
-				useLocationAsHeader: false,
-				useBeaufort: false,
-				useKMPHwind: true,
-				showPressure: true,
-				showVisibility: true,
-				showHumidity: true,
-				showMinMax: false,
-				showFeelsLike: true,
-				realFeelsLike: true,
-				showDescription: true,
-				showSun: false,
-				weatherEndpoint: "weather",
-				calendarClass: "calendar",
-				tableClass: "xmedium",
-				onlyTemp: false,
-				hideTemp: false
-			}
 		},
 		{
 			module: "weatherforecast",
 			position: "top_right",
 			header: "Vremea în următoarele ore la",
-			classes: "hourly",
+			classes: "hourly forecast ipad",
 			configDeepMerge: true,
 			disabled: false,
 			config: {
 				maxNumberOfDays: 3,
-				showRainAmount: true,
-				showSnowAmount: false,
-				updateInterval: 10 * 60 * 1000,
-				appendLocationNameToHeader: true,
-				fade: false,
-				fadePoint: 0.25,
-				colored: true,
-				initialLoadDelay: 3500,
-				reload: false,
-				forecastEndpoint: "forecast",
-				calendarClass: "calendar",
-				tableClass: "qsmall",
+				forecastEndpoint: "/forecast",
 				fallBack: false,
-				fullday: "HH [h]"
+				fullday: "HH [h]",
+				initialLoadDelay: 2000,
 			}
 		},
 		{
 			module: "weatherforecast",
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
-			classes: "daily",
+			classes: "daily forecast ipad",
 			configDeepMerge: true,
 			disabled: false,
 			config: {
 				maxNumberOfDays: 16,
-				showRainAmount: true,
-				showSnowAmount: false,
-				updateInterval: 10 * 60 * 2000,
-				appendLocationNameToHeader: true,
-				fade: false,
-				fadePoint: 0.25,
-				colored: true,
-				initialLoadDelay: 4500,
-				reload: false,
 //				locationID: false,
 //				forecastEndpoint: "onecall",
-				forecastEndpoint: "forecast/daily",
-				calendarClass: "calendar",
-				tableClass: "qsmall",
+				forecastEndpoint: "/forecast/daily",
 				fallBack: true,
-				fullday: "ddd"
+				fullday: "ddd",
+				initialLoadDelay: 3000,
+			}
+		},
+		{
+			module: "weather",	// not fully operational
+			position: "top_right",
+			classes: "night currentweather current",
+			configDeepMerge: true,
+			disabled: true,
+			config: {
+				type: "current",
+				degreeLabel: false,
+				showPrecipitationAmount: false,
+			}
+		},
+		{
+			module: "weather",
+			position: "top_right",
+			header: "Vremea în următoarele 4 ore",
+			classes: "hourly weatherforecast forecast",
+			configDeepMerge: true,
+			disabled: false,
+			config: {
+				type: "hourly",
+				maxEntries: 4,
+				initialLoadDelay: 1000,
+				tableClass: "qsmall",
+			}
+		},
+		{
+			module: "weather",
+			position: "top_right",
+			header: "Vremea în următoarele 15 zile",
+			classes: "daily weatherforecast forecast",
+			configDeepMerge: true,
+			disabled: false,
+			config: {
+				type: "daily",
+				maxNumberOfDays: 16,
+				initialLoadDelay: 2000,
+				tableClass: "qsmall",
 			}
 		},
 		{
@@ -450,6 +468,8 @@ var config = {
 				midnight: 1,
 				compliments: {
 					anytime : [
+//						"Orice faci, fă-o bine!",
+//						"Fi sexy, fi tu însuți!",
 						function() {return moment().locale(config.language).format("dddd, D MMMM");}
 					],
 					morning : [
@@ -485,70 +505,76 @@ var config = {
 					],
 					day_sunny : [
 						"<i class=\"gold far fa-sun\"></i> Este însorit afară",
-						"<i class=\"gold fas fa-sun\"></i> Este frumos afară"
+//						"<i class=\"gold fas fa-sun\"></i> Este frumos afară"
 					],
 					day_cloud : [
 						"<i class=\"lightblue fa fa-cloud-sun\"></i> Sunt câțiva nori",
-						"<i class=\"lightblue fa fa-cloud-sun\"></i> Nori împrăștiați"
+//						"<i class=\"lightblue fa fa-cloud-sun\"></i> Nori împrăștiați"
 					],
 					cloudy : [
 						"<i class=\"skyblue fa fa-cloud\"></i> Este înorat afară",
-						"<i class=\"skyblue fa fa-cloud\"></i> Este cam înorat"
+//						"<i class=\"skyblue fa fa-cloud\"></i> Este cam înorat"
 					],
 					cloudy_windy : [
 						"<i class=\"powderblue fa fa-cloud\"></i> Este înorat și vânt",
-						"<i class=\"powderblue fa fa-cloud\"></i> Este vânt și înorat"
+//						"<i class=\"powderblue fa fa-cloud\"></i> Este vânt și înorat"
 					],
 					showers : [
 						"<i class=\"skyblue fa fa-cloud-sun-rain\"></i> Afară plouă puțin",
-						"<i class=\"skyblue fa fa-cloud-sun-rain\"></i> Plouă puțin pe afară"
+//						"<i class=\"skyblue fa fa-cloud-sun-rain\"></i> Plouă puțin pe afară"
 					],
 					rain : [
 						"<i class=\"deepskyblue fa fa-cloud-rain\"></i> Vreme ploioasă",
-						"<i class=\"deepskyblue fa fa-cloud-rain\"></i> Ploaie ușoară"
+//						"<i class=\"deepskyblue fa fa-cloud-rain\"></i> Ploaie ușoară"
 					],
 					thunderstorm : [
 						"<i class=\"dodgerblue fa fa-poo-storm\"></i> Afară este furtună!",
-						"<i class=\"dodgerblue fa fa-umbrella\"></i> Atenție, furtună!"
+//						"<i class=\"dodgerblue fa fa-umbrella\"></i> Atenție, furtună!"
 					],
 					snow : [
 						"<i class=\"normal far fa-snowflake\"></i> Afară ninge!",
-						"<i class=\"normal fas fa-snowflake\"></i> Este ninsoare"
+//						"<i class=\"normal fas fa-snowflake\"></i> Este ninsoare"
 					],
 					fog : [
 						"<i class=\"bright fa fa-smog\"></i> Afară este ceață",
-						"<i class=\"bright fa fa-smog\"></i> Vreme cu ceață"
+//						"<i class=\"bright fa fa-smog\"></i> Vreme cu ceață"
 					],
 					night_clear : [
 						"<i class=\"dimmed fas fa-moon\"></i> Noapte senină",
-						"<i class=\"dimmed far fa-moon\"></i> Este senin afară"
+//						"<i class=\"dimmed far fa-moon\"></i> Este senin afară"
 					],
 					night_cloudy : [
 						"<i class=\"powderblue fa fa-cloud-moon\"></i> Este înorat afară",
-						"<i class=\"powderblue fa fa-cloud-moon\"></i> Noapte înorată"
+//						"<i class=\"powderblue fa fa-cloud-moon\"></i> Noapte înorată"
 					],
 					night_showers : [
 						"<i class=\"skyblue fa fa-cloud-moon-rain\"></i> Afară plouă mărunt",
-						"<i class=\"skyblue fa fa-cloud-moon-rain\"></i> Ploaie măruntă"
+//						"<i class=\"skyblue fa fa-cloud-moon-rain\"></i> Ploaie măruntă"
 					],
 					night_rain : [
 						"<i class=\"deepskyblue fa fa-cloud-shower-heavy\"></i> Afară plouă",
-						"<i class=\"deepskyblue fa fa-cloud-shower-heavy\"></i> Noapte ploioasă"
+//						"<i class=\"deepskyblue fa fa-cloud-shower-heavy\"></i> Noapte ploioasă"
 					],
 					night_thunderstorm : [
 						"<i class=\"royalblue fa fa-wind\"></i> Noapte furtunoasă!",
-						"<i class=\"royalblue fa fa-poo-storm\"></i> Nu e vreme de ieșit!"
+//						"<i class=\"royalblue fa fa-poo-storm\"></i> Nu e vreme de ieșit!"
 					],
 					night_snow : [
 						"<i class=\"normal fas fa-snowflake\"></i> Noapte cu ninsoare",
-						"<i class=\"normal far fa-snowflake\"></i> Afară ninge!"
+//						"<i class=\"normal far fa-snowflake\"></i> Afară ninge!"
 					],
 					night_alt_cloudy_windy : [
 						"<i class=\"skyblue fa fa-cloud-moon\"></i> Nori și ceață",
-						"<i class=\"skyblue fa fa-cloud-moon\"></i> Ceață și nori"
+//						"<i class=\"skyblue fa fa-cloud-moon\"></i> Ceață și nori"
 					],
 					"14-02-...." : [
 						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
+					],
+					"30-10-...." : [
+						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
+					],
+					"01-12-...." : [
+						"<i class=\"gold fa fa-glass-cheers\"></i> La mulți ani România!"
 					],
 					"25-12-...." : [
 						"<i class=\"bright fa fa-snowman\"></i> Crăciun fericit!",
@@ -565,7 +591,8 @@ var config = {
 					"02-01-...." : [
 						"<i class=\"gold fa fa-glass-cheers\"></i> Un An Nou fericit!",
 						function() {return "La mulți ani! " + moment().format("YYYY");}
-					]
+					],
+
 				}
 			}
 		},
@@ -594,7 +621,7 @@ var config = {
 				wrapTitle: true,
 				wrapDescription: true,
 				truncDescription: true,
-				lengthDescription: 500,
+				lengthDescription: 400,
 				hideLoading: true,
 				reloadInterval: 5 * 60 * 1000,
 				updateInterval: 60 * 1000,
@@ -662,7 +689,6 @@ var config = {
 			module: "newsfeed",
 			position: "bottom_bar",
 			classes: "international",
-			hiddenOnStartup: true,
 			configDeepMerge: true,
 			disabled: true,
 			config: {
@@ -728,23 +754,6 @@ var config = {
 				]
 			}
 		},
-		{
-			module: "alert",
-			configDeepMerge: true,
-			disabled: true,
-		},
-		{
-			module: "updatenotification",
-			position: "top_center",
-			configDeepMerge: true,
-			disabled: true,
-		},
-		{
-			module: "weather",
-			position: "top_right",
-			configDeepMerge: true,
-			disabled: true,
-		}
 	]
 };
 
