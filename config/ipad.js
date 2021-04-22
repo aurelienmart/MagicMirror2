@@ -216,7 +216,7 @@ var config = {
 		{
 			module: "currentweather",
 			position: "top_right",
-			classes: "night current weather",
+			classes: "night current",
 			configDeepMerge: true,
 			disabled: false,
 		},
