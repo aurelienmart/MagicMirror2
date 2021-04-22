@@ -689,7 +689,7 @@ header {
 
 .icalendar table tr,
 .calendar-table table tr {
-	height: 23px;
+	height: 25px;
 }
 
 .icalendar table td,
@@ -1296,6 +1296,11 @@ header {
 	.daily .colored:nth-child(even),
 	.monthly .week:nth-child(odd) {
 		background: rgba(128,128,128,0.10);
+	}
+
+	.icalendar table tr,
+	.calendar-table table tr {
+		height: 23px;
 	}
 
 	.monthly .week,
