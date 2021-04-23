@@ -7,54 +7,86 @@
 
 Module.register('traffic', {
   defaults: {
+    mode: "driving",
     interval: 300000,
     showSymbol: true,
     firstLine: "Current duration is {duration} mins",
     loadingText: "Loading...",
     language: config.language,
     days: [0, 1, 2, 3, 4, 5, 6],
-    hoursStart: "00:00:00",
-    hoursEnd: "23:59:59"
+    hoursStart: "00:00",
+    hoursEnd: "23:59"
   },
 
   start() {
     console.log('Starting module: ' + this.name);
     this.loading = true;
     this.hidden = false;
+    this.firstResume = true;
     this.errorMessage = undefined;
     this.errorDescription = undefined;
     if ([this.config.originCoords, this.config.destinationCoords, this.config.accessToken].includes(undefined)) {
-      this.errorMessage = "Config error";
-      this.errorDescription = "You must set originCoords, destinationCoords, and accessToken in your config";
+      this.errorMessage = 'Config error';
+      this.errorDescription = 'You must set originCoords, destinationCoords, and accessToken in your config';
       this.updateDom();
     } else {
-      this.updateCommute(this);
-    }    
+      this.updateCommute();
+    }
   },
 
-  updateCommute(self) {
-    self.url = encodeURI(`https://api.mapbox.com/directions/v5/mapbox/driving-traffic/${self.config.originCoords};${self.config.destinationCoords}?access_token=${self.config.accessToken}`);
+  updateCommute() {
+    var mode = this.config.mode == 'driving' ? 'driving-traffic' : this.config.mode;
+    this.url = encodeURI("https://api.mapbox.com/directions/v5/mapbox/" + mode + "/" + this.config.originCoords + ";" + this.config.destinationCoords + "?access_token=" + this.config.accessToken);
 
     // only run getDom once at the start of a hidden period to remove the module from the screen, then just wait until time to unhide to run again
-    if (self.shouldHide() && !self.hidden) {
-      console.log("Hiding traffic");
-      self.hidden = true;
-      self.updateDom();
-    } else if (!self.shouldHide()) {
-      self.hidden = false;
-      self.sendSocketNotification("TRAFFIC_URL", { "url": self.url });
+    if (this.shouldHide() && !this.hidden) {
+      console.log('Hiding Traffic');
+      this.hidden = true;
+      this.updateDom();
+    } else if (!this.shouldHide()) {
+      this.hidden = false;
+      this.getCommute(this.url);
     }
     // no network requests are made when the module is hidden, so check every 30 seconds during hidden
     // period to see if it's time to unhide yet
-    setTimeout(self.updateCommute, self.hidden ? 3000 : self.config.interval, self);
+    setTimeout(this.updateCommute, this.hidden ? 3000 : this.config.interval);
+  },
+
+  getCommute(api_url) {
+    var self = this;
+    fetch(api_url)
+      .then(self.checkStatus)
+      .then(function (json) {
+          self.duration = Math.round(json.routes[0].duration / 60);
+          self.errorMessage = self.errorDescription = undefined;
+          self.loading = false;
+          self.updateDom();
+      })
+      .catch(function (e) {
+          self.errorMessage = payload.error.message;
+          self.errorDescription = payload.error.description;
+          self.loading = false;
+          self.updateDom();
+      });
+
+  },
+
+  checkStatus(res) {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return res.json().then(function (json) {
+          throw new trafficError("API Error - " + json.code, json.message);
+      });
+    }
   },
 
   getStyles() {
-    return [];
+    return ['font-awesome.css'];
   },
 
   getScripts() {
-    return [];
+    return ['moment.js'];
   },
 
   getDom() {
@@ -64,10 +96,10 @@ Module.register('traffic', {
     if (this.hidden) return wrapper;
 
     // base divs
-    var firstLineDiv = document.createElement("div");
-    firstLineDiv.className = "bright " + this.config.cssclass;
-    var secondLineDiv = document.createElement("div");
-    secondLineDiv.className = "normal " + this.config.cssclass2;
+    var firstLineDiv = document.createElement('div');
+    firstLineDiv.className = "bright medium";
+    var secondLineDiv = document.createElement('div');
+    secondLineDiv.className = "normal small";
 
     // display any errors
     if (this.errorMessage) {
@@ -78,25 +110,27 @@ Module.register('traffic', {
       return wrapper;
     }
 
+    var symbolString = 'car';
+    if (this.config.mode == 'cycling') symbolString = 'bicycle';
+    if (this.config.mode == 'walking') symbolString = 'walking';
+
     // symbol
     if (this.config.showSymbol) {
-      var symbol = document.createElement("span");
-      symbol.className = "fa fa-car symbol";
-      symbol.style.marginRight = "10px";
-
+      var symbol = document.createElement('span');
+    symbol.className = "fa fa-" + symbolString + " symbol";
+    symbol.style.marginRight = "10px";
       if (this.duration > 30) {
         symbol.style.color = "yellow";
-      } else if (this.duration > 45) {
+      } else if (this.duration > 50) {
         symbol.style.color = "darkorange";
       } else if (this.duration > 60) {
         symbol.style.color = "orangered";
       } else symbol.style.color = "lawngreen";
-
       firstLineDiv.appendChild(symbol);
     }
 
     // first line
-    var firstLineText = document.createElement("span");
+    var firstLineText = document.createElement('span');
     firstLineText.innerHTML = this.loading ? this.config.loadingText : this.replaceTokens(this.config.firstLine)
     firstLineDiv.appendChild(firstLineText);
     wrapper.appendChild(firstLineDiv);
@@ -112,36 +146,22 @@ Module.register('traffic', {
   },
 
   replaceTokens(text) {
-    return text.replace("{duration}", this.duration);
+    if (this.config.mode == "driving-traffic") {
+        return text.replace(/{duration}/g, Math.round(this.duration * 100 / 60));
+    } else {
+        return text.replace(/{duration}/g, this.duration);
+    }
   },
 
   shouldHide() {
     var hide = true;
     var now = moment();
     if (this.config.days.includes(now.day()) &&
-      moment(this.config.hoursStart, "HH:mm:ss").isBefore(now) &&
-      moment(this.config.hoursEnd, "HH:mm:ss").isAfter(now)
+      moment(this.config.hoursStart, 'HH:mm').isBefore(now) &&
+      moment(this.config.hoursEnd, 'HH:mm').isAfter(now)
     ) {
       hide = false;
     }
     return hide;
   },
-
-  socketNotificationReceived(notification, payload) {
-    this.leaveBy = '';
-    if (notification === 'TRAFFIC_DURATION' && payload.url === this.url) {
-  //  console.log('received TRAFFIC_DURATION');
-      this.duration = payload.duration;
-      this.errorMessage = this.errorDescription = undefined;
-      this.loading = false;
-      this.updateDom(1000);
-    } else if (notification === 'TRAFFIC_ERROR' && payload.url === this.url) {
-  //  console.log('received TRAFFIC_ERROR');
-      this.errorMessage = payload.error.message;
-      this.errorDescription = payload.error.description;
-      this.loading = false;
-      this.updateDom(1000);
-    }
-  }
-
 });
