@@ -12,7 +12,7 @@ var config = {
 	address: "0.0.0.0",
 	port: 8081,
 	basePath: "/",
-	ipWhitelist: [],
+	ipWhitelist: ["192.168.0.0/23"],
 	useHttps: false,
 	httpsPrivateKey: "",
 	httpsCertificate: "",
@@ -40,12 +40,12 @@ var config = {
 	notification: false,
 	minVersion: "2.14.0",
 	serverOnly: true,
+	DeepMerge: true,
 	logLevel: ["INFO", "LOG", "WARN", "ERROR"], // "DEBUG", 
 
 	modules: [
 		{
 			module: "timer",
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				bodysize: 1080,
@@ -79,7 +79,6 @@ var config = {
 			position: "top_center",
 			classes: "night",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				startTitle: "<i class=\"lime fa fa-wifi\"></i> Smart Board&sup3;&nbsp;",
@@ -89,14 +88,12 @@ var config = {
 		},
 		{
 			module: "alert",
-			configDeepMerge: true,
 			disabled: true,
 		},
 		{
 			module: "updatenotification",
 			position: "top_bar",
 			hiddenOnStartup: true,
-			configDeepMerge: true,
 			disabled: false,
 		},
 		{
@@ -104,7 +101,6 @@ var config = {
 			position: "top_center",
 			classes: "analog night",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				displayType: "analog",
@@ -118,7 +114,6 @@ var config = {
 			module: "monthly",
 			position: "top_center",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				startMonth: 0,
@@ -134,7 +129,6 @@ var config = {
 			position: "top_left",
 			classes: "digital night",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				displayType: "digital",
@@ -163,7 +157,6 @@ var config = {
 			position: "top_left",
 			classes: "work",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
@@ -180,7 +173,6 @@ var config = {
 			position: "top_left",
 			classes: "home",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
@@ -197,7 +189,6 @@ var config = {
 			position: "top_left",
 			classes: "night",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				logo_height: 27
@@ -208,7 +199,6 @@ var config = {
 			position: "top_left",
 			header: "",
 			hiddenOnStartup: true,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				text: "",
@@ -220,7 +210,6 @@ var config = {
 			position: "top_left",
 			header: "Calendar evenimente și aniversări",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				maximumEntries: 16,
@@ -291,7 +280,6 @@ var config = {
 			position: "top_left",
 			classes: "night",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				mode: "static",
@@ -309,7 +297,6 @@ var config = {
 			module: "network",
 			position: "top_left",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: true,
 			config: {
 				network: "192.168.0.0/23",
@@ -338,7 +325,6 @@ var config = {
 			position: "top_right",
 			classes: "night current",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				showWindDirectionAsArrow: true,
@@ -363,7 +349,6 @@ var config = {
 			header: "Vremea în următoarele ore la",
 			classes: "hourly forecast ipad",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				maxNumberOfDays: 3,
@@ -383,7 +368,6 @@ var config = {
 			header: "Vremea în următoarele zile la",
 			classes: "daily forecast ipad",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				maxNumberOfDays: 16,
@@ -403,7 +387,6 @@ var config = {
 			position: "top_right",
 			classes: "night currentweather current",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: true,
 			config: {
 				type: "current",
@@ -417,7 +400,6 @@ var config = {
 			header: "Vremea în următoarele 4 ore",
 			classes: "hourly weatherforecast forecast",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				type: "hourly",
@@ -432,7 +414,6 @@ var config = {
 			header: "Vremea în următoarele 15 zile",
 			classes: "daily weatherforecast forecast",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				type: "daily",
@@ -446,7 +427,6 @@ var config = {
 			position: "top_center",
 			header: "Kama Sutra Sex Positions",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: true
 		},
 		{
@@ -454,7 +434,6 @@ var config = {
 			position: "upper_third",
 			classes: "night",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: true,
 			config: {
 				url: "https://cristea13.ro/video/fishtank.mp4",
@@ -470,7 +449,6 @@ var config = {
 			position: "middle_center",
 			classes: "night",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				classes: "complimentz thin large pre-line skyblue",
@@ -613,7 +591,6 @@ var config = {
 			module: "quotes",
 			position: "lower_third",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				updateInterval: 20000,
@@ -625,7 +602,6 @@ var config = {
 			module: "newsfeed",
 			position: "bottom_bar",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: false,
 			config: {
 				showDescription: true,
@@ -692,7 +668,6 @@ var config = {
 			position: "bottom_bar",
 			classes: "international",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
 			disabled: true,
 			config: {
 				showDescription: true,
