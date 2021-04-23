@@ -32,17 +32,17 @@ var config = {
 	notification: false,
 	minVersion: "2.14.0",
 	serverOnly: true,
+	DeepMerge: true,
 	logLevel: ["INFO", "LOG", "WARN", "ERROR"], // "DEBUG", 
 
 	modules: [
 		{
 			module: "timer",
 			disabled: false,
-			configDeepMerge: true,
 			config: {
 				bodysize: 1080,
 				zoomMode: false,
-				nightMode: true,
+				nightMode: false,
 
 				traffic: true,
 				alternate: false,
@@ -70,7 +70,7 @@ var config = {
 			module: "notification",
 			position: "top_center",
 			classes: "night",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				startTitle: "<i class=\"lime fa fa-wifi\"></i> Smart iPad&sup3;&nbsp;",
@@ -80,33 +80,32 @@ var config = {
 		},
 		{
 			module: "alert",
-			configDeepMerge: true,
 			disabled: true,
 		},
 		{
 			module: "updatenotification",
 			position: "top_center",
-			configDeepMerge: true,
+			hiddenOnStartup: true,
 			disabled: true,
 		},
 		{
 			module: "clock",
 			position: "top_center",
 			classes: "analog night",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				displayType: "analog",
+				showDate: false,
 				analogSize: "300px",
 				analogFace: "none",
 				secondsColor: "coral",
-				displaySeconds: true
 			}
 		},
 		{
 			module: "monthly",
 			position: "top_center",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				startMonth: 0,
@@ -121,13 +120,10 @@ var config = {
 			module: "clock",
 			position: "top_left",
 			classes: "digital night",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				displayType: "digital",
-				displaySeconds: true,
-				clockBold: false,
-				showDate: true,
 				showWeek: true,
 				dateFormat: "dddd, D MMMM Y",
 				showSunTimes: true,
@@ -137,7 +133,7 @@ var config = {
 		{
 			module: "lifecounter",
 			position: "top_left",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				birthday: "1970-01-01 00:00:00",
@@ -151,7 +147,7 @@ var config = {
 			module: "swatch",
 			position: "top_left",
 			classes: "night",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				logo_height: 27
@@ -161,6 +157,7 @@ var config = {
 			module: "simpletext",
 			position: "top_left",
 			header: "Calendar evenimente și aniversări",
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				text: "",
@@ -170,6 +167,7 @@ var config = {
 		{
 			module: "icalendar",
 			position: "top_left",
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				maximumEntries: 18,
@@ -218,15 +216,31 @@ var config = {
 			module: "currentweather",
 			position: "top_right",
 			classes: "night current",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
+			config: {
+				showWindDirectionAsArrow: true,
+				useBeaufort: false,
+				useKMPHwind: true,
+				showVisibility: true,
+				showHumidity: true,
+				showSun: false,
+				showFeelsLike: true,
+				realFeelsLike: true,
+				showPressure: true,
+				showMinMax: false,
+				showPrecip: true,
+				showDescription: true,
+				appendLocationNameToHeader: false,
+				tableClass: "xmedium",
+			}
 		},
 		{
 			module: "weatherforecast",
 			position: "top_right",
 			header: "Vremea în următoarele ore la",
 			classes: "hourly forecast ipad",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				maxNumberOfDays: 3,
@@ -234,6 +248,8 @@ var config = {
 				fallBack: false,
 				fullday: "HH [h]",
 				initialLoadDelay: 2000,
+				showRainAmount: true,
+				fade: false,
 			}
 		},
 		{
@@ -241,23 +257,24 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
 			classes: "daily forecast ipad",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				maxNumberOfDays: 16,
 //				locationID: false,
 //				forecastEndpoint: "onecall",
-				forecastEndpoint: "/forecast/daily",
 				fallBack: true,
 				fullday: "ddd",
 				initialLoadDelay: 3000,
+				showRainAmount: true,
+				fade: false,
 			}
 		},
 		{
 			module: "weather",	// not fully operational
 			position: "top_right",
 			classes: "night currentweather current",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: true,
 			config: {
 				type: "current",
@@ -270,7 +287,7 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele 4 ore",
 			classes: "hourly weatherforecast forecast",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				type: "hourly",
@@ -284,7 +301,7 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele 15 zile",
 			classes: "daily weatherforecast forecast",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				type: "daily",
@@ -297,14 +314,14 @@ var config = {
 			module: "kamasutra",
 			position: "top_center",
 			header: "Kama Sutra Sex Positions",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: true
 		},
 		{
 			module: "yframe",
 			position: "upper_third",
 			classes: "night",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: true,
 			config: {
 				url: "https://cristea13.ro/video/fishtank.mp4",
@@ -319,15 +336,10 @@ var config = {
 			module: "compliments",
 			position: "middle_center",
 			classes: "night",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				updateInterval: 30000,
-				remoteFile: null,
-				random: true,
-				mockDate: null,
 				classes: "complimentz thin large pre-line skyblue",
-
 				morning: 5,
 				noon: 12,
 				afternoon: 14,
@@ -434,14 +446,48 @@ var config = {
 					night_alt_cloudy_windy : [
 						"<i class=\"skyblue fa fa-cloud-moon\"></i> Nori și ceață",
 //						"<i class=\"skyblue fa fa-cloud-moon\"></i> Ceață și nori"
+					],
+					"05-02-...." : [
+						"<i class=\"gold fa fa-birthday-cake\"></i> La mulți ani Ștefania!"
+					],
 					"14-02-...." : [
 						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
+					],
+					"19-02-...." : [
+						"<i class=\"gold fa fa-birthday-cake\"></i> La mulți ani Vlad!"
+					],
+					"21-02-...." : [
+						"<i class=\"gold fa fa-birthday-cake\"></i> La mulți ani Preoteasa!"
+					],
+					"24-02-...." : [
+						"<i class=\"gold fa fa-birthday-cake\"></i> La mulți ani Alexandra!"
+					],
+					"10-04-...." : [
+						"<i class=\"gold fa fa-birthday-cake\"></i> La mulți ani Nelu!"
+					],
+					"01-07-...." : [
+						"<i class=\"gold fa fa-birthday-cake\"></i> La mulți ani Gabi!"
+					],
+					"07-08-...." : [
+						"<i class=\"gold fa fa-birthday-cake\"></i> La mulți ani Mariana!"
+					],
+					"22-08-...." : [
+						"<i class=\"gold fa fa-birthday-cake\"></i> La mulți ani Paula!"
+					],
+					"13-10-...." : [
+						"<i class=\"gold fa fa-birthday-cake\"></i> La mulți ani Răzvan!"
+					],
+					"27-10-...." : [
+						"<i class=\"gold fa fa-birthday-cake\"></i> La mulți ani Vali!"
 					],
 					"30-10-...." : [
 						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
 					],
 					"01-12-...." : [
 						"<i class=\"gold fa fa-glass-cheers\"></i> La mulți ani România!"
+					],
+					"14-12-...." : [
+						"<i class=\"gold fa fa-birthday-cake\"></i> La mulți ani Costin!"
 					],
 					"25-12-...." : [
 						"<i class=\"bright fa fa-snowman\"></i> Crăciun fericit!",
@@ -465,7 +511,7 @@ var config = {
 		{
 			module: "quotes",
 			position: "lower_third",
-			configDeepMerge: true,
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				updateInterval: 20000,
@@ -476,6 +522,7 @@ var config = {
 		{
 			module: "rssfeed",
 			position: "bottom_bar",
+			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				lengthDescription: 600,
