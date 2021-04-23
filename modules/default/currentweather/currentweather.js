@@ -341,7 +341,7 @@ Module.register("currentweather", {
 				}
 			} else feelsLike.className = "dimmed real";
 
-			feelsLike.innerHTML = "<span class=normal>" + this.translate("FEELS!") + "</span>" + this.feelsLike + "&deg;" + degreeLabel;
+			feelsLike.innerHTML = this.translate("FEELS!") + this.feelsLike + "&deg;" + degreeLabel;
 			small.appendChild(feelsLike);
 
 			if (this.config.showDescription) {
@@ -353,7 +353,7 @@ Module.register("currentweather", {
 
 			if (this.config.showPrecip) {
 				var rains = document.createElement("span"); 			// rain. not working, under construction
-				rains.className = "mmx";
+				rains.className = "normal";
 				if ((isNaN(this.rain)) || (isNaN(this.snow))) {
 					rains.innerHTML = "&nbsp; <i class=\"wi wi-small-craft-advisory lime\"></i>&nbsp;" + this.translate("No rain");
 				} else if (isNaN(this.rain)) {
