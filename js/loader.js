@@ -107,7 +107,7 @@ var Loader = (function () {
 				position: moduleData.position,
 				hiddenOnStartup: moduleData.hiddenOnStartup,
 				header: moduleData.header,
-				configDeepMerge: typeof moduleData.configDeepMerge === "boolean" ? moduleData.configDeepMerge : false,
+				configDeepMerge: typeof moduleData.configDeepMerge === "boolean" ? moduleData.configDeepMerge : config.DeepMerge,
 				config: moduleData.config,
 				classes: typeof moduleData.classes !== "undefined" ? moduleData.classes + " " + module : module
 			});
