@@ -612,7 +612,7 @@ var config = {
 				removeEndTags: "both",
 				startTags: ["VIDEO","FOTO","horoscop"],
 				endTags: ["VIDEO","FOTO","horoscop"],
-				prohibitedWords: ["VIDEO","FOTO","Marius Tucă Show"],
+				prohibitedWords: ["VIDEO","FOTO","Marius Tucă Show","Bancul zilei"],
 
 				feeds: [
 					{
