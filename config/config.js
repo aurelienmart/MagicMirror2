@@ -12,7 +12,7 @@ var config = {
 	address: "0.0.0.0",
 	port: 8081,
 	basePath: "/",
-	ipWhitelist: ["192.168.0.0/23"],
+	ipWhitelist: [],
 	useHttps: false,
 	httpsPrivateKey: "",
 	httpsCertificate: "",
@@ -52,14 +52,6 @@ var config = {
 				zoomMode: false,
 				nightMode: false,
 
-				traffic: true,
-				alternate: false,
-				workStart: "06:00:00",
-				workEnd: "10:59:59",
-				homeStart: "15:00:00",
-				homeEnd: "19:59:59",
-				weekdays: 6,
-
 				dimmMode: true,
 				fadeMode: true,
 				dimming: 50,
@@ -94,7 +86,7 @@ var config = {
 			module: "updatenotification",
 			position: "top_bar",
 			hiddenOnStartup: true,
-			disabled: false,
+			disabled: true,
 		},
 		{
 			module: "clock",
@@ -139,11 +131,28 @@ var config = {
 			}
 		},
 		{
+			module: "lunartic",
+			position: "top_left",
+			classes: "night",
+			hiddenOnStartup: false,
+			disabled: false,
+			config: {
+				mode: "static",
+				image: "current",
+				useHeader: false,
+				distance: "km",
+				sounds: "no",
+				initialLoadDelay: 4000,
+				retryDelay: 2500,
+				updateInterval: 60 * 60 * 1000,
+				rotateInterval: 60 * 1000
+			}
+		},
+		{
 			module: "lifecounter",
 			position: "top_left",
 			hiddenOnStartup: false,
-			configDeepMerge: true,
-			disabled: false,
+			disabled: true,
 			config: {
 				birthday: "1970-01-01 00:00:00",
 				counter: "seconds",
@@ -159,13 +168,10 @@ var config = {
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
+				mode: "driving-traffic",
 				loadingText: "Se încarcă...",
 				firstLine: "Trafic estimat spre birou: {duration} minute",
-				accessToken: "...",
-				originCoords: "...",
-				destinationCoords: "...",
-				cssclass: "ssmall",
-				cssclass2: "xsmall"
+				days: [1, 2, 3, 4, 5],
 			}
 		},
 		{
@@ -175,13 +181,37 @@ var config = {
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
+				mode: "driving-traffic",
 				loadingText: "Se încarcă...",
 				firstLine: "Trafic estimat spre casa: {duration} minute",
-				accessToken: "...",
-				originCoords: "...",
-				destinationCoords: "...",
-				cssclass: "ssmall",
-				cssclass2: "xsmall"
+				accessToken: "pk.eyJ1IjoiaGFuZ29yYXp2YW4iLCJhIjoiY2toc3NuaGpzMDN1ZjJ6cDVucnI5cWRrNyJ9.6WgW07uaIPAH70xkpF5WCA",
+				originCoords: "26.0733113,44.4672645",
+				destinationCoords: "26.173524,44.4102524",
+				days: [1, 2, 3, 4, 5],
+			}
+		},
+		{
+			module: "traffic",
+			position: "top_left",
+			classes: "parc",
+			hiddenOnStartup: false,
+			disabled: false,
+			config: {
+				loadingText: "Se încarcă...",
+				firstLine: "Trafic până la parcul Titan: {duration} minute",
+				days: [0, 6],
+			}
+		},
+		{
+			module: "traffic",
+			position: "top_left",
+			classes: "ikea",
+			hiddenOnStartup: false,
+			disabled: false,
+			config: {
+				loadingText: "Se încarcă...",
+				firstLine: "Trafic până la Ikea Pallady: {duration} minute",
+				days: [0, 6],
 			}
 		},
 		{
@@ -217,11 +247,9 @@ var config = {
 				fetchInterval: 60 * 1000,
 				fade: false,
 				urgency: 15,
+				dateFormat: "ddd D MMM",
 				fullDayEventDateFormat: "ddd D MMM",
 				getRelative: 48,
-				hidePrivate: false,
-				hideOngoing: false,
-				hideTime: false,
 				coloredSymbolOnly: true,
 				tableClass: "qsmall",
 				titleReplace: {
@@ -254,43 +282,25 @@ var config = {
 					},
 					{
 						symbol: "registered", symbolClass: "lightgreen", // titleClass: "lightgreen", timeClass: "lightgreen", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
+						url: "https://calendar.google.com/calendar/ical/basic.ics"
 					},
 					{
 						symbol: "product-hunt", symbolClass: "tomato", // titleClass: "tomato", timeClass: "tomato", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
+						url: "https://calendar.google.com/calendar/ical/basic.ics"
 					},
 					{
 						symbol: "birthday-cake", symbolClass: "gold", // titleClass: "gold", timeClass: "gold", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
+						url: "https://calendar.google.com/calendar/ical/basic.ics"
 					},
 					{
 						symbol: "film", symbolClass: "magenta", // titleClass: "magenta", timeClass: "magenta", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
+						url: "https://calendar.google.com/calendar/ical/basic.ics"
 					},
 					{
 						symbol: "suitcase", symbolClass: "coral", // titleClass: "coral",timeClass: "coral", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
+						url: "https://calendar.google.com/calendar/ical/basic.ics"
 					},
 				]
-			}
-		},
-		{
-			module: "lunartic",
-			position: "top_left",
-			classes: "night",
-			hiddenOnStartup: false,
-			disabled: false,
-			config: {
-				mode: "static",
-				image: "current",
-				useHeader: false,
-				distance: "km",
-				sounds: "no",
-				initialLoadDelay: 4000,
-				retryDelay: 2500,
-				updateInterval: 60 * 60 * 1000,
-				rotateInterval: 60 * 1000
 			}
 		},
 		{
@@ -358,8 +368,6 @@ var config = {
 				initialLoadDelay: 2000,
 				showRainAmount: true,
 				fade: false,
-				colored: true,
-				tableClass: "qsmall",
 			}
 		},
 		{
@@ -378,8 +386,7 @@ var config = {
 				initialLoadDelay: 3000,
 				showRainAmount: true,
 				fade: false,
-				colored: true,
-				tableClass: "qsmall",
+
 			}
 		},
 		{
