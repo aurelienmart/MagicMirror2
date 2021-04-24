@@ -54,15 +54,15 @@ Module.register("weather", {
 	firstEvent: null,
 
 	// Define required scripts.
-    getStyles() {
+    getStyles: function () {
         return ["font-awesome.css", "weather-icons.css"];
     },
     // Return the scripts that are necessary for the weather module.
-    getScripts() {
+    getScripts: function () {
         return ["moment.js", "weatherprovider.js", "weatherobject.js", "suncalc.js", this.file("providers/" + this.config.weatherProvider.toLowerCase() + ".js")];
     },
     // Override getHeader method.
-    getHeader() {
+    getHeader: function () {
         if (this.config.appendLocationNameToHeader && this.weatherProvider) {
             if (this.data.header)
                 return this.data.header + " " + this.weatherProvider.fetchedLocation();
@@ -72,7 +72,7 @@ Module.register("weather", {
         return this.data.header ? this.data.header : "";
     },
     // Start the weather module.
-    start() {
+    start: function () {
         moment.locale(this.config.lang);
         // Initialize the weather provider.
         this.weatherProvider = WeatherProvider.initialize(this.config.weatherProvider, this);
@@ -84,7 +84,7 @@ Module.register("weather", {
         this.scheduleUpdate(this.config.initialLoadDelay);
     },
     // Override notification handler.
-    notificationReceived(notification, payload, sender) {
+    notificationReceived: function (notification, payload, sender) {
         if (notification === "CALENDAR_EVENTS") {
             var senderClasses = sender.data.classes.toLowerCase().split(" ");
             if (senderClasses.indexOf(this.config.calendarClass.toLowerCase()) !== -1) {
@@ -109,7 +109,7 @@ Module.register("weather", {
         }
     },
     // Select the template depending on the display type.
-    getTemplate() {
+    getTemplate: function () {
         switch (this.config.type.toLowerCase()) {
             case "current":
                 return "current.njk";
@@ -124,7 +124,7 @@ Module.register("weather", {
         }
     },
     // Add all the data to the template.
-    getTemplateData() {
+    getTemplateData: function () {
         return {
             config: this.config,
             current: this.weatherProvider.currentWeather(),
@@ -137,7 +137,7 @@ Module.register("weather", {
         };
     },
     // What to do when the weather provider has new information available?
-    updateAvailable() {
+    updateAvailable: function () {
         Log.log("New weather information available.");
         this.updateDom(0);
         this.scheduleUpdate();
@@ -145,7 +145,7 @@ Module.register("weather", {
             this.sendNotification("CURRENTWEATHER_TYPE", { type: this.weatherProvider.currentWeather().weatherType.replace("-", "_") });
         }
     },
-    scheduleUpdate(delay) {
+    scheduleUpdate: function (delay) {
         var self = this;
         if (delay === void 0) { delay = null; }
         var nextLoad = this.config.updateInterval;
@@ -169,12 +169,12 @@ Module.register("weather", {
             }
         }, nextLoad);
     },
-    roundValue(temperature) {
+    roundValue: function (temperature) {
         var decimals = this.config.roundTemp ? 0 : 1;
         var roundValue = parseFloat(temperature).toFixed(decimals);
         return roundValue === "-0" ? 0 : roundValue;
     },
-    addFilters() {
+    addFilters: function () {
         this.nunjucksEnvironment().addFilter("formatTime", function (date) {
             date = moment(date);
             if (this.config.timeFormat !== 24) {
