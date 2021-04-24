@@ -103,7 +103,7 @@ var Translator = (function () {
 		 * @param {boolean} isFallback Flag to indicate fallback translations.
 		 * @param {Function} callback Function called when done.
 		 */
-		load(module, file, isFallback, callback) {
+		load: function (module, file, isFallback, callback) {
 			Log.log(`${module.name} - Load translation${isFallback && " fallback"}: ${file}`);
 
 			if (this.translationsFallback[module.name]) {
