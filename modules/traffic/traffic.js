@@ -13,12 +13,12 @@ Module.register('traffic', {
     firstLine: "Current duration is {duration} mins",
     loadingText: "Loading...",
     language: config.language,
-    days: [0, 1, 2, 3, 4, 5, 6],
+    days: [1, 2, 3, 4, 5, 6, 7],
     hoursStart: "00:00",
     hoursEnd: "23:59"
   },
 
-  start() {
+  start: function () {
     console.log('Starting module: ' + this.name);
     this.loading = true;
     this.hidden = false;
@@ -34,7 +34,7 @@ Module.register('traffic', {
     }
   },
 
-  updateCommute() {
+  updateCommute: async function () {
     var mode = this.config.mode == 'driving' ? 'driving-traffic' : this.config.mode;
     this.url = encodeURI("https://api.mapbox.com/directions/v5/mapbox/" + mode + "/" + this.config.originCoords + ";" + this.config.destinationCoords + "?access_token=" + this.config.accessToken);
 
@@ -52,7 +52,7 @@ Module.register('traffic', {
     setTimeout(this.updateCommute, this.hidden ? 3000 : this.config.interval);
   },
 
-  getCommute(api_url) {
+  getCommute: function (api_url) {
     var self = this;
     fetch(api_url)
       .then(self.checkStatus)
@@ -71,7 +71,7 @@ Module.register('traffic', {
 
   },
 
-  checkStatus(res) {
+  checkStatus: function (res) {
     if (res.ok) {
       return res.json();
     } else {
@@ -81,15 +81,15 @@ Module.register('traffic', {
     }
   },
 
-  getStyles() {
+  getStyles: function () {
     return ['font-awesome.css'];
   },
 
-  getScripts() {
+  getScripts: function () {
     return ['moment.js'];
   },
 
-  getDom() {
+  getDom: function () {
     var wrapper = document.createElement("div");
 
     // hide when desired (called once on first update during hidden period)
@@ -145,7 +145,7 @@ Module.register('traffic', {
     return wrapper;
   },
 
-  replaceTokens(text) {
+  replaceTokens: function (text) {
     if (this.config.mode == "driving-traffic") {
         return text.replace(/{duration}/g, Math.round(this.duration * 100 / 60));
     } else {
@@ -153,10 +153,10 @@ Module.register('traffic', {
     }
   },
 
-  shouldHide() {
+  shouldHide: function () {
     var hide = true;
     var now = moment();
-    if (this.config.days.includes(now.day()) &&
+    if (this.config.days.includes(now.isoWeekday()) &&
       moment(this.config.hoursStart, 'HH:mm').isBefore(now) &&
       moment(this.config.hoursEnd, 'HH:mm').isAfter(now)
     ) {
