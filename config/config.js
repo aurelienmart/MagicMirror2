@@ -171,6 +171,9 @@ var config = {
 				mode: "driving-traffic",
 				loadingText: "Se încarcă...",
 				firstLine: "Trafic estimat spre birou: {duration} minute",
+				accessToken: "...",
+				originCoords: "...",
+				destinationCoords: "...",
 				days: [1, 2, 3, 4, 5],
 			}
 		},
@@ -184,9 +187,9 @@ var config = {
 				mode: "driving-traffic",
 				loadingText: "Se încarcă...",
 				firstLine: "Trafic estimat spre casa: {duration} minute",
-				accessToken: "pk.eyJ1IjoiaGFuZ29yYXp2YW4iLCJhIjoiY2toc3NuaGpzMDN1ZjJ6cDVucnI5cWRrNyJ9.6WgW07uaIPAH70xkpF5WCA",
-				originCoords: "26.0733113,44.4672645",
-				destinationCoords: "26.173524,44.4102524",
+				accessToken: "...",
+				originCoords: "...",
+				destinationCoords: "...",
 				days: [1, 2, 3, 4, 5],
 			}
 		},
@@ -199,7 +202,10 @@ var config = {
 			config: {
 				loadingText: "Se încarcă...",
 				firstLine: "Trafic până la parcul Titan: {duration} minute",
-				days: [0, 6],
+				accessToken: "...",
+				originCoords: "...",
+				destinationCoords: "...",
+				days: [6, 7],
 			}
 		},
 		{
@@ -211,7 +217,10 @@ var config = {
 			config: {
 				loadingText: "Se încarcă...",
 				firstLine: "Trafic până la Ikea Pallady: {duration} minute",
-				days: [0, 6],
+				accessToken: "...",
+				originCoords: "...",
+				destinationCoords: "...",
+				days: [6, 7],
 			}
 		},
 		{
