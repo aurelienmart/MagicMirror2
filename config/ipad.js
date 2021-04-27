@@ -144,6 +144,68 @@ var config = {
 			}
 		},
 		{
+			module: "traffic",
+			position: "top_left",
+			classes: "work",
+			hiddenOnStartup: false,
+			disabled: false,
+			config: {
+				mode: "driving-traffic",
+				loadingText: "Se încarcă...",
+				firstLine: "Trafic estimat spre birou: {duration} minute",
+				accessToken: "...",
+				originCoords: "...",
+				destinationCoords: "...",
+				days: [1, 2, 3, 4, 5],
+			}
+		},
+		{
+			module: "traffic",
+			position: "top_left",
+			classes: "home",
+			hiddenOnStartup: false,
+			disabled: false,
+			config: {
+				mode: "driving-traffic",
+				loadingText: "Se încarcă...",
+				firstLine: "Trafic estimat spre casa: {duration} minute",
+				accessToken: "...",
+				originCoords: "...",
+				destinationCoords: "...",
+				days: [1, 2, 3, 4, 5],
+			}
+		},
+		{
+			module: "traffic",
+			position: "top_left",
+			classes: "parc",
+			hiddenOnStartup: false,
+			disabled: false,
+			config: {
+				loadingText: "Se încarcă...",
+				firstLine: "Trafic până la parcul Titan: {duration} minute",
+				accessToken: "...",
+				originCoords: "...",
+				destinationCoords: "...",
+				days: [6, 7],
+			}
+		},
+		{
+			module: "traffic",
+			position: "top_left",
+			classes: "ikea",
+			hiddenOnStartup: false,
+			disabled: false,
+			config: {
+				loadingText: "Se încarcă...",
+				firstLine: "Trafic până la Ikea Pallady: {duration} minute",
+				accessToken: "...",
+				originCoords: "...",
+				destinationCoords: "...",
+				days: [6, 7],
+			}
+		},
+		{
 			module: "swatch",
 			position: "top_left",
 			classes: "night",
@@ -161,7 +223,7 @@ var config = {
 			disabled: false,
 			config: {
 				text: "",
-				cssClass: "empty",
+				cssClass: "small",
 			}
 		},
 		{
@@ -170,7 +232,7 @@ var config = {
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				maximumEntries: 18,
+				maximumEntries: 16,
 				calendarClass: "icalendar",
 				defaultSymbol: "calendar",
 				displaySymbol: true,
@@ -218,22 +280,6 @@ var config = {
 			classes: "night current",
 			hiddenOnStartup: false,
 			disabled: false,
-			config: {
-				showWindDirectionAsArrow: true,
-				useBeaufort: false,
-				useKMPHwind: true,
-				showVisibility: true,
-				showHumidity: true,
-				showSun: false,
-				showFeelsLike: true,
-				realFeelsLike: true,
-				showPressure: true,
-				showMinMax: false,
-				showPrecip: true,
-				showDescription: true,
-				appendLocationNameToHeader: false,
-				tableClass: "xmedium",
-			}
 		},
 		{
 			module: "weatherforecast",
@@ -293,7 +339,7 @@ var config = {
 				type: "hourly",
 				maxEntries: 4,
 				initialLoadDelay: 1000,
-				tableClass: "qsmall",
+				tableClass: "small",
 			}
 		},
 		{
@@ -307,29 +353,7 @@ var config = {
 				type: "daily",
 				maxNumberOfDays: 16,
 				initialLoadDelay: 2000,
-				tableClass: "qsmall",
-			}
-		},
-		{
-			module: "kamasutra",
-			position: "top_center",
-			header: "Kama Sutra Sex Positions",
-			hiddenOnStartup: false,
-			disabled: true
-		},
-		{
-			module: "yframe",
-			position: "upper_third",
-			classes: "night",
-			hiddenOnStartup: false,
-			disabled: true,
-			config: {
-				url: "https://cristea13.ro/video/fishtank.mp4",
-				media: true,
-				width: "1080",
-				height: "607",
-				aspect: 9/16,
-				cssClass: "fishtank"
+				tableClass: "small",
 			}
 		},
 		{
@@ -339,7 +363,7 @@ var config = {
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				classes: "complimentz thin large pre-line skyblue",
+				classes: "thin pre-line complimentz large skyblue",
 				morning: 5,
 				noon: 12,
 				afternoon: 14,
@@ -516,7 +540,7 @@ var config = {
 			config: {
 				updateInterval: 20000,
 				category: "random",
-				className: "small"
+				className: "medium"
 			}
 		},
 		{
@@ -539,6 +563,28 @@ var config = {
 				//	"Digi24"	: "https://www.digi24.ro/rss",
 					},
 				feedMaxAge: {days: 0, hours: 12},
+			}
+		},
+		{
+			module: "kamasutra",
+			position: "top_center",
+			header: "Kama Sutra Sex Positions",
+			hiddenOnStartup: false,
+			disabled: true
+		},
+		{
+			module: "yframe",
+			position: "upper_third",
+			classes: "night",
+			hiddenOnStartup: false,
+			disabled: true,
+			config: {
+				url: "https://cristea13.ro/video/fishtank.mp4",
+				media: true,
+				width: "1080",
+				height: "607",
+				aspect: 9/16,
+				cssClass: "fishtank"
 			}
 		},
 	]
