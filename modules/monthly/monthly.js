@@ -11,12 +11,12 @@ Module.register("monthly", {
 	defaults: {},
 
 	// CSS Add
-	getStyles() {
+	getStyles: function () {
 		return ["monthly.css"];
 	},
 
 	// Update at midnight
-	start(){
+	start: function (){
 		var self = this;
 		setInterval(function() {
 			self.updateDom(config.animation);
@@ -24,7 +24,7 @@ Module.register("monthly", {
 	},		
 
 	// Override dom generator.
-	getDom() {
+	getDom: function () {
 		var wrapper = document.createElement("div");
 		var lastMonth = this.config.startMonth + this.config.monthCount - 1;
 		var todayNum = moment().format("D");

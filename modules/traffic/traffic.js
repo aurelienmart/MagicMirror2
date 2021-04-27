@@ -4,8 +4,8 @@
  * By Sam Lewis https://github.com/SamLewis0602
  * MIT Licensed.
  */
-'use strict';
-Module.register('traffic', {
+"use strict";
+Module.register("traffic", {
 	defaults: {
 		mode: "driving",
 		interval: 300000,
@@ -19,32 +19,38 @@ Module.register('traffic', {
 	},
 
 	start: function () {
-		console.log('Starting module: ' + this.name);
+		console.log("Starting module: " + this.name);
 		this.loading = true;
 		this.hidden = false;
 		this.firstResume = true;
 		this.errorMessage = undefined;
 		this.errorDescription = undefined;
 		if ([this.config.originCoords, this.config.destinationCoords, this.config.accessToken].includes(undefined)) {
-			this.errorMessage = 'Config error';
-			this.errorDescription = 'You must set originCoords, destinationCoords, and accessToken in your config';
+			this.errorMessage = "Config error";
+			this.errorDescription = "You must set originCoords, destinationCoords, and accessToken in your config";
 			this.updateDom();
 		} else {
 			this.updateCommute();
 		}
 	},
 
-	updateCommute: function() {
-		var mode = this.config.mode == 'driving' ? 'driving-traffic' : this.config.mode;
+	resume: function () {
+		if (this.firstResume) {
+			this.firstResume = false;
+		this.updateDom(1000);
+		}
+	},
+
+	updateCommute: async function () {
+		var mode = this.config.mode == "driving" ? "driving-traffic" : this.config.mode;
 		this.url = encodeURI("https://api.mapbox.com/directions/v5/mapbox/" + mode + "/" + this.config.originCoords + ";" + this.config.destinationCoords + "?access_token=" + this.config.accessToken);
 
 		// only run getDom once at the start of a hidden period to remove the module from the screen, then just wait until time to unhide to run again
 		if (this.shouldHide() && !this.hidden) {
-			console.log('Hiding Traffic');
+			console.log("Hiding Traffic");
 			this.hidden = true;
 			this.updateDom();
-		}
-		else if (!this.shouldHide()) {
+		} else if (!this.shouldHide()) {
 			this.hidden = false;
 			this.getCommute(this.url);
 		}
@@ -57,7 +63,7 @@ Module.register('traffic', {
 	getCommute: function (api_url) {
 		var self = this;
 		fetch(api_url)
-		.then(self.checkStatus)
+		.then(this.checkStatus)
 		.then(function (json) {
 			self.duration = Math.round(json.routes[0].duration / 60);
 			self.errorMessage = self.errorDescription = undefined;
@@ -83,11 +89,11 @@ Module.register('traffic', {
 	},
 
 	getStyles: function () {
-		return ['font-awesome.css'];
+		return ["font-awesome.css"];
 	},
 
 	getScripts: function () {
-		return ['moment.js'];
+		return ["moment.js"];
 	},
 
 	getDom: function () {
@@ -97,10 +103,10 @@ Module.register('traffic', {
 		if (this.hidden) return wrapper;
 
 		// base divs
-		var firstLineDiv = document.createElement('div');
-		firstLineDiv.className = "bright medium";
-		var secondLineDiv = document.createElement('div');
-		secondLineDiv.className = "normal small";
+		var firstLineDiv = document.createElement("div");
+		firstLineDiv.className = "bright small";
+		var secondLineDiv = document.createElement("div");
+		secondLineDiv.className = "normal xsmall";
 
 		// display any errors
 		if (this.errorMessage) {
@@ -111,15 +117,15 @@ Module.register('traffic', {
 			return wrapper;
 		}
 
-		var symbolString = 'car';
-		if (this.config.mode == 'cycling') symbolString = 'bicycle';
-		if (this.config.mode == 'walking') symbolString = 'walking';
+		var symbolString = "car";
+		if (this.config.mode == "cycling") symbolString = "bicycle";
+		if (this.config.mode == "walking") symbolString = "walking";
 
 		// symbol
 		if (this.config.showSymbol) {
-			var symbol = document.createElement('span');
+			var symbol = document.createElement("span");
 			symbol.className = "fa fa-" + symbolString + " symbol";
-			symbol.style.marginRight = "10px";
+			symbol.style.marginRight = "5px";
 			if (this.duration > 30) {
 				symbol.style.color = "yellow";
 			} else if (this.duration > 50) {
@@ -131,7 +137,7 @@ Module.register('traffic', {
 		}
 
 		// first line
-		var firstLineText = document.createElement('span');
+		var firstLineText = document.createElement("span");
 		firstLineText.innerHTML = this.loading ? this.config.loadingText : this.replaceTokens(this.config.firstLine)
 		firstLineDiv.appendChild(firstLineText);
 		wrapper.appendChild(firstLineDiv);
@@ -158,8 +164,8 @@ Module.register('traffic', {
 		var hide = true;
 		var now = moment();
 		if (this.config.days.includes(now.isoWeekday()) &&
-			moment(this.config.hoursStart, 'HH:mm').isBefore(now) &&
-			moment(this.config.hoursEnd, 'HH:mm').isAfter(now)
+			moment(this.config.hoursStart, "HH:mm:ss").isBefore(now) &&
+			moment(this.config.hoursEnd, "HH:mm:ss").isAfter(now)
 		) {
 			hide = false;
 		}
