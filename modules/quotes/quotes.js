@@ -108,7 +108,7 @@ Module.register("quotes",{
 		},
 	},
 /*************** DO NOT EDIT BELOW THIS LINE ***************/
-	start() {
+	start: function () {
 		Log.info("Starting module: " + this.name);
 		this.lastQuoteIndex = -1;
 		var self = this;
@@ -117,7 +117,7 @@ Module.register("quotes",{
 		}, this.config.updateInterval);
 	},
 
-	randomIndex(quotes) {
+	randomIndex: function (quotes) {
 		if (quotes.length === 1) {
 			return 0;
 		}
@@ -135,7 +135,7 @@ Module.register("quotes",{
 		return quoteIndex;
 	},
 
-	quoteArray() {
+	quoteArray: function () {
 		if (this.config.category == "random") {
 			return this.config.quotes[Object.keys(this.config.quotes)[Math.floor(Math.random() * Object.keys(this.config.quotes).length)]];
 		} else {
@@ -143,13 +143,13 @@ Module.register("quotes",{
 		}
 	},
 
-	randomQuote() {
+	randomQuote: function () {
 		var quotes = this.quoteArray();
 		var index = this.randomIndex(quotes);
 		return quotes[index].split("~ ");
 	},
 
-	getDom() {
+	getDom: function () {
 		var quoteText = this.randomQuote();
 		var qMsg = quoteText[0];
 		var qAuthor = quoteText[1];

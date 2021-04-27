@@ -12,7 +12,7 @@ Module.register("timer", {
 		debugging: false
 	},
 
-	getScripts() {
+	getScripts: function () {
 		return ["moment.js"];
 	},
 
@@ -20,26 +20,25 @@ Module.register("timer", {
 		return ["font-awesome.css"];
 	},
 
-	getTranslations() {
+	getTranslations: function () {
 		return {
 			en: "en.json",
 			ro: "ro.json"
 		};
 	},
 
-	start() {
+	start: function () {
 		Log.info("Starting module: " + this.name);
 		var self = this;
 		setInterval(function () {
 			self.variables();
 			self.timer();
-			self.traffic();
 			self.dimmer();
 			self.notification();
 		}, 1000);
 	},
 
-	variables() {
+	variables: function () {
 		this.now = moment().format("HH:mm:ss"); this.date = moment().format("DD.MM mm:ss");
 		this.mins = moment().format("m"); this.secs = moment().format("s");
 		this.grayscale = this.config.dimming; this.opacity = (1 - this.grayscale / 100).toPrecision(2);
@@ -76,7 +75,7 @@ Module.register("timer", {
 		}
 	},
 
-	timer() {
+	timer: function () {
 		var now = this.now; var midnight = this.midnight; 
 		var morning = this.morning; var self = this;
 		var hide = Array.from(document.querySelectorAll(".module:not(.night)"));
@@ -113,38 +112,7 @@ Module.register("timer", {
 		}
 	},
 
-	traffic() {
-		var work = Array.from(document.querySelectorAll(".work"));
-		var home = Array.from(document.querySelectorAll(".home"));
-		var traf = Array.from(document.querySelectorAll(".traffic"));
-		var life = Array.from(document.querySelectorAll(".lifecounter"));
-		var now = this.now;	var weekday = this.weekday;
-		if (this.config.alternate) {
-			if (this.config.traffic && weekday < this.config.weekdays) {
-				if (now >= this.config.workStart && now < this.config.workEnd) {
-					life.forEach(function(element) {return element.style.display = "none"});
-					home.forEach(function(element) {return element.style.display = "none"});
-					work.forEach(function(element) {return element.style.display = "inline"});
-				} else if (now >= this.config.homeStart && now < this.config.homeEnd) {
-					life.forEach(function(element) {return element.style.display = "none"});
-					work.forEach(function(element) {return element.style.display = "none"});
-					home.forEach(function(element) {return element.style.display = "inline"});
-				} else {
-					traf.forEach(function(element) {return element.style.display = "none"});
-					life.forEach(function(element) {return element.style.display = "inline"});
-				}
-			} else {
-				life.forEach(function(element) {return element.style.display = "inline"});
-				traf.forEach(function(element) {return element.style.display = "none"});
-			}
-		} else {
-			life.forEach(function(element) {return element.style.display = "none"});
-			home.forEach(function(element) {return element.style.display = "inline"});
-			work.forEach(function(element) {return element.style.display = "inline"});
-		}
-	},
-
-	dimmer() {
+	dimmer: function () {
 		var now = this.now; var grayscale = this.grayscale; var opacity = this.opacity;
 		var gray1 = this.gray1; var gray2 = this.gray2; var opac1 = this.opac1;
 		var opac2 = this.opac2; var night = this.night; var midnight = this.midnight;
@@ -171,7 +139,7 @@ Module.register("timer", {
 		}
 	},
 
-	notification() {
+	notification: function () {
 		var now = this.now; var date = this.date; var mins = this.mins; var secs = this.secs;
 		var sharp = "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm");
 

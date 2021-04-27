@@ -12,34 +12,34 @@ Module.register("notification", {
 		animationSpeed: config.animation
 	},
 
-	getScripts() {
+	getScripts: function () {
 		return ["moment.js"];
 	},
 
-	getStyles() {
+	getStyles: function () {
 		return ["font-awesome.css"];
 	},
 
-	getTranslations() {
+	getTranslations: function () {
 		return {
 			en: "en.json",
 			ro: "ro.json"
 		};
 	},
 
-	start() {
+	start: function () {
 		Log.info("Starting module: " + this.name);
 	},
 	
-	getDom() {
+	getDom: function () {
 		var wrapper = document.createElement("div");
 
 		var title = document.createElement("div");
-		title.className = "smedium bright";
+		title.className = "medium bright";
 		title.innerHTML = this.title;
 
 		var notification = document.createElement("div");
-		notification.className = "ssmall light dimmed";
+		notification.className = "small light dimmed";
 		notification.style.maxHeight = "25px";
 		notification.innerHTML = this.notification;
 
@@ -48,19 +48,19 @@ Module.register("notification", {
 		return wrapper;
 	},
 
-	onLine() {
+	onLine: function () {
 		this.title = this.config.startTitle;
 		this.notification = this.translate(this.config.startNotification);
 		this.updateDom(this.config.animationSpeed);
 	},
 
-	offLine() {
+	offLine: function () {
 		this.title = "<span class=\"orangered\">" + this.translate("No Internet connection!") + "</span>";
 		this.notification = this.translate("Check Wi-Fi connection and router");
 		this.updateDom(this.config.animationSpeed);
 	},
 
-	notificationReceived(notification, payload, sender) {
+	notificationReceived: function (notification, payload, sender) {
 		var self = this;
 		if (notification === "DOM_OBJECTS_CREATED") {
 			this.title = this.config.startTitle;

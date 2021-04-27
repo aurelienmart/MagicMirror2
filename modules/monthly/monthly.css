@@ -4,10 +4,7 @@
 	align-items: stretch;
 	white-space: nowrap;
 	border: 0;
-	font-size: 1rem;
-	line-height: 1.5rem;
 	width: 100%;
-	transform: translateX(-3px);
 }
 
 .monthly .calendar-vertical {
@@ -29,7 +26,7 @@
 
 .monthly .calendar-horizontal .month  {
 	flex-basis: 100%;
-	padding: 10px 10px 0;
+	padding: 10px 10px;
 	display: flex;
 	flex-direction: column;
 }
@@ -60,17 +57,13 @@
 	color: skyblue;
 }
 
-.monthly .shade {
-	padding-top: 1px;
-	padding-right: 5px;
-}
-
 /* The line representing an actual week */
 .monthly .week {
 	display: flex;
 	flex-direction: row;
 	align-items: stretch;
 	border-bottom: 1px solid #111;
+	padding: 2px 0;
 }
 
 .monthly .weeknumber {
@@ -94,7 +87,7 @@
 	padding-left: 4px;
 	padding-right: 4px;
 	color: skyblue;
-	}
+}
 
 .monthly .current_day,
 .monthly .current_day_weekend {
