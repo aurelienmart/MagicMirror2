@@ -35,14 +35,14 @@ html {
 body {
 	margin: 0;
 	position: absolute;
-	height: 100%;
-	width: 100%;
+	height: 100vh;
+	width: 100vw;
 	background-color: var(--color-background);
 	color: var(--color-text);
 	font-family: var(--font-primary);
 	font-weight: 300;
 	font-size: var(--font-size);
-  	line-height: 1.2em;
+  	line-height: 1.2;
 	transform-origin: 0 0;
 	transition: all 1s ease;
 	text-rendering: geometricprecision;
@@ -65,7 +65,7 @@ a {
 }
 
 .empty {
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 .transparent {
@@ -92,64 +92,26 @@ a {
 	color: var(--color-text-bright);
 }
 
-.xxxsmall {
-	font-size: 0.6rem;
-	line-height: 0.8rem;
-}
-
-.xxsmall {
-	font-size: 0.8rem;
-	line-height: 1.1rem;
-}
-
 .xsmall {
-	font-size: 0.9rem;
-	line-height: 1.2rem;
-}
-
-.qsmall {
-	font-size: 1rem;
-	line-height: 1.45rem;
-}
-
-.msmall {
-	font-size: 1.1rem;
-	line-height: 1.4rem;
-}
-
-.ssmall {
-	font-size: 1.2rem;
-	line-height: 1.5rem;
+	font-size: 0.7rem;
 }
 
 .small {
-	font-size: 1.3rem;
-	line-height: 1.6rem;
+	font-size: 1rem;
 }
 
 .medium {
-	font-size: 1.4rem;
-	line-height: 1.7rem;
-}
-
-.smedium {
-	font-size: 1.5rem;
-	line-height: 1.5rem;
-}
-
-.xmedium {
 	font-size: 1.6rem;
-	line-height: 1.8rem;
 }
 
 .large {
 	font-size: 6rem;
-	line-height: 6.4rem;
+	line-height: 1;
 }
 
 .xlarge {
 	font-size: 7.4rem;
-	line-height: 7rem;
+	line-height: 1;
 	background: -webkit-linear-gradient(white, darkgray);
 	-webkit-text-fill-color: transparent;
 	-webkit-background-clip: text;
@@ -182,7 +144,7 @@ a {
 
 header {
 	text-transform: none;
-	font-size: 1rem;
+	font-size: 1.2rem;
 	font-weight: 400;
 	border-bottom: 1px solid gray;
 	line-height: 1.2rem;
@@ -531,7 +493,6 @@ header {
 .clock .wi-day-sunny, 
 .wi-sunset, .wi-sunrise {
 	color: gold;
-	margin-top: -20px;
 }
 
 .clock .wi-night-clear, 
@@ -549,16 +510,12 @@ header {
 	flex: 1 0 120px;
 }
 
-.clock .sun {
-	margin-top: -12px;
-}
-
 .clock .moon {
 	margin-top: 5px;
 }
 
 .clock .week {
-	margin-top: 5px;
+	margin: 8px 0;
 }
 
 .clock .brightness {
@@ -567,8 +524,8 @@ header {
 }
 
 .lunartic .photo {
-	position: fixed;
-	top: -190px;
+	position: absolute;
+	top: -62px;
 	left: 3px;
 	width: 27px;
 }
@@ -577,18 +534,13 @@ header {
 
 .swatch {
 	filter: opacity(85%);
-	padding: 4px 0;
 }
 
-.traffic, .lifecounter, .simpletext {
-	margin-bottom: 9px;
+.simpletext {
+	margin-bottom: 0;
 }
 
 /* notification */
-
-.notification {
-	padding-bottom: 10px;
-}
 
 .fa-wifi {
 	display: inline-block;
@@ -674,10 +626,6 @@ header {
 	white-space: nowrap; 
 }
 
-.icalendar table tr:nth-child(even) {
-  background: rgba(32,32,32,0.15);
-}
-
 .icalendar table td,
 .calendar-table table td {
 	border-bottom: 1px solid #111;
@@ -752,8 +700,7 @@ header {
 
 /* jquery Newsfeed */
 
-.rssfeed .feed,
-.feed {
+.rssfeed .feed, .feed {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
@@ -781,7 +728,6 @@ header {
 .rssfeed .feed .date,
 .rssfeed .feed .source,
 .feed .date, .feed .source {
-	font-size: 1.4rem;
 	font-weight: 300;
 }
 
@@ -832,16 +778,16 @@ header {
 
 .newsfeed .light {
 	font-family: var(--font-secondary);
-	font-size: 1.4rem;
-	line-height: 1.6rem;
-}
-
-.newsfeed .newsfeed-source {
-	font-size: 1.2rem;
 }
 
 .newsfeed .newsfeed-desc {
 	font-style: italic;
+}
+
+.newsfeed .light,
+.newsfeed .newsfeed-desc {
+	font-size: 1.4rem;
+	line-height: 1.8rem;
 }
 
 .fa-rss-square {
@@ -869,44 +815,45 @@ header {
 .currentweather .wi-alien, 
 .currentweather .wi-sunset, 
 .currentweather .wi-sunrise,
-.fa-binoculars {
+.currentweather .fa-binoculars {
 	display: inline-block;
 	transform: scale(0.65);
 }
 
-.currentweather .wi-humidity {
-	
-}
-
 .currentweather .wi-thermometer {
 	color: gold;
-	margin-left: 10px;
+	margin-top: 5px;
 }
 
-.currentweather .pressure {
-	margin-right: -10px;
-}
-
-.currentweather .wi-alien, .fa-binoculars {
+.currentweather .fa-binoculars {
 	color: violet;
 }
 
+.currentweather .wi-raindrop {
+	transform: translate(0, 5px) scale(0.85);
+}
+
+.currentweather .dew,
 .currentweather .wi-humidity, 
 .currentweather .wi-raindrop {
-/*	transform: translate(0, 8px);
-*/	color: skyblue;
+	color: skyblue;
 }
 
+.currentweather .uvi,
 .currentweather .wi-sunset, 
 .currentweather .wi-sunrise {
-	color: goldenrod;
+	color: gold;
 }
 
-.currentweather .wtemp {
+.currentweather .xlarge {
 	display: inline-block;
 	transform: translate(-5px, -5px);
 	letter-spacing: -5px;
 	padding-right: 3px;
+}
+
+.currentweather .real {
+	margin-bottom: -5px;
 }
 
 .currentweather .weathericon {
@@ -918,109 +865,85 @@ header {
 .currentweather .deg {
 	font-size: 50%;
 	font-weight: 400;
-	margin-left: -35px;
+	margin-left: -30px;
 }
 
-.currentweather .rfd {
-    margin-top: -25px;
-}
-
-.currentweather .mmx {
-	font-size: 85%;
-}
-
-.currentweather .maxTemp {
-	color: coral;
-}
-
-.currentweather .minTemp {
-	color: skyblue;
-}
-
-.currentweather .minMax {
-	color: silver;
-}
-
-.currentweather .description {
-	font-size: 85%;
-}
-
-.currentweather .bright .description::first-letter {
+.currentweather .bright::first-letter {
 	text-transform: capitalize;
 }
 
 .currentweather .wi-day-sunny {
-	content: url("../css/icons/clear.png");
+	content: url("icons/clear.png");
 	transform: translate(0, 15px) scale(1.4);
 }
 
 .currentweather .wi-day-cloudy {
-	content: url("../css/icons/mostlysunny.png");
+	content: url("icons/mostlysunny.png");
 }
 
 .currentweather .wi-cloudy {
-	content: url("../css/icons/cloudy.png");
+	content: url("icons/cloudy.png");
 }
 
 .currentweather .wi-cloudy-windy {
-	content: url("../css/icons/mostlycloudy.png");
+	content: url("icons/mostlycloudy.png");
 }
 
 .currentweather .wi-showers {
-	content: url("../css/icons/chancerain.png");
+	content: url("icons/chancerain.png");
 }
 
 .currentweather .wi-rain {
-	content: url("../css/icons/rain.png");
+	content: url("icons/rain.png");
 }
 
 .currentweather .wi-thunderstorm {
-	content: url("../css/icons/tstorms.png");
+	content: url("icons/tstorms.png");
 }
 
 .currentweather .wi-snow {
-	content: url("../css/icons/snow.png");
+	content: url("icons/snow.png");
 }
 
 .currentweather .wi-fog {
-	content: url("../css/icons/cloudy.png");
+	content: url("icons/cloudy.png");
 }
 
 .currentweather .wi-night-clear {
-	content: url("../css/icons/nt_clear.png");
+	content: url("icons/nt_clear.png");
 	transform: translate(0, 15px) scale(1.6);
 }
 
 .currentweather .wi-night-alt-cloudy {
-	content: url("../css/icons/nt_cloudy.png");
+	content: url("icons/nt_cloudy.png");
 }
 
 .currentweather .wi-night-cloudy {
-	content: url("../css/icons/nt_partlycloudy.png");
+	content: url("icons/nt_partlycloudy.png");
 }
 
 .currentweather .wi-night-cloudy-windy {
-	content: url("../css/icons/nt_mostlycloudy.png");
+	content: url("icons/nt_mostlycloudy.png");
 }
 
 .currentweather .wi-night-showers {
-	content: url("../css/icons/nt_chancerain.png");
+	content: url("icons/nt_chancerain.png");
 }
 
 .currentweather .wi-night-rain {
-	content: url("../css/icons/nt_rain.png");
+	content: url("icons/nt_rain.png");
 }
 
 .currentweather .wi-night-thunderstorm {
-	content: url("../css/icons/nt_tstorms.png");
+	content: url("icons/nt_tstorms.png");
 }
 
 .currentweather .wi-night-snow {
-	content: url("../css/icons/nt_snow.png");
+	content: url("icons/nt_snow.png");
 }
 
 .currentweather .wi-night-alt-cloudy-windy {
-	content: url("../css/icons/nt_hazy.png");
+	content: url("icons/nt_hazy.png");
 }
 
 /* Forecast */
@@ -1033,14 +956,14 @@ header {
 	float: right;
 	margin-bottom: 5px;
 }
-/*
-.daily tr:nth-child(1) .azi:nth-child(1),
-.daily tr:nth-child(2) .azi:nth-child(1) {
+
+.ipad3 tr:nth-child(1) .azi:nth-child(1),
+.ipad3 tr:nth-child(2) .azi:nth-child(1) {
   text-indent: -9999px;
   line-height: 0;
 }
 
-.daily tr:nth-child(1) .azi:nth-child(1)::after {
+.ipad3 tr:nth-child(1) .azi:nth-child(1)::after {
   text-indent: 0;
   content: "Astăzi";
   display: block;
@@ -1048,13 +971,13 @@ header {
   color: lime;
 }
 
-.daily tr:nth-child(2) .azi:nth-child(1)::after {
+.ipad3 tr:nth-child(2) .azi:nth-child(1)::after {
   text-indent: 0;
   content: "Mâine";
   display: block;
   line-height: initial;
 }
-*/
+
 .weatherforecast table tr:nth-child(1) td:nth-child(1) {
 	color: lime;
 }
@@ -1195,12 +1118,6 @@ header {
 	display: none !important;
 }
 
-/*
-.monthly .calendar-vertical .month:nth-child(n+2) {
-	filter: opacity(50%);
-}
-*/
-
 /* media queries */
 
 @media screen and (min-height: 1079px) and (orientation: landscape) {
@@ -1226,15 +1143,6 @@ header {
 	.region.upper.third {
 		display: none;
 	}
-
-/*	.region.middle.center {
-		bottom: -35%;
-	}
-		
-	.region.lower.third {
-		bottom: -30%;
-	}
-*/
 }
 
 @media screen and (max-height: 1024px) and (orientation: landscape) {
@@ -1244,28 +1152,9 @@ header {
 }
 
 @media screen and (max-height: 980px) and (orientation: landscape) {
-/*	.region.middle.center {
-		bottom: 15%;
-	}
-*/		
 	.region.lower.third {
 		display: none;
 	}
-}
-
-@media screen and (max-height: 960px) and (orientation: portrait) {
-/*	.region.upper.third {
-		bottom: 35%;
-	}
-
-	.region.middle.center {
-		bottom: 20%;
-	}
-		
-	.region.lower.third {
-		bottom: 15%;
-	}
-*/
 }
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
@@ -1275,7 +1164,6 @@ header {
 
 	.large {
 		font-size: 5rem;
-		line-height: 5.4rem;
 	}
 
 	.monthly .week:nth-child(odd),
@@ -1285,7 +1173,7 @@ header {
 	  background: none;
 	}
 
-	.icalendar table tr:nth-child(even),
+	.icalendar table tr:nth-child(odd),
 	.calendar-table table tr:nth-child(even),
 	.calendar .event:nth-child(even),
 	.hourly .colored:nth-child(odd),
@@ -1308,12 +1196,11 @@ header {
 
 	.weather,
 	.calendar .month:nth-child(n+2),
-	.icalendar table tr:nth-child(n+14),
-	.calendar table tr:nth-child(n+13),
-	.hourly table tr:nth-child(n+4),
-	.daily table tr:nth-child(n+13),
-/*	.daily table tr:nth-child(n+16),
-*/	header,	.monthly .month-header,
+	.icalendar table tr:nth-child(n+12),
+	.calendar table tr:nth-child(n+12),
+	.hourly table tr:nth-child(n+3),
+	.daily table tr:nth-child(n+12),
+	header,	.monthly .month-header,
 	.lifecounter, .yframe, .traffic {
 		display: none !important;
 	}
@@ -1322,24 +1209,13 @@ header {
 		display: block !important;
 	}
 
+	.newsfeed, .newsfeed .light,
 	.rssfeed .feed,	.feed,
 	.rssfeed .feed .date,
 	.rssfeed .feed .source,
 	.feed .date, .feed .source {
 		font-size: 1.2rem;
 		line-height: 1.4rem;
-	}
-
-	.newsfeed, .newsfeed .light {
-		font-size: 1.1rem;
-		line-height: 1.3rem;
-	}
-
-	.lunartic .photo {
-		position: fixed;
-		top: -100px;
-		left: 3px;
-		width: 27px;
 	}
 
 	.swatch {
