@@ -29,7 +29,6 @@ var config = {
 	decimal: ",",
  	appid: '...', // ios9 ipad
  	appid2: '...', // magic mirror
-	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5/",
 	roundTemp: false,
 	period: false,
@@ -158,7 +157,7 @@ var config = {
 				counter: "seconds",
 				before: "UNIX System Time:",
 				after: "seconds",
-				cssclass: "ssmall"
+				cssclass: "small"
 			}
 		},
 		{
@@ -170,7 +169,7 @@ var config = {
 			config: {
 				mode: "driving-traffic",
 				loadingText: "Se încarcă...",
-				firstLine: "Trafic estimat spre birou: {duration} minute",
+				firstLine: "Trafic estimat până la birou: {duration} minute",
 				accessToken: "...",
 				originCoords: "...",
 				destinationCoords: "...",
@@ -186,7 +185,7 @@ var config = {
 			config: {
 				mode: "driving-traffic",
 				loadingText: "Se încarcă...",
-				firstLine: "Trafic estimat spre casa: {duration} minute",
+				firstLine: "Trafic estimat până acasa: {duration} minute",
 				accessToken: "...",
 				originCoords: "...",
 				destinationCoords: "...",
@@ -241,7 +240,7 @@ var config = {
 			disabled: false,
 			config: {
 				text: "",
-				cssClass: "empty",
+				cssClass: "small",
 			}
 		},
 		{
@@ -260,7 +259,6 @@ var config = {
 				fullDayEventDateFormat: "ddd D MMM",
 				getRelative: 48,
 				coloredSymbolOnly: true,
-				tableClass: "qsmall",
 				titleReplace: {
 					"Ziua Internațională a Femeii": "Ziua femeii",
 					"Zi Constantin Brancusi": "Ziua Constantin Brancuși",
@@ -291,53 +289,26 @@ var config = {
 					},
 					{
 						symbol: "registered", symbolClass: "lightgreen", // titleClass: "lightgreen", timeClass: "lightgreen", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/basic.ics"
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
 					},
 					{
 						symbol: "product-hunt", symbolClass: "tomato", // titleClass: "tomato", timeClass: "tomato", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/basic.ics"
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
 					},
 					{
 						symbol: "birthday-cake", symbolClass: "gold", // titleClass: "gold", timeClass: "gold", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/basic.ics"
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
 					},
 					{
 						symbol: "film", symbolClass: "magenta", // titleClass: "magenta", timeClass: "magenta", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/basic.ics"
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
 					},
 					{
 						symbol: "suitcase", symbolClass: "coral", // titleClass: "coral",timeClass: "coral", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/basic.ics"
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
 					},
 				]
 			}
-		},
-		{
-			module: "network",
-			position: "top_left",
-			hiddenOnStartup: false,
-			disabled: true,
-			config: {
-				network: "192.168.0.0/23",
-				showUnknown: false,
-				showOffline: true,
-				keepAlive: 300,
-				updateInterval: 5,
-				showLastSeen: true,
-				colored: true,
-				coloredSymbolOnly: true,
-				showLastSeenWhenOffline: true,
-				devices: [
-					{ macAddress: "", name: "Mirror server", icon: "laptop"},
-					{ macAddress: "", name: "Magic iPad 3", icon: "mobile"},
-					{ macAddress: "", name: "Desktop PC", icon: "desktop"},
-					{ macAddress: "", name: "Razvan iPhone", icon: "male"},
-					{ macAddress: "", name: "Paula Huawei", icon: "female"},
-					{ macAddress: "", name: "Paula Samsung", icon: "female"},
-					{ macAddress: "", name: "Google Nexus 7 ", icon: "mobile"},
-					{ macAddress: "", name: "Sony Smart TV", icon: "mobile"},
-				],
-			}        
 		},
 		{
 			module: "currentweather",
@@ -345,22 +316,6 @@ var config = {
 			classes: "night current",
 			hiddenOnStartup: false,
 			disabled: false,
-			config: {
-				showWindDirectionAsArrow: true,
-				useBeaufort: false,
-				useKMPHwind: true,
-				showVisibility: true,
-				showHumidity: true,
-				showSun: false,
-				showFeelsLike: true,
-				realFeelsLike: true,
-				showPressure: true,
-				showMinMax: false,
-				showPrecip: true,
-				showDescription: true,
-				appendLocationNameToHeader: false,
-				tableClass: "xmedium",
-			}
 		},
 		{
 			module: "weatherforecast",
@@ -383,7 +338,7 @@ var config = {
 			module: "weatherforecast",
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
-			classes: "daily forecast ipad",
+			classes: "daily forecast ipad ipad3",
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
@@ -419,9 +374,9 @@ var config = {
 			disabled: false,
 			config: {
 				type: "hourly",
-				maxEntries: 4,
+				maxEntries: 3,
 				initialLoadDelay: 1000,
-				tableClass: "qsmall",
+				tableClass: "small",
 			}
 		},
 		{
@@ -435,29 +390,7 @@ var config = {
 				type: "daily",
 				maxNumberOfDays: 16,
 				initialLoadDelay: 2000,
-				tableClass: "qsmall",
-			}
-		},
-		{
-			module: "kamasutra",
-			position: "top_center",
-			header: "Kama Sutra Sex Positions",
-			hiddenOnStartup: false,
-			disabled: true
-		},
-		{
-			module: "yframe",
-			position: "upper_third",
-			classes: "night",
-			hiddenOnStartup: false,
-			disabled: true,
-			config: {
-				url: "https://cristea13.ro/video/fishtank.mp4",
-				media: true,
-				width: "1080",
-				height: "607",
-				aspect: 9/16,
-				cssClass: "fishtank"
+				tableClass: "small",
 			}
 		},
 		{
@@ -467,7 +400,7 @@ var config = {
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				classes: "complimentz thin large pre-line skyblue",
+				classes: "thin pre-line complimentz large skyblue",
 				morning: 5,
 				noon: 12,
 				afternoon: 14,
@@ -611,7 +544,7 @@ var config = {
 			config: {
 				updateInterval: 20000,
 				category: "random",
-				className: "small"
+				className: "medium"
 			}
 		},
 		{
@@ -728,6 +661,28 @@ var config = {
 						encoding: "UTF-8"
 					},
 				]
+			}
+		},
+		{
+			module: "kamasutra",
+			position: "top_center",
+			header: "Kama Sutra Sex Positions",
+			hiddenOnStartup: false,
+			disabled: true
+		},
+		{
+			module: "yframe",
+			position: "upper_third",
+			classes: "night",
+			hiddenOnStartup: false,
+			disabled: true,
+			config: {
+				url: "https://cristea13.ro/video/fishtank.mp4",
+				media: true,
+				width: "1080",
+				height: "607",
+				aspect: 9/16,
+				cssClass: "fishtank"
 			}
 		},
 	]
