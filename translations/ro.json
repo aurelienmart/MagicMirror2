@@ -23,8 +23,9 @@
 	"STILL": "încă",
 	"UNTIL": "până",
 
-	"No rain": "Nu plouă",
-	"No snow": "Nu ninge",
+	"DEW": "Punct de rouă: ",
+	"UVI": "Index UV: ",
+	"No prep": "Fără precip",
 
 	"N": "N",
 	"NNE": "NNE",
