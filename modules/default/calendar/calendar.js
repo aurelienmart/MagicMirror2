@@ -399,7 +399,7 @@ Module.register("calendar", {
 			if (_this2.config.showLocation) {
 				if (event.location !== false) {
 					var locationRow = document.createElement("tr");
-					locationRow.className = "normal xsmall light";
+					locationRow.className = "normal small light";
 
 					if (_this2.config.displaySymbol) {
 						var symbolCell = document.createElement("td");

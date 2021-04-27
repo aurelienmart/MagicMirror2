@@ -22,7 +22,7 @@ Module.register("weatherforecast", {
 		decimalSymbol: config.decimal,
 		fade: true,
 		fadePoint: 0.25, // Start on 1/4th of the list.
-		colored: false,
+		colored: true,
 		scale: config.scale,
 
 		initialLoadDelay: 2500, // 2.5 seconds delay. This delay is used to keep the OpenWeather API happy.
@@ -69,17 +69,17 @@ Module.register("weatherforecast", {
 	fetchedLocationName: config.location,
 
 	// Define required scripts.
-	getScripts() {
+	getScripts: function () {
 		return ["moment.js"];
 	},
 
 	// Define required scripts.
-	getStyles() {
+	getStyles: function () {
 		return ["weather-icons.css"];
 	},
 
 	// Define required translations.
-	getTranslations() {
+	getTranslations: function () {
 		// The translations for the default modules are defined in the core translation files.
 		// Therefor we can just return false. Otherwise we should have returned a dictionary.
 		// If you're trying to build your own module including translations, check out the documentation.
@@ -87,7 +87,7 @@ Module.register("weatherforecast", {
 	},
 
 	// Define start sequence.
-	start() {
+	start: function () {
 		Log.info("Starting module: " + this.name);
 
 		// Set locale.
@@ -100,7 +100,7 @@ Module.register("weatherforecast", {
 	},
 
 	// Override dom generator.
-	getDom() {
+	getDom: function () {
 		var wrapper = document.createElement("div");
 
 		if (this.config.appid === "" || this.config.appid === "YOUR_OPENWEATHER_API_KEY") {
@@ -221,7 +221,7 @@ Module.register("weatherforecast", {
 	},
 
 	// Override getHeader method.
-	getHeader() {
+	getHeader: function () {
 		if (this.config.appendLocationNameToHeader) {
 			if (this.data.header) return this.data.header + " " + this.fetchedLocationName;
 			else return this.fetchedLocationName;
@@ -231,7 +231,7 @@ Module.register("weatherforecast", {
 	},
 
 	// Override notification handler.
-	notificationReceived(notification, payload, sender) {
+	notificationReceived: function (notification, payload, sender) {
 		if (notification === "DOM_OBJECTS_CREATED") {
 			if (this.config.appendLocationNameToHeader) {
 				this.hide(0, { lockString: this.identifier });
@@ -258,7 +258,7 @@ Module.register("weatherforecast", {
 	 * Requests new data from openweather.org.
 	 * Calls processWeather on successful response.
 	 */
-	updateWeather() {
+	updateWeather: function () {
 		if (this.config.appid === "") {
 			Log.error("WeatherForecast: APPID not set!");
 			return;
@@ -300,7 +300,7 @@ Module.register("weatherforecast", {
 	 *
 	 * return String - URL params.
 	 */
-	getParams() {
+	getParams: function () {
 		var params = "?";
 		if (this.config.locationID) {
 			params += "id=" + this.config.locationID;
@@ -344,7 +344,7 @@ Module.register("weatherforecast", {
 	 * from openweather.org
 	 *
 	 */
-	parserDataWeather(data) {
+	parserDataWeather: function (data) {
 		if (data.hasOwnProperty("main")) {
 			data["temp"] = { min: data.main.temp_min, max: data.main.temp_max };
 		}
@@ -356,7 +356,7 @@ Module.register("weatherforecast", {
 	 *
 	 * argument data object - Weather information received form openweather.org.
 	 */
-	processWeather(data) {
+	processWeather: function (data) {
 		// Forcast16 (paid) API endpoint provides this data.  Onecall endpoint
 		// does not.
 		if (data.city) {
@@ -447,7 +447,7 @@ Module.register("weatherforecast", {
 	 *
 	 * argument delay number - Milliseconds before next update. If empty, this.config.updateInterval is used.
 	 */
-	scheduleUpdate(delay) {
+	scheduleUpdate: function (delay) {
 		var nextLoad = this.config.updateInterval;
 		if (typeof delay !== "undefined" && delay >= 0) {
 			nextLoad = delay;
@@ -471,7 +471,7 @@ Module.register("weatherforecast", {
 	 *
 	 * return number - Windspeed in beaufort.
 	 */
-	ms2Beaufort(ms) {
+	ms2Beaufort: function (ms) {
 		var kmh = (ms * 60 * 60) / 1000;
 		var speeds = [1, 5, 11, 19, 28, 38, 49, 61, 74, 88, 102, 117, 1000];
 		for (var beaufort in speeds) {
@@ -490,7 +490,7 @@ Module.register("weatherforecast", {
 	 *
 	 * return string - Rounded Temperature.
 	 */
-	roundValue(temperature) {
+	roundValue: function (temperature) {
 		var decimals = this.config.roundTemp ? 0 : 1;
 		return parseFloat(temperature).toFixed(decimals);
 	},
@@ -502,7 +502,7 @@ Module.register("weatherforecast", {
 	 * That object has a property "3h" which contains the amount of rain since the previous forecast in the list.
 	 * This code finds all forecasts that is for the same day and sums the amount of rain and returns that.
 	 */
-	processRain(forecast, allForecasts) {
+	processRain: function (forecast, allForecasts) {
 		//If the amount of rain actually is a number, return it
 		if (!isNaN(forecast.rain)) {
 			return forecast.rain;
@@ -530,7 +530,7 @@ Module.register("weatherforecast", {
 			}, 0);
 	},
 
-	processSnow(forecast, allForecasts) {
+	processSnow: function (forecast, allForecasts) {
 		if (!isNaN(forecast.snow)) {
 			return forecast.snow;
 		}
