@@ -7,8 +7,8 @@
 Module.register("currentweather", {
 	// Default module config.
 	defaults: {
-		location: config.location,
-		locationID: config.locationID,
+		lat: config.latitude,
+		lon: config.longitude,
 		appid: config.appid2,
 		units: config.units,
 		updateInterval: 10 * 60 * 1000, // every 10 minutes
@@ -17,30 +17,39 @@ Module.register("currentweather", {
 		showPeriod: config.period,
 		showPeriodUpper: config.period,
 		showWindDirection: true,
-		showWindDirectionAsArrow: false,
-		useBeaufort: true,
-		useKMPHwind: false,
+		showWindDirectionAsArrow: true,
+		useBeaufort: false,
+		useKMPHwind: true,
 		lang: config.language,
 		decimalSymbol: config.decimal,
 		showHumidity: false,
-		showSun: true,
+		showSun: false,
 		degreeLabel: config.scale,
 		showIndoorTemperature: false,
 		showIndoorHumidity: false,
 		showFeelsLike: true,
+		realFeelsLike: true,
+		showVisibility: true,
+		showHumidity: true,
+		showPressure: true,
+		showDew: true,
+		showUvi: true,
+		showPrecip: true,
+		showDescription: true,
 
 		initialLoadDelay: 0, // 0 seconds delay
 		retryDelay: config.delay,
 
 		apiVersion: config.apiVersion,
 		apiBase: config.apiBase,
-		weatherEndpoint: "weather",
+		weatherEndpoint: "onecall",
+		type: "current",
 
-		appendLocationNameToHeader: true,
+		appendLocationNameToHeader: false,
 		useLocationAsHeader: false,
 
 		calendarClass: "calendar",
-		tableClass: "large",
+		tableClass: "medium",
 
 		onlyTemp: false,
 		hideTemp: false,
@@ -86,10 +95,7 @@ Module.register("currentweather", {
 
 	// Define required translations.
 	getTranslations() {
-		// The translations for the default modules are defined in the core translation files.
-		// Therefor we can just return false. Otherwise we should have returned a dictionary.
-		// If you're trying to build your own module including translations, check out the documentation.
-		return false;
+		return null;
 	},
 
 	// Define start sequence.
@@ -109,8 +115,8 @@ Module.register("currentweather", {
 		this.indoorHumidity = null;
 		this.weatherType = null;
 		this.feelsLike = null;
-		this.minTemp = null;			// min temperature.
-		this.maxTemp = null;			// max temperature.
+		this.dew = null;				// dew point.
+		this.uvi = null;				// uv index.
 		this.desc = null;	 			// weather description.
 		this.rain = null;	 			// rain.
 		this.snow = null;	 			// snow.
@@ -124,22 +130,27 @@ Module.register("currentweather", {
 	// windDirection, humidity, sunrise and sunset
 	addExtraInfoWeather(wrapper) {
 		var small = document.createElement("div");
-		small.className = "normal xmedium wis";
+		small.className = "normal medium";
 
 		var windIcon = document.createElement("span");
-		windIcon.className = "wi wi-strong-wind dimmed";
+		windIcon.className = "wi wi-strong-wind";
 		small.appendChild(windIcon);
 
 		var windSpeed = document.createElement("span");
 		if (this.windSpeed > 50 && this.windSpeed < 75) {
-			windSpeed.className = "wisw lightblue";
+			windSpeed.className = "lightblue";
 		} else if (this.windSpeed > 75 && this.windSpeed < 100) {
-			windSpeed.className = "wisw yellow";
+			windSpeed.className = "yellow";
 		} else if (this.windSpeed > 100) {
-			windSpeed.className = "wisw coral";
-		} else windSpeed.className = "wisw";
-		windSpeed.innerHTML = " " + this.windSpeed + "<span class=\"subs\"> km/h</span>&nbsp ";
+			windSpeed.className = "coral";
+		} else windSpeed.className = " ";
+		windSpeed.innerHTML = " " + this.windSpeed;
 		small.appendChild(windSpeed);
+
+		var windSpeedUnit = document.createElement("span");
+		windSpeedUnit.className = "subs";
+		windSpeedUnit.innerHTML = " km/h";
+		small.appendChild(windSpeedUnit);
 
 		if (this.config.showWindDirection) {
 			var windDirection = document.createElement("span");
@@ -154,57 +165,77 @@ Module.register("currentweather", {
 			small.appendChild(windDirection);
 		}
 
+		var spacer = document.createElement("span");
+		spacer.innerHTML = " &nbsp; ";
+		small.appendChild(spacer);
+
 		if (this.config.showPressure) {
 			var pressureIcon = document.createElement("span");
-			pressureIcon.className = "wi wi-thermometer dimmed";
+			pressureIcon.className = "wi wi-thermometer";
 			small.appendChild(pressureIcon);
 
-			var pressure = document.createElement("span"); 			// main pressure.
+			var pressure = document.createElement("span"); 				// pressure.
 			var atpressure = Math.round(this.pressure * 750.062 / 1000)
 				if (atpressure < 745) {
 				    pressure.className = "pressure lightblue";
 				} else if (atpressure > 775) {
 				    pressure.className = "pressure yellow";
 				} else pressure.className = "pressure";
-			pressure.innerHTML = Math.round(this.pressure * 750.062 / 1000) + "<span class=\"subs\"> Hg</span><span class=\"sups\">mm</span>&nbsp;";
+			pressure.innerHTML = " " + Math.round(this.pressure * 750.062 / 1000);
 			small.appendChild(pressure);
+
+			var pressureSub = document.createElement("span");
+			pressureSub.className = "subs";
+			pressureSub.innerHTML = " Hg";
+			small.appendChild(pressureSub);
+
+			var pressureSup = document.createElement("span");
+			pressureSup.className = "sups";
+			pressureSup.innerHTML = "mm";
+			small.appendChild(pressureSup);
 		}
 
 		if (this.config.showVisibility) {
-//			var visibilityIcon = document.createElement("span");
-//			visibilityIcon.className = "wi wi-alien dimmed";
-//			small.appendChild(visibilityIcon);
+			var visibilityIcon = document.createElement("span");
+			visibilityIcon.className = "fa fa-binoculars";
+			small.appendChild(visibilityIcon);
 
 			var visibility = document.createElement("span"); 			// visibility.
 			visibility.className = "visibility";
-			visibility.innerHTML = "<i class=\"fas fa-binoculars\"></i>" + this.visibility / 1000 + "<span class=\"subs\"> km</span>&nbsp;";
+			visibility.innerHTML = this.visibility / 1000;
 			small.appendChild(visibility);
+
+			var visibilityUnit = document.createElement("span");
+			visibilityUnit.className = "subs";
+			visibilityUnit.innerHTML = " km";
+			small.appendChild(visibilityUnit);
 		}
-//		var spacer = document.createElement("span");
-//		spacer.innerHTML = "&nbsp;";
-//		small.appendChild(spacer);
+
+		var spacer = document.createElement("span");
+		spacer.innerHTML = " &nbsp;";
+		small.appendChild(spacer);
 
 		if (this.config.showHumidity) {
 			var humidityIcon = document.createElement("span");
 			humidityIcon.className = "wi wi-humidity humidityIcon";
 			humidityIcon.innerHTML = "";
-			
+			small.appendChild(humidityIcon);
+
 			var humidity = document.createElement("span");
 			if (this.humidity < 30) {
-			    humidity.className = "wish lightblue";
+			    humidity.className = "lightblue";
 			} else if (this.humidity > 50 && this.humidity < 80) {
-			    humidity.className = "wish yellow";
+			    humidity.className = "yellow";
 			} else if (this.humidity > 80) {
-			    humidity.className = "wish coral";
-			} else humidity.className = "wish";
-			humidity.innerHTML = this.humidity + "%";
-			small.appendChild(humidityIcon);
+			    humidity.className = "coral";
+			} else humidity.className = " ";
+			humidity.innerHTML = " " + this.humidity + "%";
 			small.appendChild(humidity);
 		}
 
 		if (this.config.showSun) {
 			var sunriseSunsetIcon = document.createElement("span");
-			sunriseSunsetIcon.className = "wi dimmed " + this.sunriseSunsetIcon;
+			sunriseSunsetIcon.className = "wi" + this.sunriseSunsetIcon;
 			small.appendChild(sunriseSunsetIcon);
 
 			var sunriseSunsetTime = document.createElement("span");
@@ -263,13 +294,13 @@ Module.register("currentweather", {
 
 		if (this.config.hideTemp === false) {
 			var weatherIcon = document.createElement("span");
-			weatherIcon.className = "wicon wi weathericon wi-" + this.weatherType;
+			weatherIcon.className = "wi weathericon wi-" + this.weatherType;
 			large.appendChild(weatherIcon);
 
 			var temperature = document.createElement("span");
-			temperature.className = "wtemp bright light xlarge";
+			temperature.className = "bright light xlarge";
 			if (this.temperature == -0) {this.temperature = 0}
-			temperature.innerHTML = " " + this.temperature.replace(".", this.config.decimalSymbol) + "&deg;<span class=\"deg shade\">" + degreeLabel + "</span>";
+			temperature.innerHTML = " " + this.temperature.replace(".", this.config.decimalSymbol) + "&deg;<span class=\"deg\">" + degreeLabel + "</span>";
 			large.appendChild(temperature);
 		}
 
@@ -299,10 +330,10 @@ Module.register("currentweather", {
 
 		if (this.config.showFeelsLike && this.config.onlyTemp === false) {
 			var small = document.createElement("div");
-			small.className = "normal medium rfd ";
+			small.className = "normal medium";
 
 			var feelsLike = document.createElement("div");
-					if (this.config.units == "metric") {
+			if (this.config.units == "metric") {				// only for metric.
 				if (this.feelsLike == -0) {this.feelsLike = 0}
 				if (this.feelsLike >= 45) {
 					feelsLike.className = "real redrf";
@@ -341,42 +372,59 @@ Module.register("currentweather", {
 				}
 			} else feelsLike.className = "dimmed real";
 
-			feelsLike.innerHTML = "<span class=normal>" + this.translate("FEELS!") + "</span>" + this.feelsLike + "&deg;" + degreeLabel;
+			feelsLike.innerHTML = this.translate("FEELS!") + this.feelsLike + "&deg;" + degreeLabel;
 			small.appendChild(feelsLike);
-
-			if (this.config.showDescription) {
-				var description = document.createElement("span"); 		// weather description.
-				description.className = "bright description";
-				description.innerHTML = this.desc;
-				small.appendChild(description);
-			}
-
-			if (this.config.showPrecip) {
-				var rains = document.createElement("span"); 			// rain. not working, under construction
-				rains.className = "mmx";
-				if ((isNaN(this.rain)) || (isNaN(this.snow))) {
-					rains.innerHTML = "&nbsp; <i class=\"wi wi-small-craft-advisory lime\"></i>&nbsp;" + this.translate("No rain");
-				} else if (isNaN(this.rain)) {
-					rains.innerHTML = "&nbsp; <i class=\"wi wi-snowflake-cold lightblue\"></i>&nbsp;" + this.snow.toFixed(1).replace(".", this.config.decimalSymbol) + "&nbsp;mm";
-				} else if (isNaN(this.snow)) {
-					rains.innerHTML = "&nbsp; <i class=\"wi wi-umbrella yellow\"></i>&nbsp;" + this.rain.toFixed(1).replace(".", this.config.decimalSymbol) + "&nbsp;mm";
-				}
-				small.appendChild(rains);
-			}
-
-			if (this.config.showMinMax) {
-				var maxTemp = document.createElement("span"); 			// max temperature.
-				maxTemp.className = "maxTemp mmx";
-				maxTemp.innerHTML = "<span class=\"lime\">" + this.translate("NOW") + ":&nbsp; </span><span class=\"minMax\">max.</span>&nbsp;" + this.roundValue(this.maxTemp.toFixed(1).replace(".", this.config.decimalSymbol)) + "&deg;" + degreeLabel;
-				small.appendChild(maxTemp);
-	    		
-				var minTemp = document.createElement("span"); 			// min temperature.
-				minTemp.className = "minTemp mmx";
-				minTemp.innerHTML = "&nbsp; <span class=\"minMax\">min.</span>&nbsp;" + this.roundValue(this.minTemp.toFixed(1).replace(".", this.config.decimalSymbol)) + "&deg;" + degreeLabel;
-				small.appendChild(minTemp);
-			}
-			wrapper.appendChild(small);
 		}
+
+		if (this.config.showDew) {
+			var dew = document.createElement("span"); 			// dew point.
+			dew.className = "small dew";
+			dew.innerHTML = this.translate("DEW") + this.dew.toFixed(1) + "&deg;" + degreeLabel;
+			small.appendChild(dew);
+		}
+
+		var spacer = document.createElement("span");
+		spacer.innerHTML = "&nbsp;";
+		small.appendChild(spacer);
+
+		if (this.config.showUvi) {
+			var uvi = document.createElement("span"); 			// uv index.
+			uvi.className = "small uvi";
+			uvi.innerHTML = this.translate("UVI") + this.uvi.toFixed(1);
+			small.appendChild(uvi);
+		}
+
+		if (this.config.showPrecip) {
+			var spacer = document.createElement("span");
+			spacer.innerHTML = "&nbsp;";
+			small.appendChild(spacer);
+
+			var prepIcon = document.createElement("div");
+			prepIcon.className = "wi wi-raindrop";
+			small.appendChild(prepIcon);
+
+			var precipitation = document.createElement("span");	// precipitation
+			precipitation.className = "small";
+			if (this.precipitation > 0) {
+				if(config.units === "imperial") {
+					precipitation.innerHTML = " " + (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
+				} else {
+					precipitation.innerHTML = " " + this.precipitation.toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
+				}
+			} else {
+				precipitation.innerHTML = " " + this.translate("No prep");
+			}
+			small.appendChild(precipitation);
+		}
+
+		if (this.config.showDescription) {
+			var description = document.createElement("div"); 	// weather description.
+			description.className = "bright medium";
+			description.innerHTML = this.desc;
+			small.appendChild(description);
+		}
+
+		wrapper.appendChild(small);
 
 		return wrapper;
 	},
@@ -471,22 +519,34 @@ Module.register("currentweather", {
 	 */
 	getParams() {
 		var params = "?";
-		if (this.config.locationID) {
-			params += "id=" + this.config.locationID;
-		} else if (this.config.location) {
-			params += "q=" + this.config.location;
+		if (this.config.lat && this.config.lon) {
+			params += "lat=" + this.config.lat + "&lon=" + this.config.lon;
 		} else if (this.firstEvent && this.firstEvent.geo) {
 			params += "lat=" + this.firstEvent.geo.lat + "&lon=" + this.firstEvent.geo.lon;
 		} else if (this.firstEvent && this.firstEvent.location) {
 			params += "q=" + this.firstEvent.location;
 		} else {
 			this.hide(this.config.animationSpeed, { lockString: this.identifier });
+			Log.error(self.name + ": Latitude and longitude not set!");
 			return;
 		}
 
 		params += "&units=" + this.config.units;
 		params += "&lang=" + this.config.lang;
 		params += "&APPID=" + this.config.appid;
+
+		if (this.config.type === "current") {
+			params += "&exclude=minutely,hourly,daily";
+		}
+		else if (this.config.type === "hourly") {
+			params += "&exclude=current,minutely,daily";
+		}
+		else if (this.config.type === "daily") {
+			params += "&exclude=current,minutely,hourly";
+		}
+		else {
+			params += "&exclude=minutely";
+		}
 
 		return params;
 	},
@@ -497,34 +557,47 @@ Module.register("currentweather", {
 	 * argument data object - Weather information received form openweather.org.
 	 */
 	processWeather(data) {
-		if (!data || !data.main || typeof data.main.temp === "undefined") {
+		if (!data || !data.current || typeof data.current.temp === "undefined") {
 			// Did not receive usable new data.
 			// Maybe this needs a better check?
 			return;
 		}
 
-		this.humidity = parseFloat(data.main.humidity);
-		this.temperature = this.roundValue(data.main.temp);
-		this.fetchedLocationName = data.name;
+		this.humidity = parseFloat(data.current.humidity);
+		this.temperature = this.roundValue(data.current.temp);
 		this.feelsLike = 0;
-		this.desc = data.weather[0].description;		// weather description.
-		this.pressure = data.main.pressure;				// main pressure.
-		this.visibility = data.visibility;				// visibility.
-		this.minTemp = data.main.temp_min;				// min temperature.
-		this.maxTemp = data.main.temp_max;				// max temperature.
-		this.rain = data.rain;	//parseFloat(data.rain[1h]);		// rain.
-		this.snow = data.snow;	//parseFloat(data.snow[1h]);		// snow.
+		this.desc = data.current.weather[0].description;	// weather description.
+		this.pressure = data.current.pressure;				// main pressure.
+		this.visibility = data.current.visibility;			// visibility.
+		this.dew = data.current.dew_point;					// dew point.
+		this.uvi = data.current.uvi;						// uv index.
+		var precip = false;
+		if (!data.current.hasOwnProperty("rain") && !data.current.hasOwnProperty("snow")) {
+			this.precipitation = 0;
+			precip = false;
+		}
+		if (data.current.hasOwnProperty("rain") && !isNaN(data.current["rain"]["1h"])) {
+			this.rain = data.current["rain"]["1h"];
+			precip = true;
+		}
+		if (data.current.hasOwnProperty("snow") && !isNaN(data.current["snow"]["1h"])) {
+			this.snow = data.current["snow"]["1h"];
+			precip = true;
+		}
+		if (precip) {
+			this.precipitation = this.rain + this.snow;
+		}
 
 		if (this.config.useBeaufort) {
-			this.windSpeed = this.ms2Beaufort(this.roundValue(data.wind.speed));
+			this.windSpeed = this.ms2Beaufort(this.roundValue(data.current.wind_speed));
 		} else if (this.config.useKMPHwind) {
-			this.windSpeed = parseFloat((data.wind.speed * 60 * 60) / 1000).toFixed(0);
+			this.windSpeed = parseFloat((data.current.wind_speed * 60 * 60) / 1000).toFixed(0);
 		} else {
-			this.windSpeed = parseFloat(data.wind.speed).toFixed(0);
+			this.windSpeed = parseFloat(data.current.wind_speed).toFixed(0);
 		}
 
 		// ONLY WORKS IF TEMP IN C //
-		var windInMph = parseFloat(data.wind.speed * 2.23694);
+		var windInMph = parseFloat(data.current.wind_speed * 2.23694);
 
 		var tempInF = 0;
 		switch (this.config.units) {
@@ -540,7 +613,7 @@ Module.register("currentweather", {
 		}
 
 		if (this.config.realFeelsLike) {
-			this.feelsLike = parseFloat(data.main.feels_like).toFixed(0);
+			this.feelsLike = parseFloat(data.current.feels_like).toFixed(0);
 		} else if (windInMph > 3 && tempInF < 50) {
 			// windchill
 			var windChillInF = Math.round(35.74 + 0.6215 * tempInF - 35.75 * Math.pow(windInMph, 0.16) + 0.4275 * tempInF * Math.pow(windInMph, 0.16));
@@ -586,13 +659,13 @@ Module.register("currentweather", {
 			this.feelsLike = parseFloat(this.temperature).toFixed(0);
 		}
 		
-		this.windDirection = this.deg2Cardinal(data.wind.deg);
-		this.windDeg = data.wind.deg;
-		this.weatherType = this.config.iconTable[data.weather[0].icon];
+		this.windDirection = this.deg2Cardinal(data.current.wind_deg);
+		this.windDeg = data.wind_deg;
+		this.weatherType = this.config.iconTable[data.current.weather[0].icon];
 
 		var now = new Date();
-		var sunrise = new Date(data.sys.sunrise * 1000);
-		var sunset = new Date(data.sys.sunset * 1000);
+		var sunrise = new Date(data.current.sunrise * 1000);
+		var sunset = new Date(data.current.sunset * 1000);
 
 		// The moment().format('h') method has a bug on the Raspberry Pi.
 		// So we need to generate the timestring manually.
@@ -600,17 +673,13 @@ Module.register("currentweather", {
 		var sunriseSunsetDateObject = sunrise < now && sunset > now ? sunset : sunrise;
 		var timeString = moment(sunriseSunsetDateObject).format("HH:mm");
 		if (this.config.timeFormat !== 24) {
-			//var hours = sunriseSunsetDateObject.getHours() % 12 || 12;
 			if (this.config.showPeriod) {
 				if (this.config.showPeriodUpper) {
-					//timeString = hours + moment(sunriseSunsetDateObject).format(':mm A');
 					timeString = moment(sunriseSunsetDateObject).format("h:mm A");
 				} else {
-					//timeString = hours + moment(sunriseSunsetDateObject).format(':mm a');
 					timeString = moment(sunriseSunsetDateObject).format("h:mm a");
 				}
 			} else {
-				//timeString = hours + moment(sunriseSunsetDateObject).format(':mm');
 				timeString = moment(sunriseSunsetDateObject).format("h:mm");
 			}
 		}
@@ -623,8 +692,7 @@ Module.register("currentweather", {
 			this.loaded = true;
 		}
 		this.updateDom(this.config.animationSpeed);
-//		this.sendNotification("CURRENTWEATHER_DATA", { data: data });
-		this.sendNotification("CURRENTWEATHER_TYPE", { type: this.config.iconTable[data.weather[0].icon].replace("-", "_") });
+		this.sendNotification("CURRENTWEATHER_TYPE", { type: this.config.iconTable[data.current.weather[0].icon].replace("-", "_") });
 	},
 
 	/* scheduleUpdate()

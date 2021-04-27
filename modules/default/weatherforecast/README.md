@@ -13,7 +13,7 @@ Then put in config.js
 
 
 	{
-		module: "weatherforecast_plus",
+		module: "forecast_plus",
 		position: "top_right",
 		config: {
 			locationID: false,		// set locationID to false when use onecall endpoint
