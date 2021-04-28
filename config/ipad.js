@@ -128,7 +128,7 @@ var config = {
 			module: "lifecounter",
 			position: "top_left",
 			hiddenOnStartup: false,
-			disabled: false,
+			disabled: true,
 			config: {
 				birthday: "1970-01-01 00:00:00",
 				counter: "seconds",
@@ -286,7 +286,7 @@ var config = {
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				maxNumberOfDays: 3,
+				maxNumberOfDays: 5,
 				forecastEndpoint: "/forecast",
 				fallBack: false,
 				fullday: "HH [h]",
@@ -303,7 +303,7 @@ var config = {
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				maxNumberOfDays: 16,
+				maxNumberOfDays: 14,
 //				locationID: false,
 //				forecastEndpoint: "onecall",
 				fallBack: true,
@@ -334,7 +334,7 @@ var config = {
 			disabled: false,
 			config: {
 				type: "hourly",
-				maxEntries: 4,
+				maxEntries: 5,
 				initialLoadDelay: 1000,
 				tableClass: "small",
 			}
@@ -348,7 +348,7 @@ var config = {
 			disabled: false,
 			config: {
 				type: "daily",
-				maxNumberOfDays: 16,
+				maxNumberOfDays: 14,
 				initialLoadDelay: 2000,
 				tableClass: "small",
 			}
