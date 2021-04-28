@@ -316,7 +316,7 @@ var config = {
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				maxNumberOfDays: 5,
+				maxNumberOfDays: 4,
 				forecastEndpoint: "/forecast",
 				fallBack: false,
 				fullday: "HH [h]",
@@ -333,7 +333,7 @@ var config = {
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				maxNumberOfDays: 14,
+				maxNumberOfDays: 9,
 //				locationID: false,
 //				forecastEndpoint: "onecall",
 				fallBack: true,
