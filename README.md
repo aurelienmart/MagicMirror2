@@ -20,4 +20,4 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <br>timer-dimmer https://github.com/hangorazvan/timer
 <br>yframe https://github.com/hangorazvan/yframe
 
-<img src=https://github.com/hangorazvan/MagicMirror2/blob/master/iPad.png>
+<img src=https://github.com/hangorazvan/MagicMirror2/blob/ipad/iPad.png>
