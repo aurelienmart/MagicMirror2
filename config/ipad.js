@@ -288,7 +288,7 @@ var config = {
 			config: {
 				maxNumberOfDays: 4,
 				forecastEndpoint: "/forecast",
-				fallBack: false,
+				fallBack: true,
 				fullday: "HH [h]",
 				initialLoadDelay: 2000,
 				showRainAmount: true,
@@ -306,7 +306,7 @@ var config = {
 				maxNumberOfDays: 9,
 //				locationID: false,
 //				forecastEndpoint: "onecall",
-				fallBack: true,
+				fallBack: false,
 				fullday: "ddd",
 				initialLoadDelay: 3000,
 				showRainAmount: true,
