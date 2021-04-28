@@ -100,6 +100,10 @@ a {
 	font-size: 1rem;
 }
 
+.midget {
+	font-size: 1.2rem;
+}
+
 .medium {
 	font-size: 1.6rem;
 }
@@ -142,6 +146,7 @@ a {
 	text-align: left;
 }
 
+.monthly .month-header,
 header {
 	text-transform: none;
 	font-size: 1.2rem;
@@ -282,7 +287,7 @@ header {
 
 .region table tr:nth-child(even),
 .monthly .week:nth-child(odd) {
-	background: rgba(128,128,128,0.35);
+	background: rgba(128,128,128,0.25);
 }
 
 .region table tr {
@@ -525,8 +530,8 @@ header {
 
 .lunartic .photo {
 	position: absolute;
-	top: -62px;
-	left: 3px;
+	top: -66px;
+	left: 4px;
 	width: 27px;
 }
 
@@ -712,7 +717,7 @@ header {
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 5;
 	font-size: 1.4rem;
-	line-height: 1.6rem;
+	line-height: 1.8rem;
 }
 
 .rssfeed .feed::first-letter,
@@ -830,7 +835,12 @@ header {
 }
 
 .currentweather .wi-raindrop {
-	transform: translate(0, 5px) scale(0.85);
+	transform: translate(0, 4px) scale(0.85);
+}
+
+.currentweather .wi-small-craft-advisory {
+	transform: translate(0, 2px) scale(0.75);
+	color: lime;
 }
 
 .currentweather .dew,
@@ -850,10 +860,6 @@ header {
 	transform: translate(-5px, -5px);
 	letter-spacing: -5px;
 	padding-right: 3px;
-}
-
-.currentweather .real {
-	margin-bottom: -5px;
 }
 
 .currentweather .weathericon {
@@ -1196,7 +1202,7 @@ header {
 
 	.weather,
 	.calendar .month:nth-child(n+2),
-	.icalendar table tr:nth-child(n+12),
+	.icalendar table tr:nth-child(n+13),
 	.calendar table tr:nth-child(n+12),
 	.hourly table tr:nth-child(n+3),
 	.daily table tr:nth-child(n+12),
