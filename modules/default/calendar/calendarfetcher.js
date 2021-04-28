@@ -25,19 +25,19 @@ var https = require("https");
  * @param {boolean} selfSignedCert If true, the server certificate is not verified against the list of supplied CAs.
  * @class
  */
-var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, includePastEvents, selfSignedCert) {
+var CalendarFetcher = function(url, reloadInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, includePastEvents, selfSignedCert) {
 	var self = this;
 
 	var reloadTimer = null;
 	var events = [];
 
-	var fetchFailedCallback = function fetchFailedCallback() {};
-	var eventsReceivedCallback = function eventsReceivedCallback() {};
+	var fetchFailedCallback = function() {};
+	var eventsReceivedCallback = function() {};
 
 	/**
   * Initiates calendar fetch.
   */
-	var fetchCalendar = function fetchCalendar() {
+	var fetchCalendar = function() {
 		clearTimeout(reloadTimer);
 		reloadTimer = null;
 		var nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
@@ -101,7 +101,7 @@ var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEven
 	/**
   * Schedule the timer for the next update.
   */
-	var scheduleTimer = function scheduleTimer() {
+	var scheduleTimer = function() {
 		clearTimeout(reloadTimer);
 		reloadTimer = setTimeout(function () {
 			fetchCalendar();
@@ -113,14 +113,14 @@ var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEven
 	/**
   * Initiate fetchCalendar();
   */
-	this.startFetch = function () {
+	this.startFetch = function() {
 		fetchCalendar();
 	};
 
 	/**
   * Broadcast the existing events.
   */
-	this.broadcastEvents = function () {
+	this.broadcastEvents = function() {
 		Log.info("Calendar-Fetcher: Broadcasting " + events.length + " events.");
 		eventsReceivedCallback(this);
 	};
@@ -130,7 +130,7 @@ var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEven
   *
   * @param {Function} callback The on success callback.
   */
-	this.onReceive = function (callback) {
+	this.onReceive = function(callback) {
 		eventsReceivedCallback = callback;
 	};
 
@@ -139,7 +139,7 @@ var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEven
   *
   * @param {Function} callback The on error callback.
   */
-	this.onError = function (callback) {
+	this.onError = function(callback) {
 		fetchFailedCallback = callback;
 	};
 
@@ -148,7 +148,7 @@ var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEven
   *
   * @returns {string} The url of this fetcher.
   */
-	this.url = function () {
+	this.url = function() {
 		return url;
 	};
 
@@ -157,7 +157,7 @@ var CalendarFetcher = function CalendarFetcher(url, reloadInterval, excludedEven
   *
   * @returns {object[]} The current available events for this fetcher.
   */
-	this.events = function () {
+	this.events = function() {
 		return events;
 	};
 };
