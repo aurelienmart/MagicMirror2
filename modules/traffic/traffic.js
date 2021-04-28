@@ -104,9 +104,9 @@ Module.register("traffic", {
 
 		// base divs
 		var firstLineDiv = document.createElement("div");
-		firstLineDiv.className = "bright small";
+		firstLineDiv.className = "bright midget";
 		var secondLineDiv = document.createElement("div");
-		secondLineDiv.className = "normal xsmall";
+		secondLineDiv.className = "normal small";
 
 		// display any errors
 		if (this.errorMessage) {
