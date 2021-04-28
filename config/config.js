@@ -655,13 +655,6 @@ var config = {
 			}
 		},
 		{
-			module: "kamasutra",
-			position: "top_center",
-			header: "Kama Sutra Sex Positions",
-			hiddenOnStartup: false,
-			disabled: true
-		},
-		{
 			module: "yframe",
 			position: "upper_third",
 			classes: "night",
