@@ -16,7 +16,7 @@ Module.register("monthly", {
 	},
 
 	// Update at midnight
-	start: function (){
+	start: function () {
 		var self = this;
 		setInterval(function() {
 			self.updateDom(config.animation);
@@ -54,7 +54,7 @@ Module.register("monthly", {
 
 			// add the month and week day headers
 			monthTitle = moment().add(currentMonth, "month").format("MMMM YYYY");
-			output += "<div class='month-header'>" + monthTitle + "</div>";
+			output += "<div class='month-header midget'>" + monthTitle + "</div>";
 			if ((!this.config.monthsVertical) || ((this.config.repeatWeekdaysVertical || (currentMonth == this.config.startMonth)))) {
 				output += weekdaysHeader;
 			}

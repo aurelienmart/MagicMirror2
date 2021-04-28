@@ -14,7 +14,7 @@ Module.register("rssfeed", {
 		return ["jquery.js"];
 	},
 
-	getStyles: function () {
+	getStyles: function() {
 		return ["font-awesome.css"];
 	},
 	
