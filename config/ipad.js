@@ -83,12 +83,6 @@ var config = {
 			disabled: true,
 		},
 		{
-			module: "updatenotification",
-			position: "top_center",
-			hiddenOnStartup: true,
-			disabled: true,
-		},
-		{
 			module: "clock",
 			position: "top_center",
 			classes: "analog night",
@@ -280,6 +274,9 @@ var config = {
 			classes: "night current",
 			hiddenOnStartup: false,
 			disabled: false,
+			config: {
+				// modified module with own settings
+			}
 		},
 		{
 			module: "weatherforecast",
@@ -317,7 +314,7 @@ var config = {
 			}
 		},
 		{
-			module: "weather",	// not fully operational
+			module: "weather",
 			position: "top_right",
 			classes: "night currentweather current",
 			hiddenOnStartup: false,
@@ -564,13 +561,6 @@ var config = {
 					},
 				feedMaxAge: {days: 0, hours: 12},
 			}
-		},
-		{
-			module: "kamasutra",
-			position: "top_center",
-			header: "Kama Sutra Sex Positions",
-			hiddenOnStartup: false,
-			disabled: true
 		},
 		{
 			module: "yframe",
