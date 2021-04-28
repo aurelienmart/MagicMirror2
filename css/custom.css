@@ -1204,8 +1204,6 @@ header {
 	.calendar .month:nth-child(n+2),
 	.icalendar table tr:nth-child(n+13),
 	.calendar table tr:nth-child(n+12),
-	.hourly table tr:nth-child(n+3),
-	.daily table tr:nth-child(n+12),
 	header,	.monthly .month-header,
 	.lifecounter, .yframe, .traffic {
 		display: none !important;
