@@ -8,9 +8,6 @@
 /**
  * @external Moment
  */
-"use strict";
-
-var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
 
 var moment = require("moment");
 var path = require("path");
@@ -26,7 +23,7 @@ var CalendarUtils = {
   * @param {Date} date
   * @returns {number} the necessary adjustment in hours
   */
-	calculateTimezoneAdjustment(event, date) {
+	calculateTimezoneAdjustment: function (event, date) {
 		var adjustHours = 0;
 		// if a timezone was specified
 		if (!event.start.tz) {
@@ -58,11 +55,11 @@ var CalendarUtils = {
 			if (event.start.tz.startsWith("(")) {
 				var regex = /[+|-]\d*:\d*/;
 				var start_offsetString = event.start.tz.match(regex).toString().split(":");
-				var _start_offset = parseInt(start_offsetString[0]);
-				_start_offset *= event.start.tz[1] === "-" ? -1 : 1;
-				adjustHours = _start_offset;
-				Log.debug("defined offset=" + _start_offset + " hours");
-				current_offset = _start_offset;
+				var start_offset = parseInt(start_offsetString[0]);
+				start_offset *= event.start.tz[1] === "-" ? -1 : 1;
+				adjustHours = start_offset;
+				Log.debug("defined offset=" + start_offset + " hours");
+				current_offset = start_offset;
 				event.start.tz = "";
 				Log.debug("ical offset=" + current_offset + " date=" + date);
 				mm = moment(date);
@@ -121,7 +118,7 @@ var CalendarUtils = {
 		return adjustHours;
 	},
 
-	filterEvents(data, config) {
+	filterEvents: function (data, config) {
 		var newEvents = [];
 
 		// limitFunction doesn't do much limiting, see comment re: the dates
@@ -136,20 +133,15 @@ var CalendarUtils = {
 		};
 
 		Log.debug("there are " + Object.entries(data).length + " calendar entries");
-		Object.entries(data).forEach(function (_ref) {
-			var _ref2 = _slicedToArray(_ref, 2);
-
-			var key = _ref2[0];
-			var event = _ref2[1];
-
-			var now = new Date();
-			var today = moment().startOf("day").toDate();
-			var future = moment().startOf("day").add(config.maximumNumberOfDays, "days").subtract(1, "seconds").toDate(); // Subtract 1 second so that events that start on the middle of the night will not repeat.
-			var past = today;
-			Log.debug("have entries ");
-			if (config.includePastEvents) {
-				past = moment().startOf("day").subtract(config.maximumNumberOfDays, "days").toDate();
-			}
+		Object.entries(data).forEach(function (key, event) {
+		    var now = new Date();
+		    var today = moment().startOf("day").toDate();
+		    var future = moment().startOf("day").add(config.maximumNumberOfDays, "days").subtract(1, "seconds").toDate(); // Subtract 1 second so that events that start on the middle of the night will not repeat.
+		    var past = today;
+		    Log.debug("have entries ");
+		    if (config.includePastEvents) {
+		        past = moment().startOf("day").subtract(config.maximumNumberOfDays, "days").toDate();
+		    }
 
 			// FIXME: Ugly fix to solve the facebook birthday issue.
 			// Otherwise, the recurring events only show the birthday for next year.
@@ -239,7 +231,7 @@ var CalendarUtils = {
 					return;
 				}
 
-				var _location = event.location || false;
+				var location = event.location || false;
 				var geo = event.geo || false;
 				var description = event.description || false;
 
@@ -418,9 +410,9 @@ var CalendarUtils = {
 								endDate: (adjustDays ? adjustDays > 0 ? endDate.add(adjustDays, "hours") : endDate.subtract(Math.abs(adjustDays), "hours") : endDate).format("x"),
 								fullDayEvent: CalendarUtils.isFullDayEvent(event),
 								recurringEvent: true,
-								"class": event["class"],
+								"class": event.class,
 								firstYear: event.start.getFullYear(),
-								location: _location,
+								location: location,
 								geo: geo,
 								description: description
 							});
@@ -474,8 +466,8 @@ var CalendarUtils = {
 							startDate: (adjustDays ? adjustDays > 0 ? startDate.add(adjustDays, "hours") : startDate.subtract(Math.abs(adjustDays), "hours") : startDate).format("x"),
 							endDate: (adjustDays ? adjustDays > 0 ? endDate.add(adjustDays, "hours") : endDate.subtract(Math.abs(adjustDays), "hours") : endDate).format("x"),
 							fullDayEvent: fullDayEvent,
-							"class": event["class"],
-							location: _location,
+							"class": event.class,
+							location: location,
 							geo: geo,
 							description: description
 						});
@@ -492,36 +484,18 @@ var CalendarUtils = {
 		var now = moment();
 		var entries = 0;
 		var events = [];
-		var _iteratorNormalCompletion = true;
-		var _didIteratorError = false;
-		var _iteratorError = undefined;
-
-		try {
-			for (var _iterator = newEvents[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-				var ne = _step.value;
-
-				if (moment(ne.endDate, "x").isBefore(now)) {
-					if (config.includePastEvents) events.push(ne);
-					continue;
-				}
-				entries++;
-				// If max events has been saved, skip the rest
-				if (entries > config.maximumEntries) break;
-				events.push(ne);
-			}
-		} catch (err) {
-			_didIteratorError = true;
-			_iteratorError = err;
-		} finally {
-			try {
-				if (!_iteratorNormalCompletion && _iterator["return"]) {
-					_iterator["return"]();
-				}
-			} finally {
-				if (_didIteratorError) {
-					throw _iteratorError;
-				}
-			}
+		for (var _i = 0; _i < newEvents.length; _i++) {
+		    var ne = newEvents[_i];
+		    if (moment(ne.endDate, "x").isBefore(now)) {
+		        if (config.includePastEvents)
+		            events.push(ne);
+		        continue;
+		    }
+		    entries++;
+		    // If max events has been saved, skip the rest
+		    if (entries > config.maximumEntries)
+		        break;
+		    events.push(ne);
 		}
 
 		return events;
@@ -533,7 +507,7 @@ var CalendarUtils = {
   * @param msTZName
   * @returns {*|null}
   */
-	getIanaTZFromMS(msTZName) {
+	getIanaTZFromMS: function (msTZName) {
 		// Get hash entry
 		var he = zoneTable[msTZName];
 		// If found return iana name, else null
@@ -546,7 +520,7 @@ var CalendarUtils = {
   * @param {object} event The event object to check.
   * @returns {string} The title of the event, or "Event" if no title is found.
   */
-	getTitleFromEvent(event) {
+	getTitleFromEvent: function (event) {
 		var title = "Event";
 		if (event.summary) {
 			title = typeof event.summary.val !== "undefined" ? event.summary.val : event.summary;
@@ -563,7 +537,7 @@ var CalendarUtils = {
   * @param {object} event The event object to check.
   * @returns {boolean} True if the event is a fullday event, false otherwise
   */
-	isFullDayEvent(event) {
+	isFullDayEvent: function (event) {
 		if (event.start.length === 8 || event.start.dateOnly || event.datetype === "date") {
 			return true;
 		}
@@ -587,7 +561,7 @@ var CalendarUtils = {
   * @param {string} filter The time to subtract from the end date to determine if an event should be shown
   * @returns {boolean} True if the event should be filtered out, false otherwise
   */
-	timeFilterApplies(now, endDate, filter) {
+	timeFilterApplies: function (now, endDate, filter) {
 		if (filter) {
 			var until = filter.split(" "),
 			    value = parseInt(until[0]),
@@ -609,7 +583,7 @@ var CalendarUtils = {
   * @param regexFlags
   * @returns {boolean|*}
   */
-	titleFilterApplies(title, filter, useRegex, regexFlags) {
+	titleFilterApplies: function (title, filter, useRegex, regexFlags) {
 		if (useRegex) {
 			// Assume if leading slash, there is also trailing slash
 			if (filter[0] === "/") {

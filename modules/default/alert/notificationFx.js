@@ -66,10 +66,10 @@
 		ttl: 6000,
 		al_no: "ns-box",
 		// callbacks
-		onClose: function onClose() {
+		onClose: function () {
 			return false;
 		},
-		onOpen: function onOpen() {
+		onOpen: function () {
 			return false;
 		}
 	};
@@ -145,7 +145,7 @@
 		}, 25);
 
 		// after animation ends remove ntf from the DOM
-		var onEndAnimationFn = function onEndAnimationFn(ev) {
+		var onEndAnimationFn = function (ev) {
 			if (ev.target !== _this3.ntf) {
 				return false;
 			}

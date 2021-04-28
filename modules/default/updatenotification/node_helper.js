@@ -14,9 +14,9 @@ module.exports = NodeHelper.create({
 	updateTimer: null,
 	updateProcessStarted: false,
 
-	start: function start() {},
+	start: function () {},
 
-	configureModules: function configureModules(modules) {
+	configureModules: function (modules) {
 		var moduleName, moduleFolder, git;
 		return regeneratorRuntime.async(function configureModules$(context$1$0) {
 			while (1) switch (context$1$0.prev = context$1$0.next) {
@@ -75,7 +75,7 @@ module.exports = NodeHelper.create({
 		}, null, this, [[6, 15]]);
 	},
 
-	socketNotificationReceived: function socketNotificationReceived(notification, payload) {
+	socketNotificationReceived: function (notification, payload) {
 		var _this = this;
 
 		if (notification === "CONFIG") {
@@ -91,7 +91,7 @@ module.exports = NodeHelper.create({
 		}
 	},
 
-	resolveRemote: function resolveRemote(moduleFolder) {
+	resolveRemote: function (moduleFolder) {
 		var git, remotes;
 		return regeneratorRuntime.async(function resolveRemote$(context$1$0) {
 			while (1) switch (context$1$0.prev = context$1$0.next) {
@@ -120,7 +120,7 @@ module.exports = NodeHelper.create({
 		}, null, this);
 	},
 
-	performFetch: function performFetch() {
+	performFetch: function () {
 		var _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, sg, fetchData, logData;
 
 		return regeneratorRuntime.async(function performFetch$(context$1$0) {
@@ -219,7 +219,7 @@ module.exports = NodeHelper.create({
 		}, null, this, [[3, 25, 29, 37], [7, 17], [30,, 32, 36]]);
 	},
 
-	scheduleNextFetch: function scheduleNextFetch(delay) {
+	scheduleNextFetch: function (delay) {
 		if (delay < 60 * 1000) {
 			delay = 60 * 1000;
 		}
@@ -231,11 +231,11 @@ module.exports = NodeHelper.create({
 		}, delay);
 	},
 
-	createGit: function createGit(folder) {
+	createGit: function (folder) {
 		return SimpleGit({ baseDir: folder, timeout: { block: this.config.timeout } });
 	},
 
-	ignoreUpdateChecking: function ignoreUpdateChecking(moduleName) {
+	ignoreUpdateChecking: function (moduleName) {
 		// Should not check for updates for default modules
 		if (defaultModules.indexOf(moduleName) >= 0) {
 			return true;

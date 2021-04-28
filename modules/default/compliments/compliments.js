@@ -26,16 +26,16 @@ Module.register("compliments", {
 	currentWeatherType: "weather",
 
 	// Define required scripts.
-	getScripts() {
+	getScripts: function () {
 		return ["moment.js"];
 	},
 
-	getStyles() {
+	getStyles: function () {
 		return ["font-awesome.css", "weather-icons.css"];
 	},
 
 	// Define start sequence.
-	start() {
+	start: function () {
 		Log.info("Starting module: " + this.name);
 
 		this.lastComplimentIndex = -1;
@@ -61,7 +61,7 @@ Module.register("compliments", {
 	 *
 	 * return Number - Random index.
 	 */
-	randomIndex(compliments) {
+	randomIndex: function (compliments) {
 		if (compliments.length === 1) {
 			return 0;
 		}
@@ -86,7 +86,7 @@ Module.register("compliments", {
 	 *
 	 * return compliments Array<String> - Array with compliments for the time of the day.
 	 */
-	complimentArray() {
+	complimentArray: function () {
 		var hour = moment().hour();
 		var date = this.config.mockDate ? this.config.mockDate : moment().format("DD-MM-YYYY");
 		var compliments;
@@ -127,7 +127,7 @@ Module.register("compliments", {
 	/* complimentFile(callback)
 	 * Retrieve a file from the local filesystem
 	 */
-	complimentFile(callback) {
+	complimentFile: function (callback) {
 		var xobj = new XMLHttpRequest(),
 			isRemote = this.config.remoteFile.indexOf("http://") === 0 || this.config.remoteFile.indexOf("https://") === 0,
 			path = isRemote ? this.config.remoteFile : this.file(this.config.remoteFile);
@@ -146,7 +146,7 @@ Module.register("compliments", {
 	 *
 	 * return compliment string - A compliment.
 	 */
-	randomCompliment() {
+	randomCompliment: function () {
 		// get the current time of day compliments list
 		var compliments = this.complimentArray();
 		// variable for index to next message to display
@@ -169,7 +169,7 @@ Module.register("compliments", {
 	},
 
 	// Override dom generator.
-	getDom() {
+	getDom: function () {
 		var wrapper = document.createElement("div");
 		wrapper.className = this.config.classes ? this.config.classes : "thin xlarge bright pre-line";
 		// get the compliment text
@@ -195,12 +195,12 @@ Module.register("compliments", {
 	},
 
 	// From data currentweather set weather type
-	setCurrentWeatherType(type) {
+	setCurrentWeatherType: function (type) {
 		this.currentWeatherType = type;
 	},
 
 	// Override notification handler.
-	notificationReceived(notification, payload, sender) {
+	notificationReceived: function (notification, payload, sender) {
 		if (notification === "CURRENTWEATHER_TYPE") {
 			this.setCurrentWeatherType(payload.type);
 		}

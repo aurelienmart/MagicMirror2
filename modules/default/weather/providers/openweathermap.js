@@ -29,7 +29,7 @@ WeatherProvider.register("openweathermap", {
 	},
 
     // Overwrite the fetchCurrentWeather method.
-    fetchCurrentWeather() {
+    fetchCurrentWeather: function () {
         var self = this;
         this.fetchData(this.getUrl())
             .then(function (data) {
@@ -48,7 +48,7 @@ WeatherProvider.register("openweathermap", {
             .finally(function () { return self.updateAvailable(); });
     },
     // Overwrite the fetchWeatherForecast method.
-    fetchWeatherForecast() {
+    fetchWeatherForecast: function () {
         var self = this;
         this.fetchData(this.getUrl())
             .then(function (data) {
@@ -67,7 +67,7 @@ WeatherProvider.register("openweathermap", {
             .finally(function () { return self.updateAvailable(); });
     },
     // Overwrite the fetchWeatherHourly method.
-    fetchWeatherHourly() {
+    fetchWeatherHourly: function () {
         var self = this;
         this.fetchData(this.getUrl())
             .then(function (data) {
@@ -90,7 +90,7 @@ WeatherProvider.register("openweathermap", {
      *
      * @param config
      */
-    setConfig(config) {
+    setConfig: function (config) {
         this.config = config;
         if (!this.config.weatherEndpoint) {
             switch (this.config.type) {
@@ -115,13 +115,13 @@ WeatherProvider.register("openweathermap", {
     /*
      * Gets the complete url for the request
      */
-    getUrl() {
+    getUrl: function () {
         return this.config.apiBase + this.config.apiVersion + this.config.weatherEndpoint + this.getParams();
     },
     /*
      * Generate a WeatherObject based on currentWeatherInformation
      */
-    generateWeatherObjectFromCurrentWeather(currentWeatherData) {
+    generateWeatherObjectFromCurrentWeather: function (currentWeatherData) {
         var currentWeather = new WeatherObject(this.config.units, this.config.tempUnits, this.config.windUnits, this.config.useKmh);
         currentWeather.humidity = currentWeatherData.main.humidity;
         currentWeather.temperature = currentWeatherData.main.temp;
@@ -140,7 +140,7 @@ WeatherProvider.register("openweathermap", {
     /*
      * Generate WeatherObjects based on forecast information
      */
-    generateWeatherObjectsFromForecast(forecasts) {
+    generateWeatherObjectsFromForecast: function (forecasts) {
         if (this.config.weatherEndpoint === "/forecast") {
             return this.fetchForecastHourly(forecasts);
         }
@@ -154,7 +154,7 @@ WeatherProvider.register("openweathermap", {
     /*
      * Generate WeatherObjects based on One Call forecast information
      */
-    generateWeatherObjectsFromOnecall(data) {
+    generateWeatherObjectsFromOnecall: function (data) {
         if (this.config.weatherEndpoint === "/onecall") {
             return this.fetchOnecall(data);
         }
@@ -165,7 +165,7 @@ WeatherProvider.register("openweathermap", {
     /*
      * fetch forecast information for 3-hourly forecast (available for free subscription).
      */
-    fetchForecastHourly(forecasts) {
+    fetchForecastHourly: function (forecasts) {
         // initial variable declaration
         var days = [];
         // variables for temperature range and rain
@@ -238,7 +238,7 @@ WeatherProvider.register("openweathermap", {
     /*
      * fetch forecast information for daily forecast (available for paid subscription or old apiKey).
      */
-    fetchForecastDaily(forecasts) {
+    fetchForecastDaily: function (forecasts) {
         // initial variable declaration
         var days = [];
         for (var _i = 0; _i < forecasts.length; _i++) {
@@ -280,7 +280,7 @@ WeatherProvider.register("openweathermap", {
      * Factors in timezone offsets.
      * Minutely forecasts are excluded for the moment, see getParams().
      */
-    fetchOnecall(data) {
+    fetchOnecall: function (data) {
         var precip = false;
         // get current weather, if requested
         var current = new WeatherObject(this.config.units, this.config.tempUnits, this.config.windUnits, this.config.useKmh);
@@ -401,7 +401,7 @@ WeatherProvider.register("openweathermap", {
     /*
      * Convert the OpenWeatherMap icons to a more usable name.
      */
-    convertWeatherType(weatherType) {
+    convertWeatherType: function (weatherType) {
         var weatherTypes = {
             "01d": "day-sunny",
             "02d": "day-cloudy",
@@ -429,7 +429,7 @@ WeatherProvider.register("openweathermap", {
      *
      * return String - URL params.
      */
-    getParams() {
+    getParams: function () {
         var params = "?";
         if (this.config.weatherEndpoint === "/onecall") {
             params += "lat=" + this.config.lat;

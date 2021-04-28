@@ -12,10 +12,10 @@
         {% endif %}
         <span class="newsfeed-title bright medium light{{ ' no-wrap' if not config.wrapTitle }}">
             {{ title }}
-        &bull;</span>
+        </span>
         {% if config.showDescription %}
-            <span class="newsfeed-desc small light{{ ' no-wrap' if not config.wrapDescription }}">
-                {% if config.truncDescription %}
+            <span class="newsfeed-desc medium light{{ ' no-wrap' if not config.wrapDescription }}">
+                {% if config.truncDescription %} &bull;
                     {{ description | truncate(config.lengthDescription) }}
                 {% else %}
                     {{ description }}

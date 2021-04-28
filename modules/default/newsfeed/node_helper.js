@@ -9,12 +9,12 @@ var NewsfeedFetcher = require("./newsfeedfetcher.js");
 var Log = require("logger");
 module.exports = NodeHelper.create({
     // Override start method.
-    start() {
+    start: function () {
         Log.log("Starting node helper for: " + this.name);
         this.fetchers = [];
     },
     // Override socketNotificationReceived received.
-    socketNotificationReceived(notification, payload) {
+    socketNotificationReceived: function (notification, payload) {
         if (notification === "ADD_FEED") {
             this.createFetcher(payload.feed, payload.config);
         }
@@ -26,7 +26,7 @@ module.exports = NodeHelper.create({
      * @param {object} feed The feed object.
      * @param {object} config The configuration object.
      */
-    createFetcher(feed, config) {
+    createFetcher: function (feed, config) {
         var self = this;
         var url = feed.url || "";
         var encoding = feed.encoding || "UTF-8";
@@ -65,7 +65,7 @@ module.exports = NodeHelper.create({
      * Creates an object with all feed items of the different registered feeds,
      * and broadcasts these using sendSocketNotification.
      */
-    broadcastFeeds() {
+    broadcastFeeds: function () {
         var feeds = {};
         for (var f in this.fetchers) {
             feeds[f] = this.fetchers[f].items();
