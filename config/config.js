@@ -233,17 +233,6 @@ var config = {
 			}
 		},
 		{
-			module: "simpletext",
-			position: "top_left",
-			header: "",
-			hiddenOnStartup: true,
-			disabled: false,
-			config: {
-				text: "",
-				cssClass: "small",
-			}
-		},
-		{
 			module: "calendar",
 			position: "top_left",
 			header: "Calendar evenimente și aniversări",
@@ -254,7 +243,6 @@ var config = {
 				displayRepeatingCountTitle: true,
 				fetchInterval: 60 * 1000,
 				fade: false,
-				urgency: 15,
 				dateFormat: "ddd D MMM",
 				fullDayEventDateFormat: "ddd D MMM",
 				getRelative: 48,
@@ -316,6 +304,9 @@ var config = {
 			classes: "night current",
 			hiddenOnStartup: false,
 			disabled: false,
+			config: {
+				// modified module with own settings
+			}
 		},
 		{
 			module: "weatherforecast",
@@ -325,7 +316,7 @@ var config = {
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				maxNumberOfDays: 3,
+				maxNumberOfDays: 5,
 				forecastEndpoint: "/forecast",
 				fallBack: false,
 				fullday: "HH [h]",
@@ -342,7 +333,7 @@ var config = {
 			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				maxNumberOfDays: 16,
+				maxNumberOfDays: 14,
 //				locationID: false,
 //				forecastEndpoint: "onecall",
 				fallBack: true,
@@ -374,7 +365,7 @@ var config = {
 			disabled: false,
 			config: {
 				type: "hourly",
-				maxEntries: 3,
+				maxEntries: 5,
 				initialLoadDelay: 1000,
 				tableClass: "small",
 			}
@@ -388,7 +379,7 @@ var config = {
 			disabled: false,
 			config: {
 				type: "daily",
-				maxNumberOfDays: 16,
+				maxNumberOfDays: 14,
 				initialLoadDelay: 2000,
 				tableClass: "small",
 			}
