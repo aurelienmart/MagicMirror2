@@ -34,7 +34,6 @@ Module.register("newsfeed", {
         scrollLength: 500,
         logFeedWarnings: false
 	},
-
     // Define required scripts.
     getScripts: function () {
         return ["moment.js"];

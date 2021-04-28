@@ -34,15 +34,15 @@ Module.register("clock", {
 		lon: config.longitude,
 	},
 	// Define required scripts.
-	getScripts() {
+	getScripts: function () {
 		return ["moment.js", "moment-timezone.js", "suncalc.js"];
 	},
 	// Define styles.
-	getStyles() {
+	getStyles: function () {
 		return false;
 	},
 	// Define start sequence.
-	start() {
+	start: function () {
 		Log.info("Starting module: " + this.name);
 
 		// Schedule update interval.
@@ -98,7 +98,7 @@ Module.register("clock", {
 		} else moment.locale(config.language);
 	},
 	// Override dom generator.
-	getDom() {
+	getDom: function () {
 		var wrapper = document.createElement("div");
 
 		/************************************
@@ -118,7 +118,7 @@ Module.register("clock", {
 		secondsWrapper.className = "seconds dimmed";
 		sunWrapper.className = "sun dimmed medium";
 		moonWrapper.className = "moon dimmed medium";
-		weekWrapper.className = "week dimmed small";
+		weekWrapper.className = "week dimmed midget";
 
 		// Set content of wrappers.
 		// The moment().format("h") method has a bug on the Raspberry Pi.

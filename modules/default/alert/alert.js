@@ -21,19 +21,19 @@ Module.register("alert", {
 		//shown at startup
 		welcome_message: true
 	},
-	getScripts: function getScripts() {
+	getScripts: function () {
 		return ["notificationFx.js"];
 	},
-	getStyles: function getStyles() {
+	getStyles: function () {
 		return ["notificationFx.css", "font-awesome.css"];
 	},
 	// Define required translations.
-	getTranslations: function getTranslations() {
+	getTranslations: function () {
 		return {
 			en: "translations/en.json"
 		};
 	},
-	show_notification: function show_notification(message) {
+	show_notification: function (message) {
 		if (this.config.effect === "slide") {
 			this.config.effect = this.config.effect + "-" + this.config.position;
 		}
@@ -55,7 +55,7 @@ Module.register("alert", {
 			ttl: message.timer !== undefined ? message.timer : this.config.display_time
 		}).show();
 	},
-	show_alert: function show_alert(params, sender) {
+	show_alert: function (params, sender) {
 		var _this = this;
 
 		var image = "";
@@ -102,7 +102,7 @@ Module.register("alert", {
 			message: image + message,
 			effect: this.config.alert_effect,
 			ttl: params.timer,
-			onClose: function onClose() {
+			onClose: function () {
 				return _this.hide_alert(sender);
 			},
 			al_no: "ns-alert"
@@ -118,7 +118,7 @@ Module.register("alert", {
 			}, params.timer);
 		}
 	},
-	hide_alert: function hide_alert(sender) {
+	hide_alert: function (sender) {
 		var close = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
 
 		//Dismiss alert and remove from this.alerts
@@ -130,7 +130,7 @@ Module.register("alert", {
 			overlay.parentNode.removeChild(overlay);
 		}
 	},
-	setPosition: function setPosition(pos) {
+	setPosition: function (pos) {
 		//Add css to body depending on the set position for notifications
 		var sheet = document.createElement("style");
 		if (pos === "center") {
@@ -144,7 +144,7 @@ Module.register("alert", {
 		}
 		document.body.appendChild(sheet);
 	},
-	notificationReceived: function notificationReceived(notification, payload, sender) {
+	notificationReceived: function (notification, payload, sender) {
 		if (notification === "SHOW_ALERT") {
 			if (typeof payload.type === "undefined") {
 				payload.type = "alert";
@@ -158,7 +158,7 @@ Module.register("alert", {
 			this.hide_alert(sender);
 		}
 	},
-	start: function start() {
+	start: function () {
 		this.alerts = {};
 		this.setPosition(this.config.position);
 		if (this.config.welcome_message) {

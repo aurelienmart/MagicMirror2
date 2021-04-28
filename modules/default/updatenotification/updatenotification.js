@@ -11,13 +11,13 @@ Module.register("updatenotification", {
 		updateInterval: 10 * 60 * 1000, // every 10 minutes
 		refreshInterval: 24 * 60 * 60 * 1000, // one day
 		ignoreModules: [],
-		timeout: 1000
+		timeout: 5000
 	},
 
 	suspended: false,
 	moduleList: {},
 
-	start: function start() {
+	start: function () {
 		var self = this;
 		Log.info("Starting module: " + this.name);
 		setInterval(function () {
@@ -26,7 +26,7 @@ Module.register("updatenotification", {
 		}, self.config.refreshInterval);
 	},
 
-	notificationReceived: function notificationReceived(notification, payload, sender) {
+	notificationReceived: function (notification, payload, sender) {
 		if (notification === "DOM_OBJECTS_CREATED") {
 			this.sendSocketNotification("CONFIG", this.config);
 			this.sendSocketNotification("MODULES", Module.definitions);
@@ -34,13 +34,13 @@ Module.register("updatenotification", {
 		}
 	},
 
-	socketNotificationReceived: function socketNotificationReceived(notification, payload) {
+	socketNotificationReceived: function (notification, payload) {
 		if (notification === "STATUS") {
 			this.updateUI(payload);
 		}
 	},
 
-	updateUI: function updateUI(payload) {
+	updateUI: function (payload) {
 		var self = this;
 		if (payload && payload.behind > 0) {
 			// if we haven't seen info for this module
@@ -60,14 +60,14 @@ Module.register("updatenotification", {
 			}
 	},
 
-	diffLink: function diffLink(module, text) {
+	diffLink: function (module, text) {
 		var localRef = module.hash;
 		var remoteRef = module.tracking.replace(/.*\//, "");
 		return '<a href="https://github.com/MichMich/MagicMirror/compare/' + localRef + "..." + remoteRef + '" ' + 'class="xsmall dimmed" ' + 'style="text-decoration: none;" ' + 'target="_blank" >' + text + "</a>";
 	},
 
 	// Override dom generator.
-	getDom: function getDom() {
+	getDom: function () {
 		var wrapper = document.createElement("div");
 		if (this.suspended === false) {
 			// process the hash of module info found
@@ -132,10 +132,10 @@ Module.register("updatenotification", {
 		return wrapper;
 	},
 
-	suspend: function suspend() {
+	suspend: function () {
 		this.suspended = true;
 	},
-	resume: function resume() {
+	resume: function () {
 		this.suspended = false;
 		this.updateDom(2);
 	}

@@ -12,13 +12,13 @@ var Log = require("logger");
 
 module.exports = NodeHelper.create({
 	// Override start method.
-	start() {
+	start: function () {
 		Log.log("Starting node helper for: " + this.name);
 		this.fetchers = [];
 	},
 
 	// Override socketNotificationReceived method.
-	socketNotificationReceived(notification, payload) {
+	socketNotificationReceived: function (notification, payload) {
 		if (notification === "ADD_CALENDAR") {
 			this.createFetcher(payload.url, payload.fetchInterval, payload.excludedEvents, payload.maximumEntries, payload.maximumNumberOfDays, payload.auth, payload.broadcastPastEvents, payload.selfSignedCert, payload.id);
 		}
@@ -38,7 +38,7 @@ module.exports = NodeHelper.create({
   * @param {boolean} selfSignedCert If true, the server certificate is not verified against the list of supplied CAs.
   * @param {string} identifier ID of the module
   */
-	createFetcher: function createFetcher(url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, selfSignedCert, identifier) {
+	createFetcher: function (url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, selfSignedCert, identifier) {
 		var self = this;
 
 		try {
@@ -81,7 +81,7 @@ module.exports = NodeHelper.create({
   * @param {object} fetcher the fetcher associated with the calendar
   * @param {string} identifier the identifier of the calendar
   */
-	broadcastEvents(fetcher, identifier) {
+	broadcastEvents: function (fetcher, identifier) {
 		this.sendSocketNotification("CALENDAR_EVENTS", {
 			id: identifier,
 			url: fetcher.url(),
