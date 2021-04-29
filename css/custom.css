@@ -151,7 +151,7 @@ header {
 	text-transform: none;
 	font-size: 1.2rem;
 	font-weight: 400;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid darkred;
 	line-height: 1.2rem;
 	padding-bottom: 5px;
 	margin: 5px 0 5px;
@@ -287,7 +287,7 @@ header {
 
 .region table tr:nth-child(even),
 .monthly .week:nth-child(odd) {
-	background: rgba(128,128,128,0.25);
+	background: rgba(128,128,128,0.20);
 }
 
 .region table tr {
@@ -817,7 +817,6 @@ header {
 
 .currentweather .wi-thermometer, 
 .currentweather .wi-humidity, 
-.currentweather .wi-alien, 
 .currentweather .wi-sunset, 
 .currentweather .wi-sunrise,
 .currentweather .fa-binoculars {
@@ -832,20 +831,22 @@ header {
 
 .currentweather .fa-binoculars {
 	color: violet;
+	margin-left: -10px;
 }
 
-.currentweather .wi-raindrop {
-	transform: translate(0, 4px) scale(0.85);
+.currentweather .fa-tint {
+	transform: translate(0, 2px) scale(0.65);
 }
 
-.currentweather .wi-small-craft-advisory {
-	transform: translate(0, 2px) scale(0.75);
+.currentweather .fa-tint-slash {
+	transform: translate(0, 2px) scale(0.5);
+	margin: 0 -10px;
 	color: lime;
 }
 
+.currentweather .fa-tint,
 .currentweather .dew,
-.currentweather .wi-humidity, 
-.currentweather .wi-raindrop {
+.currentweather .wi-humidity {
 	color: skyblue;
 }
 
@@ -1029,8 +1030,14 @@ header {
 	color: lightgray;
 }
 
+.weatherforecast .fa-tint,
 .weatherforecast .wi-umbrella {
 	font-size: 80%;
+}
+
+.weatherforecast .fa-tint-slash {
+	font-size: 75%;
+	margin: 0 -5px;
 }
 
 .weatherforecast .wi-day-sunny {
