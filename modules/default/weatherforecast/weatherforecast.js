@@ -31,7 +31,7 @@ Module.register("weatherforecast", {
 		decimalSymbol: config.decimal,
 		apiVersion: config.apiVersion,
 		apiBase: config.apiBase,
-		forecastEndpoint: "forecast/daily",
+		forecastEndpoint: "/forecast/daily",
 		excludes: false,
 
 		appendLocationNameToHeader: true,
@@ -186,7 +186,7 @@ Module.register("weatherforecast", {
 				var rainCell = document.createElement("td");
 				if (isNaN(forecast.rain)) {
 					rainCell.className = "align-right shade";
-					rainCell.innerHTML = this.translate("No rain") + " &nbsp;<i class=\"wi wi-small-craft-advisory lime\"></i>&nbsp;" // this.translate("No rain");
+					rainCell.innerHTML = this.translate("No rain") + " &nbsp;<i class=\"fa fa-tint-slash lime\"></i>&nbsp;";
 				} else if (!isNaN(forecast.snow)) {
 					if(config.units !== "imperial") {
 						rainCell.innerHTML = parseFloat(forecast.snow).toFixed(1).replace(".", this.config.decimalSymbol) + " mm <i class=\"wi wi-snowflake-cold lightblue\"></i>";
@@ -195,9 +195,9 @@ Module.register("weatherforecast", {
 					}
 				} else {
 					if (config.units !== "imperial") {
-						rainCell.innerHTML = parseFloat(forecast.rain).toFixed(1).replace(".", this.config.decimalSymbol) + " mm &nbsp;<i class=\"wi wi-umbrella skyblue\"></i>";
+						rainCell.innerHTML = parseFloat(forecast.rain).toFixed(1).replace(".", this.config.decimalSymbol) + " mm &nbsp;<i class=\"fa fa-tint skyblue\"></i>";
 					} else {
-						rainCell.innerHTML = (parseFloat(forecast.rain) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in &nbsp;<i class=\"wi wi-umbrella skyblue\"></i>";
+						rainCell.innerHTML = (parseFloat(forecast.rain) / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in &nbsp;<i class=\"fa fa-tint skyblue\"></i>";
 					}
 				} 
 				rainCell.className = "align-right bright rain";
