@@ -970,7 +970,7 @@ header {
   line-height: 0;
 }
 
-.ipad3 tr:nth-child(1) .azi:nth-child(1)::after {
+.weatherforecast .ipad3 tr:nth-child(1) .azi:nth-child(1)::after {
   text-indent: 0;
   content: "Astăzi";
   display: block;
@@ -978,7 +978,7 @@ header {
   color: lime;
 }
 
-.ipad3 tr:nth-child(2) .azi:nth-child(1)::after {
+.weatherforecast .ipad3 tr:nth-child(2) .azi:nth-child(1)::after {
   text-indent: 0;
   content: "Mâine";
   display: block;
@@ -989,7 +989,7 @@ header {
 	color: lime;
 }
 
-.daily table tr:nth-child(2) td:nth-child(1) {
+.weatherforecast .daily table tr:nth-child(2) td:nth-child(1) {
 	color: greenyellow;
 }
 
@@ -1037,7 +1037,6 @@ header {
 
 .weatherforecast .fa-tint-slash {
 	font-size: 75%;
-	margin: 0 -5px;
 }
 
 .weatherforecast .wi-day-sunny {
