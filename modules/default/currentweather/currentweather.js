@@ -136,6 +136,23 @@ Module.register("currentweather", {
 		windIcon.className = "wi wi-strong-wind";
 		small.appendChild(windIcon);
 
+		var spacer = document.createElement("span");
+		spacer.innerHTML = "&nbsp;";
+		small.appendChild(spacer);
+
+		if (this.config.showWindDirection) {
+			var windDirection = document.createElement("span");
+			windDirection.className = "wind";
+			if (this.config.showWindDirectionAsArrow) {
+				if (this.windDeg !== null) {
+					windDirection.innerHTML = "<i class=\"wi wi-direction-down\" style=\"transform:rotate(" + this.windDeg + "deg);\"></i>";
+				}
+			} else {
+				windDirection.innerHTML = this.translate(this.windDirection);
+			}
+			small.appendChild(windDirection);
+		}
+
 		var windSpeed = document.createElement("span");
 		if (this.windSpeed > 50 && this.windSpeed < 75) {
 			windSpeed.className = "lightblue";
@@ -152,26 +169,13 @@ Module.register("currentweather", {
 		windSpeedUnit.innerHTML = " km/h";
 		small.appendChild(windSpeedUnit);
 
-		if (this.config.showWindDirection) {
-			var windDirection = document.createElement("span");
-			windDirection.className = "sups";
-			if (this.config.showWindDirectionAsArrow) {
-				if (this.windDeg !== null) {
-					windDirection.innerHTML = '<i class="fa fa-long-arrow-down" style="transform:rotate(' + this.windDeg + 'deg);"></i>';
-				}
-			} else {
-				windDirection.innerHTML = this.translate(this.windDirection);
-			}
-			small.appendChild(windDirection);
-		}
-
 		var spacer = document.createElement("span");
-		spacer.innerHTML = " &nbsp; ";
+		spacer.innerHTML = " &nbsp;";
 		small.appendChild(spacer);
 
 		if (this.config.showPressure) {
 			var pressureIcon = document.createElement("span");
-			pressureIcon.className = "wi wi-thermometer";
+			pressureIcon.className = "wi wi-barometer";
 			small.appendChild(pressureIcon);
 
 			var pressure = document.createElement("span"); 				// pressure.
@@ -186,13 +190,8 @@ Module.register("currentweather", {
 
 			var pressureSub = document.createElement("span");
 			pressureSub.className = "subs";
-			pressureSub.innerHTML = " Hg";
+			pressureSub.innerHTML = " Hg ";
 			small.appendChild(pressureSub);
-
-			var pressureSup = document.createElement("span");
-			pressureSup.className = "sups";
-			pressureSup.innerHTML = "mm";
-			small.appendChild(pressureSup);
 		}
 
 		if (this.config.showVisibility) {
