@@ -212,13 +212,12 @@ Module.register("currentweather", {
 		}
 
 		var spacer = document.createElement("span");
-		spacer.innerHTML = " &nbsp;";
+		spacer.innerHTML = "&nbsp;";
 		small.appendChild(spacer);
 
 		if (this.config.showHumidity) {
 			var humidityIcon = document.createElement("span");
 			humidityIcon.className = "wi wi-humidity humidityIcon";
-			humidityIcon.innerHTML = "";
 			small.appendChild(humidityIcon);
 
 			var humidity = document.createElement("span");
@@ -304,24 +303,28 @@ Module.register("currentweather", {
 			large.appendChild(temperature);
 		}
 
+		var spacer = document.createElement("span");
+		spacer.innerHTML = "<br>";
+		large.appendChild(spacer);
+
 		if (this.config.showIndoorTemperature && this.indoorTemperature) {
 			var indoorIcon = document.createElement("span");
-			indoorIcon.className = "fa fa-home";
+			indoorIcon.className = "medium fa fa-home";
 			large.appendChild(indoorIcon);
 
 			var indoorTemperatureElem = document.createElement("span");
-			indoorTemperatureElem.className = "bright";
+			indoorTemperatureElem.className = "medium bright";
 			indoorTemperatureElem.innerHTML = " " + this.indoorTemperature.replace(".", this.config.decimalSymbol) + degreeLabel;
 			large.appendChild(indoorTemperatureElem);
 		}
 
 		if (this.config.showIndoorHumidity && this.indoorHumidity) {
 			var indoorHumidityIcon = document.createElement("span");
-			indoorHumidityIcon.className = "fa fa-tint";
+			indoorHumidityIcon.className = "medium fa fa-tint";
 			large.appendChild(indoorHumidityIcon);
 
 			var indoorHumidityElem = document.createElement("span");
-			indoorHumidityElem.className = "bright";
+			indoorHumidityElem.className = "medium bright";
 			indoorHumidityElem.innerHTML = " " + this.indoorHumidity + "%";
 			large.appendChild(indoorHumidityElem);
 		}
@@ -390,7 +393,11 @@ Module.register("currentweather", {
 		if (this.config.showUvi) {
 			var uvi = document.createElement("span"); 			// uv index.
 			uvi.className = "uvi midget";
-			uvi.innerHTML = this.translate("UVI") + this.uvi.toFixed(1);
+			if (this.uvi > 0) {
+				uvi.innerHTML = this.translate("UVI") + this.uvi.toFixed(1);
+			} else {
+				uvi.innerHTML = this.translate("UVI") + "NA";
+			}
 			small.appendChild(uvi);
 		}
 
@@ -399,11 +406,11 @@ Module.register("currentweather", {
 			spacer.innerHTML = "&nbsp;";
 			small.appendChild(spacer);
 
-			var prepIcon = document.createElement("div");
+			var prepIcon = document.createElement("span");
 			if (this.precipitation > 0) {
-				prepIcon.className = "wi wi-raindrop";
+				prepIcon.className = "fa fa-tint";
 			} else {
-				prepIcon.className = "wi wi-small-craft-advisory";
+				prepIcon.className = "fa fa-tint-slash";
 			}
 			small.appendChild(prepIcon);
 
