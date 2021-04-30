@@ -70,7 +70,6 @@ var config = {
 			module: "notification",
 			position: "top_center",
 			classes: "night",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				startTitle: "<i class=\"lime fa fa-wifi\"></i> Smart iPad&sup3;&nbsp;",
@@ -86,7 +85,6 @@ var config = {
 			module: "clock",
 			position: "top_center",
 			classes: "analog night",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				displayType: "analog",
@@ -99,7 +97,6 @@ var config = {
 		{
 			module: "monthly",
 			position: "top_center",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				startMonth: 0,
@@ -114,7 +111,6 @@ var config = {
 			module: "clock",
 			position: "top_left",
 			classes: "digital night",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				displayType: "digital",
@@ -127,7 +123,6 @@ var config = {
 		{
 			module: "lifecounter",
 			position: "top_left",
-			hiddenOnStartup: false,
 			disabled: true,
 			config: {
 				birthday: "1970-01-01 00:00:00",
@@ -141,7 +136,6 @@ var config = {
 			module: "traffic",
 			position: "top_left",
 			classes: "work",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				mode: "driving-traffic",
@@ -157,7 +151,6 @@ var config = {
 			module: "traffic",
 			position: "top_left",
 			classes: "home",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				mode: "driving-traffic",
@@ -173,7 +166,6 @@ var config = {
 			module: "traffic",
 			position: "top_left",
 			classes: "parc",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
@@ -188,7 +180,6 @@ var config = {
 			module: "traffic",
 			position: "top_left",
 			classes: "ikea",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
@@ -203,7 +194,6 @@ var config = {
 			module: "swatch",
 			position: "top_left",
 			classes: "night",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				logo_height: 27
@@ -213,7 +203,6 @@ var config = {
 			module: "simpletext",
 			position: "top_left",
 			header: "Calendar evenimente și aniversări",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				text: "",
@@ -223,7 +212,6 @@ var config = {
 		{
 			module: "icalendar",
 			position: "top_left",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				maximumEntries: 16,
@@ -272,7 +260,6 @@ var config = {
 			module: "currentweather",
 			position: "top_right",
 			classes: "night current",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				// modified module with own settings
@@ -283,11 +270,11 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele ore la",
 			classes: "hourly forecast ipad",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				maxNumberOfDays: 4,
+				maxNumberOfDays: 5,
 				forecastEndpoint: "/forecast",
+				extra: false,
 				fallBack: true,
 				fullday: "HH [h]",
 				initialLoadDelay: 2000,
@@ -300,24 +287,25 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
 			classes: "daily forecast ipad",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
-				maxNumberOfDays: 9,
+				maxNumberOfDays: 14,
 //				locationID: false,
-//				forecastEndpoint: "onecall",
+//				forecastEndpoint: "/onecall",
+//				excludes: "current,minutely,hourly",
+				extra: false,
 				fallBack: false,
 				fullday: "ddd",
 				initialLoadDelay: 3000,
 				showRainAmount: true,
 				fade: false,
+
 			}
 		},
 		{
 			module: "weather",
 			position: "top_right",
 			classes: "night currentweather current",
-			hiddenOnStartup: false,
 			disabled: true,
 			config: {
 				type: "current",
@@ -330,7 +318,6 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele 4 ore",
 			classes: "hourly weatherforecast forecast",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				type: "hourly",
@@ -344,7 +331,6 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele 15 zile",
 			classes: "daily weatherforecast forecast",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				type: "daily",
@@ -357,7 +343,6 @@ var config = {
 			module: "compliments",
 			position: "middle_center",
 			classes: "night",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				classes: "thin pre-line complimentz large skyblue",
@@ -532,7 +517,6 @@ var config = {
 		{
 			module: "quotes",
 			position: "lower_third",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				updateInterval: 20000,
@@ -543,7 +527,6 @@ var config = {
 		{
 			module: "rssfeed",
 			position: "bottom_bar",
-			hiddenOnStartup: false,
 			disabled: false,
 			config: {
 				lengthDescription: 600,
@@ -566,7 +549,6 @@ var config = {
 			module: "yframe",
 			position: "upper_third",
 			classes: "night",
-			hiddenOnStartup: false,
 			disabled: true,
 			config: {
 				url: "https://cristea13.ro/video/fishtank.mp4",
