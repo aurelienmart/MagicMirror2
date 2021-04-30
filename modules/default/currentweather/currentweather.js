@@ -9,7 +9,7 @@ Module.register("currentweather", {
 	defaults: {
 		lat: config.latitude,
 		lon: config.longitude,
-		appid: config.appid2,
+		appid: config.appid,
 		units: config.units,
 		updateInterval: 10 * 60 * 1000, // every 10 minutes
 		animationSpeed: config.animation,

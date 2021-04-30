@@ -11,7 +11,7 @@ Module.register("weatherforecast", {
 		locationID: config.locationID,
 		lat: config.latitude,
 		lon: config.longitude,
-		appid: config.appid2,
+		appid: config.appid,
 		units: config.units,
 		maxNumberOfDays: 7,
 		showRainAmount: false,
@@ -23,6 +23,7 @@ Module.register("weatherforecast", {
 		fade: true,
 		fadePoint: 0.25, // Start on 1/4th of the list.
 		colored: true,
+		extra: true,
 		scale: config.scale,
 
 		initialLoadDelay: 2500, // 2.5 seconds delay. This delay is used to keep the OpenWeather API happy.
@@ -136,7 +137,7 @@ Module.register("weatherforecast", {
 			var dayCell = document.createElement("td");
 
 			if (config.language == "ro") {
-				dayCell.className = "day azi";
+				dayCell.className = "day";
 			} else dayCell.className = "day";
 
 			dayCell.innerHTML = forecast.day;
@@ -202,6 +203,37 @@ Module.register("weatherforecast", {
 				} 
 				rainCell.className = "align-right bright rain";
 				row.appendChild(rainCell);
+			}
+
+			if (this.config.extra) {
+				var row = document.createElement("tr");
+				row.className = "extra";
+				table.appendChild(row);
+
+				var humidity = document.createElement("td");
+				humidity.innerHTML = "<i class=\"wi wi-humidity skyblue little\"></i> " + parseFloat(forecast.humidity).toFixed(1).replace(".", this.config.decimalSymbol) + "%";
+				humidity.className = "align-left humidity";
+				row.appendChild(humidity);
+
+				var feelsLike = document.createElement("td");
+				feelsLike.innerHTML = "<i class=\"wi wi-thermometer gold little\"></i> " + parseFloat(forecast.feelsLike).toFixed(1).replace(".", this.config.decimalSymbol) + degreeLabel;
+				feelsLike.className = "align-center feels_like";
+				row.appendChild(feelsLike);
+
+				var pressure = document.createElement("td");
+				pressure.innerHTML = "<i class=\"wi wi-barometer gold little\"></i> " + Math.round(forecast.pressure * 750.062 / 1000).toFixed(0).replace(".", this.config.decimalSymbol) + "Hg";
+				pressure.className = "pressure";
+				row.appendChild(pressure);
+
+				var dewPoint = document.createElement("td");
+				dewPoint.innerHTML = "<i class=\"wi wi-raindrop skyblue little\"></i> " + parseFloat(forecast.dewPoint).toFixed(1).replace(".", this.config.decimalSymbol) + degreeLabel;
+				dewPoint.className = "dewPoint";
+				row.appendChild(dewPoint);
+
+				var uvIndex = document.createElement("td");
+				uvIndex.innerHTML = "UVI " + parseFloat(forecast.uvIndex).toFixed(1).replace(".", this.config.decimalSymbol) + " <i class=\"wi wi-hot gold little\"></i>";
+				uvIndex.className = "uvIndex";
+				row.appendChild(uvIndex);
 			}
 
 			if (this.config.fade && this.config.fadePoint < 1) {
@@ -328,7 +360,6 @@ Module.register("weatherforecast", {
 			numberOfDays = this.config.maxNumberOfDays < 1 || this.config.maxNumberOfDays > 17 ? 7 : this.config.maxNumberOfDays;
 		}
 		params += "&cnt=" + numberOfDays;
-
 		params += "&exclude=" + this.config.excludes;
 		params += "&units=" + this.config.units;
 		params += "&lang=" + this.config.lang;
@@ -411,6 +442,11 @@ Module.register("weatherforecast", {
 					minTemp: this.roundValue(forecast.temp.min),
 					rain: this.processRain(forecast, forecastList),
 					snow: this.processSnow(forecast, forecastList),
+//					feelsLike: this.roundValue(forecast.feels_like.day),
+					humidity: forecast.humidity,
+					pressure: forecast.pressure,
+//					dewPoint: this.roundValue(forecast.dew_point),
+//					uvIndex: forecast.uvi,
 				};
 
 				this.forecast.push(forecastData);
