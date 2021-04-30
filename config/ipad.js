@@ -318,7 +318,7 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele 4 ore",
 			classes: "hourly weatherforecast forecast",
-			disabled: false,
+			disabled: true,
 			config: {
 				type: "hourly",
 				maxEntries: 5,
@@ -331,7 +331,7 @@ var config = {
 			position: "top_right",
 			header: "Vremea în următoarele 15 zile",
 			classes: "daily weatherforecast forecast",
-			disabled: false,
+			disabled: true,
 			config: {
 				type: "daily",
 				maxNumberOfDays: 14,
