@@ -146,6 +146,10 @@ a {
 	text-align: left;
 }
 
+.align-center {
+	text-align: center;
+}
+
 .monthly .month-header,
 header {
 	text-transform: none;
@@ -805,17 +809,11 @@ header {
 	font-size: 50%;
 }
 
-.currentweather .sups {
-	display: inline-block;
-	transform: translate(-25px, -7px) scale(0.5);
-	margin-right: -20px;
-}
-
 .currentweather .wi-strong-wind {
 	color: cyan;
 }
 
-.currentweather .wi-thermometer, 
+.currentweather .wi-thermometer,
 .currentweather .wi-humidity, 
 .currentweather .wi-sunset, 
 .currentweather .wi-sunrise,
@@ -824,6 +822,11 @@ header {
 	transform: scale(0.65);
 }
 
+.currentweather .wi-barometer {
+	transform: scale(0.75);
+}
+
+.currentweather .wi-barometer,
 .currentweather .wi-thermometer {
 	color: gold;
 	margin-top: 5px;
@@ -831,7 +834,6 @@ header {
 
 .currentweather .fa-binoculars {
 	color: violet;
-	margin-left: -10px;
 }
 
 .currentweather .fa-tint {
@@ -964,25 +966,26 @@ header {
 	margin-bottom: 5px;
 }
 
-.ipad3 tr:nth-child(1) .azi:nth-child(1),
-.ipad3 tr:nth-child(2) .azi:nth-child(1) {
-  text-indent: -9999px;
-  line-height: 0;
+.daily table tr:nth-child(1) .day:nth-child(1),
+.daily table tr:nth-child(2) .day:nth-child(1) {
+	text-indent: -9999px;
+	line-height: 0;
 }
 
-.weatherforecast .ipad3 tr:nth-child(1) .azi:nth-child(1)::after {
-  text-indent: 0;
-  content: "Astăzi";
-  display: block;
-  line-height: initial;
-  color: lime;
+.daily table tr:nth-child(1) .day:nth-child(1)::after {
+	text-indent: 0;
+	content: "Astăzi";
+	display: block;
+	line-height: initial;
+	color: lime;
 }
 
-.weatherforecast .ipad3 tr:nth-child(2) .azi:nth-child(1)::after {
-  text-indent: 0;
-  content: "Mâine";
-  display: block;
-  line-height: initial;
+.daily table tr:nth-child(2) .day:nth-child(1)::after {
+	text-indent: 0;
+	content: "Mâine";
+	display: block;
+	line-height: initial;
+	color: greenyellow;
 }
 
 .weatherforecast table tr:nth-child(1) td:nth-child(1) {
@@ -993,36 +996,32 @@ header {
 	color: greenyellow;
 }
 
-.weatherforecast .colored .day {
+.weatherforecast .day {
 	text-align: left;
 	width: 20%;
 }
 
-.weatherforecast .colored .weather-icon,
-.weatherforecast .colored .currentweather-icon {
+.weatherforecast .weather-icon,
+.weatherforecast .currentweather-icon {
 	width: 10%;
 	text-align: center;
 }
 
-.weatherforecast .colored .max-temp {
+.weatherforecast .day-temp {
+	width: 20%;
+}
+
+.weatherforecast .max-temp {
 	width: 20%;
 	color: coral;
 }
 
-.weatherforecast .colored .day-temp {
-	width: 20%;
-}
-
-.weatherforecast .colored .min-temp {
+.weatherforecast .min-temp {
 	width: 20%;
 	color: skyblue;
 }
 
-.weatherforecast .colored .uvi {
-	width: 20%;
-}
-
-.weatherforecast .colored .shade {
+.weatherforecast .shade {
 	width: 30%;
 }
 
@@ -1126,10 +1125,6 @@ header {
 	margin-top: -20%;
 }
 
-.ipad {
-	display: none !important;
-}
-
 /* media queries */
 
 @media screen and (min-height: 1079px) and (orientation: landscape) {
@@ -1206,10 +1201,11 @@ header {
 		border-bottom: 0;
 	}
 
-	.weather,
 	.calendar .month:nth-child(n+2),
 	.icalendar table tr:nth-child(n+13),
 	.calendar table tr:nth-child(n+12),
+	.hourly table tr:nth-child(n+5),
+	.daily table tr:nth-child(n+10),
 	header,	.monthly .month-header,
 	.lifecounter, .yframe, .traffic {
 		display: none !important;
