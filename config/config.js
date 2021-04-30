@@ -27,8 +27,7 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
- 	appid: '...', // ios9 ipad
- 	appid2: '...', // magic mirror
+ 	appid: '...',
 	apiVersion: "2.5/",
 	roundTemp: false,
 	period: false,
