@@ -3,8 +3,8 @@
 Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile Web served version, without fucking local node.js, stupid Retardberry π or other wierd linux shit software, just powered by consistent css & js, fonts sizes, icons & well structured folders, based on <b>MagicMirror&sup2;</b> open source core framework unfortunately <b>full of bugs</b> from amateur "developers"...
 
 <b>Some modified default original modules:</b>
-<br>iCalendar based on MagicMirror PHP first version (jquery)
-<br>RssFeed based on MagicMirror PHP first version variant (jquery)
+<br>iCalendar based on PHP original first version (jquery)
+<br>RssFeed based on PHP alternative first version (jquery)
 <br>Compliments https://github.com/hangorazvan/compliments_plus
 <br>Currentweather https://github.com/hangorazvan/weather_plus
 <br>Weatherforecast https://github.com/hangorazvan/forecast_plus
