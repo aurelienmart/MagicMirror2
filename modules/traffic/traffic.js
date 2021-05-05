@@ -8,14 +8,22 @@
 Module.register("traffic", {
 	defaults: {
 		mode: "driving",
-		interval: 300000,
+		interval: 1000,
 		showSymbol: true,
 		firstLine: "Current duration is {duration} mins",
 		loadingText: "Loading...",
 		language: config.language,
 		days: [1, 2, 3, 4, 5, 6, 7],
-		hoursStart: "00:00",
-		hoursEnd: "23:59"
+		hoursStart: "00:00:00",
+		hoursEnd: "23:59:59"
+	},
+
+	getStyles: function () {
+		return ["font-awesome.css"];
+	},
+
+	getScripts: function () {
+		return ["moment.js"];
 	},
 
 	start: function () {
@@ -25,6 +33,9 @@ Module.register("traffic", {
 		this.firstResume = true;
 		this.errorMessage = undefined;
 		this.errorDescription = undefined;
+		this.updateCommute = this.updateCommute.bind(this);
+	//	this.getCommute = this.getCommute.bind(this);
+	//	this.getDom = this.getDom.bind(this);
 		if ([this.config.originCoords, this.config.destinationCoords, this.config.accessToken].includes(undefined)) {
 			this.errorMessage = "Config error";
 			this.errorDescription = "You must set originCoords, destinationCoords, and accessToken in your config";
@@ -32,68 +43,6 @@ Module.register("traffic", {
 		} else {
 			this.updateCommute();
 		}
-	},
-
-	resume: function () {
-		if (this.firstResume) {
-			this.firstResume = false;
-		this.updateDom(1000);
-		}
-	},
-
-	updateCommute: async function () {
-		var mode = this.config.mode == "driving" ? "driving-traffic" : this.config.mode;
-		this.url = encodeURI("https://api.mapbox.com/directions/v5/mapbox/" + mode + "/" + this.config.originCoords + ";" + this.config.destinationCoords + "?access_token=" + this.config.accessToken);
-
-		// only run getDom once at the start of a hidden period to remove the module from the screen, then just wait until time to unhide to run again
-		if (this.shouldHide() && !this.hidden) {
-			console.log("Hiding Traffic");
-			this.hidden = true;
-			this.updateDom();
-		} else if (!this.shouldHide()) {
-			this.hidden = false;
-			this.getCommute(this.url);
-		}
-
-		// no network requests are made when the module is hidden, so check every 30 seconds during hidden
-		// period to see if it's time to unhide yet
-		setTimeout(this.updateCommute, this.hidden ? 3000 : this.config.interval);
-	},
-
-	getCommute: function (api_url) {
-		var self = this;
-		fetch(api_url)
-		.then(this.checkStatus)
-		.then(function (json) {
-			self.duration = Math.round(json.routes[0].duration / 60);
-			self.errorMessage = self.errorDescription = undefined;
-			self.loading = false;
-			self.updateDom();
-		})
-		.catch(function (e) {
-			self.errorMessage = payload.error.message;
-			self.errorDescription = payload.error.description;
-			self.loading = false;
-			self.updateDom();
-		});
-	},
-
-	checkStatus: function (res) {
-		if (res.ok) {
-			return res.json();
-		} else {
-			return res.json().then(function (json) {
-				throw new trafficError("API Error - " + json.code, json.message);
-			});
-		}
-	},
-
-	getStyles: function () {
-		return ["font-awesome.css"];
-	},
-
-	getScripts: function () {
-		return ["moment.js"];
 	},
 
 	getDom: function () {
@@ -138,7 +87,7 @@ Module.register("traffic", {
 
 		// first line
 		var firstLineText = document.createElement("span");
-		firstLineText.innerHTML = this.loading ? this.config.loadingText : this.replaceTokens(this.config.firstLine)
+		firstLineText.innerHTML = this.loading ? this.config.loadingText : this.replaceTokens(this.config.firstLine);
 		firstLineDiv.appendChild(firstLineText);
 		wrapper.appendChild(firstLineDiv);
 		if (this.loading) return wrapper;
@@ -150,6 +99,52 @@ Module.register("traffic", {
 		}
 
 		return wrapper;
+	},
+
+	updateCommute: function () {
+		var mode = this.config.mode == "driving" ? "driving-traffic" : this.config.mode;
+        this.url = encodeURI("https://api.mapbox.com/directions/v5/mapbox/" + mode + "/" + this.config.originCoords + ";" + this.config.destinationCoords + "?access_token=" + this.config.accessToken);
+
+		// only run getDom once at the start of a hidden period to remove the module from the screen, then just wait until time to unhide to run again
+		if (this.shouldHide() && !this.hidden) {
+			console.log("Hiding Traffic");
+			this.hidden = true;
+			this.updateDom();
+		} else if (!this.shouldHide()) {
+			this.hidden = false;
+			this.getCommute(this.url);
+		}
+		// no network requests are made when the module is hidden, so check every 30 seconds during hidden
+		// period to see if it's time to unhide yet
+		setTimeout(this.updateCommute, this.hidden ? 3000 : this.config.interval);
+	},
+
+	getCommute: function (api_url) {
+		var self = this;
+		fetch(api_url)
+		.then(this.checkStatus)
+		.then(function (json) {
+			self.duration = Math.round(json.routes[0].duration / 60);
+			self.errorMessage = self.errorDescription = undefined;
+			self.loading = false;
+			self.updateDom();
+		})
+		.catch(function (e) {
+			self.errorMessage = payload.error.message;
+			self.errorDescription = payload.error.description;
+			self.loading = false;
+			self.updateDom();
+		});
+	},
+
+	checkStatus: function (res) {
+		if (res.ok) {
+			return res.json();
+		} else {
+			return res.json().then(function (json) {
+				throw new trafficError("API Error - " + json.code, json.message);
+			});
+		}
 	},
 
 	replaceTokens: function (text) {
