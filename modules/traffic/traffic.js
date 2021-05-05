@@ -18,6 +18,14 @@ Module.register("traffic", {
 		hoursEnd: "23:59"
 	},
 
+	getStyles: function () {
+		return ["font-awesome.css"];
+	},
+
+	getScripts: function () {
+		return ["moment.js"];
+	},
+
 	start: function () {
 		console.log("Starting module: " + this.name);
 		this.loading = true;
@@ -32,68 +40,6 @@ Module.register("traffic", {
 		} else {
 			this.updateCommute();
 		}
-	},
-
-	resume: function () {
-		if (this.firstResume) {
-			this.firstResume = false;
-		this.updateDom(1000);
-		}
-	},
-
-	updateCommute: async function () {
-		var mode = this.config.mode == "driving" ? "driving-traffic" : this.config.mode;
-		this.url = encodeURI("https://api.mapbox.com/directions/v5/mapbox/" + mode + "/" + this.config.originCoords + ";" + this.config.destinationCoords + "?access_token=" + this.config.accessToken);
-
-		// only run getDom once at the start of a hidden period to remove the module from the screen, then just wait until time to unhide to run again
-		if (this.shouldHide() && !this.hidden) {
-			console.log("Hiding Traffic");
-			this.hidden = true;
-			this.updateDom();
-		} else if (!this.shouldHide()) {
-			this.hidden = false;
-			this.getCommute(this.url);
-		}
-
-		// no network requests are made when the module is hidden, so check every 30 seconds during hidden
-		// period to see if it's time to unhide yet
-		setTimeout(this.updateCommute, this.hidden ? 3000 : this.config.interval);
-	},
-
-	getCommute: function (api_url) {
-		var self = this;
-		fetch(api_url)
-		.then(this.checkStatus)
-		.then(function (json) {
-			self.duration = Math.round(json.routes[0].duration / 60);
-			self.errorMessage = self.errorDescription = undefined;
-			self.loading = false;
-			self.updateDom();
-		})
-		.catch(function (e) {
-			self.errorMessage = payload.error.message;
-			self.errorDescription = payload.error.description;
-			self.loading = false;
-			self.updateDom();
-		});
-	},
-
-	checkStatus: function (res) {
-		if (res.ok) {
-			return res.json();
-		} else {
-			return res.json().then(function (json) {
-				throw new trafficError("API Error - " + json.code, json.message);
-			});
-		}
-	},
-
-	getStyles: function () {
-		return ["font-awesome.css"];
-	},
-
-	getScripts: function () {
-		return ["moment.js"];
 	},
 
 	getDom: function () {
@@ -138,7 +84,7 @@ Module.register("traffic", {
 
 		// first line
 		var firstLineText = document.createElement("span");
-		firstLineText.innerHTML = this.loading ? this.config.loadingText : this.replaceTokens(this.config.firstLine)
+		firstLineText.innerHTML = this.loading ? this.config.loadingText : this.replaceTokens(this.config.firstLine);
 		firstLineDiv.appendChild(firstLineText);
 		wrapper.appendChild(firstLineDiv);
 		if (this.loading) return wrapper;
@@ -150,6 +96,52 @@ Module.register("traffic", {
 		}
 
 		return wrapper;
+	},
+
+	updateCommute: function () {
+		var mode = this.config.mode == "driving" ? "driving-traffic" : this.config.mode;
+        this.url = encodeURI("https://api.mapbox.com/directions/v5/mapbox/" + mode + "/" + this.config.originCoords + ";" + this.config.destinationCoords + "?access_token=" + this.config.accessToken);
+
+		// only run getDom once at the start of a hidden period to remove the module from the screen, then just wait until time to unhide to run again
+		if (this.shouldHide() && !this.hidden) {
+			console.log("Hiding Traffic");
+			this.hidden = true;
+			this.updateDom();
+		} else if (!this.shouldHide()) {
+			this.hidden = false;
+			this.getCommute(this.url);
+		}
+		// no network requests are made when the module is hidden, so check every 30 seconds during hidden
+		// period to see if it's time to unhide yet
+		setTimeout(this.updateCommute, this.hidden ? 3000 : this.config.interval);
+	},
+
+	getCommute: function (api_url) {
+		var self = this;
+		fetch(api_url)
+		.then(this.checkStatus)
+		.then(function (json) {
+			self.duration = Math.round(json.routes[0].duration / 60);
+			self.errorMessage = self.errorDescription = undefined;
+			self.loading = false;
+			self.updateDom();
+		})
+		.catch(function (e) {
+			self.errorMessage = payload.error.message;
+			self.errorDescription = payload.error.description;
+			self.loading = false;
+			self.updateDom();
+		});
+	},
+
+	checkStatus: function (res) {
+		if (res.ok) {
+			return res.json();
+		} else {
+			return res.json().then(function (json) {
+				throw new trafficError("API Error - " + json.code, json.message);
+			});
+		}
 	},
 
 	replaceTokens: function (text) {
