@@ -373,7 +373,7 @@ var config = {
 			classes: "night",
 			disabled: false,
 			config: {
-				classes: "thin pre-line complimentz large skyblue",
+				classes: "thin large pre-line complimentz skyblue",
 				morning: 5,
 				noon: 12,
 				afternoon: 14,
