@@ -8,14 +8,14 @@
 Module.register("traffic", {
 	defaults: {
 		mode: "driving",
-		interval: 300000,
+		interval: 1000,
 		showSymbol: true,
 		firstLine: "Current duration is {duration} mins",
 		loadingText: "Loading...",
 		language: config.language,
 		days: [1, 2, 3, 4, 5, 6, 7],
-		hoursStart: "00:00",
-		hoursEnd: "23:59"
+		hoursStart: "00:00:00",
+		hoursEnd: "23:59:59"
 	},
 
 	getStyles: function () {
@@ -33,6 +33,9 @@ Module.register("traffic", {
 		this.firstResume = true;
 		this.errorMessage = undefined;
 		this.errorDescription = undefined;
+		this.updateCommute = this.updateCommute.bind(this);
+	//	this.getCommute = this.getCommute.bind(this);
+	//	this.getDom = this.getDom.bind(this);
 		if ([this.config.originCoords, this.config.destinationCoords, this.config.accessToken].includes(undefined)) {
 			this.errorMessage = "Config error";
 			this.errorDescription = "You must set originCoords, destinationCoords, and accessToken in your config";
