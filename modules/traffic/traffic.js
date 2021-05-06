@@ -4,11 +4,10 @@
  * By Sam Lewis https://github.com/SamLewis0602
  * MIT Licensed.
  */
-"use strict";
 Module.register("traffic", {
 	defaults: {
 		mode: "driving",
-		interval: 1000,
+		interval: 5 * 60 * 1000,
 		showSymbol: true,
 		firstLine: "Current duration is {duration} mins",
 		loadingText: "Loading...",
