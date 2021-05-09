@@ -53,6 +53,14 @@ function checkConfigFile() {
 	const configFile = fs.readFileSync(configFileName, "utf-8");
 
 	const errors = linter.verify(configFile);
+	// Explicitly tell linter that he might encounter es5 syntax ("var config = {...}")
+	const errors = linter.verify(configFile, {
+		env: {
+			es5: true
+		}
+	});
+
+	const errors = linter.verify(configFile);
 	if (errors.length === 0) {
 		Log.info(Utils.colors.pass("Your configuration file doesn't contain syntax errors :)"));
 	} else {

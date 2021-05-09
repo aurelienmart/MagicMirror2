@@ -310,11 +310,11 @@ header {
 }
 
 .region.upper.third {
-	bottom: 22%;
+	bottom: 30%;
 }
 
 .region.middle.center {
-	bottom: 18%;
+	bottom: 25%;
 }
 
 .region.lower.third {
@@ -568,10 +568,6 @@ header {
 .complimentz .far {
 	display: inline-block;
 	transform: scale(0.75);
-}
-
-.complimentz {
-	height: 175px;
 }
 
 /* quotes */
@@ -1166,7 +1162,7 @@ header {
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
-		bottom: 5%;
+		bottom: 17%;
 	}
 
 	.large {
