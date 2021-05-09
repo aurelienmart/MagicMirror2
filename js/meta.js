@@ -11,7 +11,7 @@ function injector() {var meta = document.createElement("meta");	document.head.in
 += "<meta http-equiv=\"Copyright\" content=\"Răzvan Cristea, Bucharest, Romania. © " + new Date().getFullYear() + ", MIT LIcense.\">"
 + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=yes, user-scalable=no\">"
 + "<meta name=\"Keywords\" content=\"magic,smart,mirror,modular,core,framework,open,source,platform,info,board,web,html,css,script,ipad\">"
-+ "<meta name=\"Description\" content=\"Custom redesigned personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile / Full HD "
++ "<meta name=\"Description\" content=\"Custom redesigned personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile / HD "
 + "monitor + Windows 8.1 HP mini netbook / eventually Windows 10 PC stick + IKEA frame + see-thru acrylic mirror, powered by consistent "
 + "css & js, fonts sizes, icons & well structured folders, based on MagicMirror² open source core framework unfortunately full of bugs.\">"
 + "<meta name=\"Authoring\" content=\"Some modified default original modules: Compliments https://github.com/hangorazvan/compliments_plus, "
