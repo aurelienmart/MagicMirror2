@@ -23,7 +23,7 @@ Module.register("compliments", {
 
 	lastIndexUsed: -1,
 	// Set currentweather from module
-	currentWeatherType: "weather",
+	currentWeatherType: "currentweather",
 
 	// Define required scripts.
 	getScripts: function () {
