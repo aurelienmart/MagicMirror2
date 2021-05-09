@@ -4,17 +4,18 @@
  * By Sam Lewis https://github.com/SamLewis0602
  * MIT Licensed.
  */
+"use strict";
 Module.register("traffic", {
 	defaults: {
 		mode: "driving",
-		interval: 5 * 60 * 1000,
+		interval: 300000,
 		showSymbol: true,
 		firstLine: "Current duration is {duration} mins",
 		loadingText: "Loading...",
 		language: config.language,
 		days: [1, 2, 3, 4, 5, 6, 7],
-		hoursStart: "00:00:00",
-		hoursEnd: "23:59:59"
+		hoursStart: "00:00",
+		hoursEnd: "23:59"
 	},
 
 	getStyles: function () {
@@ -32,9 +33,7 @@ Module.register("traffic", {
 		this.firstResume = true;
 		this.errorMessage = undefined;
 		this.errorDescription = undefined;
-		this.updateCommute = this.updateCommute.bind(this);
-	//	this.getCommute = this.getCommute.bind(this);
-	//	this.getDom = this.getDom.bind(this);
+ 		this.updateCommute = this.updateCommute.bind(this);
 		if ([this.config.originCoords, this.config.destinationCoords, this.config.accessToken].includes(undefined)) {
 			this.errorMessage = "Config error";
 			this.errorDescription = "You must set originCoords, destinationCoords, and accessToken in your config";
@@ -100,9 +99,16 @@ Module.register("traffic", {
 		return wrapper;
 	},
 
-	updateCommute: function () {
+	resume: function () {
+		if (this.firstResume) {
+			this.firstResume = false;
+		this.updateDom(1000);
+		}
+	},
+
+	updateCommute: async function () {
 		var mode = this.config.mode == "driving" ? "driving-traffic" : this.config.mode;
-        this.url = encodeURI("https://api.mapbox.com/directions/v5/mapbox/" + mode + "/" + this.config.originCoords + ";" + this.config.destinationCoords + "?access_token=" + this.config.accessToken);
+		this.url = encodeURI("https://api.mapbox.com/directions/v5/mapbox/" + mode + "/" + this.config.originCoords + ";" + this.config.destinationCoords + "?access_token=" + this.config.accessToken);
 
 		// only run getDom once at the start of a hidden period to remove the module from the screen, then just wait until time to unhide to run again
 		if (this.shouldHide() && !this.hidden) {
@@ -113,6 +119,7 @@ Module.register("traffic", {
 			this.hidden = false;
 			this.getCommute(this.url);
 		}
+
 		// no network requests are made when the module is hidden, so check every 30 seconds during hidden
 		// period to see if it's time to unhide yet
 		setTimeout(this.updateCommute, this.hidden ? 3000 : this.config.interval);
