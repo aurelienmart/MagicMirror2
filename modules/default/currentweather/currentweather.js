@@ -380,29 +380,39 @@ Module.register("currentweather", {
 
 		if (this.config.showDew) {
 			var dew = document.createElement("span"); 			// dew point.
-			dew.className = "dew midget";
-			dew.innerHTML = this.translate("DEW") + this.dew.toFixed(1) + "&deg;" + degreeLabel;
+			dew.className = "dew midget lightskyblue";
+			dew.innerHTML = this.translate("DEW") + "<i class=\"wi wi-raindrops lightgreen\"></i> " + this.dew.toFixed(1) + "&deg;" + degreeLabel;
 			small.appendChild(dew);
 		}
 
 		var spacer = document.createElement("span");
-		spacer.innerHTML = "&nbsp;";
+		spacer.innerHTML = "&nbsp; ";
 		small.appendChild(spacer);
 
 		if (this.config.showUvi) {
 			var uvi = document.createElement("span"); 			// uv index.
 			uvi.className = "uvi midget";
-			if (this.uvi > 0) {
-				uvi.innerHTML = this.translate("UVI") + this.uvi.toFixed(1);
-			} else {
-				uvi.innerHTML = this.translate("UVI") + "NA";
+			uvi.innerHTML = this.translate("UVI") + "<i class=\"wi wi-hot\"></i>" + this.uvi.toFixed(1);
+			if (this.uvi < 0.1) {
+				uvi.className = uvi.className + " lightblue";
+				uvi.innerHTML = this.translate("UVI") + "<i class=\"wi wi-stars\"></i> 0";
+			} else if (this.uvi > 0 && this.uvi < 3) {
+				uvi.className = uvi.className + " lime";
+			} else if (this.uvi >= 3 && this.uvi < 6) {
+				uvi.className = uvi.className + " yellow";
+			} else if (this.uvi >= 6 && this.uvi < 8) {
+				uvi.className = uvi.className + " orange";
+			} else if (this.uvi >= 8 && this.uvi < 11) {
+				uvi.className = uvi.className + " orangered";
+			} else if (this.uvi >= 11) {
+				uvi.className = uvi.className + " violet";
 			}
 			small.appendChild(uvi);
 		}
 
 		if (this.config.showPrecip) {
 			var spacer = document.createElement("span");
-			spacer.innerHTML = "&nbsp;";
+			spacer.innerHTML = "&nbsp; ";
 			small.appendChild(spacer);
 
 			var prepIcon = document.createElement("span");
