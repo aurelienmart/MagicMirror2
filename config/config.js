@@ -382,8 +382,6 @@ var config = {
 				midnight: 1,
 				compliments: {
 					anytime : [
-//						"Orice faci, fă-o bine!",
-//						"Fi sexy, fi tu însuți!",
 						function() {return moment().locale(config.language).format("dddd, D MMMM");}
 					],
 					morning : [
@@ -419,67 +417,67 @@ var config = {
 					],
 					day_sunny : [
 						"<i class=\"gold wi wi-day-sunny\"></i> Este însorit",
-//						"<i class=\"gold fas fa-sun\"></i> Este frumos afară"
+						"<i class=\"gold wi wi-day-sunny\"></i> Vreme însorită"
 					],
 					day_cloudy : [
 						"<i class=\"lightblue wi wi-day-cloudy\"></i> Sunt câțiva nori",
-//						"<i class=\"lightblue fa fa-cloud-sun\"></i> Nori împrăștiați"
+						"<i class=\"lightblue wi wi-day-cloudy\"></i> Nori împrăștiați"
 					],
 					cloudy : [
 						"<i class=\"skyblue wi wi-cloudy\"></i> Este înorat",
-//						"<i class=\"skyblue fa fa-cloud\"></i> Este cam înorat"
+						"<i class=\"skyblue wi wi-cloudy\"></i> Este cam înorat"
 					],
 					cloudy_windy : [
 						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este înorat și vânt",
-//						"<i class=\"powderblue fa fa-cloud\"></i> Este vânt și înorat"
+						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este vânt și înorat"
 					],
 					showers : [
 						"<i class=\"skyblue wi wi-day-showers\"></i> Ploaie ușoasă",
-//						"<i class=\"skyblue fa fa-cloud-sun-rain\"></i> Plouă puțin pe afară"
+						"<i class=\"skyblue wi wi-day-showers\"></i> Plouă ușor"
 					],
 					rain : [
 						"<i class=\"deepskyblue wi wi-day-rain\"></i> Vreme ploioasă",
-//						"<i class=\"deepskyblue fa fa-cloud-rain\"></i> Ploaie ușoară"
+						"<i class=\"deepskyblue wi wi-day-rain\"></i> Vreme cu ploaie"
 					],
 					thunderstorm : [
 						"<i class=\"dodgerblue wi wi-day-thunderstorm\"></i> Este furtună!",
-//						"<i class=\"dodgerblue fa fa-umbrella\"></i> Atenție, furtună!"
+						"<i class=\"dodgerblue wi wi-day-thunderstorm\"></i> Atenție, furtună!"
 					],
 					snow : [
 						"<i class=\"normal wi wi-day-snow\"></i> Ninsoare",
-//						"<i class=\"normal fas fa-snowflake\"></i> Este ninsoare"
+						"<i class=\"normal wi wi-day-snow\"></i> Ninge!"
 					],
 					fog : [
 						"<i class=\"bright wi wi-day-fog\"></i> Vreme cu ceață",
-//						"<i class=\"bright fa fa-smog\"></i> Afară este ceață"
+						"<i class=\"bright wi wi-day-fog\"></i> Ceață!"
 					],
 					night_clear : [
 						"<i class=\"dimmed wi wi-night-clear\"></i> Noapte senină",
-//						"<i class=\"dimmed far fa-moon\"></i> Este senin afară"
+						"<i class=\"dimmed wi wi-night-clear\"></i> Cer senin"
 					],
 					night_cloudy : [
 						"<i class=\"powderblue wi wi-night-alt-cloudy\"></i> Noapte înorată",
-//						"<i class=\"powderblue fa fa-cloud-moon\"></i> Este înorat afară"
+						"<i class=\"powderblue wi wi-night-alt-cloudy\"></i> Este înorat"
 					],
 					night_showers : [
 						"<i class=\"skyblue wi wi-night-alt-showers\"></i> Ploaie ușoară",
-//						"<i class=\"skyblue fa fa-cloud-moon-rain\"></i> Ploaie măruntă"
+						"<i class=\"skyblue wi wi-night-alt-showers\"></i> Ploaie măruntă"
 					],
 					night_rain : [
 						"<i class=\"deepskyblue wi wi-night-rain\"></i> Noapte ploioasă",
-//						"<i class=\"deepskyblue fa fa-cloud-shower-heavy\"></i> Afară plouă"
+						"<i class=\"deepskyblue wi wi-night-rain\"></i> Ploaie!"
 					],
 					night_thunderstorm : [
 						"<i class=\"royalblue wi wi-night-alt-sleet-storm\"></i> Noapte furtunoasă!",
-//						"<i class=\"royalblue fa fa-poo-storm\"></i> Nu e vreme de ieșit!"
+						"<i class=\"royalblue wi wi-night-alt-sleet-storm\"></i> Furtuna!"
 					],
 					night_snow : [
 						"<i class=\"normal wi wi-night-alt-snow\"></i> Noapte cu ninsoare",
-//						"<i class=\"normal far fa-snowflake\"></i> Afară ninge!"
+						"<i class=\"normal wi wi-night-alt-snow\"></i> Ninge!"
 					],
 					night_alt_cloudy_windy : [
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Nori și ceață",
-//						"<i class=\"skyblue fa fa-cloud-moon\"></i> Ceață și nori"
+						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Ceață și nori"
 					],
 					"14-02-...." : [
 						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
@@ -505,6 +503,10 @@ var config = {
 					"02-01-...." : [
 						"<i class=\"gold fa fa-glass-cheers\"></i> Un An Nou fericit!",
 						function() {return "La mulți ani! " + moment().format("YYYY");}
+					],
+					"..-..-...." : [
+						"Orice faci, fă-o bine!",
+						"Fi sexy, fi tu însuți!"
 					],
 				}
 			}
