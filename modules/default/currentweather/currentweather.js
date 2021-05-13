@@ -386,7 +386,7 @@ Module.register("currentweather", {
 		}
 
 		var spacer = document.createElement("span");
-		spacer.innerHTML = "&nbsp; ";
+		spacer.innerHTML = "&nbsp;";
 		small.appendChild(spacer);
 
 		if (this.config.showUvi) {
@@ -412,7 +412,7 @@ Module.register("currentweather", {
 
 		if (this.config.showPrecip) {
 			var spacer = document.createElement("span");
-			spacer.innerHTML = "&nbsp; ";
+			spacer.innerHTML = "&nbsp;";
 			small.appendChild(spacer);
 
 			var prepIcon = document.createElement("span");
