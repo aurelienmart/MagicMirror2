@@ -564,7 +564,17 @@ header {
 
 .complimentz .wi {
 	display: inline-block;
-	transform: translateY(-3px) scale(0.6);
+	transform: translate(20px, 25px) scale(0.6);
+}
+
+.complimentz .wi-day-sunny {
+	content: url("icons/clear.png");
+	transform: translate(0, 25px);
+}
+
+.complimentz .wi-night-clear {
+	content: url("icons/nt_clear.png");
+	transform: translate(0, 25px) scale(1.2);
 }
 
 .complimentz .fa,
@@ -885,11 +895,6 @@ header {
 	transform: translate(0, 15px) scale(1.4);
 }
 
-.complimentz .wi-day-sunny {
-	content: url("icons/clear.png");
-	transform: translate(0, 25px);
-}
-
 .complimentz .wi-day-cloudy,
 .currentweather .wi-day-cloudy {
 	content: url("icons/mostlysunny.png");
@@ -933,11 +938,6 @@ header {
 .currentweather .wi-night-clear {
 	content: url("icons/nt_clear.png");
 	transform: translate(0, 15px) scale(1.6);
-}
-
-.complimentz .wi-night-clear {
-	content: url("icons/nt_clear.png");
-	transform: translate(0, 25px) scale(1.2);
 }
 
 .complimentz .wi-night-alt-cloudy,
