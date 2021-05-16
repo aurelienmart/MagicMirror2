@@ -9,9 +9,10 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <br>Clock https://github.com/hangorazvan/clock_plus
 
 <b>Some 3rd party modified modules:</b>
-<br>multi monthly calendar
-<br>random quotes
-<br>lunar & traffic
+<br>multi monthly calendar https://github.com/hangorazvan/MagicMirror2/tree/master/modules/monthly
+<br>random quotes https://github.com/hangorazvan/MagicMirror2/tree/master/modules/quotes
+<br>lunartic https://github.com/hangorazvan/MagicMirror2/tree/master/modules/lunartic
+<br>traffic https://github.com/hangorazvan/MagicMirror2/tree/master/modules/traffic
 
 <b>My own test developed modules:</b>
 <br>swatch.beat https://github.com/hangorazvan/swatch
