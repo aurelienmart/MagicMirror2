@@ -1,37 +1,4 @@
-# MMM-Traffic
-
-![module screenshot](screenshots/04-multiple.png)
-
-This a module for the [MagicMirror](https://github.com/MichMich/MagicMirror/tree/develop). It displays travel time between two locations, using the Mapbox directions API to factor in current traffic conditions.
-
-# Table of Contents
-
-- [Installation](#installation)
-- [Mapbox Access Token](#mapbox-access-token)
-- [Styling](#styling)
-- [Configuration](#configuration)
-  - [Required](#required)
-  - [Basic Options](#basic-options)
-  - [Translation/Display](#translationdisplay)
-  - [Per Day/Time Customization](#per-daytime-customization)
-- [Examples](#examples)
-  - [Simplest Config](#simplest-config)
-  - [Minimal Look](#minimal-look)
-  - [Use both lines](#use-both-lines)
-  - [Multiple Routes](#multiple-routes)
-  - [Per day customization](#per-day-customization)
-- [Dependencies](#dependencies)
-- [Legacy](#legacy)
-
-## Installation
-
-Navigate into your MagicMirror's `modules` folder and execute these commands:
-
-```shell
-git clone https://github.com/SamLewis0602/MMM-Traffic.git
-cd MMM-Traffic
-npm install
-```
+# Traffic
 
 ## Mapbox Access Token
 
@@ -55,12 +22,8 @@ For example, this css
   color: green;
 }
 ```
-leads to this abomination:
-![css example screenshot](screenshots/css-example.png)
 
-## Configuration
-
-### Required
+## Required
 
 See [here](https://support.google.com/maps/answer/18539)
 for instructions on how to use Google Maps webpage/app to get coordinates for your origin/destination.
@@ -129,7 +92,6 @@ rate limited.
 },
 ```
 
-![simple config screenshot](screenshots/01-simple_config.png)
 
 ### Minimal Look
 
@@ -147,7 +109,6 @@ rate limited.
 },
 ```
 
-![minimal screenshot](screenshots/02-minimal_look.png)
 
 ### Use both lines
 
@@ -165,7 +126,6 @@ rate limited.
 },
 ```
 
-![both lines custom screenshot](screenshots/03-both_lines.png)
 
 ### Multiple Routes
 
@@ -194,7 +154,6 @@ rate limited.
 },
 ```
 
-![multiple routes screenshot](screenshots/04-multiple.png)
 
 ### Per day customization
 
@@ -233,18 +192,3 @@ be completely hidden on weekends.
 },
 ```
 
-| Day         | View                                           |
-| ----------- | ---------------------------------------------- |
-| Mon/Wed/Fri | ![minimal screenshot](screenshots/05-mwf.png)  |
-| Tu/Th       | ![minimal screenshot](screenshots/05-tuth.png) |
-
-## Dependencies
-
-- [node-fetch](https://www.npmjs.com/package/node-fetch)
-- [moment](https://www.npmjs.com/package/moment)
-
-## Legacy
-
-If you want to continue using the old version with Google Maps and more customization, use the [1.0-not-supported](https://github.com/SamLewis0602/MMM-Traffic/tree/1.0-not-supported) branch.
-
-<b>NOTE</b>: this version is no longer supported, please do not open issues on the repo if you run into issues with this version.
