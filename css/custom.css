@@ -932,7 +932,7 @@ header {
 
 .complimentz .wi-fog,
 .currentweather .wi-fog {
-	content: url("icons/cloudy.png");
+	content: url("icons/fog.png");
 }
 
 .currentweather .wi-night-clear {
