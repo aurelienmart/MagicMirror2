@@ -24,7 +24,7 @@ Module.register("weatherforecast", {
 		fadePoint: 0.25, // Start on 1/4th of the list.
 		colored: true,
 		extra: true,
-		scale: config.scale,
+		degreeLabel: config.scale,
 
 		initialLoadDelay: 2500, // 2.5 seconds delay. This delay is used to keep the OpenWeather API happy.
 		retryDelay: config.delay,
@@ -155,7 +155,7 @@ Module.register("weatherforecast", {
 			if (this.config.units === "metric" || this.config.units === "imperial") {
 				degreeLabel += "&deg;";
 			}
-			if (this.config.scale) {
+			if (this.config.degreeLabel) {
 				switch (this.config.units) {
 					case "metric":
 						degreeLabel += "C";
