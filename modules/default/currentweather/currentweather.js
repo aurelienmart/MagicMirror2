@@ -232,7 +232,7 @@ Module.register("currentweather", {
 
 		if (this.config.showSun) {
 			var sunriseSunsetIcon = document.createElement("span");
-			sunriseSunsetIcon.className = "wi" + this.sunriseSunsetIcon;
+			sunriseSunsetIcon.className = "wi " + this.sunriseSunsetIcon;
 			small.appendChild(sunriseSunsetIcon);
 
 			var sunriseSunsetTime = document.createElement("span");
