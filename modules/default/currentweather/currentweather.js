@@ -22,7 +22,6 @@ Module.register("currentweather", {
 		useKMPHwind: true,
 		lang: config.language,
 		decimalSymbol: config.decimal,
-		showHumidity: false,
 		showSun: false,
 		degreeLabel: config.scale,
 		showIndoorTemperature: false,
