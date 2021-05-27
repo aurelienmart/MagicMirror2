@@ -8,6 +8,7 @@
 
 var CalendarUtils = require("./calendarutils");
 var Log = require("logger");
+var NodeHelper = require("node_helper");
 var ical = require("node-ical");
 var fetch = require("node-fetch");
 var digest = require("digest-fetch");
@@ -65,16 +66,7 @@ var CalendarFetcher = function(url, reloadInterval, excludedEvents, maximumEntri
 			fetcher = fetch(url, { headers: headers, agent: httpsAgent });
 		}
 
-		fetcher["catch"](function (error) {
-			fetchFailedCallback(self, error);
-			scheduleTimer();
-		}).then(function (response) {
-			if (response.status !== 200) {
-				fetchFailedCallback(self, response.statusText);
-				scheduleTimer();
-			}
-			return response;
-		}).then(function (response) {
+		fetcher.then(NodeHelper.checkFetchStatus).then(function (response) {
 			return response.text();
 		}).then(function (responseData) {
 			var data = [];
@@ -89,12 +81,16 @@ var CalendarFetcher = function(url, reloadInterval, excludedEvents, maximumEntri
 					maximumNumberOfDays: maximumNumberOfDays
 				});
 			} catch (error) {
-				fetchFailedCallback(self, error.message);
+				fetchFailedCallback(self, error);
 				scheduleTimer();
 				return;
 			}
 			self.broadcastEvents();
 			scheduleTimer();
+		})
+			.catch(function(error) {
+				fetchFailedCallback(this, error);
+				scheduleTimer();
 		});
 	};
 

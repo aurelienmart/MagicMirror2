@@ -40,17 +40,17 @@ module.exports = NodeHelper.create({
   */
 	createFetcher: function (url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, selfSignedCert, identifier) {
 		var self = this;
-
 		try {
 			new URL(url);
 		} catch (error) {
-			this.sendSocketNotification("INCORRECT_URL", { id: identifier, url: url });
+			Log.error("Calendar Error. Malformed calendar url: ", url, error);
+			this.sendSocketNotification("CALENDAR_ERROR", { error_type: "MODULE_ERROR_MALFORMED_URL" });
 			return;
 		}
 
 		var fetcher = undefined;
 		if (typeof this.fetchers[identifier + url] === "undefined") {
-			Log.log("Create new calendar fetcher for url: " + url + " - Interval: " + fetchInterval);
+			Log.log("Create new calendarfetcher for url: " + url + " - Interval: " + fetchInterval);
 			fetcher = new CalendarFetcher(url, fetchInterval, excludedEvents, maximumEntries, maximumNumberOfDays, auth, broadcastPastEvents, selfSignedCert);
 
 			fetcher.onReceive(function (fetcher) {
@@ -59,16 +59,16 @@ module.exports = NodeHelper.create({
 
 			fetcher.onError(function (fetcher, error) {
 				Log.error("Calendar Error. Could not fetch calendar: ", fetcher.url(), error);
-				self.sendSocketNotification("FETCH_ERROR", {
+				var error_type = NodeHelper.checkFetchError(error);
+				this.sendSocketNotification("CALENDAR_ERROR", {
 					id: identifier,
-					url: fetcher.url(),
-					error: error
+					error_type
 				});
 			});
 
 			this.fetchers[identifier + url] = fetcher;
 		} else {
-			Log.log("Use existing calendar fetcher for url: " + url);
+			Log.log("Use existing calendarfetcher for url: " + url);
 			fetcher = this.fetchers[identifier + url];
 			fetcher.broadcastEvents();
 		}

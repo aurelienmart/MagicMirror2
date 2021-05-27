@@ -75,8 +75,8 @@ Module.register("newsfeed", {
             this.loaded = true;
             this.error = null;
         }
-        else if (notification === "INCORRECT_URL") {
-            this.error = "Incorrect url: " + payload.url;
+        else if (notification === "NEWSFEED_ERROR") {
+            this.error = this.translate(payload.error_type);
             this.scheduleUpdateInterval();
         }
     },
@@ -163,9 +163,9 @@ Module.register("newsfeed", {
             newsItems = newsItems.slice(0, self.config.maxNewsItems);
         }
         if (this.config.prohibitedWords.length > 0) {
-            newsItems = newsItems.filter(function (value) {
+            newsItems = newsItems.filter(function (item) {
                 for (var word of self.config.prohibitedWords) {
-                    if (value["title"].toLowerCase().indexOf(word.toLowerCase()) > -1) {
+                    if (item.title.toLowerCase().indexOf(word.toLowerCase()) > -1) {
                         return false;
                     }
                 }

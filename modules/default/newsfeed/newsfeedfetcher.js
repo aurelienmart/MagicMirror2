@@ -6,6 +6,7 @@
  */
 var Log = require("logger");
 var FeedMe = require("feedme");
+var NodeHelper = require("node_helper");
 var fetch = require("node-fetch");
 var iconv = require("iconv-lite");
 /**
@@ -73,12 +74,13 @@ var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) 
             Pragma: "no-cache"
         };
         fetch(url, { headers: headers })
+           .then(NodeHelper.checkFetchStatus)
+           .then(function (response) {
+               response.body.pipe(iconv.decodeStream(encoding)).pipe(parser);
+        })
             .catch(function (error) {
             fetchFailedCallback(self, error);
             scheduleTimer();
-        })
-            .then(function (res) {
-            res.body.pipe(iconv.decodeStream(encoding)).pipe(parser);
         });
     };
     /**

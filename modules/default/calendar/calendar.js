@@ -128,12 +128,10 @@ Module.register("calendar", {
                 }
             }
         }
-        else if (notification === "FETCH_ERROR") {
-            Log.error("Calendar Error. Could not fetch calendar: " + payload.url);
+        else if (notification === "CALENDAR_ERROR") {
+            var error_message = this.translate(payload.error_type);
+            this.error = this.translate("MODULE_CONFIG_ERROR", { MODULE_NAME: this.name, ERROR: error_message });
             this.loaded = true;
-        }
-        else if (notification === "INCORRECT_URL") {
-            Log.error("Calendar Error. Incorrect url: " + payload.url);
         }
         this.updateDom(this.config.animationSpeed);
     },
@@ -148,6 +146,11 @@ Module.register("calendar", {
         var events = this.createEventList();
         var wrapper = document.createElement("table");
         wrapper.className = this.config.tableClass;
+        if (this.error) {
+            wrapper.innerHTML = this.error;
+            wrapper.className = this.config.tableClass + " dimmed";
+            return wrapper;
+        }
         if (events.length === 0) {
             wrapper.innerHTML = this.loaded ? this.translate("EMPTY") : this.translate("LOADING");
             wrapper.className = this.config.tableClass + " dimmed";
@@ -263,7 +266,7 @@ Module.register("calendar", {
             if (self.config.timeFormat === "dateheaders") {
                 if (event.fullDayEvent) {
                     titleWrapper.colSpan = "2";
-                    titleWrapper.align = "left";
+                    titleWrapper.classList.add("align-left");
                 }
                 else {
                     var timeWrapper = document.createElement("td");
@@ -272,7 +275,7 @@ Module.register("calendar", {
                     timeWrapper.style.paddingLeft = "2px";
                     timeWrapper.innerHTML = moment(event.startDate, "x").format("LT");
                     eventWrapper.appendChild(timeWrapper);
-                    titleWrapper.align = "right";
+                    titleWrapper.classList.add("align-right");
                 }
                 eventWrapper.appendChild(titleWrapper);
             }

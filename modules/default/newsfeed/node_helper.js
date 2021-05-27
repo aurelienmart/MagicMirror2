@@ -23,8 +23,8 @@ module.exports = NodeHelper.create({
      * Creates a fetcher for a new feed if it doesn't exist yet.
      * Otherwise it reuses the existing one.
      *
-     * @param {object} feed The feed object.
-     * @param {object} config The configuration object.
+     * @param {object} feed The feed object
+     * @param {object} config The configuration object
      */
     createFetcher: function (feed, config) {
         var self = this;
@@ -35,26 +35,28 @@ module.exports = NodeHelper.create({
             new URL(url);
         }
         catch (error) {
-            this.sendSocketNotification("INCORRECT_URL", { url: url });
+            Log.error("Newsfeed Error. Malformed newsfeed url: ", url, error);
+            this.sendSocketNotification("NEWSFEED_ERROR", { error_type: "MODULE_ERROR_MALFORMED_URL" });
             return;
         }
         var fetcher;
         if (typeof this.fetchers[url] === "undefined") {
-            Log.log("Create new news fetcher for url: " + url + " - Interval: " + reloadInterval);
+            Log.log("Create new newsfetcher for url: " + url + " - Interval: " + reloadInterval);
             fetcher = new NewsfeedFetcher(url, reloadInterval, encoding, config.logFeedWarnings);
             fetcher.onReceive(function () {
                 self.broadcastFeeds();
             });
             fetcher.onError(function (fetcher, error) {
-                self.sendSocketNotification("FETCH_ERROR", {
-                    url: fetcher.url(),
-                    error: error
+                Log.error("Newsfeed Error. Could not fetch newsfeed: ", url, error);
+                var error_type = NodeHelper.checkFetchError(error);
+                this.sendSocketNotification("NEWSFEED_ERROR", {
+                    error_type
                 });
             });
             this.fetchers[url] = fetcher;
         }
         else {
-            Log.log("Use existing news fetcher for url: " + url);
+            Log.log("Use existing newsfetcher for url: " + url);
             fetcher = this.fetchers[url];
             fetcher.setReloadInterval(reloadInterval);
             fetcher.broadcastItems();
