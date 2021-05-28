@@ -13,15 +13,14 @@ First, you have three choices of images to accompany the data.
 
     {
             disabled: false,
-            module: 'MMM-Lunartic',
-            position: 'bottom_center', // Best in left, center, or right regions
+            module: 'lunartic',
+            position: 'bottom_center', 			// Best in left, center, or right regions
             config: {
-                mode: "rotating", // rotating or static
-                image: "current", // animation, current, DayNight or static
-                distance: "miles", // miles or km
-		    sounds: "yes", // howling wolf, only on a full moon
-                useHeader: false, // true if you want a header
-                header: "The Lunartic is in my head", // Any text you want
+                mode: "rotating", 			// rotating or static
+                image: "current", 			// animation, current, DayNight or static
+                distance: "miles", 			// miles or km
+                useHeader: false, 			// true if you want a header
+                header: "The Lunartic is in my head", 	// Any text you want
                 maxWidth: "300px",
                 animationSpeed: 0,
                 rotateInterval: 15000,
