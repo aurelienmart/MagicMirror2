@@ -10,7 +10,7 @@ Module.register("monthly", {
 	// Default module config.
 	defaults: {
 		startMonth: -1, 		// Define when you start from current month (negative is before current, zero is current, positive is in future) 
-		monthCount: 3, 			//  How many months to display - If Month Count is 1, Calendar will show previous and next month dates in empty spots.  
+		monthCount: 3, 			// How many months to display - If Month Count is 1, Calendar will show previous and next month dates in empty spots.  
 		monthsVertical: true, 		// Whether to arrange the months vertically (true) or horizontally (false).
 		repeatWeekdaysVertical: false,	// Whether to repeat the week days in each month in vertical mode. Ignored in horizontal mode.
 		weekNumbers: false, 		// Whether to display the week numbers in front of each week.
