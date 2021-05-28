@@ -1,23 +1,13 @@
-# Module: random_quotes
+# Module: quotes
 
-https://github.com/KirAsh4/random_quotes
-
-The `random_quotes` module returns a random quote based on the category set. Supplied quotes are courtesy
-of http://brainyquote.com. Since there is no API for BrainQuote.com, you will have to manually add new ones.
-See the section on `Updating Quotes` below.
-
-## Installing the module
-Clone this repository in your `~/MagicMirror/modules/` folder
-````javascript
-git clone https://github.com/KirAsh4/random_quotes
-````
+The `quotes` module returns a random quote based on the category set. 
 
 ## Using the module
 To use this module, add it to the modules array in the `config/config.js` file:
 ````javascript
 modules: [
 			{
-				module: 'random_quotes',
+				module: 'quotes',
 				position: 'lower_third',
 				config: {
 						// The config property is optional
@@ -29,7 +19,7 @@ modules: [
 ````
 
 ## Configuration options
-The `random_quotes` module allows you to pick quotes randomly from all the provided categories, or you can
+The `quotes` module allows you to pick quotes randomly from all the provided categories, or you can
 set it to only use one category. Specifying multiple categories is curently not supported.
 
 <table>
@@ -65,10 +55,5 @@ set it to only use one category. Specifying multiple categories is curently not 
 </table>
 
 ## Updating Quotes
-Because BrainyQuote.com does not proide an API for their database, you will have to update/change the quotes manually.
-You can edit the `random_quotes.js` file and add/remove quotes from the various sections. You may even delete an entire
+You can edit the `quotes.js` file and add/remove quotes from the various sections. You may even delete an entire
 section.
-
-Most random quotes APIs out there only allow for a single 'quote of the day'. If you want to have a random quote
-each time you send a request, most of them will require a paid subscription. In keeping this module 'free', I opted
-to not force anyone to have to pay for a service.
