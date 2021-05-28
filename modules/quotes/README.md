@@ -49,7 +49,7 @@ set it to only use one category. Specifying multiple categories is curently not 
 		<tr>
 			<td><code>category</code></td>
 			<td>What category to pick from.</td>
-			<td><code>random</code> - The <code>random</code> setting will pick a random quote out of all the available categories. Or you can set it to a specific category: <code>inspirational</code>, <code>life</code>, <code>love</code>, <code>motivational</code>, <code>positive</code>, or <code>success</code>.</td>
+			<td><code>random</code> - The <code>random</code> setting will pick a random quote out of all the available categories. Or you can set it to a specific category: <code>selected</code>, <code>romanian</code>, <code>Tyson</code>, <code>love</code>, <code>motivational</code>, <code>positive</code>, or <code>success</code>.</td>
 		</tr>
 	</tbody>
 </table>
