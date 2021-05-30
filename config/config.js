@@ -4,8 +4,8 @@
  * MIT Licensed.
  *
  * For more information on how you can configure this file
- * See https://github.com/MichMich/MagicMirror#configuration
- *
+ * see https://docs.magicmirror.builders/getting-started/configuration.html#general
+ * and https://docs.magicmirror.builders/modules/configuration.html
  */
  
 var config = {
