@@ -122,6 +122,7 @@ Module.register("calendar", {
         if (notification === "CALENDAR_EVENTS") {
             if (this.hasCalendarURL(payload.url)) {
                 this.calendarData[payload.url] = payload.events;
+                this.error = null;
                 this.loaded = true;
                 if (this.config.broadcastEvents) {
                     this.broadcastEvents();

@@ -14,6 +14,10 @@
                     {{ uvi }}
                 </td>
                 {% if config.showPrecipitationAmount %}
+                    <td class="align-right bright precipitation">
+                        {{ hour.precipitation }}{{ hour.precipitationUnits }}
+                    </td>           
+                    {% else %}
                     <td class="align-right precipitation shade">
                         {{ hour.precipitation | unit("precip") }} <i class="wi wi-umbrella skyblue"></i>
                     </td>

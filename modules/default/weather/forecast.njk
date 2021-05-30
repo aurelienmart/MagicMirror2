@@ -5,9 +5,9 @@
         {% set forecast = forecast.slice(0, numSteps) %}
         {% for f in forecast %}
             <tr {% if config.colored %}class="colored"{% endif %} {% if config.fade %}style="opacity: {{ currentStep | opacity(numSteps) }};"{% endif %}>
-                {% if (currentStep == 0) %}
+                {% if (currentStep == 0) and config.ignoreToday == false %}
                     <td class="day">{{ "TODAY" | translate }}</td>
-                {% elif (currentStep == 1) %}
+                {% elif (currentStep == 1) and config.ignoreToday == false %}
                     <td class="day">{{ "TOMORROW" | translate }}</td>
                 {% else %}
                     <td class="day">{{ f.date.format('ddd') }}</td>
@@ -20,9 +20,15 @@
                     {{ f.minTemperature | roundValue | unit("temperature") | decimalSymbol }}
                 </td>
                 {% if config.showPrecipitationAmount %}
-                    <td class="align-right precipitation shade">
-                        {{ f.precipitation | unit("precip") }} <i class="wi wi-umbrella skyblue"></i>
-                    </td>
+                    {% if f.precipitationUnits %}   
+                        <td class="align-right bright precipitation">
+                            {{ f.precipitation }}{{ f.precipitationUnits }}
+                        </td>           
+                        {% else %}
+                        <td class="align-right bright precipitation">
+                            {{ f.precipitation | unit("precip") }} <i class="wi wi-umbrella skyblue"></i>
+                        </td>
+                    {% endif %}
                 {% endif %}
             </tr>
             {% set currentStep = currentStep + 1 %}
