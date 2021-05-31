@@ -84,7 +84,7 @@ Module.register("calendar", {
         // indicate no data available yet
         this.loaded = false;
         this.config.calendars.forEach(function (calendar) {
-            calendar.url = calendar.url.replace("webcal://", "http://");
+            calendar.url = calendar.url.replace("webcal://", "https://");
             var calendarConfig = {
                 maximumEntries: calendar.maximumEntries,
                 maximumNumberOfDays: calendar.maximumNumberOfDays,
