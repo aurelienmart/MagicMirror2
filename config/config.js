@@ -427,27 +427,27 @@ var config = {
 						"<i class=\"skyblue wi wi-cloudy\"></i> Este înorat",
 						"<i class=\"skyblue wi wi-cloudy\"></i> Este cam înorat"
 					],
-					cloudy_windy : [
+					day_cloudy_windy : [
 						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este înorat și vânt",
 						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este vânt și înorat"
 					],
-					showers : [
+					day_showers : [
 						"<i class=\"skyblue wi wi-day-showers\"></i> Ploaie ușoasă",
 						"<i class=\"skyblue wi wi-day-showers\"></i> Plouă ușor"
 					],
-					rain : [
+					day_rain : [
 						"<i class=\"deepskyblue wi wi-day-rain\"></i> Vreme ploioasă",
 						"<i class=\"deepskyblue wi wi-day-rain\"></i> Vreme cu ploaie"
 					],
-					thunderstorm : [
+					day_thunderstorm : [
 						"<i class=\"dodgerblue wi wi-day-thunderstorm\"></i> Este furtună!",
 						"<i class=\"dodgerblue wi wi-day-thunderstorm\"></i> Atenție, furtună!"
 					],
-					snow : [
+					day_snow : [
 						"<i class=\"normal wi wi-day-snow\"></i> Ninsoare",
 						"<i class=\"normal wi wi-day-snow\"></i> Ninge!"
 					],
-					fog : [
+					day_fog : [
 						"<i class=\"bright wi wi-day-fog\"></i> Vreme cu ceață",
 						"<i class=\"bright wi wi-day-fog\"></i> Ceață!"
 					],
