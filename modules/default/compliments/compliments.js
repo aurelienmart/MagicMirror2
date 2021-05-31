@@ -23,7 +23,7 @@ Module.register("compliments", {
 
 	lastIndexUsed: -1,
 	// Set currentweather from module
-	currentWeatherType: "currentweather",
+	currentWeatherType: "weather",
 
 	// Define required scripts.
 	getScripts: function () {
@@ -57,9 +57,8 @@ Module.register("compliments", {
 	/* randomIndex(compliments)
 	 * Generate a random index for a list of compliments.
 	 *
-	 * argument compliments Array<String> - Array with compliments.
-	 *
-	 * return Number - Random index.
+	 * @param {string[]} compliments Array with compliments.
+	 * @returns {number} a random index of given array
 	 */
 	randomIndex: function (compliments) {
 		if (compliments.length === 1) {
