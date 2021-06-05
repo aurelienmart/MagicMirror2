@@ -20,7 +20,7 @@ Module.register("monthly", {
 		var self = this;
 		setInterval(function() {
 			self.updateDom(config.animation);
-		}, moment().add(1, 'days').startOf('day'));
+		}, moment().add(1, 'days').startOf('day')-moment());
 	},		
 
 	// Override dom generator.
