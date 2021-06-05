@@ -10,6 +10,7 @@ Module.register("newsfeed", {
 	// Default module config.
 	defaults: {
         feeds: [],
+        showAsList: false,
         showSourceTitle: true,
         showPublishDate: true,
         broadcastNewsFeeds: true,
@@ -23,7 +24,7 @@ Module.register("newsfeed", {
         reloadInterval: 5 * 60 * 1000, // every 5 minutes
         updateInterval: 10 * 1000,
         animationSpeed: config.animation,
-        maxNewsItems: 0, // 0 for unlimited
+        maxNewsItems: 1, // 0 for unlimited
         ignoreOldItems: false,
         ignoreOlderThan: 24 * 60 * 60 * 1000, // 1 day
         removeStartTags: "",
@@ -112,13 +113,18 @@ Module.register("newsfeed", {
             this.activeItem = 0;
         }
         var item = this.newsItems[this.activeItem];
+        var items = this.newsItems.map(function (item) {
+            item.publishDate = moment(new Date(item.pubdate)).fromNow();
+            return item;
+        });
         return {
             loaded: true,
             config: this.config,
             sourceTitle: item.sourceTitle,
             publishDate: moment(new Date(item.pubdate)).fromNow(),
             title: item.title,
-            description: item.description
+            description: item.description,
+            items: items
         };
     },
     getActiveItemURL: function () {
