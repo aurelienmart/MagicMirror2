@@ -8,13 +8,7 @@
 
 Module.register("monthly", {
 	// Default module config.
-	defaults: {
-		startMonth: -1, 		// Define when you start from current month (negative is before current, zero is current, positive is in future) 
-		monthCount: 3, 			// How many months to display - If Month Count is 1, Calendar will show previous and next month dates in empty spots.  
-		monthsVertical: true, 		// Whether to arrange the months vertically (true) or horizontally (false).
-		repeatWeekdaysVertical: false,	// Whether to repeat the week days in each month in vertical mode. Ignored in horizontal mode.
-		weekNumbers: false, 		// Whether to display the week numbers in front of each week.
-		highlightWeekend: false, 	// Highlight Saturday and Sunday},
+	defaults: {},
 
 	// CSS Add
 	getStyles: function () {
@@ -26,7 +20,7 @@ Module.register("monthly", {
 		var self = this;
 		setInterval(function() {
 			self.updateDom(config.animation);
-		}, moment().add(1, 'days').hours(0).minutes(0).seconds(0)-moment());
+		}, moment().add(1, 'days').startOf('day'));
 	},		
 
 	// Override dom generator.

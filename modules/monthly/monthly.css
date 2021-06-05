@@ -13,6 +13,7 @@
 }
 
 .monthly .calendar-horizontal {
+	display: block;
 	flex-direction: row;
 }
 
