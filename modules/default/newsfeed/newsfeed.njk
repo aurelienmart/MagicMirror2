@@ -13,17 +13,17 @@
                             {% endif %}
                         </div>
                     {% endif %}
-                    <div class="newsfeed-title bright medium light{{ ' no-wrap' if not config.wrapTitle }}">
+                    <span class="newsfeed-title bright medium light{{ ' no-wrap' if not config.wrapTitle }}">
                         {{ item.title }}
-                    </div>
+                    </span>
                     {% if config.showDescription %}
-                        <div class="newsfeed-desc small light{{ ' no-wrap' if not config.wrapDescription }}">
+                        <span class="newsfeed-desc small light{{ ' no-wrap' if not config.wrapDescription }}"> &bull;
                             {% if config.truncDescription %}
                                 {{ item.description | truncate(config.lengthDescription) }}
                             {% else %}
                                 {{ item.description }}
                             {% endif %}
-                        </div>
+                        </span>
                     {% endif %}
                 </li>
             {% endfor %}
@@ -40,17 +40,17 @@
                     {% endif %}
                 </div>
             {% endif %}
-            <div class="newsfeed-title bright medium light{{ ' no-wrap' if not config.wrapTitle }}">
+            <span class="newsfeed-title bright medium light{{ ' no-wrap' if not config.wrapTitle }}">
                 {{ title }}
-            </div>
+            </span>
             {% if config.showDescription %}
-                <div class="newsfeed-desc small light{{ ' no-wrap' if not config.wrapDescription }}">
+                <span class="newsfeed-desc small light{{ ' no-wrap' if not config.wrapDescription }}"> &bull;
                     {% if config.truncDescription %}
                         {{ description | truncate(config.lengthDescription) }}
                     {% else %}
                         {{ description }}
                     {% endif %}
-                </div>
+                </span>
             {% endif %}
         </span>
     {% endif %}
