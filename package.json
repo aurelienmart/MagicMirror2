@@ -1,6 +1,6 @@
 {
 	"name": "magicmirror",
-	"version": "2.16.B",
+	"version": "2.16.0",
 	"description": "The open source modular smart mirror platform.",
 	"main": "js/electron.js",
 	"scripts": {
@@ -10,10 +10,10 @@
 		"install": "echo \"Installing vendor files ...\n\" && cd vendor && npm install --loglevel=error",
 		"install-fonts": "echo \"Installing fonts ...\n\" && cd fonts && npm install --loglevel=error",
 		"postinstall": "npm run install-fonts && echo \"MagicMirror installation finished successfully! \n\"",
-		"test": "NODE_ENV=test mocha tests --recursive",
-		"test:coverage": "NODE_ENV=test nyc --reporter=lcov --reporter=text mocha tests --recursive --timeout=3000",
-		"test:e2e": "NODE_ENV=test mocha tests/e2e --recursive",
-		"test:unit": "NODE_ENV=test mocha tests/unit --recursive",
+		"test": "NODE_ENV=test jest -i --forceExit",
+		"test:coverage": "NODE_ENV=test nyc --reporter=lcov --reporter=text jest -i --forceExit",
+		"test:e2e": "NODE_ENV=test jest --selectProjects e2e -i --forceExit",
+		"test:unit": "NODE_ENV=test jest --selectProjects unit -i --forceExit",
 		"test:prettier": "prettier . --check",
 		"test:js": "eslint js/**/*.js modules/default/**/*.js clientonly/*.js serveronly/*.js translations/*.js vendor/*.js tests/**/*.js config/* --config .eslintrc.json --quiet",
 		"test:css": "stylelint css/main.css modules/default/**/*.css --config .stylelintrc.json",
@@ -45,21 +45,18 @@
 	},
 	"homepage": "https://magicmirror.builders",
 	"devDependencies": {
-		"chai": "^4.3.4",
-		"chai-as-promised": "^7.1.1",
 		"eslint-config-prettier": "^8.3.0",
-		"eslint-plugin-jsdoc": "^35.0.0",
+		"eslint-plugin-jsdoc": "^35.4.0",
 		"eslint-plugin-prettier": "^3.4.0",
+		"eslint-plugin-jest": "^24.3.6",
 		"express-basic-auth": "^1.2.0",
 		"husky": "^6.0.0",
+		"jest": "27.0.5",
 		"jsdom": "^16.6.0",
 		"lodash": "^4.17.21",
-		"mocha": "^8.4.0",
-		"mocha-each": "^2.0.1",
-		"mocha-logger": "^1.0.7",
 		"nyc": "^15.1.0",
-		"prettier": "^2.3.0",
-		"pretty-quick": "^3.1.0",
+		"prettier": "^2.3.1",
+		"pretty-quick": "^3.1.1",
 		"sinon": "^11.1.1",
 		"spectron": "^13.0.0",
 		"stylelint": "^13.13.1",
@@ -68,13 +65,13 @@
 		"stylelint-prettier": "^1.2.0"
 	},
 	"optionalDependencies": {
-		"electron": "^11.4.7"
+		"electron": "^11.4.9"
 	},
 	"dependencies": {
 		"colors": "^1.4.0",
 		"console-stamp": "^3.0.2",
 		"digest-fetch": "^1.2.0",
-		"eslint": "^7.27.0",
+		"eslint": "^7.29.0",
 		"express": "^4.17.1",
 		"express-ipfilter": "^1.2.0",
 		"feedme": "^2.0.2",
@@ -84,7 +81,7 @@
 		"moment": "^2.29.1",
 		"node-fetch": "^2.6.1",
 		"node-ical": "^0.13.0",
-		"simple-git": "^2.39.0",
+		"simple-git": "^2.40.0",
 		"socket.io": "^4.1.2"
 	},
 	"_moduleAliases": {
@@ -93,5 +90,29 @@
 	},
 	"engines": {
 		"node": ">=12"
+	},
+	"jest": {
+		"verbose": true,
+		"projects": [
+			{
+				"displayName": "unit",
+				"testMatch": [
+					"**/tests/unit/**/*.[jt]s?(x)"
+				],
+				"testPathIgnorePatterns": [
+					"<rootDir>/tests/unit/mocks"
+				]
+			},
+			{
+				"displayName": "e2e",
+				"testMatch": [
+					"**/tests/e2e/**/*.[jt]s?(x)"
+				],
+				"testPathIgnorePatterns": [
+					"<rootDir>/tests/e2e/modules/mocks",
+					"<rootDir>/tests/e2e/global-setup.js"
+				]
+			}
+		]
 	}
 }
