@@ -88,7 +88,7 @@ function App() {
 	 * if it encounters one option from the deprecated.js list
 	 *
 	 * @param {object} userConfig The user config
-	
+	 *
 	function checkDeprecatedOptions(userConfig) {
 		var deprecated = require(global.root_path + "/js/deprecated.js");
 		var deprecatedOptions = deprecated.configs;
@@ -103,7 +103,7 @@ function App() {
 		if (usedDeprecated.length > 0) {
 			Log.warn(Utils.colors.warn("WARNING! Your config is using deprecated options: " + usedDeprecated.join(", ") + ". Check README and CHANGELOG for more up-to-date ways of getting the same functionality."));
 		}
-	}; */
+	};
 
 	/**
 	 *

@@ -182,7 +182,7 @@ var Module = Class.extend({
 		return this._nunjucksEnvironment;
 	},
 
-	/**
+	/*
 	 * Called when a socket notification arrives.
 	 *
 	 * @param {string} notification The identifier of the notification.
@@ -213,7 +213,7 @@ var Module = Class.extend({
 	/**
 	 * Set the module data.
 	 *
-	 * @param {Module} data The module data
+	 * @param {object} data The module data
 	 */
 	setData: function (data) {
 		this.data = data;
@@ -467,8 +467,7 @@ var Module = Class.extend({
  */
 function configMerge(result) {
 	var stack = Array.prototype.slice.call(arguments, 1);
-	var item;
-	var key;
+	var item, key;
 	while (stack.length) {
 		item = stack.shift();
 		for (key in item) {
@@ -528,14 +527,13 @@ Module.register = function (name, moduleDefinition) {
  * number if a is smaller and 0 if they are the same
  */
 function cmpVersions(a, b) {
-	var i, diff;
 	var regExStrip0 = /(\.0+)+$/;
 	var segmentsA = a.replace(regExStrip0, "").split(".");
 	var segmentsB = b.replace(regExStrip0, "").split(".");
 	var l = Math.min(segmentsA.length, segmentsB.length);
 
-	for (i = 0; i < l; i++) {
-		diff = parseInt(segmentsA[i], 10) - parseInt(segmentsB[i], 10);
+	for (var i = 0; i < l; i++) {
+		var diff = parseInt(segmentsA[i], 10) - parseInt(segmentsB[i], 10);
 		if (diff) {
 			return diff;
 		}
