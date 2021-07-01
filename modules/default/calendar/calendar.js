@@ -271,8 +271,7 @@ Module.register("calendar", {
                 }
                 else {
                     var timeWrapper = document.createElement("td");
-                    timeWrapper.className = "time light " + self.timeClassForUrl(event.url);
-                    timeWrapper.align = "left";
+                    timeWrapper.className = "time light align-left " + this.timeClassForUrl(event.url);
                     timeWrapper.style.paddingLeft = "2px";
                     timeWrapper.innerHTML = moment(event.startDate, "x").format("LT");
                     eventWrapper.appendChild(timeWrapper);

@@ -128,6 +128,8 @@
 
 	/**
   * Dismiss the notification
+  *
+  * @param {boolean} [close] call the onClose callback at the end
   */
 	NotificationFx.prototype.dismiss = function () {
 		var _this3 = this;

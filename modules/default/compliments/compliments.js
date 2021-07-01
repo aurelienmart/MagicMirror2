@@ -23,7 +23,7 @@ Module.register("compliments", {
 
 	lastIndexUsed: -1,
 	// Set currentweather from module
-	currentWeatherType: "weather, currentweather",
+	currentWeatherType: "currentweather, weather",
 
 	// Define required scripts.
 	getScripts: function () {
@@ -80,7 +80,7 @@ Module.register("compliments", {
 		return complimentIndex;
 	},
 
-	/* complimentArray()
+	/*
 	 * Retrieve an array of compliments for the time of the day.
 	 *
 	 * return compliments Array<String> - Array with compliments for the time of the day.
@@ -105,7 +105,7 @@ Module.register("compliments", {
 		}
 
 		if (typeof compliments === "undefined") {
-			compliments = new Array();
+			compliments = [];
 		}
 
 		if (this.currentWeatherType in this.config.compliments) {
@@ -123,7 +123,7 @@ Module.register("compliments", {
 		return compliments;
 	},
 
-	/* complimentFile(callback)
+	/*
 	 * Retrieve a file from the local filesystem
 	 */
 	complimentFile: function (callback) {
@@ -140,16 +140,16 @@ Module.register("compliments", {
 		xobj.send(null);
 	},
 
-	/* complimentArray()
+	/*
 	 * Retrieve a random compliment.
 	 *
-	 * return compliment string - A compliment.
+	 * @returns {string} a compliment
 	 */
 	randomCompliment: function () {
 		// get the current time of day compliments list
 		var compliments = this.complimentArray();
 		// variable for index to next message to display
-		var index = 0;
+		var index;
 		// are we randomizing
 		if (this.config.random) {
 			// yes

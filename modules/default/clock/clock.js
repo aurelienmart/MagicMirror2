@@ -47,8 +47,8 @@ Module.register("clock", {
 
 		// Schedule update interval.
 		var self = this;
-		self.second = moment().second();
-		self.minute = moment().minute();
+		this.second = moment().second();
+		this.minute = moment().minute();
 
 		//Calculate how many ms should pass until next update depending on if seconds is displayed or not
 		var delayCalculator = function (reducedSeconds) {
@@ -126,7 +126,7 @@ Module.register("clock", {
 		// See issue: https://github.com/MichMich/MagicMirror/issues/181
 		var timeString;
 		var now = moment();
-		this.lastDisplayedMinute = now.minute();
+
 		if (this.config.timezone) {
 			now.tz(this.config.timezone);
 		}
