@@ -47,8 +47,7 @@ var Loader = (function () {
 	 * Loops thru all modules and requests start for every module.
 	 */
 	var startModules = function () {
-		for (var m in moduleObjects) {
-			var module = moduleObjects[m];
+		for (var module of moduleObjects) {
 			module.start();
 		}
 
@@ -82,9 +81,8 @@ var Loader = (function () {
 		var modules = getAllModules();
 		var moduleFiles = [];
 
-		for (var m in modules) {
-			var moduleData = modules[m];
-			var module = moduleData.module;
+		modules.forEach(function (moduleData, index) {
+			var module = moduleData.module;	
 
 			var elements = module.split("/");
 			var moduleName = elements[elements.length - 1];
@@ -95,12 +93,12 @@ var Loader = (function () {
 			}
 
 			if (moduleData.disabled === true) {
-				continue;
+				return;
 			}
 
 			moduleFiles.push({
-				index: m,
-				identifier: "module_" + m + "_" + module,
+				index: index,
+				identifier: "module_" + index + "_" + module,
 				name: moduleName,
 				path: moduleFolder + "/",
 				file: moduleName + ".js",
@@ -111,7 +109,7 @@ var Loader = (function () {
 				config: moduleData.config,
 				classes: typeof moduleData.classes !== "undefined" ? moduleData.classes + " " + module : module
 			});
-		}
+		});
 
 		return moduleFiles;
 	};
@@ -179,11 +177,12 @@ var Loader = (function () {
 	 */
 	var loadFile = function (fileName, callback) {
 		var extension = fileName.slice((Math.max(0, fileName.lastIndexOf(".")) || Infinity) + 1);
+		var script, stylesheet;
 
 		switch (extension.toLowerCase()) {
 			case "js":
 				Log.log("Load script: " + fileName);
-				var script = document.createElement("script");
+				script = document.createElement("script");
 				script.type = "text/javascript";
 				script.src = fileName;
 				script.onload = function () {
@@ -202,7 +201,7 @@ var Loader = (function () {
 				break;
 			case "css":
 				Log.log("Load stylesheet: " + fileName);
-				var stylesheet = document.createElement("link");
+				stylesheet = document.createElement("link");
 				stylesheet.rel = "stylesheet";
 				stylesheet.type = "text/css";
 				stylesheet.href = fileName;
