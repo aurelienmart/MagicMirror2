@@ -1,5 +1,26 @@
+.clockGrid {
+  display: inline-flex;
+  gap: 15px;
+}
+
+.clockGrid--left {
+  flex-direction: row;
+}
+
+.clockGrid--right {
+  flex-direction: row-reverse;
+}
+
+.clockGrid--top {
+  flex-direction: column;
+}
+
+.clockGrid--bottom {
+  flex-direction: column-reverse;
+}
+
 .clockCircle {
-  margin: 0 auto;
+  place-self: center;
   position: relative;
   border-radius: 50%;
   background-size: 100%;
@@ -29,7 +50,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -2px 0 -2px -25%; /* numbers much match negative length & thickness */
+  margin: -2px 0 -2px -25%; /* numbers must match negative length & thickness */
   padding: 2px 0 2px 25%; /* indicator length & thickness */
   background: var(--color-text-bright);
   transform-origin: 100% 50%;
@@ -59,6 +80,10 @@
   padding: 38% 1px 0 0; /* indicator length & thickness */
   background: var(--color-text);
   transform-origin: 50% 100%;
+}
+
+.digital {
+  text-align: center;
 }
 
 .module.clock .sun,
