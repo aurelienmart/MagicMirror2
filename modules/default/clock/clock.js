@@ -12,6 +12,8 @@ Module.register("clock", {
 		displayType: "digital", // options: digital, analog, both
 
 		timeFormat: config.timeFormat,
+		timezone: config.timezone,
+
 		displaySeconds: true,
 		showPeriod: config.period,
 		showPeriodUpper: config.period,
@@ -26,7 +28,6 @@ Module.register("clock", {
 		analogPlacement: "bottom", // options: 'top', 'bottom', 'left', 'right'
 		analogShowDate: "top", // options: false, 'top', or 'bottom'
 		secondsColor: "#888888",
-		timezone: config.timezone,
 
 		showSunTimes: false,
 		showMoonTimes: false,
@@ -100,6 +101,16 @@ Module.register("clock", {
 	// Override dom generator.
 	getDom: function () {
 		var wrapper = document.createElement("div");
+		wrapper.classList.add("clockGrid");
+
+		/************************************
+		 * Create wrappers for analog and digital clock
+		 */
+		const analogWrapper = document.createElement("div");
+		analogWrapper.className = "clockCircle";
+		const digitalWrapper = document.createElement("div");
+		digitalWrapper.className = "digital";
+		digitalWrapper.style.gridArea = "center";
 
 		/************************************
 		 * Create wrappers for DIGITAL clock
@@ -144,23 +155,24 @@ Module.register("clock", {
 
 		if (this.config.showDate) {
 			dateWrapper.innerHTML = now.format(this.config.dateFormat);
+			digitalWrapper.appendChild(dateWrapper);
 		}
-		if (this.config.showWeek) {
-			weekWrapper.innerHTML = this.translate("WEEK", { weekNumber: now.week() }) + ", " + this.translate("DAY", { dayNumber: now.dayOfYear() }) 
-			+ ", " + now.format("z") + " " + config.language.toUpperCase() + ", " + config.location;
-		}
-		timeWrapper.innerHTML = timeString;
-		secondsWrapper.innerHTML = now.format(":ss");
-		if (this.config.showPeriodUpper) {
-			periodWrapper.innerHTML = now.format("A");
-		} else {
-			periodWrapper.innerHTML = now.format("a");
-		}
-		if (this.config.displaySeconds) {
-			timeWrapper.appendChild(secondsWrapper);
-		}
-		if (this.config.showPeriod && this.config.timeFormat !== 24) {
-			timeWrapper.appendChild(periodWrapper);
+
+		if (this.config.showTime || this.config.displayType !== "analog") {
+			timeWrapper.innerHTML = timeString;
+			secondsWrapper.innerHTML = now.format(":ss");
+			if (this.config.showPeriodUpper) {
+				periodWrapper.innerHTML = now.format("A");
+			} else {
+				periodWrapper.innerHTML = now.format("a");
+			}
+			if (this.config.displaySeconds) {
+				timeWrapper.appendChild(secondsWrapper);
+			}
+			if (this.config.showPeriod && this.config.timeFormat !== 24) {
+				timeWrapper.appendChild(periodWrapper);
+			}
+			digitalWrapper.appendChild(timeWrapper);
 		}
 
 		/**
@@ -200,6 +212,7 @@ Module.register("clock", {
 			sunWrapper.innerHTML = "<span class=\"" + (isVisible ? "bright" : "dimmed") + "\"><i class=\"wi wi-day-sunny\"></i> " + untilNextEventString + "</span>" +
 				"<span><i class=\"wi wi-sunrise\"></i> " + formatTime(this.config, sunTimes.sunrise) + "</span>" +
 				"<span><i class=\"wi wi-sunset\"></i> " + formatTime(this.config, sunTimes.sunset) + "</span>";
+			digitalWrapper.appendChild(sunWrapper);
 		}
 		if (this.config.showMoonTimes) {
 			var moonIllumination = SunCalc.getMoonIllumination(now.toDate());
@@ -225,6 +238,13 @@ Module.register("clock", {
 			moonWrapper.innerHTML = "<span class=brightness \"" + (isVisible ? "bright" : "dimmed") + "\"> <i class=\"wi wi-night-clear\"></i>&nbsp; " + illuminatedFractionString + "</span>" +
 				"<span>&nbsp;<i class=\"wi wi-moonrise\"></i>&nbsp; " + (moonRise ? formatTime(this.config, moonRise) : this.translate("TOMORROW")) + "</span>" +
 				"<span>&nbsp;<i class=\"wi wi-moonset\"></i>&nbsp; " + (moonSet ? formatTime(this.config, moonSet) : this.translate("TOMORROW")) + "</span>";
+			digitalWrapper.appendChild(moonWrapper);
+		}
+
+		if (this.config.showWeek) {
+			weekWrapper.innerHTML = this.translate("WEEK", { weekNumber: now.week() }) + ", " + this.translate("DAY", { dayNumber: now.dayOfYear() }) 
+			+ ", " + now.format("z") + " " + config.language.toUpperCase() + ", " + config.location;
+			digitalWrapper.appendChild(weekWrapper);
 		}
 
 		/****************************************************************
@@ -243,30 +263,28 @@ Module.register("clock", {
 				hour = ((now.hours() % 12) / 12) * 360 + 90 + minute / 12;
 
 			// Create wrappers
-			var clockCircle = document.createElement("div");
-			clockCircle.className = "clockCircle";
-			clockCircle.style.width = this.config.analogSize;
-			clockCircle.style.height = this.config.analogSize;
+			analogWrapper.style.width = this.config.analogSize;
+			analogWrapper.style.height = this.config.analogSize;
 
 			if (this.config.analogFace !== "" && this.config.analogFace !== "simple" && this.config.analogFace !== "none") {
-				clockCircle.style.background = "url(" + this.data.path + "faces/" + this.config.analogFace + ".svg)";
-				clockCircle.style.backgroundSize = "100%";
+				analogWrapper.style.background = "url(" + this.data.path + "faces/" + this.config.analogFace + ".svg)";
+				analogWrapper.style.backgroundSize = "100%";
 
 				// The following line solves issue: https://github.com/MichMich/MagicMirror/issues/611
-				// clockCircle.style.border = "1px solid black";
-				clockCircle.style.border = "rgba(0, 0, 0, 0.1)"; //Updated fix for Issue 611 where non-black backgrounds are used
+				// analogWrapper.style.border = "1px solid black";
+				analogWrapper.style.border = "rgba(0, 0, 0, 0)"; //Updated fix for Issue 611 where non-black backgrounds are used
 			} else if (this.config.analogFace !== "none") {
-				clockCircle.style.border = "0";
+				analogWrapper.style.border = "0";
 			}
-			var clockFace = document.createElement("div");
+			const clockFace = document.createElement("div");
 			clockFace.className = "clockFace";
 
-			var clockHour = document.createElement("div");
-//			clockHour.id = "clockHour";
+			const clockHour = document.createElement("div");
+			clockHour.id = "clockHour";
 			clockHour.style.transform = "rotate(" + hour + "deg)";
 			clockHour.className = "clockHour";
-			var clockMinute = document.createElement("div");
-//			clockMinute.id = "clockMinute";
+			const clockMinute = document.createElement("div");
+			clockMinute.id = "clockMinute";
 			clockMinute.style.transform = "rotate(" + minute + "deg)";
 			clockMinute.className = "clockMinute";
 
@@ -275,90 +293,34 @@ Module.register("clock", {
 			clockFace.appendChild(clockMinute);
 
 			if (this.config.displaySeconds) {
-				var clockSecond = document.createElement("div");
-//				clockSecond.id = "clockSecond";
+				const clockSecond = document.createElement("div");
+				clockSecond.id = "clockSecond";
 				clockSecond.style.transform = "rotate(" + second + "deg)";
 				clockSecond.className = "clockSecond";
 				clockSecond.style.backgroundColor = this.config.secondsColor;
 				clockFace.appendChild(clockSecond);
 			}
-			clockCircle.appendChild(clockFace);
+			analogWrapper.appendChild(clockFace);
 		}
 
 		/*******************************************
-		 * Combine wrappers, check for .displayType
+		 * Update placement, respect old analogShowDate even if its not needed anymore
 		 */
-
-		if (this.config.displayType === "digital") {
-			// Display only a digital clock
-			wrapper.appendChild(dateWrapper);
-			wrapper.appendChild(timeWrapper);
-			wrapper.appendChild(sunWrapper);
-			wrapper.appendChild(moonWrapper);
-			wrapper.appendChild(weekWrapper);
-		} else if (this.config.displayType === "analog") {
+		if (this.config.displayType === "analog") {
 			// Display only an analog clock
-
-			if (this.config.showWeek) {
-				weekWrapper.style.paddingBottom = "15px";
-			} else {
-				dateWrapper.style.paddingBottom = "15px";
-			}
-
 			if (this.config.analogShowDate === "top") {
-				wrapper.appendChild(dateWrapper);
-				wrapper.appendChild(weekWrapper);
-				wrapper.appendChild(clockCircle);
+				wrapper.classList.add("clockGrid--bottom");
 			} else if (this.config.analogShowDate === "bottom") {
-				wrapper.appendChild(clockCircle);
-				wrapper.appendChild(dateWrapper);
-				wrapper.appendChild(weekWrapper);
+				wrapper.classList.add("clockGrid--top");
 			} else {
-				wrapper.appendChild(clockCircle);
+				//analogWrapper.style.gridArea = "center";
 			}
-		} else {
-			// Both clocks have been configured, check position
-			var placement = this.config.analogPlacement;
-
-			var analogWrapper = document.createElement("div");
-			analogWrapper.className = "analog";
-			analogWrapper.style.cssFloat = "none";
-			analogWrapper.appendChild(clockCircle);
-
-			var digitalWrapper = document.createElement("div");
-			digitalWrapper.className = "digital";
-			digitalWrapper.style.cssFloat = "none";
-			digitalWrapper.appendChild(dateWrapper);
-			digitalWrapper.appendChild(timeWrapper);
-			digitalWrapper.appendChild(sunWrapper);
-			digitalWrapper.appendChild(moonWrapper);
-			digitalWrapper.appendChild(weekWrapper);
-
-			var appendClocks = function (condition, pos1, pos2) {
-				var padding = [0, 0, 0, 0];
-				padding[placement === condition ? pos1 : pos2] = "20px";
-				analogWrapper.style.padding = padding.join(" ");
-				if (placement === condition) {
-					wrapper.appendChild(analogWrapper);
-					wrapper.appendChild(digitalWrapper);
-				} else {
-					wrapper.appendChild(digitalWrapper);
-					wrapper.appendChild(analogWrapper);
-				}
-			};
-
-			if (placement === "left" || placement === "right") {
-				digitalWrapper.style.display = "inline-block";
-				digitalWrapper.style.verticalAlign = "top";
-				analogWrapper.style.display = "inline-block";
-
-				appendClocks("left", 1, 3);
-			} else {
-				digitalWrapper.style.textAlign = "center";
-
-				appendClocks("top", 2, 0);
-			}
+		} else if (this.config.displayType === "both") {
+			wrapper.classList.add("clockGrid--" + this.config.analogPlacement);
 		}
+
+		wrapper.appendChild(analogWrapper);
+		wrapper.appendChild(digitalWrapper);
 
 		// Return the wrapper to the dom.
 		return wrapper;
