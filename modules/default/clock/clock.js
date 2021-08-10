@@ -19,13 +19,14 @@ Module.register("clock", {
 		showPeriodUpper: config.period,
 		clockBold: false,
 		showDate: true,
+		showTime: false, // show digital with analog clock
 		showWeek: false,
 		dateFormat: "dddd, LL",
 
 		/* specific to the analog clock */
 		analogSize: "200px",
 		analogFace: "simple", // options: 'none', 'simple', 'face-###' (where ### is 001 to 012 inclusive)
-		analogPlacement: "bottom", // options: 'top', 'bottom', 'left', 'right'
+		analogPlacement: "bottom", // OBSOLETE, can be replaced with analogPlacement and showTime, options: false, 'top', or 'bottom'
 		analogShowDate: "top", // options: false, 'top', or 'bottom'
 		secondsColor: "#888888",
 
@@ -190,6 +191,9 @@ Module.register("clock", {
 			return moment(time).format(formatString);
 		}
 
+		/****************************************************************
+		 * Create wrappers for Sun Times, only if specified in config
+		 */
 		if (this.config.showSunTimes) {
 			var sunTimes = SunCalc.getTimes(now, this.config.lat, this.config.lon);
 			var isVisible = now.isBetween(sunTimes.sunrise, sunTimes.sunset);
@@ -214,6 +218,10 @@ Module.register("clock", {
 				"<span><i class=\"wi wi-sunset\"></i> " + formatTime(this.config, sunTimes.sunset) + "</span>";
 			digitalWrapper.appendChild(sunWrapper);
 		}
+
+		/****************************************************************
+		 * Create wrappers for Moon Times, only if specified in config
+		 */
 		if (this.config.showMoonTimes) {
 			var moonIllumination = SunCalc.getMoonIllumination(now.toDate());
 			var moonTimes = SunCalc.getMoonTimes(now, this.config.lat, this.config.lon);
@@ -250,6 +258,8 @@ Module.register("clock", {
 		/****************************************************************
 		 * Create wrappers for ANALOG clock, only if specified in config
 		 */
+
+		const clockCircle = document.createElement("div");
 
 		if (this.config.displayType !== "digital") {
 			// If it isn't 'digital', then an 'analog' clock was also requested
