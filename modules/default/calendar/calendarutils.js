@@ -127,14 +127,14 @@ var CalendarUtils = {
         var eventDate = function (event, time) {
             return CalendarUtils.isFullDayEvent(event) ? moment(event[time], "YYYYMMDD") : moment(new Date(event[time]));
         };
-        Log.debug("there are " + Object.entries(data).length + " calendar entries");
+        Log.debug("There are " + Object.entries(data).length + " calendar entries");
         Object.entries(data).forEach(function (_a) {
             var key = _a[0], event = _a[1];
             var now = new Date();
             var today = moment().startOf("day").toDate();
             var future = moment().startOf("day").add(config.maximumNumberOfDays, "days").subtract(1, "seconds").toDate(); // Subtract 1 second so that events that start on the middle of the night will not repeat.
             var past = today;
-            Log.debug("have entries ");
+        //    Log.debug("have entries ");
             if (config.includePastEvents) {
                 past = moment().startOf("day").subtract(config.maximumNumberOfDays, "days").toDate();
             }
@@ -147,9 +147,9 @@ var CalendarUtils = {
                 }
             }
             if (event.type === "VEVENT") {
+            	Log.debug("\nEvent: " + JSON.stringify(event));
                 var startDate = eventDate(event, "start");
                 var endDate;
-                Log.debug("\nevent=" + JSON.stringify(event));
                 if (typeof event.end !== "undefined") {
                     endDate = eventDate(event, "end");
                 }
@@ -165,13 +165,19 @@ var CalendarUtils = {
                         endDate = moment(startDate).add(1, "days");
                     }
                 }
-                Log.debug(" start=" + startDate.toDate() + " end=" + endDate.toDate());
+				Log.debug("startDate (local): " + startDate.toDate());
+				Log.debug("endDate (local): " + endDate.toDate());
                 // calculate the duration of the event for use with recurring events.
                 var duration = parseInt(endDate.format("x")) - parseInt(startDate.format("x"));
+				Log.debug("duration: " + duration);
+
+				// FIXME: Since the parsed json object from node-ical comes with time information
+				// this check could be removed (?)
                 if (event.start.length === 8) {
                     startDate = startDate.startOf("day");
                 }
                 var title = CalendarUtils.getTitleFromEvent(event);
+                Log.debug("title: " + title);
                 var excluded = false, dateFilter = null;
                 for (var f in config.excludedEvents) {
                     var filter = config.excludedEvents[f], testTitle = title.toLowerCase(), until = null, useRegex = false, regexFlags = "g";
@@ -233,9 +239,12 @@ var CalendarUtils = {
                     var pastLocal = 0;
                     var futureLocal = 0;
                     if (CalendarUtils.isFullDayEvent(event)) {
+                    	Log.debug("fullday");
                         // if full day event, only use the date part of the ranges
                         pastLocal = pastMoment.toDate();
                         futureLocal = futureMoment.toDate();
+                        Log.debug("pastLocal: " + pastLocal);
+						Log.debug("futureLocal: " + futureLocal);
                     }
                     else {
                         // if we want past events
@@ -249,9 +258,9 @@ var CalendarUtils = {
                         }
                         futureLocal = futureMoment.toDate(); // future
                     }
-                    Log.debug(" between=" + pastLocal + " to " + futureLocal);
+                    Log.debug("Search for recurring events between: " + pastLocal + " and " + futureLocal);
                     var dates = rule.between(pastLocal, futureLocal, true, limitFunction);
-                    Log.debug("title=" + event.summary + " dates=" + JSON.stringify(dates));
+                    Log.debug("Title: " + event.summary + ", with dates: " + JSON.stringify(dates));
                     // The "dates" array contains the set of dates within our desired date range range that are valid
                     // for the recurrence rule. *However*, it's possible for us to have a specific recurrence that
                     // had its date changed from outside the range to inside the range.  For the time being,
@@ -259,6 +268,7 @@ var CalendarUtils = {
                     // because the logic below will filter out any recurrences that don't actually belong within
                     // our display range.
                     // Would be great if there was a better way to handle this.
+					Log.debug("event.recurrences: " + event.recurrences);
                     if (event.recurrences !== undefined) {
                         for (var r in event.recurrences) {
                             // Only add dates that weren't already in the range we added from the rrule so that
@@ -271,6 +281,7 @@ var CalendarUtils = {
                     // Loop through the set of date entries to see which recurrences should be added to our event list.
                     for (var d in dates) {
                         var date = dates[d];
+						// FIXME: We now use node-ical instead of ical.js, but method stays the same.
                         // ical.js started returning recurrences and exdates as ISOStrings without time information.
                         // .toISOString().substring(0,10) is the method they use to calculate keys, so we'll do the same
                         // (see https://github.com/peterbraden/ical.js/pull/84 )
@@ -288,22 +299,21 @@ var CalendarUtils = {
                         var dh = moment(date).format("HH");
                         Log.debug(" recurring date is " + date + " offset is " + dateoffset / 60 + " Hour is " + dh);
                         if (CalendarUtils.isFullDayEvent(event)) {
-                            Log.debug("fullday");
+                            Log.debug("Fullday");
                             // if the offset is  negative, east of GMT where the problem is
                             if (dateoffset < 0) {
-                                // if the date hour is less than the offset
-                                if (dh < Math.abs(dateoffset / 60)) {
-                                    // reduce the time by the offset
-                                    Log.debug(" recurring date is " + date + " offset is " + dateoffset);
-                                    // apply the correction to the date/time to get it UTC relative
-                                    date = new Date(date.getTime() - Math.abs(nowOffset) * 60000);
-                                    // the duration was calculated way back at the top before we could correct the start time..
-                                    // fix it for this event entry
-                                    //duration = 24 * 60 * 60 * 1000;
-                                    Log.debug("new recurring date1 is " + date);
-                                }
-                            }
-                            else {
+								// Remove the offset, independently of the comparison between the date hour and the offset,
+								// since in the case that *date houre < offset*, the *new Date* command will handle this by
+								// representing the day before.
+
+								// Reduce the time by the offset:
+								// Apply the correction to the date/time to get it UTC relative
+								date = new Date(date.getTime() - Math.abs(nowOffset) * 60000);
+								// the duration was calculated way back at the top before we could correct the start time..
+								// fix it for this event entry
+								//duration = 24 * 60 * 60 * 1000;
+								Log.debug("new recurring date1 is " + date);
+                            } else {
                                 // if the timezones are the same, correct date if needed
                                 if (event.start.tz === moment.tz.guess()) {
                                     // if the date hour is less than the offset
@@ -312,7 +322,7 @@ var CalendarUtils = {
                                         date = new Date(date.getTime() + Math.abs(24 * 60) * 60000);
                                         // the duration was calculated way back at the top before we could correct the start time..
                                         // fix it for this event entry
-                                        //duration = 24 * 60 * 60 * 1000;
+                                        // duration = 24 * 60 * 60 * 1000;
                                         Log.debug("new recurring date2 is " + date);
                                     }
                                 }
@@ -324,13 +334,12 @@ var CalendarUtils = {
                             if (dateoffset < 0) {
                                 // if the date hour is less than the offset
                                 if (dh < Math.abs(dateoffset / 60)) {
-                                    // reduce the time by the offset
-                                    Log.debug(" recurring date is " + date + " offset is " + dateoffset);
-                                    // apply the correction to the date/time to get it UTC relative
-                                    date = new Date(date.getTime() - Math.abs(nowOffset) * 60000);
+                                    // Reduce the time by the offset:
+									// Apply the correction to the date/time to get it UTC relative
+									date = new Date(date.getTime() - Math.abs(nowOffset) * 60000);
                                     // the duration was calculated way back at the top before we could correct the start time..
                                     // fix it for this event entry
-                                    //duration = 24 * 60 * 60 * 1000;
+                                    // duration = 24 * 60 * 60 * 1000;
                                     Log.debug("new recurring date1 is " + date);
                                 }
                             }
@@ -343,13 +352,14 @@ var CalendarUtils = {
                                         date = new Date(date.getTime() + Math.abs(24 * 60) * 60000);
                                         // the duration was calculated way back at the top before we could correct the start time..
                                         // fix it for this event entry
-                                        //duration = 24 * 60 * 60 * 1000;
+                                        // duration = 24 * 60 * 60 * 1000;
                                         Log.debug("new recurring date2 is " + date);
                                     }
                                 }
                             }
                         }
                         startDate = moment(date);
+                        Log.debug("Corrected startDate (local): " + startDate.toDate());
                         var adjustDays = CalendarUtils.calculateTimezoneAdjustment(event, date);
                         // For each date that we're checking, it's possible that there is a recurrence override for that one day.
                         if (curEvent.recurrences !== undefined && curEvent.recurrences[dateKey] !== undefined) {
@@ -362,7 +372,7 @@ var CalendarUtils = {
                             // This date is an exception date, which means we should skip it in the recurrence pattern.
                             showRecurrence = false;
                         }
-                        Log.debug("duration=" + duration);
+                        Log.debug("duration: " + duration);
                         endDate = moment(parseInt(startDate.format("x")) + duration, "x");
                         if (startDate.format("x") === endDate.format("x")) {
                             endDate = endDate.endOf("day");
@@ -377,7 +387,7 @@ var CalendarUtils = {
                             showRecurrence = false;
                         }
                         if (showRecurrence === true) {
-                            Log.debug("saving event =" + description);
+                            Log.debug("saving event: " + description);
                             addedEvents++;
                             newEvents.push({
                                 title: recurrenceTitle,
