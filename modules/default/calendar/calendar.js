@@ -230,7 +230,7 @@ Module.register("calendar", {
             }
             var titleWrapper = document.createElement("td");
             var repeatingCountTitle = "";
-            if (self.config.displayRepeatingCountTitle && event.firstYear !== undefined) {
+            if (self.config.displayRepeatingCountTitle && event.firstYear !== undefined && event.firstYear != "1900") {
                 repeatingCountTitle = self.countTitleForUrl(event.url);
                 if (repeatingCountTitle !== "") {
                     var thisYear = new Date(parseInt(event.startDate)).getFullYear(), yearDiff = thisYear - event.firstYear;

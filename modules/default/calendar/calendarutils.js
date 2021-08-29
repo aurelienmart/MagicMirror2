@@ -281,10 +281,10 @@ var CalendarUtils = {
                     // Loop through the set of date entries to see which recurrences should be added to our event list.
                     for (var d in dates) {
                         var date = dates[d];
-						// FIXME: We now use node-ical instead of ical.js, but method stays the same.
-                        // ical.js started returning recurrences and exdates as ISOStrings without time information.
-                        // .toISOString().substring(0,10) is the method they use to calculate keys, so we'll do the same
-                        // (see https://github.com/peterbraden/ical.js/pull/84 )
+						// Remove the time information of each date by using its substring, using the following method:
+						// .toISOString().substring(0,10).
+						// since the date is given as ISOString with YYYY-MM-DDTHH:MM:SS.SSSZ
+						// (see https://momentjs.com/docs/#/displaying/as-iso-string/).
                         var dateKey = date.toISOString().substring(0, 10);
                         var curEvent = event;
                         var showRecurrence = true;
