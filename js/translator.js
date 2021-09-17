@@ -143,11 +143,7 @@ var Translator = (function () {
 		 * The first language defined in translations.js will be used.
 		 */
 		loadCoreTranslationsFallback: function () {
-			// The variable `first` will contain the first
-			// defined translation after the following line.
-			for (var first in translations) {
-				break;
-			}
+			var first = Object.keys(translations)[0];
 
 			if (first) {
 				Log.log("Loading core translation fallback file: " + translations[first]);
@@ -159,3 +155,5 @@ var Translator = (function () {
 		}
 	};
 })();
+
+window.Translator = Translator;
