@@ -23,22 +23,22 @@ Module.register("lunartic", {
 
     },
 
-    getStyles() {
+    getStyles: function () {
         return ["lunartic.css"];
     },
 
-    getScripts() {
+    getScripts: function () {
         return ["moment.js"];
     },
 
-    getTranslations() {
+    getTranslations: function () {
         return {
             en: "translations/en.json",
             ro: "translations/ro.json",
         };
     },
 
-    start() {
+    start: function () {
         Log.info("Starting module: " + this.name);
 
         requiresVersion: "2.1.0",
@@ -52,7 +52,7 @@ Module.register("lunartic", {
         this.scheduleUpdate();
     },
 
-    getDom() {
+    getDom: function () {
 
         var wrapper = document.createElement("div");
         wrapper.className = "wrapper";
@@ -62,13 +62,13 @@ Module.register("lunartic", {
           this.scheduleUpdate();
         //  wrapper.innerHTML = this.translate("When the Moon hits your eye...");
             wrapper.innerHTML = this.translate("Loading...");
-            wrapper.classList.add("normal", "light", "msmall");
+            wrapper.classList.add("normal", "light", "small");
             return wrapper;
         }
 
         if (this.config.useHeader != false) {
             var header = document.createElement("header");
-            header.classList.add("msmall", "normal", "light");
+            header.classList.add("small", "normal", "light");
             header.innerHTML = this.config.header;
             wrapper.appendChild(header);
         }
@@ -1361,7 +1361,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
                 if (this.activeItem == 0) {
                     // distance from Earth's core
                     var DFCOE = document.createElement("div");
-                    DFCOE.classList.add("msmall", "normal", "DFCOE");
+                    DFCOE.classList.add("small", "normal", "DFCOE");
                     if (this.config.distance == "miles") {
                         DFCOE.innerHTML = this.translate("Distance from Earth's core = ") + (Math.round(this.info[0].dfcoe * 0.62137) + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,') + " miles";
                     } else {
@@ -1373,7 +1373,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
                 if (this.activeItem == 1) {
                     // distance from the sun
                     var DFS = document.createElement("div");
-                    DFS.classList.add("msmall", "normal", "DFS");
+                    DFS.classList.add("small", "normal", "DFS");
                     if (this.config.distance == "miles") {
                         DFS.innerHTML = this.translate("Distance from sun = ") + (Math.round(this.info[1].dfs * 0.62137) + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,') + " miles";
                     } else {
@@ -1390,7 +1390,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
                     } else {
                         var dateTimeString = moment.unix(this.info[2].fm).format("MMM DD, YYYY");
                     }
-                    nextFullMoon.classList.add("msmall", "normal", "nextFullMoon");
+                    nextFullMoon.classList.add("small", "normal", "nextFullMoon");
                 	//	console.log (lunartic); // checking data
 
 
@@ -1415,7 +1415,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
                     } else {
                         var dateTimeString = moment.unix(this.info[3].nnm).format("MMM DD, YYYY");
                     }
-                    nextNewMoon.classList.add("msmall", "normal", "nextNewMoon");
+                    nextNewMoon.classList.add("small", "normal", "nextNewMoon");
                     nextNewMoon.innerHTML = this.translate("The next new moon is ") + dateTimeString;
                     wrapper.appendChild(nextNewMoon);
                 }
@@ -1423,7 +1423,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
                 if (this.activeItem == 4) {
                     // how old the current moon is
                     var age = document.createElement("div");
-                    age.classList.add("msmall", "normal", "age");
+                    age.classList.add("small", "normal", "age");
                     age.innerHTML = this.translate("The current moon is ") + Math.round(this.info[4].age) + this.translate(" days old");
                     wrapper.appendChild(age);
                 }
@@ -1431,7 +1431,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
                 if (this.activeItem == 5) {
                     // how much of the moon is illuminated
                     var illumination = document.createElement("div");
-                    illumination.classList.add("msmall", "normal", "illumination");
+                    illumination.classList.add("small", "normal", "illumination");
                     illumination.innerHTML = this.translate("The moon is ") + Math.round(this.info[5].ill) + this.translate("% illuminated");
                     wrapper.appendChild(illumination);
                 }
@@ -1439,7 +1439,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
                 if (this.activeItem == 6) {
                     // waxing, waning, etc..
                     var stage = document.createElement("div");
-                    stage.classList.add("msmall", "normal", "stage");
+                    stage.classList.add("small", "normal", "stage");
 
                     if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
                         stage.innerHTML = this.translate("New Moon - No visible moon");
@@ -1512,7 +1512,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
 
             // distance from Earth's core
             var DFCOE = document.createElement("div");
-                DFCOE.classList.add("msmall", "normal", "DFCOE");
+                DFCOE.classList.add("small", "normal", "DFCOE");
             if (this.config.distance == "miles") {
                 DFCOE.innerHTML = this.translate("Distance from Earth's core = ") + (Math.round(this.info[0].dfcoe * 0.62137) + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,') + " miles";
             } else {
@@ -1523,7 +1523,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
 
             // distance from the sun
             var DFS = document.createElement("div");
-                DFS.classList.add("msmall", "normal", "DFS");
+                DFS.classList.add("small", "normal", "DFS");
             if (this.config.distance == "miles") {
                 DFS.innerHTML = this.translate("Distance from sun = ") + (Math.round(this.info[1].dfs * 0.62137) + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,') + " miles";
             } else {
@@ -1539,7 +1539,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
             } else {
                 var dateTimeString = moment.unix(this.info[2].fm).format("MMM DD, YYYY");
             }
-            nextFullMoon.classList.add("msmall", "normal", "nextFullMoon");
+            nextFullMoon.classList.add("small", "normal", "nextFullMoon");
             //	console.log (lunartic); // checking data
 
 
@@ -1560,28 +1560,28 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
             } else {
                 var dateTimeString = moment.unix(this.info[3].nnm).format("MMM DD, YYYY");
             }
-            nextNewMoon.classList.add("msmall", "normal", "nextNewMoon");
+            nextNewMoon.classList.add("small", "normal", "nextNewMoon");
             nextNewMoon.innerHTML = this.translate("The next new moon is ") + dateTimeString;
             wrapper.appendChild(nextNewMoon);
 
 
             // how old the current moon is
             var age = document.createElement("div");
-            age.classList.add("msmall", "normal", "age");
+            age.classList.add("small", "normal", "age");
             age.innerHTML = this.translate("The current moon is ") + Math.round(this.info[4].age) + this.translate(" days old");
             wrapper.appendChild(age);
 
 
             // how much of the moon is illuminated
             var illumination = document.createElement("div");
-            illumination.classList.add("msmall", "normal", "illumination");
+            illumination.classList.add("small", "normal", "illumination");
             illumination.innerHTML = this.translate("The moon is ") + Math.round(this.info[5].ill) + this.translate("% illuminated");
             wrapper.appendChild(illumination);
 
 
             // waxing, waning, etc..
             var stage = document.createElement("div");
-                stage.classList.add("msmall", "normal", "stage");
+                stage.classList.add("small", "normal", "stage");
 
             if (Math.round(this.info[5].ill) < 1 && lunartic.stage == "waning") {
                 stage.innerHTML = this.translate("New Moon - No visible moon");
@@ -1669,7 +1669,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
 
     /////  Add this function to the modules you want to control with voice //////
 
-    notificationReceived(notification, payload) {
+    notificationReceived: function (notification, payload) {
         if (notification === 'HIDE_MOON') {
             this.hide(1000);
             //    this.updateDom(300);
@@ -1681,20 +1681,20 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
     },
 
 
-    processlunartic(data) {
+    processlunartic: function (data) {
         this.info = data;
     //	console.log(this.info); // for checking
         this.loaded = true;
     },
 
 
-    processMOON(data) {
+    processMOON: function (data) {
         this.moon = data;
 //  console.log(this.moon); // for checking
 
     },
 
-    scheduleCarousel() {
+    scheduleCarousel: function () {
     //  console.log("Carousel of lunartic fuction");
         var self = this;
         this.rotateInterval = setInterval(function() {
@@ -1703,7 +1703,7 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
         }, this.config.rotateInterval);
     },
 
-    scheduleUpdate() {
+    scheduleUpdate: function () {
     	var self = this;
         setInterval(function() {
             self.getlunartic();
@@ -1711,12 +1711,12 @@ if (Math.round(this.info[5].ill) < 1 && this.info[6] == "waning") {
         this.getlunartic(this.config.initialLoadDelay);
     },
 
-    getlunartic() {
+    getlunartic: function () {
         this.sendSocketNotification('GET_lunartic'); // , this.url);
         this.sendSocketNotification('GET_MOON', this.url);
     },
 
-    socketNotificationReceived(notification, payload) {
+    socketNotificationReceived: function (notification, payload) {
         if (notification === "lunartic_RESULT") {
             this.processlunartic(payload);
           }
