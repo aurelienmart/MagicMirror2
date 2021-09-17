@@ -7,18 +7,18 @@
 
 ## Styling
 
-You can use a global `MagicMirror/css/custom.css` file to customize the styles for each line of MMM-Traffic separately. Each line has its own class that should be used to apply styles:
-  - `.mmmtraffic-firstline`
-  - `.mmmtraffic-secondline`
+You can use a global `MagicMirror/css/custom.css` file to customize the styles for each line of traffic separately. Each line has its own class that should be used to apply styles:
+  - `.traffic-firstline`
+  - `.traffic-secondline`
 
 For example, this css
 ```
-.mmmtraffic-firstline {
+.traffic-firstline {
   font-size: 40px;
   color: yellow;
 }
 
-.mmmtraffic-secondline {
+.traffic-secondline {
   color: green;
 }
 ```
@@ -67,7 +67,7 @@ in firstLine/secondLine._
 ### Per Day/Time Customization
 
 Using these options to hide the module when you're not using it will save API calls,
-allowing you to have a shorter interval or more MMM-Traffic modules without getting
+allowing you to have a shorter interval or more traffic modules without getting
 rate limited.
 
 | Option       | Description                                                              | Type       | Default                 |
@@ -82,7 +82,7 @@ rate limited.
 
 ```js
 {
-	module: "MMM-Traffic",
+	module: "traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -97,7 +97,7 @@ rate limited.
 
 ```js
 {
-	module: "MMM-Traffic",
+	module: "traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -114,7 +114,7 @@ rate limited.
 
 ```js
 {
-	module: "MMM-Traffic",
+	module: "traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -131,7 +131,7 @@ rate limited.
 
 ```js
 {
-	module: "MMM-Traffic",
+	module: "traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -142,7 +142,7 @@ rate limited.
 	}
 },
 {
-	module: "MMM-Traffic",
+	module: "traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -163,7 +163,7 @@ be completely hidden on weekends.
 
 ```js
 {
-	module: "MMM-Traffic",
+	module: "traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -177,7 +177,7 @@ be completely hidden on weekends.
 	}
 },
 {
-	module: "MMM-Traffic",
+	module: "traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
