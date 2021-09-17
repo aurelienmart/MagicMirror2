@@ -290,7 +290,7 @@ Module.register("calendar", {
                     if (self.config.showEnd) {
                         timeWrapper.innerHTML += "-";
                         timeWrapper.innerHTML += self.capFirst(moment(event.endDate, "x").format(self.config.dateEndFormat));
-                    }
+                    } else
                     // For full day events we use the fullDayEventDateFormat
                     if (event.fullDayEvent) {
                         //subtract one second so that fullDayEvents end at 23:59:59, and not at 0:00:00 one the next day
