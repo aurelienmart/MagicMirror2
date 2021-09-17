@@ -7,18 +7,18 @@
 
 ## Styling
 
-You can use a global `MagicMirror/css/custom.css` file to customize the styles for each line of traffic separately. Each line has its own class that should be used to apply styles:
-  - `.traffic-firstline`
-  - `.traffic-secondline`
+You can use a global `MagicMirror/css/custom.css` file to customize the styles for each line of MMM-Traffic separately. Each line has its own class that should be used to apply styles:
+  - `.mmmtraffic-firstline`
+  - `.mmmtraffic-secondline`
 
 For example, this css
 ```
-.traffic-firstline {
+.mmmtraffic-firstline {
   font-size: 40px;
   color: yellow;
 }
 
-.traffic-secondline {
+.mmmtraffic-secondline {
   color: green;
 }
 ```
@@ -72,7 +72,7 @@ rate limited.
 
 | Option       | Description                                                              | Type       | Default                 |
 | ------------ | ------------------------------------------------------------------------ | ---------- | ----------------------- |
-| `days`       | Which days of the week to show the traffic module, with 1 being Monday   | Array[int] | `[1, 2, 3, 4, 5, 6, 7]` |
+| `days`       | Which days of the week to show the traffic module, with 0 being Sunday   | Array[int] | `[0, 1, 2, 3, 4, 5, 6]` |
 | `hoursStart` | What time to begin showing the module on the days it shows, 24 hour time | String | `"00:00"`                 |
 | `hoursEnd`   | What time to stop showing the module on the days it shows, 24 hour time  | String | `"23:59"`                 |
 
@@ -82,7 +82,7 @@ rate limited.
 
 ```js
 {
-	module: "traffic",
+	module: "MMM-Traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -97,7 +97,7 @@ rate limited.
 
 ```js
 {
-	module: "traffic",
+	module: "MMM-Traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -114,7 +114,7 @@ rate limited.
 
 ```js
 {
-	module: "traffic",
+	module: "MMM-Traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -131,7 +131,7 @@ rate limited.
 
 ```js
 {
-	module: "traffic",
+	module: "MMM-Traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -142,7 +142,7 @@ rate limited.
 	}
 },
 {
-	module: "traffic",
+	module: "MMM-Traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -163,7 +163,7 @@ be completely hidden on weekends.
 
 ```js
 {
-	module: "traffic",
+	module: "MMM-Traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -171,13 +171,13 @@ be completely hidden on weekends.
 		destinationCoords: "-84.504259,33.88210",
 		firstLine: "{duration} mins",
 		secondLine: "School",
-		days: [1,3,5],
+		days: [0,2,4],
 		hoursStart: "07:00",
 		hoursEnd: "09:00"
 	}
 },
 {
-	module: "traffic",
+	module: "MMM-Traffic",
 	position: "top_left",
 	config: {
 		accessToken: "your_key_here",
@@ -185,7 +185,7 @@ be completely hidden on weekends.
 		destinationCoords: "-84.504259,33.88210",
 		firstLine: "{duration} mins",
 		secondLine: "Work",
-		days: [2,4],
+		days: [1,3],
 		hoursStart: "07:00",
 		hoursEnd: "09:00"
 	}
