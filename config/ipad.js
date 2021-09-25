@@ -387,8 +387,8 @@ var config = {
 						"Ai vreun coșmar?"
 					],
 					day_sunny : [
-						"<i class=\"gold wi wi-day-sunny\"></i> Este însorit",
-						"<i class=\"gold wi wi-day-sunny\"></i> Vreme însorită"
+						"<i class=\"gold wi wi-day-sunny\"></i> Este senin",
+						"<i class=\"gold wi wi-day-sunny\"></i> Vreme senină"
 					],
 					day_cloudy : [
 						"<i class=\"lightblue wi wi-day-cloudy\"></i> Sunt câțiva nori",
@@ -396,7 +396,7 @@ var config = {
 					],
 					cloudy : [
 						"<i class=\"skyblue wi wi-cloudy\"></i> Este înorat",
-						"<i class=\"skyblue wi wi-cloudy\"></i> Este cam înorat"
+						"<i class=\"skyblue wi wi-cloudy\"></i> Vreme înorată"
 					],
 					day_cloudy_windy : [
 						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este înorat și vânt",
