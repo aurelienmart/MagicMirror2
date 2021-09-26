@@ -119,6 +119,10 @@ Module.register("timer", {
 		var morning = this.morning; var before = this.before; var after = this.after;
 		var body = Array.from(document.querySelectorAll("body"));
 
+		if (this.config.background) {
+			body.forEach(function(element) {return element.style.background = this.config.background});
+		}
+
 		if (this.config.nightMode) {
 			if (this.config.dimmMode) {
 				if (this.config.fadeMode) {
