@@ -42,6 +42,7 @@ var config = {
 				bodysize: 1080,
 				zoomMode: false,
 				nightMode: false,
+				background: false,
 
 				traffic: true,
 				alternate: false,
@@ -122,7 +123,7 @@ var config = {
 		{
 			module: "lifecounter",
 			position: "top_left",
-			disabled: true,
+			disabled: false,
 			config: {
 				birthday: "1970-01-01 00:00:00",
 				counter: "seconds",
@@ -213,7 +214,7 @@ var config = {
 			position: "top_left",
 			disabled: false,
 			config: {
-				maximumEntries: 16,
+				maximumEntries: 15,
 				calendarClass: "icalendar",
 				defaultSymbol: "calendar",
 				displaySymbol: true,
@@ -271,7 +272,7 @@ var config = {
 			classes: "hourly forecast ipad",
 			disabled: false,
 			config: {
-				maxNumberOfDays: 5,
+				maxNumberOfDays: 4,
 				forecastEndpoint: "/forecast",
 				extra: false,
 				fallBack: true,
@@ -288,7 +289,7 @@ var config = {
 			classes: "daily forecast ipad",
 			disabled: false,
 			config: {
-				maxNumberOfDays: 14,
+				maxNumberOfDays: 15,
 //				locationID: false,
 //				forecastEndpoint: "/onecall",
 //				excludes: "current,minutely,hourly",
@@ -315,12 +316,12 @@ var config = {
 		{
 			module: "weather",
 			position: "top_right",
-			header: "Vremea în următoarele 4 ore",
+			header: "Vremea în următoarele ore",
 			classes: "hourly weatherforecast forecast",
 			disabled: true,
 			config: {
 				type: "hourly",
-				maxEntries: 5,
+				maxEntries: 4,
 				initialLoadDelay: 1000,
 				tableClass: "small",
 			}
@@ -328,12 +329,12 @@ var config = {
 		{
 			module: "weather",
 			position: "top_right",
-			header: "Vremea în următoarele 15 zile",
+			header: "Vremea în următoarele zile",
 			classes: "daily weatherforecast forecast",
 			disabled: true,
 			config: {
 				type: "daily",
-				maxNumberOfDays: 14,
+				maxNumberOfDays: 15,
 				initialLoadDelay: 2000,
 				tableClass: "small",
 			}
