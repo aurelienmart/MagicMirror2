@@ -106,7 +106,7 @@ var config = {
 				startMonth: 0,
 				monthCount: 2,
 				monthsVertical: true,
-				repeatWeekdaysVertical: false,
+				repeatWeekdaysVertical: true,
 				weekNumbers: true,
 				highlightWeekend: true
 			}
