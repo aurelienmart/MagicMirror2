@@ -32,7 +32,7 @@ var config = {
 	minVersion: "2.14.0",
 	serverOnly: true,
 	DeepMerge: true,
-	logLevel: null, // ["DEBUG", "INFO", "LOG", "WARN", "ERROR"]
+//	logLevel: ["DEBUG", "INFO", "LOG", "WARN", "ERROR"],
 
 	modules: [
 		{
