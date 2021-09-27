@@ -49,7 +49,7 @@ module.exports = NodeHelper.create({
             fetcher.onError(function (fetcher, error) {
                 Log.error("Newsfeed Error. Could not fetch newsfeed: ", url, error);
                 var error_type = NodeHelper.checkFetchError(error);
-                this.sendSocketNotification("NEWSFEED_ERROR", {
+                self.sendSocketNotification("NEWSFEED_ERROR", {
                     error_type
                 });
             });
