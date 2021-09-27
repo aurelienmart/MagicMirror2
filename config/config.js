@@ -531,6 +531,7 @@ var config = {
 				hideLoading: true,
 				updateInterval: 60 * 1000,
 				ignoreOlderThan: 12 * 60 * 60 * 1000,
+				ignoreOldItems: true,
 				removeStartTags: "both",
 				removeEndTags: "both",
 				startTags: ["VIDEO","FOTO","horoscop"],
@@ -596,6 +597,7 @@ var config = {
 				hideLoading: true,
 				updateInterval: 60 * 1000,
 				ignoreOlderThan: 12 * 60 * 60 * 1000,
+				ignoreOldItems: true,
 
 				feeds: [
 					{
