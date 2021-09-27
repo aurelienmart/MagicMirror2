@@ -166,11 +166,11 @@ Module.register("newsfeed", {
             return dateB - dateA;
         });
         if (this.config.maxNewsItems > 0) {
-            newsItems = newsItems.slice(0, self.config.maxNewsItems);
+            newsItems = newsItems.slice(0, this.config.maxNewsItems);
         }
         if (this.config.prohibitedWords.length > 0) {
             newsItems = newsItems.filter(function (item) {
-                for (var word of self.config.prohibitedWords) {
+                for (var word of this.config.prohibitedWords) {
                     if (item.title.toLowerCase().indexOf(word.toLowerCase()) > -1) {
                         return false;
                     }
@@ -222,7 +222,7 @@ Module.register("newsfeed", {
         });
         // check if updated items exist, if so and if we should broadcast these updates, then lets do so
         if (this.config.broadcastNewsUpdates && updatedItems.length > 0) {
-            self.sendNotification("NEWS_FEED_UPDATE", { items: updatedItems });
+            this.sendNotification("NEWS_FEED_UPDATE", { items: updatedItems });
         }
         this.newsItems = newsItems;
     },
@@ -262,7 +262,7 @@ Module.register("newsfeed", {
         this.updateDom(this.config.animationSpeed);
         // Broadcast NewsFeed if needed
         if (this.config.broadcastNewsFeeds) {
-            self.sendNotification("NEWS_FEED", { items: this.newsItems });
+            this.sendNotification("NEWS_FEED", { items: this.newsItems });
         }
         this.timer = setInterval(function () {
             self.activeItem++;
