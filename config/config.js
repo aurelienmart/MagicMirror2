@@ -226,7 +226,7 @@ var config = {
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
-				maximumEntries: 15,
+				maximumEntries: 20,
 				displayRepeatingCountTitle: true,
 				fetchInterval: 60 * 1000,
 				fade: false,
@@ -288,10 +288,10 @@ var config = {
 		{
 			module: "currentweather",
 			position: "top_right",
-			classes: "night current",
+			classes: "night current weather",
 			disabled: false,
 			config: {
-				// modified module with own settings
+				// onecall modified module with own settings
 			}
 		},
 		{
@@ -302,13 +302,15 @@ var config = {
 			disabled: false,
 			config: {
 				maxNumberOfDays: 4,
-				forecastEndpoint: "/forecast",
-				extra: false,
+				locationID: false,
+				forecastEndpoint: "/onecall",
+				excludes: "current,minutely,daily",
+				extra: true,
 				fallBack: true,
 				fullday: "HH [h]",
-				initialLoadDelay: 2000,
+				initialLoadDelay: 2500,
 				showRainAmount: true,
-				fade: false,
+				fade: false
 			}
 		},
 		{
@@ -318,54 +320,54 @@ var config = {
 			classes: "daily forecast ipad",
 			disabled: false,
 			config: {
-				maxNumberOfDays: 15,
-//				locationID: false,
-//				forecastEndpoint: "/onecall",
-//				excludes: "current,minutely,hourly",
-				extra: false,
-				fallBack: false,
+				maxNumberOfDays: 8,
+				locationID: false,
+				forecastEndpoint: "/onecall",
+				excludes: "current,minutely,hourly",
+				extra: true,
 				fullday: "ddd",
-				initialLoadDelay: 3000,
+				initialLoadDelay: 5000,
 				showRainAmount: true,
-				fade: false,
-
+				fade: false
 			}
 		},
 		{
-			module: "weather",	// not fully operational
+			module: "weather",
 			position: "top_right",
 			classes: "night currentweather current",
 			disabled: true,
 			config: {
 				type: "current",
 				degreeLabel: false,
-				showPrecipitationAmount: false,
+				showPrecipitationAmount: false
 			}
 		},
 		{
 			module: "weather",
 			position: "top_right",
-			header: "Vremea în următoarele ore",
-			classes: "hourly weatherforecast forecast",
-			disabled: true,
-			config: {
-				type: "hourly",
-				maxEntries: 4,
-				initialLoadDelay: 1000,
-				tableClass: "small",
-			}
-		},
-		{
-			module: "weather",
-			position: "top_right",
-			header: "Vremea în următoarele zile",
+			header: "Vremea în următoarele zile la",
 			classes: "daily weatherforecast forecast",
 			disabled: true,
 			config: {
+				appendLocationNameToHeader: true,
 				type: "daily",
 				maxNumberOfDays: 15,
 				initialLoadDelay: 2000,
-				tableClass: "small",
+				tableClass: "small"
+			}
+		},
+		{
+			module: "weather",
+			position: "top_right",
+			header: "Vremea în următoarele ore la",
+			classes: "hourly weatherforecast forecast",
+			disabled: true,
+			config: {
+				appendLocationNameToHeader: true,
+				type: "hourly",
+				maxEntries: 15,
+				initialLoadDelay: 1000,
+				tableClass: "small"
 			}
 		},
 		{
