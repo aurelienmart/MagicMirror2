@@ -505,7 +505,7 @@ var MM = (function () {
 		 * Main init method.
 		 */
 		init: function () {
-			Log.info("Initializing MagicMirror.");
+			Log.info("Initializing MagicMirror " + window.mmVersion);
 			loadConfig();
 
 			Log.setLogLevel(config.logLevel);

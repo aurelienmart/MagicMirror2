@@ -4,15 +4,16 @@
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  */
+
+// Alias modules mentioned in package.js under _moduleAliases.
+require("module-alias/register");
+
 var fs = require("fs");
 var path = require("path");
 var Log = require(__dirname + "/logger.js");
 var Server = require(__dirname + "/server.js");
 var Utils = require(__dirname + "/utils.js");
 var defaultModules = require(__dirname + "/../modules/default/defaultmodules.js");
-
-// Alias modules mentioned in package.js under _moduleAliases.
-require("module-alias/register");
 
 // Get version number.
 global.version = JSON.parse(fs.readFileSync("package.json", "utf8")).version;
@@ -47,6 +48,7 @@ process.on("uncaughtException", function (err) {
  */
 function App() {
 	var nodeHelpers = [];
+	var httpServer;
 
 	/**
 	 * Loads the config file. Combines it with the defaults, and runs the
@@ -93,13 +95,8 @@ function App() {
 		var deprecated = require(global.root_path + "/js/deprecated.js");
 		var deprecatedOptions = deprecated.configs;
 
-		var usedDeprecated = [];
+		var usedDeprecated = deprecatedOptions.filter(function (option) { return userConfig.hasOwnProperty(option); });
 
-		deprecatedOptions.forEach(function (option) {
-			if (userConfig.hasOwnProperty(option)) {
-				usedDeprecated.push(option);
-			}
-		});
 		if (usedDeprecated.length > 0) {
 			Log.warn(Utils.colors.warn("WARNING! Your config is using deprecated options: " + usedDeprecated.join(", ") + ". Check README and CHANGELOG for more up-to-date ways of getting the same functionality."));
 		}
@@ -226,7 +223,7 @@ function App() {
 			}
 
 			loadModules(modules, function () {
-				var server = new Server(config, function (app, io) {
+				httpServer = new Server(config, function (app, io) {
 					Log.log("Server started ...");
 
 					for (var h in nodeHelpers) {
@@ -259,6 +256,7 @@ function App() {
 				nodeHelper.stop();
 			}
 		}
+		httpServer.close();
 	};
 
 	/**
