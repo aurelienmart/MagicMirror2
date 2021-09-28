@@ -48,7 +48,7 @@ Module.register("currentweather", {
 		useLocationAsHeader: false,
 
 		calendarClass: "calendar",
-//		tableClass: "medium",
+		tableClass: "large",
 
 		onlyTemp: false,
 		hideTemp: false,
@@ -414,6 +414,19 @@ Module.register("currentweather", {
 			spacer.innerHTML = "&nbsp;";
 			small.appendChild(spacer);
 
+			var precipitation = document.createElement("span");	// precipitation
+			precipitation.className = "prep midget";
+			if (this.precipitation > 0) {
+				if(config.units === "imperial") {
+					precipitation.innerHTML = (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in ";
+				} else {
+					precipitation.innerHTML = this.precipitation.toFixed(1).replace(".", this.config.decimalSymbol) + " mm ";
+				}
+			} else {
+				precipitation.innerHTML = this.translate("No prep") + " ";
+			}
+			small.appendChild(precipitation);
+
 			var prepIcon = document.createElement("span");
 			if (this.precipitation > 0) {
 				prepIcon.className = "fa fa-tint";
@@ -421,19 +434,6 @@ Module.register("currentweather", {
 				prepIcon.className = "fa fa-tint-slash";
 			}
 			small.appendChild(prepIcon);
-
-			var precipitation = document.createElement("span");	// precipitation
-			precipitation.className = "prep midget";
-			if (this.precipitation > 0) {
-				if(config.units === "imperial") {
-					precipitation.innerHTML = " " + (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in";
-				} else {
-					precipitation.innerHTML = " " + this.precipitation.toFixed(1).replace(".", this.config.decimalSymbol) + " mm";
-				}
-			} else {
-				precipitation.innerHTML = " " + this.translate("No prep");
-			}
-			small.appendChild(precipitation);
 		}
 
 		if (this.config.showDescription) {
@@ -540,6 +540,8 @@ Module.register("currentweather", {
 		var params = "?";
 		if (this.config.lat && this.config.lon) {
 			params += "lat=" + this.config.lat + "&lon=" + this.config.lon;
+		} else if (this.config.locationID) {
+			params += "id=" + this.config.locationID;
 		} else if (this.firstEvent && this.firstEvent.geo) {
 			params += "lat=" + this.firstEvent.geo.lat + "&lon=" + this.firstEvent.geo.lon;
 		} else if (this.firstEvent && this.firstEvent.location) {
@@ -590,6 +592,7 @@ Module.register("currentweather", {
 		this.visibility = data.current.visibility;			// visibility.
 		this.dew = data.current.dew_point;					// dew point.
 		this.uvi = data.current.uvi;						// uv index.
+
 		var precip = false;
 		if (!data.current.hasOwnProperty("rain") && !data.current.hasOwnProperty("snow")) {
 			this.precipitation = 0;
@@ -711,6 +714,7 @@ Module.register("currentweather", {
 			this.loaded = true;
 		}
 		this.updateDom(this.config.animationSpeed);
+		this.sendNotification("CURRENTWEATHER_DATA", { data: data });
 		this.sendNotification("CURRENTWEATHER_TYPE", { type: this.config.iconTable[data.current.weather[0].icon].replace("-", "_") });
 	},
 

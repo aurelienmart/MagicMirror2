@@ -40,6 +40,7 @@ Module.register("weather", {
 		fadePoint: 0.25, // Start on 1/4th of the list.
 		initialLoadDelay: 0, // 0 seconds delay
 		appendLocationNameToHeader: false,
+        location: config.location,
 		calendarClass: "calendar",
 		tableClass: "small",
 		onlyTemp: false,
@@ -66,13 +67,12 @@ Module.register("weather", {
     getHeader: function () {
         if (this.config.appendLocationNameToHeader && this.weatherProvider) {
             if (this.data.header)
-                return this.data.header + " " + this.weatherProvider.fetchedLocation();
+                return this.data.header + " " + config.location; //this.weatherProvider.fetchedLocation();
             else
-                return this.weatherProvider.fetchedLocation();
+                return config.location; //this.weatherProvider.fetchedLocation();
         }
         return this.data.header ? this.data.header : "";
     },
-    // Start the weather module.
     start: function () {
         moment.locale(this.config.lang);
         // Initialize the weather provider.
@@ -128,9 +128,6 @@ Module.register("weather", {
     getTemplateData: function () {
         var forecast = this.weatherProvider.weatherForecast()
 
-        if (this.config.ignoreToday) {
-          forecast.splice(0, 1)
-        }
         return {
             config: this.config,
             current: this.weatherProvider.currentWeather(),

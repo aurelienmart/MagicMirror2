@@ -23,7 +23,7 @@ Module.register("weatherforecast", {
 		fade: true,
 		fadePoint: 0.25, // Start on 1/4th of the list.
 		colored: true,
-		extra: true,
+		extra: false,
 		degreeLabel: config.scale,
 
 		initialLoadDelay: 2500, // 2.5 seconds delay. This delay is used to keep the OpenWeather API happy.
@@ -33,6 +33,7 @@ Module.register("weatherforecast", {
 		apiBase: config.apiBase,
 		forecastEndpoint: "/forecast/daily",
 		excludes: false,
+		fallBack: false,
 
 		appendLocationNameToHeader: true,
 		calendarClass: "calendar",
@@ -172,15 +173,27 @@ Module.register("weatherforecast", {
 				this.config.decimalSymbol = ".";
 			}
 
-			var maxTempCell = document.createElement("td");
-			maxTempCell.innerHTML = forecast.maxTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
-			maxTempCell.className = "align-right bright max-temp";
-			row.appendChild(maxTempCell);
+			if (this.config.fallBack && (this.config.forecastEndpoint === "/onecall")) {
+				var medTempCell = document.createElement("td");
+				medTempCell.innerHTML = forecast.dayTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
+				medTempCell.className = "lime";
+				row.appendChild(medTempCell);
 
-			var minTempCell = document.createElement("td");
-			minTempCell.innerHTML = forecast.minTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
-			minTempCell.className = "align-right min-temp";
-			row.appendChild(minTempCell);
+				var feelsLike = document.createElement("td");
+				feelsLike.innerHTML = parseFloat(forecast.feelsLike).toFixed(0).replace(".", this.config.decimalSymbol) + degreeLabel;
+				feelsLike.className = "gold";
+				row.appendChild(feelsLike);	
+			} else {
+				var maxTempCell = document.createElement("td");
+				maxTempCell.innerHTML = forecast.maxTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
+				maxTempCell.className = "coral";
+				row.appendChild(maxTempCell);
+
+				var minTempCell = document.createElement("td");
+				minTempCell.innerHTML = forecast.minTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
+				minTempCell.className = "skyblue";
+				row.appendChild(minTempCell);
+			}
 
 			if (this.config.showRainAmount) {
 				var rainCell = document.createElement("td");
@@ -204,35 +217,35 @@ Module.register("weatherforecast", {
 				row.appendChild(rainCell);
 			}
 
-			if (this.config.extra) {
+			if (this.config.extra && (this.config.forecastEndpoint === "/onecall")) {
 				var row = document.createElement("tr");
 				row.className = "extra";
 				table.appendChild(row);
 
 				var humidity = document.createElement("td");
-				humidity.innerHTML = "<i class=\"wi wi-humidity skyblue little\"></i> " + parseFloat(forecast.humidity).toFixed(1).replace(".", this.config.decimalSymbol) + "%";
+				humidity.innerHTML = parseFloat(forecast.humidity).toFixed(0).replace(".", this.config.decimalSymbol) + "% <i class=\"wi wi-humidity skyblue little\"></i>";
 				humidity.className = "align-left humidity";
 				row.appendChild(humidity);
 
-				var feelsLike = document.createElement("td");
-				feelsLike.innerHTML = "<i class=\"wi wi-thermometer gold little\"></i> " + parseFloat(forecast.feelsLike).toFixed(1).replace(".", this.config.decimalSymbol) + degreeLabel;
-				feelsLike.className = "align-center feels_like";
-				row.appendChild(feelsLike);
+				var dewPoint = document.createElement("td");
+				dewPoint.innerHTML = parseFloat(forecast.dewPoint).toFixed(1).replace(".", this.config.decimalSymbol) + degreeLabel;
+				dewPoint.className = "dewPoint skyblue";
+				row.appendChild(dewPoint);
 
 				var pressure = document.createElement("td");
-				pressure.innerHTML = "<i class=\"wi wi-barometer gold little\"></i> " + Math.round(forecast.pressure * 750.062 / 1000).toFixed(0).replace(".", this.config.decimalSymbol) + "Hg";
+				pressure.innerHTML = Math.round(forecast.pressure * 750.062 / 1000).toFixed(0).replace(".", this.config.decimalSymbol) + " Hg";
 				pressure.className = "pressure";
 				row.appendChild(pressure);
 
-				var dewPoint = document.createElement("td");
-				dewPoint.innerHTML = "<i class=\"wi wi-raindrop skyblue little\"></i> " + parseFloat(forecast.dewPoint).toFixed(1).replace(".", this.config.decimalSymbol) + degreeLabel;
-				dewPoint.className = "dewPoint";
-				row.appendChild(dewPoint);
-
 				var uvIndex = document.createElement("td");
-				uvIndex.innerHTML = "UVI " + parseFloat(forecast.uvIndex).toFixed(1).replace(".", this.config.decimalSymbol) + " <i class=\"wi wi-hot gold little\"></i>";
+				uvIndex.innerHTML = "UV " + parseFloat(forecast.uvIndex).toFixed(1).replace(".", this.config.decimalSymbol);
 				uvIndex.className = "uvIndex";
 				row.appendChild(uvIndex);
+
+				var precip = document.createElement("td");
+				precip.innerHTML =  parseFloat(forecast.precip).toFixed(2).replace(".", this.config.decimalSymbol) + "% <i class=\"wi wi-umbrella lime little\"></i>";
+				precip.className = "precipitation";
+				row.appendChild(precip);
 			}
 
 			if (this.config.fade && this.config.fadePoint < 1) {
@@ -416,6 +429,8 @@ Module.register("weatherforecast", {
 			forecastList = data.list;
 		} else if (data.daily) {
 			forecastList = data.daily;
+		} else if (data.hourly) {
+			forecastList = data.hourly;
 		} else {
 			Log.error("Unexpected forecast data");
 			return undefined;
@@ -431,7 +446,7 @@ Module.register("weatherforecast", {
 				day = mom(forecast.dt_txt, "YYYY-MM-DD hh:mm:ss").format(this.config.fullday);
 				hour = new Date(mom(forecast.dt_txt).locale(config.language).format("YYYY-MM-DD HH:mm:ss")).getHours();
 			} else {
-				day = mom(forecast.dt, "X").format("ddd");
+				day = mom(forecast.dt, "X").format(this.config.fullday);
 				hour = new Date(mom(forecast.dt, "X")).getHours();
 			}
 
@@ -443,11 +458,13 @@ Module.register("weatherforecast", {
 					minTemp: this.roundValue(forecast.temp.min),
 					rain: this.processRain(forecast, forecastList, mom),
 					snow: this.processSnow(forecast, forecastList, mom),
-//					feelsLike: this.roundValue(forecast.feels_like.day),
 					humidity: forecast.humidity,
 					pressure: forecast.pressure,
-//					dewPoint: this.roundValue(forecast.dew_point),
-//					uvIndex: forecast.uvi,
+					dayTemp: this.roundValue(forecast.temp),
+					precip: this.roundValue(forecast.pop),
+					feelsLike: this.roundValue(forecast.feels_like),
+					dewPoint: this.roundValue(forecast.dew_point),
+					uvIndex: forecast.uvi,
 				};
 
 				this.forecast.push(forecastData);
