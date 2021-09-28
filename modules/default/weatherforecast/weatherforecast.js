@@ -29,7 +29,6 @@ Module.register("weatherforecast", {
 		initialLoadDelay: 2500, // 2.5 seconds delay. This delay is used to keep the OpenWeather API happy.
 		retryDelay: config.delay,
 
-		decimalSymbol: config.decimal,
 		apiVersion: config.apiVersion,
 		apiBase: config.apiBase,
 		forecastEndpoint: "/forecast/daily",
