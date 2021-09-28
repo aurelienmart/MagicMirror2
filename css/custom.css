@@ -324,7 +324,7 @@ header {
 }
 
 .region.middle.center {
-	bottom: 25%;
+	bottom: 22%;
 }
 
 .region.lower.third {
@@ -1242,7 +1242,8 @@ header {
 	.calendar table tr:nth-child(n+12),
 	.hourly table tr:nth-child(n+5),
 	.daily table tr:nth-child(n+10),
-	header,	.lifecounter, .yframe, .traffic {
+	header,	.lifecounter, .yframe, .traffic,
+	.currentweather .prep {
 		display: none !important;
 	}
 
