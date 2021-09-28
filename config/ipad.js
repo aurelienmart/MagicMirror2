@@ -100,9 +100,9 @@ var config = {
 			disabled: false,
 			config: {
 				startMonth: 0,
-				monthCount: 2,
+				monthCount: 3,
 				monthsVertical: true,
-				repeatWeekdaysVertical: true,
+				repeatWeekdaysVertical: false,
 				weekNumbers: true,
 				highlightWeekend: true
 			}
