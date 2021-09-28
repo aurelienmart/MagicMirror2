@@ -96,7 +96,7 @@ var MM = (function () {
 		var classes = position.replace("_", " ");
 		var parentWrapper = document.getElementsByClassName(classes);
 		if (parentWrapper.length > 0) {
-			var wrapper = parentWrapper[0].getElementsByClassName("container");
+			var wrapper = parentWrapper[0].getElementsByClassName("mm-container");
 			if (wrapper.length > 0) {
 				return wrapper[0];
 			}
@@ -505,7 +505,7 @@ var MM = (function () {
 		 * Main init method.
 		 */
 		init: function () {
-			Log.info("Initializing MagicMirror.");
+			Log.info("Initializing MagicMirror " + window.mmVersion);
 			loadConfig();
 
 			Log.setLogLevel(config.logLevel);
