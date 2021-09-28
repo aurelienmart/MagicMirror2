@@ -301,11 +301,11 @@ var config = {
 			classes: "hourly forecast ipad",
 			disabled: false,
 			config: {
-				maxNumberOfDays: 4,
+				maxNumberOfDays: 7,
 				locationID: false,
 				forecastEndpoint: "/onecall",
 				excludes: "current,minutely,daily",
-				extra: true,
+				extra: false,
 				fallBack: true,
 				fullday: "HH [h]",
 				initialLoadDelay: 2500,
