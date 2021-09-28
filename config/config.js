@@ -148,7 +148,7 @@ var config = {
 			config: {
 				birthday: "1970-01-01 00:00:00",
 				counter: "seconds",
-				before: "UNIX System Time:",
+				before: "UNIX System Epoch Time:",
 				after: "seconds",
 				cssclass: "small"
 			}
