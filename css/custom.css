@@ -1220,11 +1220,7 @@ header {
 	  background: none;
 	}
 
-	.icalendar table tr:nth-child(odd),
-	.calendar-table table tr:nth-child(even),
-	.calendar .event:nth-child(even),
-	.hourly .colored:nth-child(odd),
-	.daily .colored:nth-child(even),
+	.region table tr:nth-child(even),
 	.monthly .week:nth-child(odd) {
 		background: rgba(128,128,128,0.10);
 	}
