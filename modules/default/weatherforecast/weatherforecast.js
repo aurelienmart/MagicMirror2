@@ -180,7 +180,7 @@ Module.register("weatherforecast", {
 				row.appendChild(medTempCell);
 
 				var feelsLike = document.createElement("td");
-				feelsLike.innerHTML = parseFloat(forecast.feelsLike).toFixed(0).replace(".", this.config.decimalSymbol) + degreeLabel;
+				feelsLike.innerHTML = "<i class=\"wi wi-thermometer\"></i> " + parseFloat(forecast.feelsLike).toFixed(0).replace(".", this.config.decimalSymbol) + degreeLabel;
 				feelsLike.className = "gold";
 				row.appendChild(feelsLike);	
 			} else {
