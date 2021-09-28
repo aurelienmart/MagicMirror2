@@ -373,7 +373,7 @@ Module.register("currentweather", {
 				}
 			} else feelsLike.className = "dimmed real";
 
-			feelsLike.innerHTML = this.translate("FEELS!") + this.feelsLike + "&deg;" + degreeLabel;
+			feelsLike.innerHTML = this.translate("FEELS!") + "<i class=\"wi wi-thermometer\"></i>" + this.feelsLike + "&deg;" + degreeLabel;
 			small.appendChild(feelsLike);
 		}
 
@@ -411,16 +411,16 @@ Module.register("currentweather", {
 
 		if (this.config.showPrecip) {
 			var spacer = document.createElement("span");
-			spacer.innerHTML = "&nbsp;";
+			spacer.innerHTML = "<br>";
 			small.appendChild(spacer);
 
 			var precipitation = document.createElement("span");	// precipitation
 			precipitation.className = "prep midget";
 			if (this.precipitation > 0) {
 				if(config.units === "imperial") {
-					precipitation.innerHTML = (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in ";
+					precipitation.innerHTML = this.translate("PRECIP") + " " + (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in ";
 				} else {
-					precipitation.innerHTML = this.precipitation.toFixed(1).replace(".", this.config.decimalSymbol) + " mm ";
+					precipitation.innerHTML = this.translate("PRECIP") + " " + this.precipitation.toFixed(1).replace(".", this.config.decimalSymbol) + " mm ";
 				}
 			} else {
 				precipitation.innerHTML = this.translate("No prep") + " ";
@@ -429,9 +429,9 @@ Module.register("currentweather", {
 
 			var prepIcon = document.createElement("span");
 			if (this.precipitation > 0) {
-				prepIcon.className = "fa fa-tint";
+				prepIcon.className = "fa fa-tint prep";
 			} else {
-				prepIcon.className = "fa fa-tint-slash";
+				prepIcon.className = "fa fa-tint-slash prep";
 			}
 			small.appendChild(prepIcon);
 		}
