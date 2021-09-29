@@ -1240,8 +1240,8 @@ header {
 	.calendar .month:nth-child(n+2),
 	.icalendar table tr:nth-child(n+13),
 	.calendar table tr:nth-child(n+12),
-	.hourly table tr:nth-child(n+5),
-	.daily table tr:nth-child(n+10),
+	.hourly table tr:nth-child(n+4),
+	.daily table tr:nth-child(n+11),
 	header,	.lifecounter, .yframe, .traffic,
 	.currentweather .prep {
 		display: none !important;
