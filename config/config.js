@@ -71,7 +71,7 @@ var config = {
 			classes: "night",
 			disabled: false,
 			config: {
-				startTitle: "<i class=\"lime fa fa-wifi\"></i> Smart Board&sup3;&nbsp;",
+				startTitle: "<i class=\"lime fa fa-wifi\"></i> Magic Board&sup2;&nbsp;",
 				startNotification: "Modular smart mirror platform",
 				timer: 8000,
 			}
