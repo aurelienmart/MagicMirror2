@@ -150,10 +150,12 @@ var Module = Class.extend({
 	 * @param {Module} sender The module that sent the notification.
 	 */
 	notificationReceived: function (notification, payload, sender) {
-		if (sender) {
-			// Log.log(this.name + " received a module notification: " + notification + " from sender: " + sender.name);
-		} else {
-			// Log.log(this.name + " received a system notification: " + notification);
+		if (config.notification) {
+			if (sender) {
+				Log.log(this.name + " received a module notification: " + notification + " from sender: " + sender.name);
+			} else {
+				Log.log(this.name + " received a system notification: " + notification);
+			}
 		}
 	},
 
@@ -431,7 +433,7 @@ var Module = Class.extend({
 
 		var self = this;
 		MM.showModule(
-			this,
+			self,
 			speed,
 			function () {
 				self.resume();
@@ -506,8 +508,8 @@ Module.create = function (name) {
 
 Module.register = function (name, moduleDefinition) {
 	if (moduleDefinition.requiresVersion) {
-		Log.log("Check MagicMirror version for module '" + name + "' - Minimum version:  " + moduleDefinition.requiresVersion + " - Current version: " + window.version);
-		if (cmpVersions(window.version, moduleDefinition.requiresVersion) >= 0) {
+		Log.log("Check MagicMirror version for module '" + name + "' - Minimum version:  " + moduleDefinition.requiresVersion + " - Current version: " + window.mmVersion);
+		if (cmpVersions(window.mmVersion, moduleDefinition.requiresVersion) >= 0) {
 			Log.log("Version is ok!");
 		} else {
 			Log.warn("Version is incorrect. Skip module: '" + name + "'");
