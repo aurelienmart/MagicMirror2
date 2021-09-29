@@ -39,7 +39,7 @@ var config = {
 	minVersion: "2.14.0",
 	serverOnly: true,
 	DeepMerge: true,
-//	logLevel: ["DEBUG", "INFO", "LOG", "WARN", "ERROR"],
+	logLevel: ["LOG", "WARN"], // "DEBUG", "INFO", "LOG", "WARN", "ERROR"
 
 	modules: [
 		{
@@ -236,7 +236,7 @@ var config = {
 				coloredSymbolOnly: true,
 				titleReplace: {
 					"Ziua Internațională a Femeii": "Ziua femeii",
-					"Zi Constantin Brancusi": "Ziua Constantin Brancuși",
+					"Zi Constantin Brancusi": "Ziua Constantin Brâncuși",
 					"New moon": "Lună nouă la",
 					"First quarter": "Primul pătrar la",
 					"Full moon": "Lună plină la",
@@ -532,6 +532,7 @@ var config = {
 				showDescription: true,
 				hideLoading: true,
 				updateInterval: 60 * 1000,
+				reloadInterval: 60 * 1000,
 				ignoreOlderThan: 12 * 60 * 60 * 1000,
 				ignoreOldItems: true,
 				removeStartTags: "both",
