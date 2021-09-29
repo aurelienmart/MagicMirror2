@@ -32,7 +32,7 @@ var config = {
 	minVersion: "2.14.0",
 	serverOnly: true,
 	DeepMerge: true,
-//	logLevel: ["DEBUG", "INFO", "LOG", "WARN", "ERROR"],
+	logLevel: ["LOG", "WARN"], // "DEBUG", "INFO", "LOG", "WARN", "ERROR"
 
 	modules: [
 		{
@@ -501,7 +501,7 @@ var config = {
 			disabled: false,
 			config: {
 				lengthDescription: 600,
-				fetchNewsTime: 15 * 60 * 1000,
+				fetchNewsTime: 5 * 60 * 1000,
 				feedURLs: {
 					"ProTV"		: "https://rss.stirileprotv.ro",
 					"Mediafax"	: "https://www.mediafax.ro/rss",
