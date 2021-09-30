@@ -43,9 +43,22 @@ var config = {
 
 	modules: [
 		{
-			module: "timer",
+			module: "notification",
+			position: "top_center",
+			classes: "night",
 			disabled: false,
 			config: {
+				startTitle: "<i class=\"lime fa fa-wifi\"></i> Magic Board&sup2;&nbsp;",
+				startNotification: "Modular smart mirror platform",
+				timer: 8000,
+
+				name1: "Paula!",
+				birthday1: "22.08",
+				name2: "Răzvan!",
+				birthday2: "13.10",
+				name3: "",
+				birthday3: "",
+
 				bodysize: 1080,
 				zoomMode: false,
 				nightMode: false,
@@ -56,34 +69,8 @@ var config = {
 				dimming: 50,
 
 				sharpMode: true,
-				dateMode: true,
-				name1: "",
-				birthday1: "",
-				name2: "",
-				birthday2: "",
-				name3: "",
-				birthday3: ""
+				dateMode: true
 			}
-		},
-		{
-			module: "notification",
-			position: "top_center",
-			classes: "night",
-			disabled: false,
-			config: {
-				startTitle: "<i class=\"lime fa fa-wifi\"></i> Magic Board&sup2;&nbsp;",
-				startNotification: "Modular smart mirror platform",
-				timer: 8000,
-			}
-		},
-		{
-			module: "alert",
-			disabled: true,
-		},
-		{
-			module: "updatenotification",
-			position: "top_bar",
-			disabled: true,
 		},
 		{
 			module: "clock",
