@@ -385,6 +385,16 @@ var config = {
 				midnight: 1,
 				compliments: {
 					anytime : [
+						"Orice faci, fă-o bine!",
+						"Fi sexy, fi tu însuți!",
+						"O zi cât mai frumoasă!",
+						"Azi arăți foarte bine!",
+						"Să te simți excelent!",
+						"Arați minunat, succes!",
+						"Să ai multă sănătate!",
+						"Fă-o astăzi, nu mâine!",
+						"Întotdeauna ai dreptate!",
+						"Zâmbește, trăiește!",
 						function() {return moment().locale(config.language).format("dddd, D MMMM");}
 					],
 					morning : [
@@ -506,10 +516,6 @@ var config = {
 					"02-01-...." : [
 						"<i class=\"gold fa fa-glass-cheers\"></i> Un An Nou fericit!",
 						function() {return "La mulți ani! " + moment().format("YYYY");}
-					],
-					"..-..-...." : [
-						"Orice faci, fă-o bine!",
-						"Fi sexy, fi tu însuți!"
 					],
 				}
 			}
