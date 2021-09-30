@@ -176,7 +176,6 @@ Module.register("notification", {
 	messages: function () {
 		var now = this.now; var date = this.date; var mins = this.mins; var secs = this.secs;
 		var sharp = "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm");
-		var sharp = "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm");
 
 		if (secs == "58") {
 			if (window.navigator.onLine == true) {
