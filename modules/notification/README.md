@@ -2,7 +2,7 @@
 
 https://github.com/hangorazvan/notification
 
-MagicMirror 2 Notification receiver, alert & timer trigger for my own use on iPad3, 
+MagicMirror 2 Notification receiver, dimmer, alert & timer trigger for my own use on iPad3, 
 because the default alert module is full of shit!
 This module is no longer maintained, will not have any improvements or bug fixes.
 
