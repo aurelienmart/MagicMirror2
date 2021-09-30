@@ -17,7 +17,7 @@ All settings inside of module or in config.js
 			title: null,
 			notification: null,
 			timer: 5000,
-			animationSpeed: config.animation,
+			animationSpeed: 1000,
 
 			name1: "",		// Wife or girlfriend name
 			birthday1: "",		// day & month
