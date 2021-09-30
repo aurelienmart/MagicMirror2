@@ -17,7 +17,7 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <b>My own test developed modules:</b>
 <br>swatch.beat https://github.com/hangorazvan/swatch
 <br>lifecounter https://github.com/hangorazvan/lifecounter
-<br>notification https://github.com/hangorazvan/timer/tree/notification
+<br>notification https://github.com/hangorazvan/notification
 <br>yframe https://github.com/hangorazvan/yframe
 
 <img src=https://github.com/hangorazvan/MagicMirror2/blob/master/HD.png>
