@@ -1,0 +1,11 @@
+{
+	"name": "magicmirror",
+	"version": "2.17.1",
+	"description": "The open source modular smart mirror platform.",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"request": "^2.88.2"
+	}
+}
