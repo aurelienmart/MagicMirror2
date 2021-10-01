@@ -27,7 +27,8 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
- 	appid: '...',
+ 	appid: "...",
+	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5/",
 	roundTemp: false,
 	period: false,
@@ -36,10 +37,10 @@ var config = {
 	animation: 2000,
 	header: true,
 	notification: false,
-	minVersion: "2.14.0",
+	minVersion: "2.16.0",
 	serverOnly: true,
 	DeepMerge: true,
-	logLevel: ["LOG", "WARN"], // "DEBUG", "INFO", "LOG", "WARN", "ERROR"
+	logLevel: ["INFO", "LOG", "WARN"],
 
 	modules: [
 		{
@@ -52,24 +53,26 @@ var config = {
 				startNotification: "Modular smart mirror platform",
 				timer: 8000,
 
-				name1: "Paula!",
-				birthday1: "22.08",
-				name2: "Răzvan!",
-				birthday2: "13.10",
-				name3: "",
-				birthday3: "",
-
 				bodysize: 1080,
 				zoomMode: false,
 				nightMode: false,
 				background: false,
+				monochrome: false,
+				resetMM: true,
 
 				dimmMode: true,
 				fadeMode: true,
 				dimming: 50,
 
 				sharpMode: true,
-				dateMode: true
+				dateMode: true,
+
+				name1: "",
+				birthday1: "",
+				name2: "",
+				birthday2: "",
+				name3: "",
+				birthday3: ""
 			}
 		},
 		{
@@ -82,7 +85,7 @@ var config = {
 				showDate: false,
 				analogSize: "300px",
 				analogFace: "none",
-				secondsColor: "coral",
+				secondsColor: "coral"
 			}
 		},
 		{
@@ -152,7 +155,8 @@ var config = {
 				accessToken: "...",
 				originCoords: "...",
 				destinationCoords: "...",
-				days: [1, 2, 3, 4, 5],
+				days: [1, 2, 3, 4, 5]
+
 			}
 		},
 		{
@@ -167,7 +171,7 @@ var config = {
 				accessToken: "...",
 				originCoords: "...",
 				destinationCoords: "...",
-				days: [1, 2, 3, 4, 5],
+				days: [1, 2, 3, 4, 5]
 			}
 		},
 		{
@@ -181,7 +185,7 @@ var config = {
 				accessToken: "...",
 				originCoords: "...",
 				destinationCoords: "...",
-				days: [6, 7],
+				days: [6, 7]
 			}
 		},
 		{
@@ -195,7 +199,7 @@ var config = {
 				accessToken: "...",
 				originCoords: "...",
 				destinationCoords: "...",
-				days: [6, 7],
+				days: [6, 7]
 			}
 		},
 		{
@@ -223,11 +227,11 @@ var config = {
 				coloredSymbolOnly: true,
 				titleReplace: {
 					"Ziua Internațională a Femeii": "Ziua femeii",
-					"Zi Constantin Brancusi": "Ziua Constantin Brâncuși",
+					"Zi Constantin Brancusi": "Ziua lui Brâncuși",
 					"New moon": "Lună nouă la",
 					"First quarter": "Primul pătrar la",
 					"Full moon": "Lună plină la",
-					"Last quarter": "Ultimul pătrar la",
+					"Last quarter": "Ultimul pătrar la"
 				},
 				locationTitleReplace: {},
 				excludedEvents: [
@@ -236,7 +240,7 @@ var config = {
 					"Ziua Sfîntului Andrei",
 					"Adormirea Maicii Domnului",
 					"Rusalii",
-					"Doua zi de Rusalii",
+					"Doua zi de Rusalii"
 					],
 				nextDaysRelative: true,
 
@@ -268,7 +272,7 @@ var config = {
 					{
 						symbol: "suitcase", symbolClass: "coral", // titleClass: "coral",timeClass: "coral", color: "normal",
 						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
-					},
+					}
 				]
 			}
 		},
@@ -364,12 +368,6 @@ var config = {
 			disabled: false,
 			config: {
 				classes: "thin large pre-line complimentz skyblue",
-				morning: 5,
-				noon: 12,
-				afternoon: 14,
-				evening: 18,
-				night: 22,
-				midnight: 1,
 				compliments: {
 					anytime : [
 						"Orice faci, fă-o bine!",
@@ -377,7 +375,7 @@ var config = {
 						"O zi cât mai frumoasă!",
 						"Azi arăți foarte bine!",
 						"Să te simți excelent!",
-						"Arați minunat, succes!",
+						"Arăți minunat, succes!",
 						"Să ai multă sănătate!",
 						"Fă-o astăzi, nu mâine!",
 						"Întotdeauna ai dreptate!",
@@ -469,7 +467,7 @@ var config = {
 					],
 					night_thunderstorm : [
 						"<i class=\"royalblue wi wi-night-thunderstorm\"></i> Noapte furtunoasă!",
-						"<i class=\"royalblue wi wi-night-thunder-storm\"></i> Furtuna!"
+						"<i class=\"royalblue wi wi-night-thunderstorm\"></i> Furtuna!"
 					],
 					night_snow : [
 						"<i class=\"normal wi wi-night-alt-snow\"></i> Noapte cu ninsoare",
@@ -478,9 +476,6 @@ var config = {
 					night_alt_cloudy_windy : [
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Nori și ceață",
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Ceață și nori"
-					],
-					"14-02-...." : [
-						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
 					],
 					"30-10-...." : [
 						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
@@ -503,7 +498,7 @@ var config = {
 					"02-01-...." : [
 						"<i class=\"gold fa fa-glass-cheers\"></i> Un An Nou fericit!",
 						function() {return "La mulți ani! " + moment().format("YYYY");}
-					],
+					]
 				}
 			}
 		},
@@ -512,7 +507,7 @@ var config = {
 			position: "lower_third",
 			disabled: false,
 			config: {
-				updateInterval: 20000,
+				updateInterval: 22500,
 				category: "random",
 				className: "medium"
 			}
@@ -525,7 +520,7 @@ var config = {
 				showDescription: true,
 				hideLoading: true,
 				updateInterval: 60 * 1000,
-				reloadInterval: 60 * 1000,
+		        reloadInterval: 60 * 1000,
 				ignoreOlderThan: 12 * 60 * 60 * 1000,
 				ignoreOldItems: true,
 				removeStartTags: "both",
@@ -543,11 +538,6 @@ var config = {
 					{
 						title: "MediaFax",
 						url: "https://www.mediafax.ro/rss/",
-						encoding: "UTF-8"
-					},
-					{
-						title: "Agerpress",
-						url: "https://www.agerpres.ro/home.rss",
 						encoding: "UTF-8"
 					},
 					{
@@ -630,7 +620,7 @@ var config = {
 						title: "Reuters",
 						url: "https://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best",
 						encoding: "UTF-8"
-					},
+					}
 				]
 			}
 		},
@@ -647,7 +637,7 @@ var config = {
 				aspect: 9/16,
 				cssClass: "fishtank"
 			}
-		},
+		}
 	]
 };
 
