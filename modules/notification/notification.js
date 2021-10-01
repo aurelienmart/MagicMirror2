@@ -120,9 +120,9 @@ Module.register("notification", {
 		if (window.innerWidth < this.config.bodysize) { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"});
 			if (this.config.zoomMode) {
 				if (now >= midnight && now < morning) { night_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize * 1.53 + ")"})} 
-				else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"})}
-			}
-		} else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(1)"})
+					else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"})}
+				}
+			} else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(1)"})
 		}
 
 		function day_mode() { // because this is better that stupid show.module
@@ -150,7 +150,11 @@ Module.register("notification", {
 		var body = Array.from(document.querySelectorAll("body"));
 
 		if (this.config.background) {
-			body.forEach(function(element) {return element.style.background = this.config.background});
+			body.forEach(function(element) {return element.style.backgroundImage = "url(" + this.config.background + ")", element.style.backgroundSize = "cover"});
+		}
+
+		if (this.config.monochrome) {
+			body.forEach(function(element) {return element.style.filter = "grayscale(" + this.config.monochrome + "%)"});
 		}
 
 		if (this.config.nightMode) {
@@ -176,6 +180,12 @@ Module.register("notification", {
 	messages: function () {
 		var now = this.now; var date = this.date; var mins = this.mins; var secs = this.secs;
 		var sharp = "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm");
+
+		if (this.config.resetMM) {
+			if (now == "03:59:58") {
+				location.reload();
+			}
+		}
 
 		if (secs == "58") {
 			if (window.navigator.onLine == true) {
