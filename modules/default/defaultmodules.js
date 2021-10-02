@@ -8,7 +8,7 @@
 // Modules listed below can be loaded without the 'default/' prefix. Omitting the default folder name.
 
 var defaultModules = [
-	"alert", 
+//	"alert", 
 	"calendar", 
 	"clock", 
 	"compliments", 
@@ -16,7 +16,7 @@ var defaultModules = [
 	"helloworld", 
 	"newsfeed", 
 	"weatherforecast", 
-	"updatenotification", 
+//	"updatenotification", 
 	"weather"
 ];
 
