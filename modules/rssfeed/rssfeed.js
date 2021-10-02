@@ -110,7 +110,7 @@ Module.register("rssfeed", {
 				if(oldestDate.diff(pubDate) < 0) {
 					stories.push("<span class=\"date\"> - " + pubDate.toNow().replace("peste","în urmă cu") + ":</span><br><span class=\"title\">" + title + "</span> &bull; <span class=\"desc\">" + desc + "</span>");
 				}
-			}(
+			}
 			function showNews() {
 				var initialFeed = newsFeedIndex;
 				if(news.length === 0) {
@@ -169,7 +169,7 @@ Module.register("rssfeed", {
 				}
 				newsStoryIndex++;
 				setTimeout(showNews, nextTimeout);
-			})();
+			} showNews();
 		});
 	}
 });
