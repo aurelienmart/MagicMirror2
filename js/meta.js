@@ -21,7 +21,7 @@ function injector() {var meta = document.createElement("meta");	document.head.in
 + "hangorazvan/timer/tree/notification, timer-dimmer https://github.com/hangorazvan/timer, yframe https://github.com/hangorazvan/yframe\">"
 + "<meta name=\"Project\" content=\"Without fucking stupid Retardberry Pi, without any donation, without pointless or religious nonsens modules "
 + "and other wierd software from so-called developers struggling to break into a world that has nothing to do with their IQ level, with their "
-+ "free time achievements which remain hidden on an obscure server, like idiot asian nazi eouia. And most important without any help from "
++ "free time achievements which remain hidden on an obscure server, like an idiot asian nazi asshole. And most important without any help from "
 + "amateur dudes of forum community. When I needed support, no one gave me an answer. They are sometimes so fucking ignorant and incompetent "
 + "that they don't understand what you're simple asking them, even if it's obvious and not very complicated, but you have to follow they stupid "
 + "rules, don't be reckless or rude to comment on something, just talking about how supposed to do things in the fucking right way, no fucking "

@@ -208,6 +208,36 @@ var Module = Class.extend({
 		Log.log(this.name + " is resumed.");
 	},
 
+	hideAnimation: function (moduleWrapper, speed) {
+		moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
+		moduleWrapper.style.opacity = 0;
+
+        if (config.transform){
+			var keyframe = [
+				{ transform: "scale(1, 1)", easing: "ease-in" },
+				{ transform: "scale(0, 0)",  easing: "ease-out" }
+			];
+			var animation = moduleWrapper.animate(keyframe, {
+				duration: speed
+			});
+		}
+	},
+
+	showAnimation: function (moduleWrapper, speed) {
+		moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
+		moduleWrapper.style.opacity = 1;
+
+        if (config.transform){
+			var keyframe = [
+				{ transform: "scale(0, 0)", easing: "ease-out" },
+				{ transform: "scale(1, 1)",  easing: "ease-in" }
+			];
+			var animation = moduleWrapper.animate(keyframe, {
+				duration: speed
+			});
+		}
+	},
+
 	/*********************************************
 	 * The methods below don"t need subclassing. *
 	 *********************************************/

@@ -266,8 +266,14 @@ var MM = (function () {
 
 		var moduleWrapper = document.getElementById(module.identifier);
 		if (moduleWrapper !== null) {
-			moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
-			moduleWrapper.style.opacity = 0;
+		//	moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
+		//	moduleWrapper.style.opacity = 0;
+
+			if (typeof options.animation === "function") {
+				options.animation({ moduleWrapper, module, speed });
+			} else {
+				module.hideAnimation(moduleWrapper, speed);
+			}
 
 			clearTimeout(module.showHideTimer);
 			module.showHideTimer = setTimeout(function () {
@@ -330,7 +336,7 @@ var MM = (function () {
 
 		var moduleWrapper = document.getElementById(module.identifier);
 		if (moduleWrapper !== null) {
-			moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
+		//	moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
 			// Restore the position. See hideModule() for more info.
 			moduleWrapper.style.position = "static";
 
@@ -338,7 +344,13 @@ var MM = (function () {
 
 			// Waiting for DOM-changes done in updateWrapperStates before we can start the animation.
 			var dummy = moduleWrapper.parentElement.parentElement.offsetHeight;
-			moduleWrapper.style.opacity = 1;
+		//	moduleWrapper.style.opacity = 1;
+
+			if (typeof options.animation === "function") {
+				options.animation({ moduleWrapper, module, speed });
+			} else {
+				module.showAnimation(moduleWrapper, speed);
+			}
 
 			clearTimeout(module.showHideTimer);
 			module.showHideTimer = setTimeout(function () {
@@ -505,7 +517,7 @@ var MM = (function () {
 		 * Main init method.
 		 */
 		init: function () {
-			Log.info("Initializing MagicMirror " + window.mmVersion);
+			Log.info("Initializing MagicMirror v" + window.mmVersion);
 			loadConfig();
 
 			Log.setLogLevel(config.logLevel);
