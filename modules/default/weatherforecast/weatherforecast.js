@@ -242,10 +242,12 @@ Module.register("weatherforecast", {
 				uvIndex.className = "uvIndex";
 				row.appendChild(uvIndex);
 
-				var precip = document.createElement("td");
-				precip.innerHTML =  parseFloat(forecast.precip).toFixed(2).replace(".", this.config.decimalSymbol) + "% <i class=\"wi wi-umbrella lime little\"></i>";
-				precip.className = "precipitation";
-				row.appendChild(precip);
+				if (this.config.showRainAmount) {
+					var precip = document.createElement("td");
+					precip.innerHTML =  parseFloat(forecast.precip).toFixed(2).replace(".", this.config.decimalSymbol) + "% <i class=\"wi wi-umbrella lime little\"></i>";
+					precip.className = "precipitation";
+					row.appendChild(precip);
+				}
 			}
 
 			if (this.config.fade && this.config.fadePoint < 1) {
@@ -290,7 +292,7 @@ Module.register("weatherforecast", {
 					var event = payload[e];
 					if (event.location || event.geo) {
 						this.firstEvent = event;
-						//Log.log("First upcoming event with location: ", event);
+					//	Log.log("First upcoming event with location: ", event);
 						break;
 					}
 				}
