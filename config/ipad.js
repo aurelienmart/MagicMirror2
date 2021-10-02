@@ -27,6 +27,7 @@ var config = {
 	scale: true,
 	delay: 2000,
 	animation: 2000,
+	transform: true,
 	header: true,
 	notification: false,
 	minVersion: "2.14.0",
@@ -45,24 +46,26 @@ var config = {
 				startNotification: "Modular smart mirror platform",
 				timer: 8000,
 
-				name1: "Paula!",
-				birthday1: "22.08",
-				name2: "Răzvan!",
-				birthday2: "13.10",
-				name3: "",
-				birthday3: "",
-
 				bodysize: 1080,
 				zoomMode: false,
 				nightMode: false,
 				background: false,
+				monochrome: false,
+				resetMM: false,
 
 				dimmMode: true,
 				fadeMode: true,
 				dimming: 50,
 
 				sharpMode: true,
-				dateMode: true
+				dateMode: true,
+
+				name1: "Paula!",
+				birthday1: "22.08",
+				name2: "Răzvan!",
+				birthday2: "13.10",
+				name3: "",
+				birthday3: ""
 			}
 		},
 		{
@@ -287,45 +290,6 @@ var config = {
 			}
 		},
 		{
-			module: "weather",
-			position: "top_right",
-			classes: "night currentweather current",
-			disabled: true,
-			config: {
-				type: "current",
-				degreeLabel: false,
-				showPrecipitationAmount: false
-			}
-		},
-		{
-			module: "weather",
-			position: "top_right",
-			header: "Vremea în următoarele zile la",
-			classes: "daily weatherforecast forecast",
-			disabled: true,
-			config: {
-				appendLocationNameToHeader: true,
-				type: "daily",
-				maxNumberOfDays: 15,
-				initialLoadDelay: 2000,
-				tableClass: "small"
-			}
-		},
-		{
-			module: "weather",
-			position: "top_right",
-			header: "Vremea în următoarele ore la",
-			classes: "hourly weatherforecast forecast",
-			disabled: true,
-			config: {
-				appendLocationNameToHeader: true,
-				type: "hourly",
-				maxEntries: 15,
-				initialLoadDelay: 1000,
-				tableClass: "small"
-			}
-		},
-		{
 			module: "compliments",
 			position: "middle_center",
 			classes: "night",
@@ -345,7 +309,7 @@ var config = {
 						"O zi cât mai frumoasă!",
 						"Azi arăți foarte bine!",
 						"Să te simți excelent!",
-						"Arați minunat, succes!",
+						"Arăți minunat, succes!",
 						"Să ai multă sănătate!",
 						"Fă-o astăzi, nu mâine!",
 						"Întotdeauna ai dreptate!",
@@ -480,7 +444,7 @@ var config = {
 			position: "lower_third",
 			disabled: false,
 			config: {
-				updateInterval: 20000,
+				updateInterval: 22500,
 				category: "random",
 				className: "medium"
 			}
