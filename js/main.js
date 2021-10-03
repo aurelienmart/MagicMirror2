@@ -254,6 +254,10 @@ var MM = (function () {
 	 * @param {object} [options] Optional settings for the hide method.
 	 */
 	var hideModule = function (module, speed, callback, options) {
+		var defaultAnimation = function (moduleWrapper, speed) {
+			moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
+			moduleWrapper.style.opacity = 0;
+		};
 		options = options || {};
 
 		// set lockString if set in options.
@@ -272,7 +276,7 @@ var MM = (function () {
 			if (typeof options.animation === "function") {
 				options.animation({ moduleWrapper, module, speed });
 			} else {
-				module.hideAnimation(moduleWrapper, speed);
+				module.data.customAnimation ? module.hideAnimation(moduleWrapper, speed) : defaultAnimation(moduleWrapper, speed);
 			}
 
 			clearTimeout(module.showHideTimer);
@@ -306,6 +310,10 @@ var MM = (function () {
 	 * @param {object} [options] Optional settings for the show method.
 	 */
 	var showModule = function (module, speed, callback, options) {
+		const defaultAnimation = function (moduleWrapper, speed) {
+			moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
+			moduleWrapper.style.opacity = 1;
+		};
 		options = options || {};
 
 		// remove lockString if set in options.
@@ -349,7 +357,7 @@ var MM = (function () {
 			if (typeof options.animation === "function") {
 				options.animation({ moduleWrapper, module, speed });
 			} else {
-				module.showAnimation(moduleWrapper, speed);
+				module.data.customAnimation ? module.showAnimation(moduleWrapper, speed) : defaultAnimation(moduleWrapper, speed);
 			}
 
 			clearTimeout(module.showHideTimer);
