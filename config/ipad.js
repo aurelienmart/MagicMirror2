@@ -27,7 +27,6 @@ var config = {
 	scale: true,
 	delay: 2000,
 	animation: 2000,
-	transform: true,
 	header: true,
 	notification: false,
 	minVersion: "2.14.0",
@@ -40,6 +39,7 @@ var config = {
 			module: "notification",
 			position: "top_center",
 			classes: "night",
+			customAnimation: true,
 			disabled: false,
 			config: {
 				startTitle: "<i class=\"lime fa fa-wifi\"></i> Magic Board&sup2;&nbsp;",
@@ -298,6 +298,7 @@ var config = {
 			module: "compliments",
 			position: "middle_center",
 			classes: "night",
+			customAnimation: true,
 			disabled: false,
 			config: {
 				classes: "thin large pre-line complimentz skyblue",
@@ -447,6 +448,7 @@ var config = {
 		{
 			module: "quotes",
 			position: "lower_third",
+			customAnimation: true,
 			disabled: false,
 			config: {
 				updateInterval: 22500,
