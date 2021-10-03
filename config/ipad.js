@@ -48,7 +48,7 @@ var config = {
 			}
 		},
 		{
-			module: "notification_timer",
+			module: "notification/timer",
 			disabled: false,
 			config: {
 				bodysize: 1080,
