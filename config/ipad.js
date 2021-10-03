@@ -44,14 +44,19 @@ var config = {
 			config: {
 				startTitle: "<i class=\"lime fa fa-wifi\"></i> Magic Board&sup2;&nbsp;",
 				startNotification: "Modular smart mirror platform",
-				timer: 8000,
-
+				timer: 8000
+			}
+		},
+		{
+			module: "notification_timer",
+			disabled: false,
+			config: {
 				bodysize: 1080,
 				zoomMode: false,
 				nightMode: false,
 				background: false,
 				monochrome: false,
-				resetMM: false,
+				resetMM: true,
 
 				dimmMode: true,
 				fadeMode: true,
