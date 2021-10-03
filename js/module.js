@@ -208,34 +208,46 @@ var Module = Class.extend({
 		Log.log(this.name + " is resumed.");
 	},
 
+	/**
+	 * Called when the module needs the animation of hide.
+	 *
+	 * @param {HTMLDom} moduleWrapper Usually this module's HTML Dom
+	 * @param {object} moduleWrapper Usually this module's HTML Dom
+	 * @param {number} speed animation speed
+	 */
+
 	hideAnimation: function (moduleWrapper, speed) {
 		moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
 		moduleWrapper.style.opacity = 0;
 
-        if (config.transform){
-			var keyframe = [
-				{ transform: "scale(1, 1)", easing: "ease-in" },
-				{ transform: "scale(0, 0)",  easing: "ease-out" }
-			];
-			var animation = moduleWrapper.animate(keyframe, {
-				duration: speed
-			});
-		}
+		var keyframe = [
+			{ transform: "scale(1, 1)", easing: "ease-in" },
+			{ transform: "scale(0, 0)", easing: "ease-out" }
+		];
+		var animation = moduleWrapper.animate(keyframe, {
+			duration: speed
+		});
 	},
+
+	/**
+	 * Called when the module needs the animation of show.
+	 *
+	 * @param {HTMLDom} moduleWrapper Usually this module's HTML Dom
+	 * @param {object} moduleWrapper Usually this module's HTML Dom
+	 * @param {number} speed animation speed
+	 */
 
 	showAnimation: function (moduleWrapper, speed) {
 		moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
 		moduleWrapper.style.opacity = 1;
 
-        if (config.transform){
-			var keyframe = [
-				{ transform: "scale(0, 0)", easing: "ease-out" },
-				{ transform: "scale(1, 1)",  easing: "ease-in" }
-			];
-			var animation = moduleWrapper.animate(keyframe, {
-				duration: speed
-			});
-		}
+    	var keyframe = [
+			{ transform: "scale(0, 0)", easing: "ease-out" },
+			{ transform: "scale(1, 1)", easing: "ease-in" }
+		];
+		var animation = moduleWrapper.animate(keyframe, {
+			duration: speed
+		});
 	},
 
 	/*********************************************
