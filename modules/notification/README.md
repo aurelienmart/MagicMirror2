@@ -16,9 +16,13 @@ All settings inside of module or in config.js
 			startNotification: "Modular smart mirror platform",
 			title: null,
 			notification: null,
-			timer: 5000,
+			timer: 8000,
 			animationSpeed: 1000,
-
+		}
+	}	
+	{
+		module: "notification/timer",
+		config: {
 			name1: "",		// Wife or girlfriend name
 			birthday1: "",		// day & month
 			name2: "",		// Husband or boyfriend name
@@ -28,6 +32,9 @@ All settings inside of module or in config.js
 
 			bodysize: 1080,		// Minimum window width
 			nightMode: true,	// zoomed night mode for iPad 3
+			background: false,
+			monochrome: false,
+			resetMM: true,
 
 			fadeMode: true,		// fade to dimmed mode over night and back in the morning
 			dimmMode: true,		// dimmed mode over night
