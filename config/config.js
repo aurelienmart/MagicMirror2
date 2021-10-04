@@ -35,6 +35,7 @@ var config = {
 	scale: true,
 	delay: 2000,
 	animation: 2000,
+	customAnimation: false,
 	header: true,
 	notification: false,
 	minVersion: "2.16.0",
@@ -512,7 +513,6 @@ var config = {
 		{
 			module: "quotes",
 			position: "lower_third",
-			customAnimation: true,
 			disabled: false,
 			config: {
 				updateInterval: 22500,
