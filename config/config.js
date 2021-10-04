@@ -48,7 +48,6 @@ var config = {
 			module: "notification",
 			position: "top_center",
 			classes: "night",
-			customAnimation: true,
 			disabled: false,
 			config: {
 				startTitle: "<i class=\"lime fa fa-wifi\"></i> Magic Board&sup2;&nbsp;",
@@ -372,7 +371,6 @@ var config = {
 			module: "compliments",
 			position: "middle_center",
 			classes: "night",
-			customAnimation: true,
 			disabled: false,
 			config: {
 				classes: "thin large pre-line complimentz skyblue",
