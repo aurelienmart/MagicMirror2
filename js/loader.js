@@ -108,7 +108,7 @@ var Loader = (function () {
 				configDeepMerge: typeof moduleData.configDeepMerge === "boolean" ? moduleData.configDeepMerge : config.DeepMerge,
 				config: moduleData.config,
 				classes: typeof moduleData.classes !== "undefined" ? moduleData.classes + " " + module : module,
-				customAnimation: moduleData.customAnimation
+				customAnimation: moduleData.customAnimation ? moduleData.customAnimation : config.customAnimation
 			});
 		});
 
