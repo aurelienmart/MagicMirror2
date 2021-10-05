@@ -217,6 +217,18 @@ Module.register("weatherforecast", {
 				row.appendChild(rainCell);
 			}
 
+			if (this.config.fade && this.config.fadePoint < 1) {
+				if (this.config.fadePoint < 0) {
+					this.config.fadePoint = 0;
+				}
+				var startingPoint = this.forecast.length * this.config.fadePoint;
+				var steps = this.forecast.length - startingPoint;
+				if (f >= startingPoint) {
+					var currentStep = f - startingPoint;
+					row.style.opacity = 1 - (1 / steps) * currentStep;
+				}
+			}
+
 			if (this.config.extra && (this.config.forecastEndpoint === "/onecall")) {
 				var row = document.createElement("tr");
 				row.className = "extra";
