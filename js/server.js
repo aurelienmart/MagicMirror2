@@ -43,10 +43,10 @@ function Server(config, callback) {
 		allowEIO3: true
 	});
 
-	server.on("connection", (socket) => {
+	server.on("connection", function (socket) {
 		serverSockets.add(socket);
-		socket.on("close", () => {
-			serverSockets.delete(socket);
+		socket.on("close", function () {
+			serverSockets["delete"](socket);
 		});
 	});
 

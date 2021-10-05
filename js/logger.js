@@ -25,7 +25,7 @@
 	}
 })(this, function (config) {
 	var logLevel;
-	let enableLog;
+	var enableLog;
 	if (typeof exports === "object") {
 		// in nodejs and not running with jest
 		enableLog = process.env.JEST_WORKER_ID === undefined;

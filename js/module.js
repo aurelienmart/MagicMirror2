@@ -221,8 +221,8 @@ var Module = Class.extend({
 		moduleWrapper.style.opacity = 0;
 
 		var keyframe = [
-			{ transform: "scale(1, 1)", easing: "ease-in" },
-			{ transform: "scale(0, 0)", easing: "ease-out" }
+			{ transform: "scale(1, 1)", easing: "ease-in-out" },
+			{ transform: "scale(0, 0)", easing: "ease-in-out" }
 		];
 		var animation = moduleWrapper.animate(keyframe, {
 			duration: speed
@@ -242,8 +242,8 @@ var Module = Class.extend({
 		moduleWrapper.style.opacity = 1;
 
     	var keyframe = [
-			{ transform: "scale(0, 0)", easing: "ease-out" },
-			{ transform: "scale(1, 1)", easing: "ease-in" }
+			{ transform: "scale(0, 0)", easing: "ease-in-out" },
+			{ transform: "scale(1, 1)", easing: "ease-in-out" }
 		];
 		var animation = moduleWrapper.animate(keyframe, {
 			duration: speed
