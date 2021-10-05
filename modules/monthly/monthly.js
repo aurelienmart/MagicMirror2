@@ -43,14 +43,19 @@ Module.register("monthly", {
 
 		// set calendar main container depending on calendar orientation 
 		if (this.config.monthsVertical) {
-			output = "<div class='calendar calendar-vertical'>";
+			output = "<div class='multimonth calendar-vertical'>";
 		} else {
-			output = "<div class='calendar calendar-horizontal'>";
+			output = "<div class='multimonth calendar-horizontal'>";
 		}
 
 		// iterate through months to display
 		for (currentMonth = this.config.startMonth; currentMonth <= lastMonth; currentMonth++) {
+
+		if (this.config.fade) {
+			output += "<div class='month fade'>";
+		} else {
 			output += "<div class='month'>";
+		}
 
 			// add the month and week day headers
 			monthTitle = moment().add(currentMonth, "month").format("MMMM YYYY");

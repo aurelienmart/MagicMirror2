@@ -1,10 +1,18 @@
 /* The parent DIV that contains the entire container */
-.monthly .calendar {
+.monthly .multimonth {
 	display: flex;
 	align-items: stretch;
 	white-space: nowrap;
 	border: 0;
 	width: 100%;
+}
+
+.monthly .fade:nth-child(n+2) {
+	filter: opacity(66%) !important;
+}
+
+.monthly .fade:nth-child(n+3) {
+	filter: opacity(33%) !important;
 }
 
 .monthly .calendar-vertical {
