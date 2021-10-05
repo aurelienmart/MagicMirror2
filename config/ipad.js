@@ -97,7 +97,7 @@ var config = {
 				repeatWeekdaysVertical: false,
 				weekNumbers: true,
 				highlightWeekend: true,
-				fade: true
+				fade: false
 			}
 		},
 		{
@@ -213,7 +213,7 @@ var config = {
 				displaySymbol: true,
 				updateInterval: 1000,
 				updateDataInterval: 5 * 60 * 1000,
-				fade: 1,
+				fade: 0,
 
 				calendar: {
 					urls: [
@@ -275,7 +275,7 @@ var config = {
 				initialLoadDelay: 2500,
 				showRainAmount: true,
 				fadePoint: 0.5,
-				fade: true
+				fade: false
 			}
 		},
 		{
@@ -294,7 +294,7 @@ var config = {
 				initialLoadDelay: 5000,
 				showRainAmount: true,
 				fadePoint: 0,
-				fade: true
+				fade: false
 			}
 		},
 		{
