@@ -9,7 +9,7 @@
 Module.register("notification", {
 
 	defaults: {
-		animationSpeed: config.animation
+		animationSpeed: config.animation,
 	},
 
 	getScripts: function () {
