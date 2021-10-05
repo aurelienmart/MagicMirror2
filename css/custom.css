@@ -1213,15 +1213,13 @@ header {
 		font-size: 5rem;
 	}
 
-	.monthly .week:nth-child(odd),
-	.monthly .week:nth-child(even),
-	.region table tr:nth-child(odd),
-	.region table tr:nth-child(even) {
-	  background: none;
+	.daily table tr:nth-child(even) {
+		background: none;
 	}
 
-	.region table tr:nth-child(even),
-	.monthly .week:nth-child(odd) {
+	.monthly .week:nth-child(odd),
+	.daily table tr:nth-child(odd),
+	.hourly table tr:nth-child(even) {
 		background: rgba(128,128,128,0.10);
 	}
 
@@ -1237,7 +1235,7 @@ header {
 		border-bottom: 0;
 	}
 
-	.calendar .month:nth-child(n+2),
+	.monthly .month:nth-child(n+2),
 	.icalendar table tr:nth-child(n+13),
 	.calendar table tr:nth-child(n+12),
 	.hourly table tr:nth-child(n+4),
