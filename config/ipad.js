@@ -96,7 +96,8 @@ var config = {
 				monthsVertical: true,
 				repeatWeekdaysVertical: false,
 				weekNumbers: true,
-				highlightWeekend: true
+				highlightWeekend: true,
+				fade: true
 			}
 		},
 		{
@@ -212,7 +213,7 @@ var config = {
 				displaySymbol: true,
 				updateInterval: 1000,
 				updateDataInterval: 5 * 60 * 1000,
-				fade: 0,
+				fade: 1,
 
 				calendar: {
 					urls: [
@@ -273,7 +274,8 @@ var config = {
 				fullday: "HH [h]",
 				initialLoadDelay: 2500,
 				showRainAmount: true,
-				fade: false
+				fadePoint: 0.5,
+				fade: true
 			}
 		},
 		{
@@ -291,7 +293,8 @@ var config = {
 				fullday: "ddd",
 				initialLoadDelay: 5000,
 				showRainAmount: true,
-				fade: false
+				fadePoint: 0,
+				fade: true
 			}
 		},
 		{
