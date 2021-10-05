@@ -104,7 +104,8 @@ var config = {
 				monthsVertical: true,
 				repeatWeekdaysVertical: false,
 				weekNumbers: true,
-				highlightWeekend: true
+				highlightWeekend: true,
+				fade: true
 			}
 		},
 		{
@@ -226,7 +227,7 @@ var config = {
 				maximumEntries: 20,
 				displayRepeatingCountTitle: true,
 				fetchInterval: 60 * 1000,
-				fade: false,
+				fade: true,
 				dateFormat: "ddd D MMM",
 				fullDayEventDateFormat: "ddd D MMM",
 				getRelative: 48,
@@ -307,7 +308,8 @@ var config = {
 				fullday: "HH [h]",
 				initialLoadDelay: 2500,
 				showRainAmount: true,
-				fade: false
+				fadePoint: 0.5,
+				fade: true
 			}
 		},
 		{
@@ -325,7 +327,8 @@ var config = {
 				fullday: "ddd",
 				initialLoadDelay: 5000,
 				showRainAmount: true,
-				fade: false
+				fadePoint: 0,
+				fade: true
 			}
 		},
 		{
