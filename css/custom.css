@@ -308,6 +308,10 @@ header {
 	height: 25px;
 }
 
+.calendar table tr {
+	height: 19pt;
+}
+
 .region table td {
 	padding: 0;
 	border-bottom: 1px solid #111;
