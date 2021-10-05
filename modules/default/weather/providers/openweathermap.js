@@ -16,14 +16,14 @@ WeatherProvider.register("openweathermap", {
 
 	// Set the default config properties that is specific to this provider
 	defaults: {
-		apiVersion: "2.5",
-		apiBase: "https://api.openweathermap.org/data/",
+		apiVersion: config.apiVersion,
+		apiBase: config.apiBase,
 		weatherEndpoint: "",
 		locationID: false,
 		location: false,
-		lat: 0,
-		lon: 0,
-		apiKey: ""
+		lat: config.latitude,
+		lon: config.longitude,
+		apiKey: config.appid
 	},
 
 	// Overwrite the fetchCurrentWeather method.
@@ -89,7 +89,7 @@ WeatherProvider.register("openweathermap", {
 	/**
 	 * Overrides method for setting config to check if endpoint is correct for hourly
 	 *
-	 * @param config
+	 * @param {object} config The configuration object
 	 */
 	setConfig(config) {
 		this.config = config;
@@ -127,6 +127,8 @@ WeatherProvider.register("openweathermap", {
 
 		currentWeather.humidity = currentWeatherData.main.humidity;
 		currentWeather.temperature = currentWeatherData.main.temp;
+		currentWeather.feelsLikeTemp = currentWeatherData.main.feels_like;
+
 		if (this.config.windUnits === "metric") {
 			currentWeather.windSpeed = this.config.useKmh ? currentWeatherData.wind.speed * 3.6 : currentWeatherData.wind.speed;
 		} else {
