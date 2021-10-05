@@ -31,9 +31,7 @@ var config = {
 	header: true,
 	notification: false,
 	minVersion: "2.16.0",
-	serverOnly: true,
 	DeepMerge: true,
-	logLevel: ["LOG", "WARN"], // "DEBUG", "INFO", "LOG", "WARN", "ERROR"
 
 	modules: [
 		{
