@@ -15,7 +15,7 @@ Module.register("jsontable", {
 		keepColumns: [],
 		size: 0,
 		tryFormatDate: false,
-		updateInterval: 15000,
+		updateInterval: 60 * 60 * 1000,
 		descriptiveRow: null
 	},
 
@@ -60,7 +60,7 @@ Module.register("jsontable", {
 	// Override dom generator.
 	getDom: function () {
 		var wrapper = document.createElement("div");
-		wrapper.className = "xsmall";
+		wrapper.className = this.config.tableClass;
 
 		if (!this.jsonData) {
 			wrapper.innerHTML = "Awaiting json data...";
