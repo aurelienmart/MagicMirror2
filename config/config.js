@@ -100,12 +100,24 @@ var config = {
 			disabled: false,
 			config: {
 				startMonth: 0,
-				monthCount: 3,
+				monthCount: 1,
 				monthsVertical: true,
 				repeatWeekdaysVertical: false,
 				weekNumbers: true,
 				highlightWeekend: true,
 				fade: false
+			}
+		},
+		{
+			module: 'jsontable',
+			position: 'top_center',
+			header: 'Cheltuieli curente',
+			disabled: false,
+			config: {
+				url: "http://localhost:8081/modules/jsontable/data.json",
+				arrayName: "2021",
+				tableClass: "small",
+			//	descriptiveRow: "<tr><td>Luna</td><td>Apa calda m&sup3;</td><td>Apa rece m&sup3;</td><td>kw</td></tr>"
 			}
 		},
 		{
