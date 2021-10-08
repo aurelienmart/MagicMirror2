@@ -1,9 +1,13 @@
-'use strict';
+/* Magic Mirror
+ *
+ * json table
+ *
+ * Redesigned by Răzvan Cristea
+ * for iPad 3 & HD display
+ * https://github.com/hangorazvan
+ */
 
 Module.register("jsontable", {
-
-	jsonData: null,
-
 	// Default module config.
 	defaults: {
 		url: "",
@@ -14,6 +18,8 @@ Module.register("jsontable", {
 		updateInterval: 15000,
 		descriptiveRow: null
 	},
+
+	jsonData: null,
 
 	start: function () {
 		Log.info("Starting module: " + this.name);
@@ -30,14 +36,11 @@ Module.register("jsontable", {
 
 	// Request node_helper to get json from url
 	getJson: function () {
-	//	this.sendSocketNotification("MMM-JsonTable_GET_JSON", this.config.url);
-
 		var self = this;
 		this.jsonFile(function (response) {
 			self.jsonData = JSON.parse(response);
 			self.updateDom(1000);
 		});
-	//	Log.info(this.jsonData);
 	},
 
 	jsonFile: function (callback) {
@@ -54,18 +57,6 @@ Module.register("jsontable", {
 		xobj.send(null);
 	},
 
-/*	socketNotificationReceived: function (notification, payload) {
-		if (notification === "MMM-JsonTable_JSON_RESULT") {
-			// Only continue if the notification came from the request we made
-			// This way we can load the module more than once
-			if (payload.url === this.config.url)
-			{
-				this.jsonData = payload.data;
-				this.updateDom(500);
-			}
-		}
-	},
-*/
 	// Override dom generator.
 	getDom: function () {
 		var wrapper = document.createElement("div");
@@ -161,5 +152,4 @@ Module.register("jsontable", {
 			return input;
 		}
 	}
-
 });
