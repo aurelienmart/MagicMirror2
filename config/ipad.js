@@ -107,7 +107,7 @@ var config = {
 				url: "https://cristea13.ro/smartmirror/modules/jsontable/data.json",
 				arrayName: "2021",
 				tableClass: "small",
-				descriptiveRow: "<tr><td>Luna</td><td>Apa calda</td><td>Apa rece</td><td>kW/h</td></tr>"
+				descriptiveRow: "<tr><td>Luna</td><td>Apa calda</td><td>Apa rece</td><td>kW</td></tr>"
 			}
 		},
 		{
