@@ -15,8 +15,8 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <b>Some 3rd party modified modules:</b>
 <br>multi monthly calendar https://github.com/hangorazvan/MagicMirror2/tree/master/modules/monthly
 <br>random quotes https://github.com/hangorazvan/MagicMirror2/tree/master/modules/quotes
-<br>lunartic https://github.com/hangorazvan/MagicMirror2/tree/master/modules/lunartic
 <br>traffic https://github.com/hangorazvan/MagicMirror2/tree/master/modules/traffic
+<br>jsontable https://github.com/hangorazvan/MagicMirror2/tree/master/modules/jsontable
 
 <b>My own test developed modules:</b>
 <br>swatch.beat https://github.com/hangorazvan/swatch
