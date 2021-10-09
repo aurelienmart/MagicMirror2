@@ -21,6 +21,10 @@ Module.register("jsontable", {
 
 	jsonData: null,
 
+	getStyles: function () {
+		return ["jsontable.css"];
+	},
+
 	start: function () {
 		Log.info("Starting module: " + this.name);
 		this.getJson();
@@ -39,6 +43,7 @@ Module.register("jsontable", {
 		var self = this;
 		this.jsonFile(function (response) {
 			self.jsonData = JSON.parse(response);
+        //    console.log(self.jsonData); // for checking
 			self.updateDom(1000);
 		});
 	},
@@ -52,6 +57,7 @@ Module.register("jsontable", {
 		xobj.onreadystatechange = function () {
 			if (xobj.readyState === 4 && xobj.status === 200) {
 				callback(xobj.responseText);
+			//	console.log("Response " + xobj.responseText); // for checking
 			}
 		};
 		xobj.send(null);
