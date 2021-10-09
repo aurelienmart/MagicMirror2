@@ -1,19 +1,31 @@
-# JsonTable
-A module which creates a table filled with a list gathered from a json request.
+# MagicMirror&sup2;
 
-All the variables of the objects in the array are represented by a table column.
-For every column it checks if a valid DateTime is given, and then formats it to HH:mm:ss if it is today or YYYY-MM-DD otherwise.
-If json file is converted from Excel must be UTF-8 encoded.
+Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile Web served version and HD monitor + Windows 8.1 HP mini netbook / eventually Windows 10 PC stick + IKEA frame + see-thru acrylic mirror, powered by consistent css & js, fonts sizes, icons & well structured folders, based on <b>MagicMirror&sup2;</b> open source core framework unfortunately <b>full of bugs</b> from amateur "developers"...
 
-## Config Options
-| **Option** | **Default** | **Description** |
-| --- | --- | --- |
-| url | "" | The full url to get the json response from |
-| arrayName | null | Define the name of the variable that holds the array to display |
-| keepColumns | [] | Columns on json will be showed |
-| tryFormatDate | false | For every column it checks if a valid DateTime is given, and then formats it to HH:mm:ss if it is today or YYYY-MM-DD otherwise |
-| size | 0-3 | Text size at table, 0 is default, and 3 is H3 |
-| updateInterval | 15000 | Milliseconds between the refersh |
-| descriptiveRow | "" | Complete html table row that will be added above the array data |
+Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile Web served version, without fucking local node.js, stupid Retardberry π or other wierd linux shit software, just powered by consistent css & js, fonts sizes, icons & well structured folders, based on <b>MagicMirror&sup2;</b> open source core framework unfortunately <b>full of bugs</b> from amateur "developers"...
 
-Redesigned by Răzvan Cristea https://github.com/hangorazvan Creative Commons BY-NC-SA 4.0, Romania.
+<b>Some modified default original modules:</b>
+<br>iCalendar based on PHP original first version (jquery)
+<br>RssFeed based on PHP alternative first version (jquery)
+<br>Compliments https://github.com/hangorazvan/compliments_plus
+<br>Currentweather https://github.com/hangorazvan/weather_plus
+<br>Weatherforecast https://github.com/hangorazvan/forecast_plus
+<br>Clock https://github.com/hangorazvan/clock_plus
+
+<b>Some 3rd party modified modules:</b>
+<br>multi monthly calendar https://github.com/hangorazvan/MagicMirror2/tree/master/modules/monthly
+<br>random quotes https://github.com/hangorazvan/MagicMirror2/tree/master/modules/quotes
+<br>lunartic https://github.com/hangorazvan/MagicMirror2/tree/master/modules/lunartic
+<br>traffic https://github.com/hangorazvan/MagicMirror2/tree/master/modules/traffic
+
+<b>My own test developed modules:</b>
+<br>swatch.beat https://github.com/hangorazvan/swatch
+<br>lifecounter https://github.com/hangorazvan/lifecounter
+<br>notification https://github.com/hangorazvan/notification
+<br>yframe https://github.com/hangorazvan/yframe
+
+<img src=https://github.com/hangorazvan/MagicMirror2/blob/master/HD.png>
+
+Redesigned by Răzvan Cristea
+https://github.com/hangorazvan
+Creative Commons BY-NC-SA 4.0, Romania.
