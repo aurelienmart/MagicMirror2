@@ -1245,7 +1245,7 @@ header {
 	.hourly table tr:nth-child(n+4),
 	.daily table tr:nth-child(n+11),
 	header,	.lifecounter, .yframe, .traffic,
-	.currentweather .prep {
+	.currentweather .prep, .jsontable {
 		display: none !important;
 	}
 
