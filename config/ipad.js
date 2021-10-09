@@ -90,12 +90,25 @@ var config = {
 			disabled: false,
 			config: {
 				startMonth: 0,
-				monthCount: 3,
+				monthCount: 1,
 				monthsVertical: true,
 				repeatWeekdaysVertical: false,
 				weekNumbers: true,
 				highlightWeekend: true,
 				fade: false
+			}
+		},
+		{
+			module: 'jsontable',
+			position: 'top_center',
+			header: 'Consum casnic lunar',
+			disabled: false,
+			config: {
+			//	url: "http://192.168.1.200:8081/modules/jsontable/data.json",
+				url: "http://localhost:8081/modules/jsontable/data.json",
+				arrayName: "2021",
+				tableClass: "small",
+				descriptiveRow: "<tr><td>Luna</td><td>Apa calda</td><td>Apa rece</td><td>kW/h</td></tr>"
 			}
 		},
 		{
