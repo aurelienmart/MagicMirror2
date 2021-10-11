@@ -1,15 +1,15 @@
-/* Magic Mirror
+/* Magic Mirror Config
  *
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  *
- * Redesigned by Răzvan Cristea
- * for iPad 3 & HD display
- * https://github.com/hangorazvan
+ * For more information on how you can configure this file
+ * see https://docs.magicmirror.builders/getting-started/configuration.html#general
+ * and https://docs.magicmirror.builders/modules/configuration.html
  */
  
 var config = {
-	language: "ro",
+language: "ro",
 	locale: "ro-RO",
 	timeFormat: 24,
 	units: "metric",
@@ -19,7 +19,7 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
- 	appid: '...',
+ 	appid: '...', // ios9 ipad3
 	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5/",
 	roundTemp: false,
@@ -27,10 +27,11 @@ var config = {
 	scale: true,
 	delay: 2000,
 	animation: 2000,
+	transition: 1000,
 	customAnimation: false,
 	header: true,
 	notification: false,
-	minVersion: "2.16.0",
+	minVersion: "2.1.0",
 	DeepMerge: true,
 
 	modules: [
@@ -40,33 +41,32 @@ var config = {
 			classes: "night",
 			disabled: false,
 			config: {
-				startTitle: "<i class=\"lime fa fa-wifi\"></i> Magic Board&sup2;&nbsp;",
+				startTitle: "<i class=\"lime fa fa-wifi\"></i> Magic iPad&sup3;&nbsp;",
 				startNotification: "Modular smart mirror platform",
 				timer: 8000
 			}
 		},
 		{
 			module: "notification/timer",
+			classes: "night",
 			disabled: false,
 			config: {
 				bodysize: 1080,
-				zoomMode: false,
-				nightMode: false,
-				background: false,
-				monochrome: false,
-				resetMM: true,
-
-				dimmMode: true,
+				zoomMode: true,
+				nightMode: true,
 				fadeMode: true,
 				dimming: 50,
+				background: false, // "/css/background.jpg",
+				monochrome: false, // 100,
+				resetMM: false,
 
 				sharpMode: true,
 				dateMode: true,
 
-				name1: "Paula!",
-				birthday1: "22.08",
-				name2: "Răzvan!",
-				birthday2: "13.10",
+				name1: "",
+				birthday1: "",
+				name2: "",
+				birthday2: "",
 				name3: "",
 				birthday3: ""
 			}
@@ -81,12 +81,13 @@ var config = {
 				showDate: false,
 				analogSize: "300px",
 				analogFace: "none",
-				secondsColor: "coral",
+				secondsColor: "coral"
 			}
 		},
 		{
 			module: "monthly",
 			position: "top_center",
+			classes: "day",
 			disabled: false,
 			config: {
 				startMonth: 0,
@@ -102,9 +103,10 @@ var config = {
 			module: 'jsontable',
 			position: 'top_center',
 			header: 'Consum casnic lunar',
+			classes: "day",
 			disabled: false,
 			config: {
-				url: "https://cristea13.ro/smartmirror/modules/jsontable/data.json",
+				url: "data.json",
 				arrayName: "2021",
 				tableClass: "small",
 				descriptiveRow: "<tr><td>Luna</td><td>Apa calda</td><td>Apa rece</td><td>kW</td></tr>"
@@ -126,77 +128,79 @@ var config = {
 		{
 			module: "lifecounter",
 			position: "top_left",
+			classes: "day",
 			disabled: false,
 			config: {
 				birthday: "1970-01-01 00:00:00",
 				counter: "seconds",
-				before: "UNIX System Epoch Time:",
+				before: "UNIX System Time:",
 				after: "seconds",
-				cssclass: "ssmall"
+				cssclass: "midget"
 			}
 		},
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "work",
+			classes: "work day",
 			disabled: false,
 			config: {
 				mode: "driving-traffic",
 				loadingText: "Se încarcă...",
-				firstLine: "Trafic estimat spre birou: {duration} minute",
-				accessToken: "...",
+					firstLine: "...",
+				accessToken: "...A",
 				originCoords: "...",
 				destinationCoords: "...",
-				days: [1, 2, 3, 4, 5],
+				days: [1, 2, 3, 4, 5]
+
 			}
 		},
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "home",
+			classes: "home day",
 			disabled: false,
 			config: {
 				mode: "driving-traffic",
 				loadingText: "Se încarcă...",
-				firstLine: "Trafic estimat spre casa: {duration} minute",
-				accessToken: "...",
+				firstLine: "...",
+				accessToken: "...A",
 				originCoords: "...",
 				destinationCoords: "...",
-				days: [1, 2, 3, 4, 5],
+				days: [1, 2, 3, 4, 5]
 			}
 		},
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "parc",
+			classes: "parc day",
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
-				firstLine: "Trafic până la parcul Titan: {duration} minute",
-				accessToken: "...",
+				firstLine: "...",
+				accessToken: "...A",
 				originCoords: "...",
 				destinationCoords: "...",
-				days: [6, 7],
+				days: [6, 7]
 			}
 		},
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "ikea",
+			classes: "ikea day",
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
-				firstLine: "Trafic până la Ikea Pallady: {duration} minute",
-				accessToken: "...",
+				firstLine: "...",
+				accessToken: "...A",
 				originCoords: "...",
 				destinationCoords: "...",
-				days: [6, 7],
+				days: [6, 7]
 			}
 		},
 		{
 			module: "swatch",
 			position: "top_left",
-			classes: "night",
+			classes: "day",
 			disabled: false,
 			config: {
 				logo_height: 27
@@ -205,16 +209,18 @@ var config = {
 		{
 			module: "simpletext",
 			position: "top_left",
+			classes: "day",
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
 				text: "",
-				cssClass: "small",
+				cssClass: "small"
 			}
 		},
 		{
 			module: "icalendar",
 			position: "top_left",
+			classes: "day",
 			disabled: false,
 			config: {
 				maximumEntries: 20,
@@ -235,28 +241,19 @@ var config = {
 							symbol: "moon",
 							url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
 						},
-						{
-							symbol: "registered",
-							url: "https://calendar.google.com/calendar/ical/.../basic.ics"
-						},
-						{
-							symbol: "product-hunt",
-							url: "https://calendar.google.com/calendar/ical/.../basic.ics"
-						},
-						{
-							symbol: "birthday-cake",
-							url: "https://calendar.google.com/calendar/ical/.../basic.ics"
-						},
-						{
-							symbol: "film",
-							url: "https://calendar.google.com/calendar/ical/.../basic.ics"
-						},
-						{
-							symbol: "suitcase",
-							url: "https://calendar.google.com/calendar/ical/.../basic.ics"
-						},
 					]
 				}
+			}
+		},
+		{
+			module: "simpletext",
+			position: "top_left",
+			classes: "day",
+			hiddenOnStartup: false,
+			disabled: false,
+			config: {
+				text: "&nbsp;<br><header class=\"module-header\">Scanează-mă pentru acces la Wi-Fi</header><img width=\"160px\" src=\"modules/simpletext/wifi.png\"> &nbsp; &nbsp; <img width=\"160px\" src=\"modules/simpletext/wifi2.png\">",
+				cssClass: "jsontable midget"
 			}
 		},
 		{
@@ -272,7 +269,7 @@ var config = {
 			module: "weatherforecast",
 			position: "top_right",
 			header: "Vremea în următoarele ore la",
-			classes: "hourly forecast ipad",
+			classes: "hourly forecast ipad day",
 			disabled: false,
 			config: {
 				maxNumberOfDays: 7,
@@ -282,7 +279,6 @@ var config = {
 				extra: false,
 				fallBack: true,
 				fullday: "HH [h]",
-				initialLoadDelay: 2500,
 				showRainAmount: true,
 				fadePoint: 0.5,
 				fade: false
@@ -292,7 +288,7 @@ var config = {
 			module: "weatherforecast",
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
-			classes: "daily forecast ipad",
+			classes: "daily forecast ipad day",
 			disabled: false,
 			config: {
 				maxNumberOfDays: 8,
@@ -308,18 +304,51 @@ var config = {
 			}
 		},
 		{
+			module: "weather",
+			position: "top_right",
+			classes: "night currentweather current",
+			disabled: true,
+			config: {
+				type: "current",
+				degreeLabel: false,
+				showPrecipitationAmount: false
+			}
+		},
+		{
+			module: "weather",
+			position: "top_right",
+			header: "Vremea în următoarele zile la",
+			classes: "daily weatherforecast forecast day",
+			disabled: true,
+			config: {
+				appendLocationNameToHeader: true,
+				type: "daily",
+				maxNumberOfDays: 15,
+				initialLoadDelay: 2000,
+				tableClass: "small"
+			}
+		},
+		{
+			module: "weather",
+			position: "top_right",
+			header: "Vremea în următoarele ore la",
+			classes: "hourly weatherforecast forecast day",
+			disabled: true,
+			config: {
+				appendLocationNameToHeader: true,
+				type: "hourly",
+				maxEntries: 15,
+				initialLoadDelay: 1000,
+				tableClass: "small"
+			}
+		},
+		{
 			module: "compliments",
 			position: "middle_center",
 			classes: "night",
 			disabled: false,
 			config: {
 				classes: "thin large pre-line complimentz skyblue",
-				morning: 5,
-				noon: 12,
-				afternoon: 14,
-				evening: 18,
-				night: 22,
-				midnight: 1,
 				compliments: {
 					anytime : [
 						"Orice faci, fă-o bine!",
@@ -429,9 +458,6 @@ var config = {
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Nori și ceață",
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Ceață și nori"
 					],
-					"14-02-...." : [
-						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
-					],
 					"30-10-...." : [
 						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
 					],
@@ -453,13 +479,14 @@ var config = {
 					"02-01-...." : [
 						"<i class=\"gold fa fa-glass-cheers\"></i> Un An Nou fericit!",
 						function() {return "La mulți ani! " + moment().format("YYYY");}
-					],
+					]
 				}
 			}
 		},
 		{
 			module: "quotes",
 			position: "lower_third",
+			classes: "day",
 			disabled: false,
 			config: {
 				updateInterval: 22500,
@@ -470,6 +497,7 @@ var config = {
 		{
 			module: "rssfeed",
 			position: "bottom_bar",
+			classes: "day",
 			disabled: false,
 			config: {
 				lengthDescription: 600,
@@ -481,11 +509,10 @@ var config = {
 					"News.ro"	: "https://www.news.ro/rss",
 					"MainNews"	: "https://mainnews.ro/feed",
 					"Ziare.com"	: "https://www.ziare.com/rss/12h.xml",
-					"Agerpress"	: "https://www.agerpres.ro/home.rss",
 				//	"HotNews"	: "https://www.hotnews.ro/rss",
 				//	"Digi24"	: "https://www.digi24.ro/rss",
 					},
-				feedMaxAge: {days: 0, hours: 12},
+				feedMaxAge: {days: 0, hours: 12}
 			}
 		},
 		{
@@ -501,7 +528,7 @@ var config = {
 				aspect: 9/16,
 				cssClass: "fishtank"
 			}
-		},
+		}
 	]
 };
 
