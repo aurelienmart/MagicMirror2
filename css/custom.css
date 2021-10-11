@@ -286,11 +286,11 @@ header {
 
 .region.bottom.right, .region.bottom.left,
 .region.top.right, .region.top.left {
-	width: 350px;
+	width: 33%;
 }
 
 .region.bottom.center, .region.top.center {
-	width: 300px;
+	width: 30%;
 }
 
 .region table {
