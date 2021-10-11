@@ -67,12 +67,12 @@ in firstLine/secondLine._
 ### Per Day/Time Customization
 
 Using these options to hide the module when you're not using it will save API calls,
-allowing you to have a shorter interval or more MMM-Traffic modules without getting
+allowing you to have a shorter interval or more traffic modules without getting
 rate limited.
 
 | Option       | Description                                                              | Type       | Default                 |
 | ------------ | ------------------------------------------------------------------------ | ---------- | ----------------------- |
-| `days`       | Which days of the week to show the traffic module, with 1 being Monday   | Array[int] | `[1, 2, 3, 4, 5, 6, 7]` |
+| `days`       | Which days of the week to show the traffic module, with 0 being Sunday   | Array[int] | `[0, 1, 2, 3, 4, 5, 6]` |
 | `hoursStart` | What time to begin showing the module on the days it shows, 24 hour time | String | `"00:00"`                 |
 | `hoursEnd`   | What time to stop showing the module on the days it shows, 24 hour time  | String | `"23:59"`                 |
 
@@ -171,7 +171,7 @@ be completely hidden on weekends.
 		destinationCoords: "-84.504259,33.88210",
 		firstLine: "{duration} mins",
 		secondLine: "School",
-		days: [1,3,5],
+		days: [0,2,4],
 		hoursStart: "07:00",
 		hoursEnd: "09:00"
 	}
@@ -185,7 +185,7 @@ be completely hidden on weekends.
 		destinationCoords: "-84.504259,33.88210",
 		firstLine: "{duration} mins",
 		secondLine: "Work",
-		days: [2,4],
+		days: [1,3],
 		hoursStart: "07:00",
 		hoursEnd: "09:00"
 	}
