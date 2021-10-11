@@ -469,9 +469,8 @@ var Module = Class.extend({
 		callback = callback || function () {};
 		options = options || {};
 
-		var self = this;
+		this.resume();
 		MM.showModule(this, speed, function() {
-				self.resume();
 				callback();
 			}, options
 		);
