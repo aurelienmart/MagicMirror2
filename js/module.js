@@ -217,7 +217,7 @@ var Module = Class.extend({
 	 */
 
 	hideAnimation: function (moduleWrapper, speed) {
-		moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
+		moduleWrapper.style.transition = "opacity " + speed / config.transition + "s";
 		moduleWrapper.style.opacity = 0;
 
 		var keyframe = [
@@ -238,7 +238,7 @@ var Module = Class.extend({
 	 */
 
 	showAnimation: function (moduleWrapper, speed) {
-		moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
+		moduleWrapper.style.transition = "opacity " + speed / config.transition + "s";
 		moduleWrapper.style.opacity = 1;
 
     	var keyframe = [
@@ -446,15 +446,10 @@ var Module = Class.extend({
 		options = options || {};
 
 		var self = this;
-		MM.hideModule(
-			self,
-			speed,
-			function () {
-				self.suspend();
-				callback();
-			},
-			options
-		);
+		MM.hideModule(this, speed, function () {
+			self.suspend();
+			callback;
+		}, options);
 	},
 
 	/**
@@ -474,15 +469,10 @@ var Module = Class.extend({
 		options = options || {};
 
 		var self = this;
-		MM.showModule(
-			self,
-			speed,
-			function () {
-				self.resume();
-				callback();
-			},
-			options
-		);
+		MM.showModule(this, speed, function () {
+			self.resume();
+			callback;
+		}, options);
 	}
 });
 

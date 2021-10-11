@@ -255,7 +255,7 @@ var MM = (function () {
 	 */
 	var hideModule = function (module, speed, callback, options) {
 		var defaultAnimation = function (moduleWrapper, speed) {
-			moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
+			moduleWrapper.style.transition = "opacity " + speed / config.transition + "s";
 			moduleWrapper.style.opacity = 0;
 		};
 		options = options || {};
@@ -270,8 +270,6 @@ var MM = (function () {
 
 		var moduleWrapper = document.getElementById(module.identifier);
 		if (moduleWrapper !== null) {
-		//	moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
-		//	moduleWrapper.style.opacity = 0;
 
 			if (typeof options.animation === "function") {
 				options.animation({ moduleWrapper, module, speed });
@@ -311,7 +309,7 @@ var MM = (function () {
 	 */
 	var showModule = function (module, speed, callback, options) {
 		const defaultAnimation = function (moduleWrapper, speed) {
-			moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
+			moduleWrapper.style.transition = "opacity " + speed / config.transition + "s";
 			moduleWrapper.style.opacity = 1;
 		};
 		options = options || {};
@@ -344,7 +342,6 @@ var MM = (function () {
 
 		var moduleWrapper = document.getElementById(module.identifier);
 		if (moduleWrapper !== null) {
-		//	moduleWrapper.style.transition = "opacity " + speed / 1000 + "s";
 			// Restore the position. See hideModule() for more info.
 			moduleWrapper.style.position = "static";
 
@@ -352,7 +349,6 @@ var MM = (function () {
 
 			// Waiting for DOM-changes done in updateWrapperStates before we can start the animation.
 			var dummy = moduleWrapper.parentElement.parentElement.offsetHeight;
-		//	moduleWrapper.style.opacity = 1;
 
 			if (typeof options.animation === "function") {
 				options.animation({ moduleWrapper, module, speed });
