@@ -499,6 +499,9 @@ var config = {
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Nori și ceață",
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Ceață și nori"
 					],
+					"14-02-...." : [
+						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
+					],
 					"30-10-...." : [
 						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
 					],
