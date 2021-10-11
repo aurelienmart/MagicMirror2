@@ -92,22 +92,21 @@ Module.register("timer", {
 		var comp = Array.from(document.querySelectorAll(".complimentz"));
 		var fish = Array.from(document.querySelectorAll(".yframe"));
 		var body = Array.from(document.querySelectorAll("body"));
-		var trans = "all " + config.transition + "ms ease-in-out";
 
 		if (window.innerWidth <= size) { resize();
 			if ((this.config.zoomMode) && (navigator.appVersion.match(/iPad/))) {
 				if (now >= midnight && now < morning) { night_mode();
-					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size * 1.53 + ")", element.style.transition = trans;});
-				} else { day_mode();
-					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size + ")", element.style.transition = trans;});
-				}
-			} else { day_mode();
-				body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size + ")", element.style.transition = trans;});
-			}
+					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size * 1.53 + ")";});
+				} else { day_mode(); scaling();}
+			} else { day_mode(); scaling();}
 		}
 
-		function resize() {	
-			body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / size) + "px", element.style.minWidth = size + "px", element.style.transition = trans;});
+		function resize() {
+			body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / size) + "px", element.style.minWidth = size + "px";});
+		}
+
+		function scaling() {
+			body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size + ")";});
 		}
 
 		function day_mode() { resize();
@@ -115,10 +114,10 @@ Module.register("timer", {
 		//		module.show(1000, {force: true});
 			});
 
-			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)", element.style.textAlign = "inherit", element.style.transition = trans;});
-			comp.forEach(function(element) {return element.style.width = "inherit", element.style.transform = "scale(1)", element.style.transition = trans;});
-			show.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static", element.style.transition = trans;});
-			fish.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed", element.style.transition = trans;});
+			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)", element.style.textAlign = "inherit";});
+			comp.forEach(function(element) {return element.style.width = "inherit", element.style.transform = "scale(1)";});
+			show.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static";});
+			fish.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed";});
 		}
 
 		function night_mode() { resize();
@@ -126,10 +125,10 @@ Module.register("timer", {
 		//		module.hide(1000);
 			});
 
-			weat.forEach(function(element) {return element.style.transform = "translate(-715px, 250px)", element.style.textAlign = "left", element.style.transition = trans;});
-			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-100%) scale(0.6)", element.style.transition = trans;});
-			hide.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed", element.style.transition = trans;}); 
-			fish.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static", element.style.transition = trans;});
+			weat.forEach(function(element) {return element.style.transform = "translate(-715px, 250px)", element.style.textAlign = "left";});
+			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-100%) scale(0.6)";});
+			hide.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed";}); 
+			fish.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static";});
 		}
 	},
 
