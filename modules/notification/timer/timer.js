@@ -6,6 +6,9 @@
  * for iPad 3 & HD display
  * https://github.com/hangorazvan
  */
+
+"use strict";
+
 Module.register("timer", {
 
 	defaults: {
@@ -29,18 +32,23 @@ Module.register("timer", {
 
 	start: function () {
 		Log.info("Starting module: " + this.name);
+	},
+
+	notificationReceived: function (notification, payload, sender) {
 		var self = this;
-		setInterval(function () {
-			self.variables();
-			self.timer();
-			self.dimmer();
-			self.notification();
-		}, 1000);
+		if (notification === "DOM_OBJECTS_CREATED") {
+			setInterval(function () {
+				self.variables();
+				self.timer();
+				self.dimmer();
+				self.notification();
+			}, 1000);
+		}
 	},
 
 	variables: function () {
 		this.now = moment().format("HH:mm:ss"); this.date = moment().format("DD.MM mm:ss");
-		this.mins = moment().format("m"); this.secs = moment().format("s");
+		this.mins = moment().format("m"); this.secs = moment().format("s"); 
 		this.grayscale = this.config.dimming; this.opacity = (1 - this.grayscale / 100).toPrecision(2);
 
 		if (this.config.debugging!==false) {
@@ -76,39 +84,45 @@ Module.register("timer", {
 	},
 
 	timer: function () {
-		var now = this.now; var midnight = this.midnight; 
-		var morning = this.morning; var self = this;
-		var hide = Array.from(document.querySelectorAll(".module:not(.night)"));
+		var now = this.now; var midnight = this.midnight; var size = this.config.bodysize
+		var morning = this.morning; var mins = this.mins; var self = this;
+		var hide = Array.from(document.querySelectorAll(".module:not(.night), .day"));
 		var icon = Array.from(document.querySelectorAll(".wicon"));
 		var weat = Array.from(document.querySelectorAll(".currentweather"));
 		var comp = Array.from(document.querySelectorAll(".complimentz"));
 		var fish = Array.from(document.querySelectorAll(".yframe"));
 		var body = Array.from(document.querySelectorAll("body"));
 
-		body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / self.config.bodysize) + "px", element.style.minWidth = self.config.bodysize + "px"});
-
-		if (window.innerWidth < this.config.bodysize) { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"});
-			if (this.config.zoomMode) {
-				if (now >= midnight && now < morning) { night_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize * 1.53 + ")"})} 
-					else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / self.config.bodysize + ")"})}
+		if (window.innerWidth <= size) { resize();
+			if ((this.config.zoomMode) && (navigator.appVersion.match(/iPad/))) {
+				if (now >= midnight && now < morning) { night_mode();
+					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size * 1.53 + ")";});
+				} else { day_mode();
+					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size + ")";});
 				}
-			} else { day_mode(); body.forEach(function(element) {return element.style.transform = "scale(1)"})
+			} else { day_mode();
+				body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size + ")";});
+			}
 		}
 
-		function day_mode() { // because this is better that stupid show.module
+		function resize() {	
+			body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / size) + "px", element.style.minWidth = size + "px";});
+		}
+
+		function day_mode() { resize();
 			hide.forEach(function(element) {return element.style.display = "inherit";}); 
-			icon.forEach(function(element) {return element.style.float = "left"});
-			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)", element.style.textAlign = "inherit"});
-			comp.forEach(function(element) {return element.style.width = "inherit", element.style.transform = "scale(1)"});
-			fish.forEach(function(element) {return element.style.display = "none"});
+			icon.forEach(function(element) {return element.style.float = "left";});
+			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)", element.style.textAlign = "inherit";});
+			comp.forEach(function(element) {return element.style.width = "inherit", element.style.transform = "scale(1)";});
+			fish.forEach(function(element) {return element.style.display = "none";});
 		}
 
-		function night_mode() { // because this is better that stupid hide.module
-			hide.forEach(function(element) {return element.style.display = "none"}); 
-			icon.forEach(function(element) {return element.style.float = "right"});
-			weat.forEach(function(element) {return element.style.transform = "translate(-730px, 280px)", element.style.textAlign = "left"});
-			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-125%) scale(0.6)"});
-			fish.forEach(function(element) {return element.style.display = "block"});
+		function night_mode() { resize();
+			hide.forEach(function(element) {return element.style.display = "none";}); 
+			icon.forEach(function(element) {return element.style.float = "right";});
+			weat.forEach(function(element) {return element.style.transform = "translate(-715px, 250px)", element.style.textAlign = "left";});
+			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-100%) scale(0.6)";});
+			fish.forEach(function(element) {return element.style.display = "block";});
 		}
 	},
 
@@ -117,32 +131,32 @@ Module.register("timer", {
 		var gray1 = this.gray1; var gray2 = this.gray2; var opac1 = this.opac1;
 		var opac2 = this.opac2; var night = this.night; var midnight = this.midnight;
 		var morning = this.morning; var before = this.before; var after = this.after;
-		var body = Array.from(document.querySelectorAll("body"));
+		var body = Array.from(document.querySelectorAll("body")); var self = this;
 
 		if (this.config.background) {
-			body.forEach(function(element) {return element.style.backgroundImage = "url(\"css/background.jpg\")", element.style.backgroundSize = "cover"});
+			body.forEach(function(element) {return element.style.backgroundImage = "url(" + self.config.background + ")", element.style.backgroundSize = "cover";});
 		}
 
 		if (this.config.monochrome) {
-			body.forEach(function(element) {return element.style.filter = "grayscale(100%)"});
+			body.forEach(function(element) {return element.style.filter = "grayscale(" + self.config.monochrome +"%)";});
+			this.config.nightMode = false;
 		}
 
 		if (this.config.nightMode) {
-			if (this.config.dimmMode) {
-				if (this.config.fadeMode) {
-					if (now >= before && now < night) {
-						body.forEach(function(element) {return element.style.opacity = opac1, element.style.filter = "grayscale(" + gray1 + "%)"})
-						this.sendNotification("NIGHT_NOTIFICATION", this.gray1)
-					} else if (now >= midnight && now < morning) {
-						body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)"})
-					} else if (now >= morning && now < after) {
-						body.forEach(function(element) {return element.style.opacity = opac2, element.style.filter = "grayscale(" + gray2 + "%)"})
-						this.sendNotification("NIGHT_NOTIFICATION", this.gray2)
-					} else { body.forEach(function(element) {return element.style.opacity = "1", element.style.filter = "grayscale(0%)"})}
-				} else { if (now >= midnight && now < morning) {
-						body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)"})
-					} else {body.forEach(function(element) {return element.style.opacity = "1", element.style.filter = "grayscale(0%)"})}
-				}
+			if (this.config.fadeMode) {
+				if (now >= before && now < night) {
+					body.forEach(function(element) {return element.style.opacity = opac1, element.style.filter = "grayscale(" + gray1 + "%)";});
+					self.sendNotification("NIGHT_NOTIFICATION", gray1);
+				} else if (now >= midnight && now < morning) {
+					body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)";});
+				} else if (now >= morning && now < after) {
+					body.forEach(function(element) {return element.style.opacity = opac2, element.style.filter = "grayscale(" + gray2 + "%)";});
+					self.sendNotification("NIGHT_NOTIFICATION", gray1);
+				} else { body.forEach(function(element) {return element.style.opacity = "1", element.style.filter = "grayscale(0%)";});}
+			} else { if (now >= midnight && now < morning) {
+					body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)";});
+					self.sendNotification("NIGHT_NOTIFICATION", gray1);
+				} else {body.forEach(function(element) {return element.style.opacity = "1", element.style.filter = "grayscale(0%)";});}
 			}
 		}
 	},
@@ -158,53 +172,49 @@ Module.register("timer", {
 		}
 
 		if (secs == "58") {
-			if (window.navigator.onLine == true) {
-				if (this.config.nightMode) {
-					if ((now >= "23:00:00") && (now < "23:59:59") || (now >= "06:00:00") && (now < "06:59:59")) {
-						this.sendNotification("NIGHT_ONLINE_NOTIFICATION", this.opacity)
-					} else this.sendNotification("DAY_ONLINE_NOTIFICATION")
-				} else this.sendNotification("DAY_ONLINE_NOTIFICATION")
-			} else if (window.navigator.onLine == false) {
-				this.sendNotification("OFFLINE_NOTIFICATION")
+			if (navigator.onLine == true) {
+				this.sendNotification("ONLINE_NOTIFICATION");
+			} else if (navigator.onLine == false) {
+				this.sendNotification("OFFLINE_NOTIFICATION");
 			}
 		}
 
 		if (this.config.sharpMode) {
 			if ((now == "23:00:00") || (now == "00:00:00") || (now == "01:00:00")) {
-				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Good night!")})
+				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Good night!")});
 			} else if (now == "02:00:00" || now == "03:00:00" || now == "04:00:00") {
-				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Sleep well!")})
+				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Sleep well!")});
 			} else if (now == "05:00:00" || now == "06:00:00" || now == "07:00:00" ||
 				now == "08:00:00" || now == "09:00:00" || now == "10:00:00" || now == "11:00:00") {
-				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Good morning!")})
+				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Good morning!")});
 			} else if (now == "12:00:00" || now == "13:00:00" || now == "14:00:00") {
-				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Bon appetit!")})
+				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Bon appetit!")});
 			} else if (now == "15:00:00" || now == "16:40:00" || now == "17:00:00") {
-				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Have a nice day!")})
+				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Have a nice day!")});
 			} else if (now == "18:00:00" || now == "19:00:00" || now == "20:00:00" || now == "21:00:00" || now == "22:00:00") {
-				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Have a nice evening!")})
+				this.sendNotification("DAY_NOTIFICATION", {title: sharp, notification: this.translate("Have a nice evening!")});
 			}
 		}
 
 		if (this.config.dateMode) { 
 			if (date == "25.12 00:10" || date == "26.12 00:10") {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"fa fa-gifts yellow\"></i> "
-				+ this.translate("Marry Christmas!"), notification: this.translate("Happy holidays with many joys!"), timer: 14000})
+				+ this.translate("Marry Christmas!"), notification: this.translate("Happy holidays with many joys!"), timer: 14000});
 			} else if (date == "01.01 00:10" || date == "02.01 00:10") {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"fa fa-glass-cheers yellow\"></i> "
-				+ this.translate("Happy New Year ") + moment().format("YYYY") + "!", notification: this.translate("A good new year and good health!"), timer: 14000})
+				+ this.translate("Happy New Year ") + moment().format("YYYY") + "!", notification: this.translate("A good new year and good health!"), timer: 14000});
 			} else if (date == "14.02 00:10") {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"far fa-heart orangered\"></i> "
-				+ "Happy Valentine's Day!", notification: this.translate("Happy Valentine's Day!"), timer: 14000})
+				+ "Happy Valentine's Day!", notification: this.translate("Happy Valentine's Day!"), timer: 14000});
 			} else if (date == this.config.birthday1 + " 00:10") {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"fa fa-birthday-cake yellow\"></i> "
-				+ this.translate("Happy Birthday, ") + this.config.name1, notification: this.translate("Good health and be happy! F"), timer: 14000})
+				+ this.translate("Happy Birthday, ") + this.config.name1, notification: this.translate("Good health and be happy! F"), timer: 14000});
 			} else if (date == this.config.birthday2 + " 00:10") {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"fa fa-birthday-cake yellow\"></i> "
-				+ this.translate("Happy Birthday, ") + this.config.name2, notification: this.translate("Good health and be happy! M"), timer: 14000})
+				+ this.translate("Happy Birthday, ") + this.config.name2, notification: this.translate("Good health and be happy! M"), timer: 14000});
 			} else if (date == this.config.birthday3 + " 00:10") {
 				this.sendNotification("DAY_NOTIFICATION", {title: "<i class=\"fa fa-birthday-cake yellow\"></i> "
-				+ this.translate("Happy Birthday, ") + this.config.name3, notification: this.translate("Good health and be happy! M"), timer: 14000})
+				+ this.translate("Happy Birthday, ") + this.config.name3, notification: this.translate("Good health and be happy! M"), timer: 14000});
 			}
 		}
 	}

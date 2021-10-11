@@ -69,39 +69,37 @@ Module.register("notification", {
 
 			setTimeout(function () {
 				self.onLine();
-			},	this.config.timer);
-		}
-
-		if (notification === "DAY_ONLINE_NOTIFICATION") {this.onLine();}
-
-		if (notification === "OFFLINE_NOTIFICATION") {this.offLine();}
-
-		if (notification === "NIGHT_ONLINE_NOTIFICATION") {
-			this.notification = this.translate("Dimmed night mode ") + parseInt(payload) + "%";
-			this.updateDom(this.config.animationSpeed);
-		}
-		
-		if (notification === "DAY_NOTIFICATION") {
-			if (typeof payload.title === "undefined") {
-				payload.title = this.config.startTitle;
-			} else this.title = payload.title;
-
-			if (typeof payload.notification === "undefined") {
-				payload.notification = this.translate(this.config.startNotification);
-			} else this.notification = payload.notification;
-
-			if (typeof payload.timer === "undefined") {
-				payload.timer = this.config.timer;
-			} else this.config.timer = payload.timer;
-			this.updateDom(this.config.animationSpeed);
-
-			setTimeout(function () {
-				self.onLine();
 			}, this.config.timer);
-		}
 
-		if (notification === "HIDE_NOTIFICATION") {
-			this.onLine();
+			if (notification === "ONLINE_NOTIFICATION") {this.onLine();}
+
+			if (notification === "OFFLINE_NOTIFICATION") {this.offLine();}
+
+			if (notification === "NIGHT_NOTIFICATION") {
+				this.notification = this.translate("Dimmed night mode ") + parseInt(payload) + "%";
+				this.updateDom();
+			}
+			
+			if (notification === "DAY_NOTIFICATION") {
+				if (typeof payload.title === "undefined") {
+					payload.title = this.config.startTitle;
+				} else this.title = payload.title;
+
+				if (typeof payload.notification === "undefined") {
+					payload.notification = this.translate(this.config.startNotification);
+				} else this.notification = payload.notification;
+
+				if (typeof payload.timer === "undefined") {
+					payload.timer = this.config.timer;
+				} else this.config.timer = payload.timer;
+				this.updateDom(this.config.animationSpeed);
+
+				setTimeout(function () {
+					self.onLine();
+				}, this.config.timer);
+			}
+
+			if (notification === "HIDE_NOTIFICATION") {this.onLine();}
 		}
 	}
 });

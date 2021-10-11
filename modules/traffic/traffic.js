@@ -106,7 +106,7 @@ Module.register("traffic", {
 		}
 	},
 
-	updateCommute: async function () {
+	updateCommute: function () {
 		var mode = this.config.mode == "driving" ? "driving-traffic" : this.config.mode;
 		this.url = encodeURI("https://api.mapbox.com/directions/v5/mapbox/" + mode + "/" + this.config.originCoords + ";" + this.config.destinationCoords + "?access_token=" + this.config.accessToken);
 
