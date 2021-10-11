@@ -61,15 +61,13 @@ var config = {
 			disabled: false,
 			config: {
 				bodysize: 1080,
-				zoomMode: false,
-				nightMode: false,
-				background: false,
-				monochrome: false,
-				resetMM: true,
-
-				dimmMode: true,
+				zoomMode: true,
+				nightMode: true,
 				fadeMode: true,
 				dimming: 50,
+				background: false, // "/css/background.jpg",
+				monochrome: false, // 100,
+				resetMM: false,
 
 				sharpMode: true,
 				dateMode: true,
