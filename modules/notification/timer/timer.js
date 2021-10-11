@@ -84,7 +84,7 @@ Module.register("timer", {
 	},
 
 	timer: function () {
-		var now = this.now; var midnight = this.midnight; var size = this.config.bodysize
+		var now = this.now; var midnight = this.midnight; var size = this.config.bodysize;
 		var morning = this.morning; var mins = this.mins; var self = this;
 		var hide = Array.from(document.querySelectorAll(".module:not(.night)"));
 		var show = Array.from(document.querySelectorAll(".day"));
