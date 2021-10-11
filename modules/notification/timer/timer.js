@@ -12,7 +12,7 @@
 Module.register("timer", {
 
 	defaults: {
-		debugging: 15
+		debugging: false
 	},
 
 	getScripts: function () {
@@ -111,9 +111,9 @@ Module.register("timer", {
 		}
 
 		function day_mode() { resize();
-		//	MM.getModules().withClass("night, day").enumerate(function(module) {
+			MM.getModules().exceptWithClass("ipad ical rss").withClass("night day").enumerate(function(module) {
 		//		module.show(1000, {force: true});
-		//	});
+			});
 
 			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)", element.style.textAlign = "inherit", element.style.transition = trans;});
 			comp.forEach(function(element) {return element.style.width = "inherit", element.style.transform = "scale(1)", element.style.transition = trans;});
@@ -122,9 +122,9 @@ Module.register("timer", {
 		}
 
 		function night_mode() { resize();
-		//	MM.getModules().exceptWithClass("night").withClass("day").enumerate(function(module) {
+			MM.getModules().exceptWithClass("night").withClass("day").enumerate(function(module) {
 		//		module.hide(1000);
-		//	});
+			});
 
 			weat.forEach(function(element) {return element.style.transform = "translate(-715px, 250px)", element.style.textAlign = "left", element.style.transition = trans;});
 			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-100%) scale(0.6)", element.style.transition = trans;});
