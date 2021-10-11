@@ -433,6 +433,27 @@ header {
 
 /* Clock */
 
+.clockGrid {
+  display: inline-flex;
+  gap: 0;
+}
+
+.clockGrid--left {
+  flex-direction: row;
+}
+
+.clockGrid--right {
+  flex-direction: row-reverse;
+}
+
+.clockGrid--top {
+  flex-direction: column;
+}
+
+.clockGrid--bottom {
+  flex-direction: column-reverse;
+}
+
 .clock .date {
 	text-align: left;
 }
@@ -549,13 +570,6 @@ header {
 .clock .brightness {
   margin-left: 10px;
   margin-right: -10px;
-}
-
-.lunartic .photo {
-	position: absolute;
-	top: -66px;
-	left: 4px;
-	width: 27px;
 }
 
 /* swatch */
@@ -1269,6 +1283,7 @@ header {
 	.swatch {
 		filter: opacity(85%);
 		padding: 1px 0;
+		margin-top: -5px;
 	}
 }
 
