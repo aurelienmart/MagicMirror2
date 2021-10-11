@@ -3,7 +3,7 @@
 https://github.com/hangorazvan/notification
 
 MagicMirror 2 Notification receiver, dimmer, alert & timer trigger for my own use on iPad3, 
-because the default alert module is full of shit!
+because the default alert module is full of shit! Timer is working in background.
 This module is no longer maintained, will not have any improvements or bug fixes.
 
 All settings inside of module or in config.js
@@ -32,12 +32,11 @@ All settings inside of module or in config.js
 
 			bodysize: 1080,		// Minimum window width
 			nightMode: true,	// zoomed night mode for iPad 3
-			background: false,
-			monochrome: false,
-			resetMM: true,
+			background: false,	// background picture, "/css/background.jpg",
+			monochrome: false,	// monochrome display, 100,
+			resetMM: true,		// reload at 4 A.M.
 
 			fadeMode: true,		// fade to dimmed mode over night and back in the morning
-			dimmMode: true,		// dimmed mode over night
 			dimming: 40,		// 0 = opacity 1, 100 = opacity 0, 40 = opacity 0.6
 
 			sharpMode: true,	// hourly alert notification
