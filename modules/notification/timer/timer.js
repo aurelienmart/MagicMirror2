@@ -12,7 +12,7 @@
 Module.register("timer", {
 
 	defaults: {
-		debugging: false
+		debugging: 15
 	},
 
 	getScripts: function () {
@@ -86,43 +86,50 @@ Module.register("timer", {
 	timer: function () {
 		var now = this.now; var midnight = this.midnight; var size = this.config.bodysize
 		var morning = this.morning; var mins = this.mins; var self = this;
-		var hide = Array.from(document.querySelectorAll(".module:not(.night), .day"));
-		var icon = Array.from(document.querySelectorAll(".wicon"));
-		var weat = Array.from(document.querySelectorAll(".currentweather"));
+		var hide = Array.from(document.querySelectorAll(".module:not(.night)"));
+		var show = Array.from(document.querySelectorAll(".day"));
+		var weat = Array.from(document.querySelectorAll(".current"));
 		var comp = Array.from(document.querySelectorAll(".complimentz"));
 		var fish = Array.from(document.querySelectorAll(".yframe"));
 		var body = Array.from(document.querySelectorAll("body"));
+		var trans = "all " + config.transition + "ms ease-in-out";
 
 		if (window.innerWidth <= size) { resize();
 			if ((this.config.zoomMode) && (navigator.appVersion.match(/iPad/))) {
 				if (now >= midnight && now < morning) { night_mode();
-					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size * 1.53 + ")";});
+					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size * 1.53 + ")", element.style.transition = trans;});
 				} else { day_mode();
-					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size + ")";});
+					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size + ")", element.style.transition = trans;});
 				}
 			} else { day_mode();
-				body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size + ")";});
+				body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size + ")", element.style.transition = trans;});
 			}
 		}
 
 		function resize() {	
-			body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / size) + "px", element.style.minWidth = size + "px";});
+			body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / size) + "px", element.style.minWidth = size + "px", element.style.transition = trans;});
 		}
 
 		function day_mode() { resize();
-			hide.forEach(function(element) {return element.style.display = "inherit";}); 
-			icon.forEach(function(element) {return element.style.float = "left";});
-			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)", element.style.textAlign = "inherit";});
-			comp.forEach(function(element) {return element.style.width = "inherit", element.style.transform = "scale(1)";});
-			fish.forEach(function(element) {return element.style.display = "none";});
+		//	MM.getModules().withClass("night, day").enumerate(function(module) {
+		//		module.show(1000, {force: true});
+		//	});
+
+			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)", element.style.textAlign = "inherit", element.style.transition = trans;});
+			comp.forEach(function(element) {return element.style.width = "inherit", element.style.transform = "scale(1)", element.style.transition = trans;});
+			show.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static", element.style.transition = trans;});
+			fish.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed", element.style.transition = trans;});
 		}
 
 		function night_mode() { resize();
-			hide.forEach(function(element) {return element.style.display = "none";}); 
-			icon.forEach(function(element) {return element.style.float = "right";});
-			weat.forEach(function(element) {return element.style.transform = "translate(-715px, 250px)", element.style.textAlign = "left";});
-			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-100%) scale(0.6)";});
-			fish.forEach(function(element) {return element.style.display = "block";});
+		//	MM.getModules().exceptWithClass("night").withClass("day").enumerate(function(module) {
+		//		module.hide(1000);
+		//	});
+
+			weat.forEach(function(element) {return element.style.transform = "translate(-715px, 250px)", element.style.textAlign = "left", element.style.transition = trans;});
+			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-100%) scale(0.6)", element.style.transition = trans;});
+			hide.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed", element.style.transition = trans;}); 
+			fish.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static", element.style.transition = trans;});
 		}
 	},
 
