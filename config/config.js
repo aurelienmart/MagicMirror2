@@ -27,7 +27,7 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
- 	appid: "...",
+ 	appid: '',
 	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5/",
 	roundTemp: false,
@@ -35,13 +35,14 @@ var config = {
 	scale: true,
 	delay: 2000,
 	animation: 2000,
+	transition: 1000,
 	customAnimation: false,
 	header: true,
 	notification: false,
-	minVersion: "2.16.0",
+	minVersion: "2.1.0",
 	serverOnly: true,
 	DeepMerge: true,
-	logLevel: ["INFO", "LOG", "WARN"],
+	logLevel: ["INFO", "LOG", "WARN"], // "DEBUG", "INFO", "LOG", "WARN", "ERROR"
 
 	modules: [
 		{
@@ -57,26 +58,25 @@ var config = {
 		},
 		{
 			module: "notification/timer",
+			classes: "night",
 			disabled: false,
 			config: {
 				bodysize: 1080,
-				zoomMode: false,
-				nightMode: false,
-				background: false,
-				monochrome: false,
-				resetMM: true,
-
-				dimmMode: true,
+				zoomMode: true,
+				nightMode: true,
 				fadeMode: true,
 				dimming: 50,
+				background: false, // "/css/background.jpg",
+				monochrome: false, // 100,
+				resetMM: false,
 
 				sharpMode: true,
 				dateMode: true,
 
-				name1: "Paula!",
-				birthday1: "22.08",
-				name2: "Răzvan!",
-				birthday2: "13.10",
+				name1: "",
+				birthday1: "",
+				name2: "",
+				birthday2: "",
 				name3: "",
 				birthday3: ""
 			}
@@ -97,6 +97,7 @@ var config = {
 		{
 			module: "monthly",
 			position: "top_center",
+			classes: "day",
 			disabled: false,
 			config: {
 				startMonth: 0,
@@ -112,10 +113,10 @@ var config = {
 			module: 'jsontable',
 			position: 'top_center',
 			header: 'Consum casnic lunar',
+			classes: "day",
 			disabled: false,
 			config: {
-			//	url: "http://192.168.1.200:8081/modules/jsontable/data.json",
-				url: "http://localhost:8081/modules/jsontable/data.json",
+				url: "data.json",
 				arrayName: "2021",
 				tableClass: "small",
 				descriptiveRow: "<tr><td>Luna</td><td>Apa calda</td><td>Apa rece</td><td>kW</td></tr>"
@@ -135,43 +136,27 @@ var config = {
 			}
 		},
 		{
-			module: "lunartic",
-			position: "top_left",
-			classes: "night",
-			disabled: false,
-			config: {
-				mode: "static",
-				image: "current",
-				useHeader: false,
-				distance: "km",
-				sounds: "no",
-				initialLoadDelay: 4000,
-				retryDelay: 2500,
-				updateInterval: 60 * 60 * 1000,
-				rotateInterval: 60 * 1000
-			}
-		},
-		{
 			module: "lifecounter",
 			position: "top_left",
+			classes: "day",
 			disabled: false,
 			config: {
 				birthday: "1970-01-01 00:00:00",
 				counter: "seconds",
-				before: "UNIX System Epoch Time:",
+				before: "UNIX System Time:",
 				after: "seconds",
-				cssclass: "small"
+				cssclass: "midget"
 			}
 		},
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "work",
+			classes: "work day",
 			disabled: false,
 			config: {
 				mode: "driving-traffic",
 				loadingText: "Se încarcă...",
-				firstLine: "Trafic estimat până la birou: {duration} minute",
+				firstLine: "...",
 				accessToken: "...",
 				originCoords: "...",
 				destinationCoords: "...",
@@ -182,12 +167,12 @@ var config = {
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "home",
+			classes: "home day",
 			disabled: false,
 			config: {
 				mode: "driving-traffic",
 				loadingText: "Se încarcă...",
-				firstLine: "Trafic estimat până acasa: {duration} minute",
+				firstLine: "...",
 				accessToken: "...",
 				originCoords: "...",
 				destinationCoords: "...",
@@ -197,11 +182,11 @@ var config = {
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "parc",
+			classes: "parc day",
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
-				firstLine: "Trafic până la parcul Titan: {duration} minute",
+				firstLine: "...",
 				accessToken: "...",
 				originCoords: "...",
 				destinationCoords: "...",
@@ -211,11 +196,11 @@ var config = {
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "ikea",
+			classes: "ikea day",
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
-				firstLine: "Trafic până la Ikea Pallady: {duration} minute",
+				firstLine: "...",
 				accessToken: "...",
 				originCoords: "...",
 				destinationCoords: "...",
@@ -225,7 +210,7 @@ var config = {
 		{
 			module: "swatch",
 			position: "top_left",
-			classes: "night",
+			classes: "day",
 			disabled: false,
 			config: {
 				logo_height: 27
@@ -234,10 +219,11 @@ var config = {
 		{
 			module: "calendar",
 			position: "top_left",
+			classes: "day",
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
-				maximumEntries: 20,
+				maximumEntries: 11,
 				displayRepeatingCountTitle: true,
 				fetchInterval: 60 * 1000,
 				fade: false,
@@ -273,27 +259,18 @@ var config = {
 						symbol: "moon", symbolClass: "normal", // titleClass: "normal", timeClass: "normal", color: "normal",
 						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
 					},
-					{
-						symbol: "registered", symbolClass: "lightgreen", // titleClass: "lightgreen", timeClass: "lightgreen", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
-					},
-					{
-						symbol: "product-hunt", symbolClass: "tomato", // titleClass: "tomato", timeClass: "tomato", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
-					},
-					{
-						symbol: "birthday-cake", symbolClass: "gold", // titleClass: "gold", timeClass: "gold", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
-					},
-					{
-						symbol: "film", symbolClass: "magenta", // titleClass: "magenta", timeClass: "magenta", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
-					},
-					{
-						symbol: "suitcase", symbolClass: "coral", // titleClass: "coral",timeClass: "coral", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics"
-					}
 				]
+			}
+		},
+		{
+			module: "simpletext",
+			position: "top_left",
+			classes: "day",
+			hiddenOnStartup: false,
+			disabled: false,
+			config: {
+				text: "&nbsp;<br><header class=\"module-header\">Scanează-mă pentru acces la Wi-Fi</header><img width=\"160px\" src=\"modules/simpletext/wifi.png\"> &nbsp; &nbsp; <img width=\"160px\" src=\"modules/simpletext/wifi2.png\">",
+				cssClass: "jsontable midget"
 			}
 		},
 		{
@@ -309,7 +286,7 @@ var config = {
 			module: "weatherforecast",
 			position: "top_right",
 			header: "Vremea în următoarele ore la",
-			classes: "hourly forecast ipad",
+			classes: "hourly forecast ipad day",
 			disabled: false,
 			config: {
 				maxNumberOfDays: 7,
@@ -319,7 +296,6 @@ var config = {
 				extra: false,
 				fallBack: true,
 				fullday: "HH [h]",
-				initialLoadDelay: 2500,
 				showRainAmount: true,
 				fadePoint: 0.5,
 				fade: false
@@ -329,7 +305,7 @@ var config = {
 			module: "weatherforecast",
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
-			classes: "daily forecast ipad",
+			classes: "daily forecast ipad day",
 			disabled: false,
 			config: {
 				maxNumberOfDays: 8,
@@ -359,7 +335,7 @@ var config = {
 			module: "weather",
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
-			classes: "daily weatherforecast forecast",
+			classes: "daily weatherforecast forecast day",
 			disabled: true,
 			config: {
 				appendLocationNameToHeader: true,
@@ -373,7 +349,7 @@ var config = {
 			module: "weather",
 			position: "top_right",
 			header: "Vremea în următoarele ore la",
-			classes: "hourly weatherforecast forecast",
+			classes: "hourly weatherforecast forecast day",
 			disabled: true,
 			config: {
 				appendLocationNameToHeader: true,
@@ -530,6 +506,7 @@ var config = {
 		{
 			module: "quotes",
 			position: "lower_third",
+			classes: "day",
 			disabled: false,
 			config: {
 				updateInterval: 22500,
@@ -540,9 +517,11 @@ var config = {
 		{
 			module: "newsfeed",
 			position: "bottom_bar",
+			classes: "day",
 			disabled: false,
 			config: {
 				showDescription: true,
+				lengthDescription: 300,
 				hideLoading: true,
 				updateInterval: 60 * 1000,
 		        reloadInterval: 60 * 1000,
@@ -601,10 +580,11 @@ var config = {
 		{
 			module: "newsfeed",
 			position: "bottom_bar",
-			classes: "international",
+			classes: "international day",
 			disabled: true,
 			config: {
 				showDescription: true,
+				lengthDescription: 300,
 				hideLoading: true,
 				updateInterval: 60 * 1000,
 				ignoreOlderThan: 12 * 60 * 60 * 1000,
