@@ -27,7 +27,7 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
- 	appid: '',
+ 	appid: "...",
 	apiBase: "https://api.openweathermap.org/data/",
 	apiVersion: "2.5/",
 	roundTemp: false,
@@ -58,17 +58,18 @@ var config = {
 		},
 		{
 			module: "notification/timer",
-			classes: "night",
 			disabled: false,
 			config: {
 				bodysize: 1080,
-				zoomMode: true,
-				nightMode: true,
+				zoomMode: false,
+				nightMode: false,
+				background: false,
+				monochrome: false,
+				resetMM: true,
+
+				dimmMode: true,
 				fadeMode: true,
 				dimming: 50,
-				background: false, // "/css/background.jpg",
-				monochrome: false, // 100,
-				resetMM: false,
 
 				sharpMode: true,
 				dateMode: true,
@@ -97,7 +98,6 @@ var config = {
 		{
 			module: "monthly",
 			position: "top_center",
-			classes: "day",
 			disabled: false,
 			config: {
 				startMonth: 0,
@@ -113,7 +113,6 @@ var config = {
 			module: 'jsontable',
 			position: 'top_center',
 			header: 'Consum casnic lunar',
-			classes: "day",
 			disabled: false,
 			config: {
 				url: "data.json",
@@ -136,22 +135,38 @@ var config = {
 			}
 		},
 		{
+			module: "lunartic",
+			position: "top_left",
+			classes: "night",
+			disabled: false,
+			config: {
+				mode: "static",
+				image: "current",
+				useHeader: false,
+				distance: "km",
+				sounds: "no",
+				initialLoadDelay: 4000,
+				retryDelay: 2500,
+				updateInterval: 60 * 60 * 1000,
+				rotateInterval: 60 * 1000
+			}
+		},
+		{
 			module: "lifecounter",
 			position: "top_left",
-			classes: "day",
 			disabled: false,
 			config: {
 				birthday: "1970-01-01 00:00:00",
 				counter: "seconds",
 				before: "UNIX System Time:",
 				after: "seconds",
-				cssclass: "midget"
+				cssclass: "small"
 			}
 		},
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "work day",
+			classes: "work",
 			disabled: false,
 			config: {
 				mode: "driving-traffic",
@@ -167,7 +182,7 @@ var config = {
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "home day",
+			classes: "home",
 			disabled: false,
 			config: {
 				mode: "driving-traffic",
@@ -182,7 +197,7 @@ var config = {
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "parc day",
+			classes: "parc",
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
@@ -196,7 +211,7 @@ var config = {
 		{
 			module: "traffic",
 			position: "top_left",
-			classes: "ikea day",
+			classes: "ikea",
 			disabled: false,
 			config: {
 				loadingText: "Se încarcă...",
@@ -210,7 +225,7 @@ var config = {
 		{
 			module: "swatch",
 			position: "top_left",
-			classes: "day",
+			classes: "night",
 			disabled: false,
 			config: {
 				logo_height: 27
@@ -219,11 +234,10 @@ var config = {
 		{
 			module: "calendar",
 			position: "top_left",
-			classes: "day",
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
-				maximumEntries: 11,
+				maximumEntries: 20,
 				displayRepeatingCountTitle: true,
 				fetchInterval: 60 * 1000,
 				fade: false,
@@ -263,17 +277,6 @@ var config = {
 			}
 		},
 		{
-			module: "simpletext",
-			position: "top_left",
-			classes: "day",
-			hiddenOnStartup: false,
-			disabled: false,
-			config: {
-				text: "&nbsp;<br><header class=\"module-header\">Scanează-mă pentru acces la Wi-Fi</header><img width=\"160px\" src=\"modules/simpletext/wifi.png\"> &nbsp; &nbsp; <img width=\"160px\" src=\"modules/simpletext/wifi2.png\">",
-				cssClass: "jsontable midget"
-			}
-		},
-		{
 			module: "currentweather",
 			position: "top_right",
 			classes: "night current weather",
@@ -286,7 +289,7 @@ var config = {
 			module: "weatherforecast",
 			position: "top_right",
 			header: "Vremea în următoarele ore la",
-			classes: "hourly forecast ipad day",
+			classes: "hourly forecast ipad",
 			disabled: false,
 			config: {
 				maxNumberOfDays: 7,
@@ -296,6 +299,7 @@ var config = {
 				extra: false,
 				fallBack: true,
 				fullday: "HH [h]",
+				initialLoadDelay: 2500,
 				showRainAmount: true,
 				fadePoint: 0.5,
 				fade: false
@@ -305,7 +309,7 @@ var config = {
 			module: "weatherforecast",
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
-			classes: "daily forecast ipad day",
+			classes: "daily forecast ipad",
 			disabled: false,
 			config: {
 				maxNumberOfDays: 8,
@@ -335,7 +339,7 @@ var config = {
 			module: "weather",
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
-			classes: "daily weatherforecast forecast day",
+			classes: "daily weatherforecast forecast",
 			disabled: true,
 			config: {
 				appendLocationNameToHeader: true,
@@ -349,7 +353,7 @@ var config = {
 			module: "weather",
 			position: "top_right",
 			header: "Vremea în următoarele ore la",
-			classes: "hourly weatherforecast forecast day",
+			classes: "hourly weatherforecast forecast",
 			disabled: true,
 			config: {
 				appendLocationNameToHeader: true,
@@ -506,7 +510,6 @@ var config = {
 		{
 			module: "quotes",
 			position: "lower_third",
-			classes: "day",
 			disabled: false,
 			config: {
 				updateInterval: 22500,
@@ -517,11 +520,9 @@ var config = {
 		{
 			module: "newsfeed",
 			position: "bottom_bar",
-			classes: "day",
 			disabled: false,
 			config: {
 				showDescription: true,
-				lengthDescription: 300,
 				hideLoading: true,
 				updateInterval: 60 * 1000,
 		        reloadInterval: 60 * 1000,
@@ -580,11 +581,10 @@ var config = {
 		{
 			module: "newsfeed",
 			position: "bottom_bar",
-			classes: "international day",
+			classes: "international",
 			disabled: true,
 			config: {
 				showDescription: true,
-				lengthDescription: 300,
 				hideLoading: true,
 				updateInterval: 60 * 1000,
 				ignoreOlderThan: 12 * 60 * 60 * 1000,
