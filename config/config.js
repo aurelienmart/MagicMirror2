@@ -28,7 +28,7 @@ var config = {
 	timezone: "Europe/Bucharest",
 	decimal: ",",
  	appid: "...",
-	apiBase: "https://api.openweathermap.org/data/",
+	apiBase: "http://api.openweathermap.org/data/",
 	apiVersion: "2.5/",
 	roundTemp: false,
 	period: false,
@@ -133,91 +133,42 @@ var config = {
 			}
 		},
 		{
-			module: "lunartic",
+			module: "lifecounter",
 			position: "top_left",
-			classes: "night",
+			classes: "day",
 			disabled: false,
 			config: {
-				mode: "static",
-				image: "current",
-				useHeader: false,
-				distance: "km",
-				sounds: "no",
-				initialLoadDelay: 4000,
-				retryDelay: 2500,
-				updateInterval: 60 * 60 * 1000,
-				rotateInterval: 60 * 1000
+				birthday: "1968-08-22 00:00:00",
+				counter: "seconds",
+				before: "Paula, ai împlinit",
+				after: "secunde",
+				cssclass: "midget"
 			}
 		},
 		{
 			module: "lifecounter",
 			position: "top_left",
+			classes: "day",
 			disabled: false,
+			config: {
+				birthday: "1967-10-13 00:00:00",
+				counter: "seconds",
+				before: "Răzvan, ai împlinit",
+				after: "secunde",
+				cssclass: "midget"
+			}
+		},
+		{
+			module: "lifecounter",
+			position: "top_left",
+			classes: "day",
+			disabled: true,
 			config: {
 				birthday: "1970-01-01 00:00:00",
 				counter: "seconds",
 				before: "UNIX System Time:",
 				after: "seconds",
-				cssclass: "small"
-			}
-		},
-		{
-			module: "traffic",
-			position: "top_left",
-			classes: "work",
-			disabled: false,
-			config: {
-				mode: "driving-traffic",
-				loadingText: "Se încarcă...",
-				firstLine: "...",
-				accessToken: "...",
-				originCoords: "...",
-				destinationCoords: "...",
-				days: [1, 2, 3, 4, 5]
-
-			}
-		},
-		{
-			module: "traffic",
-			position: "top_left",
-			classes: "home",
-			disabled: false,
-			config: {
-				mode: "driving-traffic",
-				loadingText: "Se încarcă...",
-				firstLine: "...",
-				accessToken: "...",
-				originCoords: "...",
-				destinationCoords: "...",
-				days: [1, 2, 3, 4, 5]
-			}
-		},
-		{
-			module: "traffic",
-			position: "top_left",
-			classes: "parc",
-			disabled: false,
-			config: {
-				loadingText: "Se încarcă...",
-				firstLine: "...",
-				accessToken: "...",
-				originCoords: "...",
-				destinationCoords: "...",
-				days: [6, 7]
-			}
-		},
-		{
-			module: "traffic",
-			position: "top_left",
-			classes: "ikea",
-			disabled: false,
-			config: {
-				loadingText: "Se încarcă...",
-				firstLine: "...",
-				accessToken: "...",
-				originCoords: "...",
-				destinationCoords: "...",
-				days: [6, 7]
+				cssclass: "midget"
 			}
 		},
 		{
@@ -265,11 +216,11 @@ var config = {
 				calendars: [
 					{
 						symbol: "calendar-check-o", symbolClass: "skyblue", // titleClass: "skyblue", timeClass: "skyblue", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
+						url: "http://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
 					},
 					{
 						symbol: "moon", symbolClass: "normal", // titleClass: "normal", timeClass: "normal", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
+						url: "http://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
 					},
 				]
 			}
@@ -535,42 +486,42 @@ var config = {
 				feeds: [
 					{
 						title: "ProTV",
-						url: "https://rss.stirileprotv.ro",
+						url: "http://rss.stirileprotv.ro",
 						encoding: "UTF-8"
 					},
 					{
 						title: "MediaFax",
-						url: "https://www.mediafax.ro/rss/",
+						url: "http://www.mediafax.ro/rss/",
 						encoding: "UTF-8"
 					},
 					{
 						title: "Digi24",
-						url: "https://www.digi24.ro/rss",
+						url: "http://www.digi24.ro/rss",
 						encoding: "UTF-8"
 					},
 					{
 						title: "HotNews",
-						url: "https://www.hotnews.ro/rss",
+						url: "http://www.hotnews.ro/rss",
 						encoding: "UTF-8"
 					},
 					{
 						title: "NewsIn",
-						url: "https://newsin.ro/feed/",
+						url: "http://newsin.ro/feed/",
 						encoding: "UTF-8"
 					},
 					{
 						title: "MainNews",
-						url: "https://mainnews.ro/feed/",
+						url: "http://mainnews.ro/feed/",
 						encoding: "UTF-8"
 					},
 					{
 						title: "News.ro",
-						url: "https://www.news.ro/rss",
+						url: "http://www.news.ro/rss",
 						encoding: "UTF-8"
 					},
 					{
 						title: "Ziare.com",
-						url: "https://www.ziare.com/rss/12h.xml",
+						url: "http://www.ziare.com/rss/12h.xml",
 						encoding: "UTF-8"
 					}
 				]
@@ -591,12 +542,12 @@ var config = {
 				feeds: [
 					{
 						title: "Discovery",
-						url: "https://discovery.ro/feed/",
+						url: "http://discovery.ro/feed/",
 						encoding: "UTF-8"
 					},
 					{
 						title: "NASA",
-						url: "https://www.nasa.gov/rss/dyn/breaking_news.rss",
+						url: "http://www.nasa.gov/rss/dyn/breaking_news.rss",
 						encoding: "UTF-8"
 					},
 					{
@@ -606,7 +557,7 @@ var config = {
 					},
 					{
 						title: "NY Times",
-						url: "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+						url: "http://rss.nytimes.com/services/xml/rss/nyt/World.xml",
 						encoding: "UTF-8"
 					},
 					{
@@ -621,7 +572,7 @@ var config = {
 					},
 					{
 						title: "Reuters",
-						url: "https://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best",
+						url: "http://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best",
 						encoding: "UTF-8"
 					}
 				]
@@ -633,7 +584,7 @@ var config = {
 			classes: "night",
 			disabled: true,
 			config: {
-				url: "https://cristea13.ro/video/fishtank.mp4",
+				url: "http://cristea13.ro/video/fishtank.mp4",
 				media: true,
 				width: "1080",
 				height: "607",
