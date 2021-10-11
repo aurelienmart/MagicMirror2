@@ -20,7 +20,7 @@ language: "ro",
 	timezone: "Europe/Bucharest",
 	decimal: ",",
  	appid: '...', // ios9 ipad3
-	apiBase: "https://api.openweathermap.org/data/",
+	apiBase: "http://api.openweathermap.org/data/",
 	apiVersion: "2.5/",
 	roundTemp: false,
 	period: false,
@@ -131,70 +131,37 @@ language: "ro",
 			classes: "day",
 			disabled: false,
 			config: {
+				birthday: "1968-08-22 00:00:00",
+				counter: "seconds",
+				before: "Paula, ai împlinit",
+				after: "secunde",
+				cssclass: "midget"
+			}
+		},
+		{
+			module: "lifecounter",
+			position: "top_left",
+			classes: "day",
+			disabled: false,
+			config: {
+				birthday: "1967-10-13 00:00:00",
+				counter: "seconds",
+				before: "Răzvan, ai împlinit",
+				after: "secunde",
+				cssclass: "midget"
+			}
+		},
+		{
+			module: "lifecounter",
+			position: "top_left",
+			classes: "day",
+			disabled: true,
+			config: {
 				birthday: "1970-01-01 00:00:00",
 				counter: "seconds",
 				before: "UNIX System Time:",
 				after: "seconds",
 				cssclass: "midget"
-			}
-		},
-		{
-			module: "traffic",
-			position: "top_left",
-			classes: "work day",
-			disabled: false,
-			config: {
-				mode: "driving-traffic",
-				loadingText: "Se încarcă...",
-					firstLine: "...",
-				accessToken: "...A",
-				originCoords: "...",
-				destinationCoords: "...",
-				days: [1, 2, 3, 4, 5]
-
-			}
-		},
-		{
-			module: "traffic",
-			position: "top_left",
-			classes: "home day",
-			disabled: false,
-			config: {
-				mode: "driving-traffic",
-				loadingText: "Se încarcă...",
-				firstLine: "...",
-				accessToken: "...A",
-				originCoords: "...",
-				destinationCoords: "...",
-				days: [1, 2, 3, 4, 5]
-			}
-		},
-		{
-			module: "traffic",
-			position: "top_left",
-			classes: "parc day",
-			disabled: false,
-			config: {
-				loadingText: "Se încarcă...",
-				firstLine: "...",
-				accessToken: "...A",
-				originCoords: "...",
-				destinationCoords: "...",
-				days: [6, 7]
-			}
-		},
-		{
-			module: "traffic",
-			position: "top_left",
-			classes: "ikea day",
-			disabled: false,
-			config: {
-				loadingText: "Se încarcă...",
-				firstLine: "...",
-				accessToken: "...A",
-				originCoords: "...",
-				destinationCoords: "...",
-				days: [6, 7]
 			}
 		},
 		{
@@ -235,11 +202,11 @@ language: "ro",
 					urls: [
 						{
 							symbol: "calendar-check-o",
-							url: "https://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
+							url: "http://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
 						},
 						{
 							symbol: "moon",
-							url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
+							url: "http://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
 						},
 					]
 				}
@@ -503,14 +470,14 @@ language: "ro",
 				lengthDescription: 600,
 				fetchNewsTime: 5 * 60 * 1000,
 				feedURLs: {
-					"ProTV"		: "https://rss.stirileprotv.ro",
-					"Mediafax"	: "https://www.mediafax.ro/rss",
-					"NewsIn"	: "https://newsin.ro/feed",
-					"News.ro"	: "https://www.news.ro/rss",
-					"MainNews"	: "https://mainnews.ro/feed",
-					"Ziare.com"	: "https://www.ziare.com/rss/12h.xml",
-				//	"HotNews"	: "https://www.hotnews.ro/rss",
-				//	"Digi24"	: "https://www.digi24.ro/rss",
+					"ProTV"		: "http://rss.stirileprotv.ro",
+					"Mediafax"	: "http://www.mediafax.ro/rss",
+					"NewsIn"	: "http://newsin.ro/feed",
+					"News.ro"	: "http://www.news.ro/rss",
+					"MainNews"	: "http://mainnews.ro/feed",
+					"Ziare.com"	: "http://www.ziare.com/rss/12h.xml",
+				//	"HotNews"	: "http://www.hotnews.ro/rss",
+				//	"Digi24"	: "http://www.digi24.ro/rss",
 					},
 				feedMaxAge: {days: 0, hours: 12}
 			}
