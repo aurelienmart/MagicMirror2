@@ -447,9 +447,10 @@ var Module = Class.extend({
 
 		var self = this;
 		MM.hideModule(this, speed, function () {
-			self.suspend();
-			callback;
-		}, options);
+				self.suspend();
+				callback();
+			}, options
+		);
 	},
 
 	/**
@@ -468,11 +469,11 @@ var Module = Class.extend({
 		callback = callback || function () {};
 		options = options || {};
 
-		var self = this;
-		MM.showModule(this, speed, function () {
-			self.resume();
-			callback;
-		}, options);
+		this.resume();
+		MM.showModule(this, speed, function() {
+				callback();
+			}, options
+		);
 	}
 });
 
