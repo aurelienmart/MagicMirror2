@@ -88,7 +88,7 @@ Module.register("timer", {
 		var morning = this.morning; var mins = this.mins; var self = this;
 		var hide = Array.from(document.querySelectorAll(".module:not(.night)"));
 		var show = Array.from(document.querySelectorAll(".day"));
-		var weat = Array.from(document.querySelectorAll(".current"));
+		var weat = Array.from(document.querySelectorAll(".weather"));
 		var comp = Array.from(document.querySelectorAll(".complimentz"));
 		var fish = Array.from(document.querySelectorAll(".yframe"));
 		var body = Array.from(document.querySelectorAll("body"));
@@ -110,25 +110,17 @@ Module.register("timer", {
 		}
 
 		function day_mode() { scaling();
-			MM.getModules().exceptWithClass("ipad ical rss").withClass("night day").enumerate(function(module) {
-		//		module.show(1000, {force: true});
-			});
-
 			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)", element.style.textAlign = "inherit";});
 			comp.forEach(function(element) {return element.style.width = "inherit", element.style.transform = "scale(1)";});
 			show.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static";});
-			fish.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed";});
+		//	fish.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed";});
 		}
 
 		function night_mode() { resize();
-			MM.getModules().exceptWithClass("night").withClass("day").enumerate(function(module) {
-		//		module.hide(1000);
-			});
-
 			weat.forEach(function(element) {return element.style.transform = "translate(-715px, 250px)", element.style.textAlign = "left";});
 			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-100%) scale(0.6)";});
 			hide.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed";}); 
-			fish.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static";});
+		//	fish.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static";});
 		}
 	},
 
