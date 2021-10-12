@@ -14,7 +14,7 @@ function LoadScripts(async) {
 	var scripts = [];
 	var _scripts = [
 			"http://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js",
-        //  "https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js",
+        //  "http://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js",
 			"http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js",
 			"http://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js",
 			"http://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js",
