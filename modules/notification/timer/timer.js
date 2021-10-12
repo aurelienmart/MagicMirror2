@@ -97,19 +97,19 @@ Module.register("timer", {
 			if ((this.config.zoomMode) && (navigator.appVersion.match(/iPad/))) {
 				if (now >= midnight && now < morning) { night_mode();
 					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size * 1.53 + ")";});
-				} else { day_mode(); scaling();}
-			} else { day_mode(); scaling();}
+				} else { day_mode(); }
+			} else { day_mode(); }
 		}
 
 		function resize() {
 			body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / size) + "px", element.style.minWidth = size + "px";});
 		}
 
-		function scaling() {
+		function scaling() { resize();
 			body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size + ")";});
 		}
 
-		function day_mode() { resize();
+		function day_mode() { scaling();
 			MM.getModules().exceptWithClass("ipad ical rss").withClass("night day").enumerate(function(module) {
 		//		module.show(1000, {force: true});
 			});

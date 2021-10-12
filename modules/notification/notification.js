@@ -60,46 +60,46 @@ Module.register("notification", {
 		this.updateDom(this.config.animationSpeed);
 	},
 
-	notificationReceived: function (notification, payload, sender) {
+	timeout: function () {
 		var self = this;
+		setTimeout(function () {
+			self.onLine();
+		}, this.config.timer);
+	},
+
+	notificationReceived: function (notification, payload, sender) {
 		if (notification === "DOM_OBJECTS_CREATED") {
 			this.title = this.config.startTitle;
 			this.notification = "Răzvan Cristea &copy; " + moment().year() + ", MIT License.";
 			this.updateDom(this.config.animationSpeed);
-
-			setTimeout(function () {
-				self.onLine();
-			}, this.config.timer);
-
-			if (notification === "ONLINE_NOTIFICATION") {this.onLine();}
-
-			if (notification === "OFFLINE_NOTIFICATION") {this.offLine();}
-
-			if (notification === "NIGHT_NOTIFICATION") {
-				this.notification = this.translate("Dimmed night mode ") + parseInt(payload) + "%";
-				this.updateDom();
-			}
-			
-			if (notification === "DAY_NOTIFICATION") {
-				if (typeof payload.title === "undefined") {
-					payload.title = this.config.startTitle;
-				} else this.title = payload.title;
-
-				if (typeof payload.notification === "undefined") {
-					payload.notification = this.translate(this.config.startNotification);
-				} else this.notification = payload.notification;
-
-				if (typeof payload.timer === "undefined") {
-					payload.timer = this.config.timer;
-				} else this.config.timer = payload.timer;
-				this.updateDom(this.config.animationSpeed);
-
-				setTimeout(function () {
-					self.onLine();
-				}, this.config.timer);
-			}
-
-			if (notification === "HIDE_NOTIFICATION") {this.onLine();}
+			this.timeout();
 		}
+
+		if (notification === "ONLINE_NOTIFICATION") {this.onLine();}
+
+		if (notification === "OFFLINE_NOTIFICATION") {this.offLine();}
+
+		if (notification === "NIGHT_NOTIFICATION") {
+			this.notification = this.translate("Dimmed night mode ") + parseInt(payload) + "%";
+			this.updateDom();
+		}
+			
+		if (notification === "DAY_NOTIFICATION") {
+			if (typeof payload.title === "undefined") {
+				payload.title = this.config.startTitle;
+			} else this.title = payload.title;
+
+			if (typeof payload.notification === "undefined") {
+				payload.notification = this.translate(this.config.startNotification);
+			} else this.notification = payload.notification;
+
+			if (typeof payload.timer === "undefined") {
+				payload.timer = this.config.timer;
+			} else this.config.timer = payload.timer;
+			this.updateDom(this.config.animationSpeed);
+			this.timeout();
+		}
+
+		if (notification === "HIDE_NOTIFICATION") {this.onLine();}
 	}
 });

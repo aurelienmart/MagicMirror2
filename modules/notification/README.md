@@ -37,7 +37,7 @@ All settings inside of module or in config.js
 			resetMM: true,		// reload at 4 A.M.
 
 			fadeMode: true,		// fade to dimmed mode over night and back in the morning
-			dimming: 40,		// 0 = opacity 1, 100 = opacity 0, 40 = opacity 0.6
+			dimming: 50,		// 0 = opacity 1, 100 = opacity 0, 40 = opacity 0.6
 
 			sharpMode: true,	// hourly alert notification
 			dateMode: true,		// specific date hourly custom notification
