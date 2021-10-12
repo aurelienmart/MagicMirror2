@@ -1,6 +1,6 @@
 # MagicMirror&sup2;
 
-Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile Web served version and HD monitor + Windows 8.1 HP mini netbook / eventually Windows 10 PC stick + IKEA frame + see-thru acrylic mirror, powered by consistent css & js, fonts sizes, icons & well structured folders, based on <b>MagicMirror&sup2;</b> open source core framework unfortunately <b>full of bugs</b> from amateur "developers"...
+Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile Web served version and HD monitor + Windows 8.1 HP mini netbook / eventually Windows 10 PC stick + IKEA frame + see-thru acrylic mirror, powered by consistent css & js, fonts sizes, icons & well structured folders, based on <b>MagicMirror&sup2;</b> open source core framework unfortunately <b>full of bugs</b> from amateur "developers"... With the renewal of Lets Encrypt certificates, on older devices the https protocol can no longer be used.
 
 <b>Some modified default original modules:</b>
 <br>Compliments https://github.com/hangorazvan/compliments_plus
