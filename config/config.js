@@ -165,7 +165,7 @@ var config = {
 			disabled: false,
 			config: {
 				birthday: "2011 06 20 00:00:00",
-				counter: "secunde",
+				counter: "seconds",
 				before: "Suntem căsătoriți de",
 				after: "secunde",
 				cssclass: "midget"
@@ -229,7 +229,7 @@ var config = {
 			module: "currentweather",
 			position: "top_right",
 			classes: "night current weather",
-			disabled: false,
+			disabled: true,
 			config: {
 				// onecall modified module with own settings
 			}
