@@ -158,7 +158,7 @@ language: "ro",
 			disabled: false,
 			config: {
 				birthday: "2011 06 20 00:00:00",
-				counter: "secunde",
+				counter: "seconds",
 				before: "Suntem căsătoriți de",
 				after: "secunde",
 				cssclass: "midget"
@@ -216,8 +216,7 @@ language: "ro",
 			module: "simpletext",
 			position: "top_left",
 			classes: "day",
-			hiddenOnStartup: false,
-			disabled: false,
+			disabled: true,
 			config: {
 				text: "&nbsp;<br><header class=\"module-header\">Scanează-mă pentru acces la Wi-Fi</header><img width=\"160px\" src=\"modules/simpletext/wifi.png\"> &nbsp; &nbsp; <img width=\"160px\" src=\"modules/simpletext/wifi2.png\">",
 				cssClass: "jsontable midget"
