@@ -138,7 +138,7 @@ var config = {
 			classes: "day",
 			disabled: false,
 			config: {
-				birthday: "1968-08-22 00:00:00",
+				birthday: "...",
 				counter: "seconds",
 				before: "Paula, ai împlinit",
 				after: "secunde",
@@ -151,7 +151,7 @@ var config = {
 			classes: "day",
 			disabled: false,
 			config: {
-				birthday: "1967-10-13 00:00:00",
+				birthday: "...",
 				counter: "seconds",
 				before: "Răzvan, ai împlinit",
 				after: "secunde",
@@ -164,7 +164,7 @@ var config = {
 			classes: "day",
 			disabled: false,
 			config: {
-				birthday: "2011 06 20 00:00:00",
+				birthday: "...",
 				counter: "seconds",
 				before: "Suntem căsătoriți de",
 				after: "secunde",
