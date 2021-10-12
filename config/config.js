@@ -162,12 +162,12 @@ var config = {
 			module: "lifecounter",
 			position: "top_left",
 			classes: "day",
-			disabled: true,
+			disabled: false,
 			config: {
-				birthday: "1970-01-01 00:00:00",
-				counter: "seconds",
-				before: "UNIX System Time:",
-				after: "seconds",
+				birthday: "2011 06 20 00:00:00",
+				counter: "secunde",
+				before: "Suntem căsătoriți de",
+				after: "secunde",
 				cssclass: "midget"
 			}
 		},
