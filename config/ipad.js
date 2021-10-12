@@ -159,7 +159,7 @@ language: "ro",
 			config: {
 				birthday: "...",
 				counter: "seconds",
-				before: "Suntem căsătoriți de",
+				before: "Sunteți căsătoriți de",
 				after: "secunde",
 				cssclass: "midget"
 			}
