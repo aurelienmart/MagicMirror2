@@ -19,7 +19,7 @@ language: "ro",
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
- 	appid: '...', // ios9 ipad3
+ 	appid: '', // ios9 ipad3
 	apiBase: "http://api.openweathermap.org/data/",
 	apiVersion: "2.5/",
 	roundTemp: false,
@@ -63,10 +63,10 @@ language: "ro",
 				sharpMode: true,
 				dateMode: true,
 
-				name1: "",
-				birthday1: "",
-				name2: "",
-				birthday2: "",
+				name1: "Paula!",
+				birthday1: "22.08",
+				name2: "Răzvan!",
+				birthday2: "13.10",
 				name3: "",
 				birthday3: ""
 			}
@@ -91,25 +91,12 @@ language: "ro",
 			disabled: false,
 			config: {
 				startMonth: 0,
-				monthCount: 1,
+				monthCount: 3,
 				monthsVertical: true,
 				repeatWeekdaysVertical: false,
 				weekNumbers: true,
 				highlightWeekend: true,
 				fade: false
-			}
-		},
-		{
-			module: 'jsontable',
-			position: 'top_center',
-			header: 'Consum casnic lunar',
-			classes: "day",
-			disabled: false,
-			config: {
-				url: "data.json",
-				arrayName: "2021",
-				tableClass: "small",
-				descriptiveRow: "<tr><td>Luna</td><td>Apa calda</td><td>Apa rece</td><td>kW</td></tr>"
 			}
 		},
 		{
@@ -129,37 +116,11 @@ language: "ro",
 			module: "lifecounter",
 			position: "top_left",
 			classes: "day",
-			disabled: false,
+			disabled: true,
 			config: {
-				birthday: "...",
+				birthday: "",
 				counter: "seconds",
-				before: "Paula, ai împlinit",
-				after: "secunde",
-				cssclass: "midget"
-			}
-		},
-		{
-			module: "lifecounter",
-			position: "top_left",
-			classes: "day",
-			disabled: false,
-			config: {
-				birthday: "...",
-				counter: "seconds",
-				before: "Răzvan, ai împlinit",
-				after: "secunde",
-				cssclass: "midget"
-			}
-		},
-		{
-			module: "lifecounter",
-			position: "top_left",
-			classes: "day",
-			disabled: false,
-			config: {
-				birthday: "...",
-				counter: "seconds",
-				before: "Sunteți căsătoriți de",
+				before: "",
 				after: "secunde",
 				cssclass: "midget"
 			}
@@ -190,7 +151,7 @@ language: "ro",
 			classes: "day",
 			disabled: false,
 			config: {
-				maximumEntries: 20,
+				maximumEntries: 14,
 				calendarClass: "icalendar",
 				defaultSymbol: "calendar",
 				displaySymbol: true,
@@ -210,6 +171,19 @@ language: "ro",
 						},
 					]
 				}
+			}
+		},
+		{
+			module: 'jsontable',
+			position: 'top_left',
+			header: 'Consum casnic în ultimile 6 luni',
+			classes: "day",
+			disabled: false,
+			config: {
+				url: "data.json",
+				arrayName: "2021",
+				tableClass: "small",
+				descriptiveRow: "<tr><td>Luna</td><td>Apa calda</td><td>Apa rece</td><td>Energie</td></tr>"
 			}
 		},
 		{
@@ -267,45 +241,6 @@ language: "ro",
 				showRainAmount: true,
 				fadePoint: 0,
 				fade: false
-			}
-		},
-		{
-			module: "weather",
-			position: "top_right",
-			classes: "night currentweather current",
-			disabled: true,
-			config: {
-				type: "current",
-				degreeLabel: false,
-				showPrecipitationAmount: false
-			}
-		},
-		{
-			module: "weather",
-			position: "top_right",
-			header: "Vremea în următoarele zile la",
-			classes: "daily weatherforecast forecast day",
-			disabled: true,
-			config: {
-				appendLocationNameToHeader: true,
-				type: "daily",
-				maxNumberOfDays: 15,
-				initialLoadDelay: 2000,
-				tableClass: "small"
-			}
-		},
-		{
-			module: "weather",
-			position: "top_right",
-			header: "Vremea în următoarele ore la",
-			classes: "hourly weatherforecast forecast day",
-			disabled: true,
-			config: {
-				appendLocationNameToHeader: true,
-				type: "hourly",
-				maxEntries: 15,
-				initialLoadDelay: 1000,
-				tableClass: "small"
 			}
 		},
 		{
@@ -424,6 +359,9 @@ language: "ro",
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Nori și ceață",
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Ceață și nori"
 					],
+					"14-02-...." : [
+						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
+					],
 					"30-10-...." : [
 						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
 					],
@@ -487,7 +425,7 @@ language: "ro",
 			classes: "night",
 			disabled: true,
 			config: {
-				url: "https://cristea13.ro/video/fishtank.mp4",
+				url: "http://cristea13.ro/video/fishtank.mp4",
 				media: true,
 				width: "1080",
 				height: "607",
