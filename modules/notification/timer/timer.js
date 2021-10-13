@@ -7,8 +7,6 @@
  * https://github.com/hangorazvan
  */
 
-"use strict";
-
 Module.register("timer", {
 
 	defaults: {
@@ -36,7 +34,7 @@ Module.register("timer", {
 
 	notificationReceived: function (notification, payload, sender) {
 		var self = this;
-		if (notification === "DOM_OBJECTS_CREATED") {
+		if (notification === "ALL_MODULES_STARTED") {
 			setInterval(function () {
 				self.variables();
 				self.timer();
@@ -51,7 +49,7 @@ Module.register("timer", {
 		this.mins = moment().format("m"); this.secs = moment().format("s"); 
 		this.grayscale = this.config.dimming; this.opacity = (1 - this.grayscale / 100).toPrecision(2);
 
-		if (this.config.debugging!==false) {
+		if (this.config.debugging!==false) { config.notification = true;
 			this.gray1 = (this.secs * (this.grayscale / 60) / 1).toPrecision(2); 
 			this.opac1 = ((1 - this.gray1 / 100) / 1).toPrecision(2);
 			this.gray2 = ((this.grayscale - this.gray1) / 1).toPrecision(2);
