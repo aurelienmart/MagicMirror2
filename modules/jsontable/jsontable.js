@@ -25,6 +25,10 @@ Module.register("jsontable", {
 		return ["jsontable.css"];
 	},
 
+	getHeader: function () {
+		return this.data.header;
+	},
+
 	start: function () {
 		Log.info("Starting module: " + this.name);
 		this.getJson();
@@ -65,6 +69,7 @@ Module.register("jsontable", {
 
 	// Override dom generator.
 	getDom: function () {
+		var self = this;
 		var wrapper = document.createElement("div");
 		wrapper.className = this.config.tableClass;
 
@@ -91,8 +96,8 @@ Module.register("jsontable", {
 			return wrapper;
 		}
 
-		items.forEach(element => {
-			var row = this.getTableRow(element);
+		items.forEach(function (element) {
+			var row = self.getTableRow(element);
 			tbody.appendChild(row);
 		});
 		
@@ -126,17 +131,7 @@ Module.register("jsontable", {
 			}
 
 			var cellText = document.createTextNode(valueToDisplay);
-
-			if ( this.config.size > 0 && this.config.size < 9 ){
-				var h = document.createElement("H" + this.config.size );
-				h.appendChild(cellText)
-				cell.appendChild(h);
-			}
-			else
-			{
-				cell.appendChild(cellText);
-			}
-
+			cell.appendChild(cellText);
 			row.appendChild(cell);
 		}
 		return row;
