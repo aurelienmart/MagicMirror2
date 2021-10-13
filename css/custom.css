@@ -586,6 +586,14 @@ header {
 	margin-bottom: 0;
 }
 
+.calendar {
+  margin-top: 15px;
+}
+
+.calendar table {
+  margin-bottom: 10px;
+}
+
 /* notification */
 
 .fa-wifi {
@@ -1245,6 +1253,10 @@ header {
 	.calendar-table table tr {
 		height: 23px;
 	}
+
+	.calendar {
+  	margin-top: 10px;
+}
 
 	.monthly .week,
 	.icalendar table td,
