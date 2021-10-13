@@ -40,6 +40,7 @@ Module.register("timer", {
 				self.timer();
 				self.dimmer();
 				self.notification();
+		//		self.pagination();
 			}, 1000);
 		}
 	},
@@ -91,33 +92,35 @@ Module.register("timer", {
 		var fish = Array.from(document.querySelectorAll(".yframe"));
 		var body = Array.from(document.querySelectorAll("body"));
 
-		if (window.innerWidth <= size) { resize();
-			if ((this.config.zoomMode) && (navigator.appVersion.match(/iPad/))) {
-				if (now >= midnight && now < morning) { night_mode();
-					body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size * 1.53 + ")";});
+		if (window.innerWidth <= size) {
+			if (this.config.zoomMode) {
+				if (navigator.appVersion.match(/iPad/)) {
+					if (now >= midnight && now < morning) { 
+						night_mode(); 
+					} else { day_mode(); }
 				} else { day_mode(); }
-			} else { day_mode(); }
+			} else { resize(); }
 		}
 
 		function resize() {
-			body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / size) + "px", element.style.minWidth = size + "px";});
+			body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / size) + "px", element.style.minWidth = size + "px", element.style.transform = "scale(" + window.innerWidth / size + ")";});
 		}
 
-		function scaling() { resize();
-			body.forEach(function(element) {return element.style.transform = "scale(" + window.innerWidth / size + ")";});
+		function scaling() {
+			body.forEach(function(element) {return element.style.minHeight = window.innerHeight / (window.innerWidth / size) + "px", element.style.minWidth = size + "px", element.style.transform = "scale(" + window.innerWidth / size * 1.53 + ")";});
 		}
 
-		function day_mode() { scaling();
+		function day_mode() { resize();
 			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)", element.style.textAlign = "inherit";});
 			comp.forEach(function(element) {return element.style.width = "inherit", element.style.transform = "scale(1)";});
 			show.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static";});
 		//	fish.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed";});
 		}
 
-		function night_mode() { resize();
+		function night_mode() { scaling();
+			hide.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed";}); 
 			weat.forEach(function(element) {return element.style.transform = "translate(-715px, 250px)", element.style.textAlign = "left";});
 			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-100%) scale(0.6)";});
-			hide.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed";}); 
 		//	fish.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static";});
 		}
 	},
@@ -160,12 +163,6 @@ Module.register("timer", {
 	notification: function () {
 		var now = this.now; var date = this.date; var mins = this.mins; var secs = this.secs;
 		var sharp = "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm");
-
-		if (this.config.resetMM) {
-			if (now == "03:59:58") {
-				location.reload();
-			}
-		}
 
 		if (secs == "58") {
 			if (navigator.onLine == true) {
@@ -213,5 +210,7 @@ Module.register("timer", {
 				+ this.translate("Happy Birthday, ") + this.config.name3, notification: this.translate("Good health and be happy! M"), timer: 14000});
 			}
 		}
+
+		if (this.config.resetMM) {if (now == "03:59:58") {location.reload();}}
 	}
 });
