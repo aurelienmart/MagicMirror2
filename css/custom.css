@@ -594,6 +594,7 @@ header {
   margin-top: 15px;
 }
 
+.icalendar table,
 .calendar table {
   margin-bottom: 10px;
 }
@@ -1253,9 +1254,12 @@ header {
 		background: rgba(128,128,128,0.10);
 	}
 
-	.icalendar table tr,
 	.calendar-table table tr {
 		height: 23px;
+	}
+
+	.icalendar table tr {
+		height: 25px;
 	}
 
 	.calendar {
@@ -1270,7 +1274,7 @@ header {
 	}
 
 	.monthly .month:nth-child(n+2),
-	.icalendar table tr:nth-child(n+13),
+	.icalendar table tr:nth-child(n+12),
 	.calendar table tr:nth-child(n+12),
 	.hourly table tr:nth-child(n+4),
 	.daily table tr:nth-child(n+11),
