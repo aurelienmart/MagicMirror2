@@ -91,12 +91,25 @@ language: "ro",
 			disabled: false,
 			config: {
 				startMonth: 0,
-				monthCount: 3,
+				monthCount: 2,
 				monthsVertical: true,
-				repeatWeekdaysVertical: false,
+				repeatWeekdaysVertical: true,
 				weekNumbers: true,
 				highlightWeekend: true,
 				fade: false
+			}
+		},
+		{
+			module: "lifecounter",
+			position: "top_center",
+			classes: "day",
+			disabled: false,
+			config: {
+				birthday: "2022-01-01 00:00:00",
+				counter: "days",
+				before: "<br>Mai sunt",
+				after: "de zile până la Anul Nou",
+				cssclass: "midget"
 			}
 		},
 		{
@@ -110,19 +123,6 @@ language: "ro",
 				dateFormat: "dddd, D MMMM Y",
 				showSunTimes: true,
 				showMoonTimes: true
-			}
-		},
-		{
-			module: "lifecounter",
-			position: "top_left",
-			classes: "day",
-			disabled: true,
-			config: {
-				birthday: "",
-				counter: "seconds",
-				before: "",
-				after: "secunde",
-				cssclass: "midget"
 			}
 		},
 		{
@@ -151,7 +151,7 @@ language: "ro",
 			classes: "day",
 			disabled: false,
 			config: {
-				maximumEntries: 14,
+				maximumEntries: 11,
 				calendarClass: "icalendar",
 				defaultSymbol: "calendar",
 				displaySymbol: true,
@@ -202,7 +202,7 @@ language: "ro",
 			classes: "night current weather",
 			disabled: false,
 			config: {
-				// onecall modified module with own settings
+				// modified module with own onecall settings
 			}
 		},
 		{
