@@ -73,10 +73,10 @@ var config = {
 				sharpMode: true,
 				dateMode: true,
 
-				name1: "",
-				birthday1: "",
-				name2: "",
-				birthday2: "",
+				name1: "Paula!",
+				birthday1: "22.08",
+				name2: "Răzvan!",
+				birthday2: "13.10",
 				name3: "",
 				birthday3: ""
 			}
@@ -101,12 +101,25 @@ var config = {
 			disabled: false,
 			config: {
 				startMonth: 0,
-				monthCount: 3,
+				monthCount: 2,
 				monthsVertical: true,
-				repeatWeekdaysVertical: false,
+				repeatWeekdaysVertical: true,
 				weekNumbers: true,
 				highlightWeekend: true,
 				fade: false
+			}
+		},
+		{
+			module: "lifecounter",
+			position: "top_center",
+			classes: "day",
+			disabled: false,
+			config: {
+				birthday: "2022-01-01 00:00:00",
+				counter: "days",
+				before: "<br>Mai sunt",
+				after: "de zile până la Anul Nou",
+				cssclass: "midget"
 			}
 		},
 		{
@@ -123,25 +136,12 @@ var config = {
 			}
 		},
 		{
-			module: "lifecounter",
-			position: "top_left",
-			classes: "day",
-			disabled: true,
-			config: {
-				birthday: "",
-				counter: "seconds",
-				before: "",
-				after: "secunde",
-				cssclass: "midget"
-			}
-		},
-		{
 			module: "swatch",
 			position: "top_left",
 			classes: "day",
 			disabled: false,
 			config: {
-				logo_height: 27
+				logo_height: 28
 			}
 		},
 		{
@@ -151,7 +151,7 @@ var config = {
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
-				maximumEntries: 14,
+				maximumEntries: 11,
 				displayRepeatingCountTitle: true,
 				fetchInterval: 60 * 1000,
 				fade: false,
@@ -193,7 +193,7 @@ var config = {
 		{
 			module: 'jsontable',
 			position: 'top_left',
-			header: 'Consum casnic în ultimile 6 luni',
+			header: 'Consum casnic în ultimile luni',
 			classes: "day",
 			disabled: false,
 			config: {
@@ -219,7 +219,7 @@ var config = {
 			classes: "night current weather",
 			disabled: false,
 			config: {
-				// onecall modified module with own settings
+				// modified module with own onecall settings
 			}
 		},
 		{
@@ -229,7 +229,7 @@ var config = {
 			classes: "hourly forecast ipad day",
 			disabled: false,
 			config: {
-				maxNumberOfDays: 7,
+				maxNumberOfDays: 4,
 				locationID: false,
 				forecastEndpoint: "/onecall",
 				excludes: "current,minutely,daily",
@@ -414,9 +414,6 @@ var config = {
 					night_alt_cloudy_windy : [
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Nori și ceață",
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Ceață și nori"
-					],
-					"14-02-...." : [
-						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
 					],
 					"30-10-...." : [
 						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
