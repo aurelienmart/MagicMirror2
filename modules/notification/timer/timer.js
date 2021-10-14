@@ -34,13 +34,12 @@ Module.register("timer", {
 
 	notificationReceived: function (notification, payload, sender) {
 		var self = this;
-		if (notification === "ALL_MODULES_STARTED") {
+		if (notification === "DOM_OBJECTS_CREATED") {
 			setInterval(function () {
 				self.variables();
 				self.timer();
 				self.dimmer();
 				self.notification();
-		//		self.pagination();
 			}, 1000);
 		}
 	},
@@ -97,9 +96,16 @@ Module.register("timer", {
 				if (navigator.appVersion.match(/iPad/)) {
 					if (now >= midnight && now < morning) { 
 						night_mode(); 
-					} else { day_mode(); }
-				} else { day_mode(); }
-			} else { resize(); }
+					} else { 
+						day_mode(); 
+						this.config.zoomMode = false;
+					}
+				} else { 
+					day_mode(); 
+				}
+			} else { 
+				resize(); 
+			}
 		}
 
 		function resize() {

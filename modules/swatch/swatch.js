@@ -19,10 +19,9 @@ Module.register("swatch", {
 	start: function () {
 		Log.info("Starting module: " + this.name);
 		var self = this;
-		self.swatch();
-		setInterval(function () {
+		setInterval(function() {
 			self.swatch();
-		}, 8640);
+		}, 864);
 	},
 
 	swatch: function () {
