@@ -38,7 +38,7 @@ Module.register("lifecounter", {
 		}
 
 		if (this.config.counter == "minutes") {
-			if (yourtime > 60) { // one week before and one day after
+			if (yourtime > 60) {
 				wrapper.className = "bright " + this.config.cssclass;
 			} else {
 				wrapper.className = "normal " + this.config.cssclass;
@@ -46,7 +46,7 @@ Module.register("lifecounter", {
 		}
 
 		if (this.config.counter == "hours") {
-			if (yourtime > 24) { // one week before and one day after
+			if (yourtime > 24) {
 				wrapper.className = "bright " + this.config.cssclass;
 			} else {
 				wrapper.className = "normal " + this.config.cssclass;
@@ -54,7 +54,7 @@ Module.register("lifecounter", {
 		}
 
 		if (this.config.counter == "days") {
-			if (yourtime > 7) { // one week before and one day after
+			if (yourtime > 7) {
 				wrapper.className = "bright " + this.config.cssclass;
 			} else {
 				wrapper.className = "normal " + this.config.cssclass;
