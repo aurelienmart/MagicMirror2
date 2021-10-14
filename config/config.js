@@ -62,7 +62,7 @@ var config = {
 			disabled: false,
 			config: {
 				bodysize: 1080,
-				zoomMode: true,
+				zoomMode: false,
 				nightMode: true,
 				fadeMode: true,
 				dimming: 50,
