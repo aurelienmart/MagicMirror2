@@ -45,15 +45,16 @@ Module.register("timer", {
 	},
 
 	variables: function () {
-		this.now = moment().format("HH:mm:ss"); this.date = moment().format("DD.MM mm:ss");
-		this.mins = moment().format("m"); this.secs = moment().format("s"); 
-		this.grayscale = this.config.dimming; this.opacity = (1 - this.grayscale / 100).toPrecision(2);
+		this.now = moment().format("HH:mm:ss"); 
+		this.date = moment().format("DD.MM mm:ss");
+		this.mins = moment().format("m"); 
+		this.secs = moment().format("s"); 
+		this.grayscale = this.config.dimming; 
+	//	this.opacity = (1 - this.grayscale / 100).toPrecision(2);
 
 		if (this.config.debugging!==false) { config.notification = true;
 			this.gray1 = (this.secs * (this.grayscale / 60) / 1).toPrecision(2); 
-			this.opac1 = ((1 - this.gray1 / 100) / 1).toPrecision(2);
 			this.gray2 = ((this.grayscale - this.gray1) / 1).toPrecision(2);
-			this.opac2 = ((1 - this.gray2 / 100) / 1).toPrecision(2);
 			this.night = moment().endOf("d").add(this.config.debugging,"h").format("HH:mm:ss");
 			this.midnight = moment().startOf("d").add(this.config.debugging,"h").format("HH:mm:ss");
 			this.before = moment().startOf("d").add(this.config.debugging - 1,"h").format("HH:mm:ss");
@@ -65,9 +66,7 @@ Module.register("timer", {
 				+ ", Opacity 2: " + this.opac2 + ", Grayscale 2: " + this.gray2);
 		} else {
 			this.gray1 = (this.mins * this.grayscale / 60).toPrecision(4);
-			this.opac1 = (1 - this.gray1 / 100).toPrecision(2);
 			this.gray2 = (this.grayscale - this.gray1).toPrecision(4);
-			this.opac2 = (1 - this.gray2 / 100).toPrecision(2);
 			this.night = moment().endOf("d").format("HH:mm:ss");
 			this.midnight = moment().startOf("d").format("HH:mm:ss");
 			this.before = moment().startOf("d").subtract(1,"h").format("HH:mm:ss");
@@ -82,8 +81,10 @@ Module.register("timer", {
 	},
 
 	timer: function () {
-		var now = this.now; var midnight = this.midnight; var size = this.config.bodysize;
-		var morning = this.morning; var mins = this.mins; var self = this;
+		var now = this.now; 
+		var midnight = this.midnight; 
+		var morning = this.morning;
+		var size = this.config.bodysize; 
 		var hide = Array.from(document.querySelectorAll(".module:not(.night)"));
 		var show = Array.from(document.querySelectorAll(".day"));
 		var weat = Array.from(document.querySelectorAll(".weather"));
@@ -119,27 +120,35 @@ Module.register("timer", {
 		function day_mode() { resize();
 			weat.forEach(function(element) {return element.style.transform = "translate(0, 0)", element.style.textAlign = "inherit";});
 			comp.forEach(function(element) {return element.style.width = "inherit", element.style.transform = "scale(1)";});
-			show.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static";});
-		//	fish.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed";});
+			show.forEach(function(element) {return element.style.filter = "opacity(1)", element.style.position = "static";});
+		//	fish.forEach(function(element) {return element.style.filter = "opacity(0)", element.style.position = "fixed";});
 		}
 
 		function night_mode() { scaling();
-			hide.forEach(function(element) {return element.style.opacity = "0", element.style.position = "fixed";}); 
+			hide.forEach(function(element) {return element.style.filter = "opacity(0)", element.style.position = "fixed";}); 
 			weat.forEach(function(element) {return element.style.transform = "translate(-715px, 250px)", element.style.textAlign = "left";});
 			comp.forEach(function(element) {return element.style.width = "500px", element.style.transform = "translateY(-100%) scale(0.6)";});
-		//	fish.forEach(function(element) {return element.style.opacity = "1", element.style.position = "static";});
+		//	fish.forEach(function(element) {return element.style.filter = "opacity(1)", element.style.position = "static";});
 		}
 	},
 
 	dimmer: function () {
-		var now = this.now; var grayscale = this.grayscale; var opacity = this.opacity;
-		var gray1 = this.gray1; var gray2 = this.gray2; var opac1 = this.opac1;
-		var opac2 = this.opac2; var night = this.night; var midnight = this.midnight;
-		var morning = this.morning; var before = this.before; var after = this.after;
-		var body = Array.from(document.querySelectorAll("body")); var self = this;
+		var self = this; 
+		var now = this.now; 
+		var night = this.night; 
+		var midnight = this.midnight;
+		var morning = this.morning; 
+		var before = this.before; 
+		var after = this.after; 
+		var grayscale = this.grayscale;
+		var gray1 = this.gray1; 
+		var gray2 = this.gray2; 
+		var body = Array.from(document.querySelectorAll("body"));
+		var above = Array.from(document.querySelectorAll(".above"));
+		var below = Array.from(document.querySelectorAll(".below"));
 
 		if (this.config.background) {
-			body.forEach(function(element) {return element.style.backgroundImage = "url(" + self.config.background + ")", element.style.backgroundSize = "cover";});
+			below.forEach(function(element) {return element.style.backgroundImage = "url(" + self.config.background + ")", element.style.backgroundSize = "cover";});
 		}
 
 		if (this.config.monochrome) {
@@ -150,24 +159,38 @@ Module.register("timer", {
 		if (this.config.nightMode) {
 			if (this.config.fadeMode) {
 				if (now >= before && now < night) {
-					body.forEach(function(element) {return element.style.opacity = opac1, element.style.filter = "grayscale(" + gray1 + "%)";});
-					self.sendNotification("NIGHT_NOTIFICATION", gray1);
+					body.forEach(function(element) {return element.style.filter = "grayscale(" + gray1 + "%)";});
+					above.forEach(function(element) {return element.style.filter = "opacity(" + gray1 + "%)";});
+					this.sendNotification("NIGHT_NOTIFICATION", gray1);
 				} else if (now >= midnight && now < morning) {
-					body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)";});
+					body.forEach(function(element) {return element.style.filter = "grayscale(" + grayscale + "%)";});
+					above.forEach(function(element) {return element.style.filter = "opacity(" + grayscale + "%)";});
+					this.sendNotification("NIGHT_NOTIFICATION", grayscale);
 				} else if (now >= morning && now < after) {
-					body.forEach(function(element) {return element.style.opacity = opac2, element.style.filter = "grayscale(" + gray2 + "%)";});
-					self.sendNotification("NIGHT_NOTIFICATION", gray1);
-				} else { body.forEach(function(element) {return element.style.opacity = "1", element.style.filter = "grayscale(0%)";});}
+					body.forEach(function(element) {return element.style.filter = "grayscale(" + gray2 + "%)";});
+					above.forEach(function(element) {return element.style.filter = "opacity(" + gray2 + "%)";});
+					this.sendNotification("NIGHT_NOTIFICATION", gray2);
+				} else {
+					body.forEach(function(element) {return element.style.filter = "grayscale(0)";});
+					above.forEach(function(element) {return element.style.filter = "opacity(0)";});
+				}
 			} else { if (now >= midnight && now < morning) {
-					body.forEach(function(element) {return element.style.opacity = opacity, element.style.filter = "grayscale(" + grayscale + "%)";});
-					self.sendNotification("NIGHT_NOTIFICATION", gray1);
-				} else {body.forEach(function(element) {return element.style.opacity = "1", element.style.filter = "grayscale(0%)";});}
+					body.forEach(function(element) {return element.style.filter = "grayscale(" + grayscale + "%)";});
+					above.forEach(function(element) {return element.style.filter = "opacity(" + grayscale + "%)";});
+					this.sendNotification("NIGHT_NOTIFICATION", grayscale);
+				} else {
+					body.forEach(function(element) {return element.style.filter = "grayscale(0)";});
+					above.forEach(function(element) {return element.style.filter = "opacity(0)";});
+				}
 			}
 		}
 	},
 
 	notification: function () {
-		var now = this.now; var date = this.date; var mins = this.mins; var secs = this.secs;
+		var now = this.now; 
+		var date = this.date; 
+		var mins = this.mins; 
+		var secs = this.secs;
 		var sharp = "<i class=\"far fa-bell lime\"></i> " + this.translate("Time it was ") + moment().format("H:mm");
 
 		if (secs == "58") {
@@ -217,6 +240,8 @@ Module.register("timer", {
 			}
 		}
 
-		if (this.config.resetMM) {if (now == "03:59:58") {location.reload();}}
+		if (this.config.resetMM) {
+			if (now == "03:59:58") {location.reload();}
+		}
 	}
 });
