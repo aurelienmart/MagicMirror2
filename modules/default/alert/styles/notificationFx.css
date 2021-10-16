@@ -1,13 +1,14 @@
 /* Based on work by https://tympanus.net/codrops/licensing/ */
 
 .ns-box {
-  background-color: rgba(0, 0, 0, 0.93);
+  background-color: rgba(0, 0, 0, 0.75);
   padding: 17px;
   line-height: 1.4;
   margin-bottom: 10px;
   z-index: 1;
   font-size: 70%;
   position: relative;
+  top: 180px;
   display: table;
   word-wrap: break-word;
   max-width: 100%;
