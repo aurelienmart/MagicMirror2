@@ -8,9 +8,7 @@
  *
  * This class is the blueprint for a weather provider.
  */
-"use strict";
-
-var WeatherProvider = Class.extend({
+const WeatherProvider = Class.extend({
 	// Weather Provider Properties
 	providerName: null,
 	defaults: {},
@@ -34,36 +32,36 @@ var WeatherProvider = Class.extend({
 	// Called when a weather provider is initialized.
 	init: function (config) {
 		this.config = config;
-		Log.info("Weather provider: " + this.providerName + " initialized.");
+		Log.info(`Weather provider: ${this.providerName} initialized.`);
 	},
 
 	// Called to set the config, this config is the same as the weather module's config.
 	setConfig: function (config) {
 		this.config = config;
-		Log.info("Weather provider: " + this.providerName + " config set.", this.config);
+		Log.info(`Weather provider: ${this.providerName} config set.`, this.config);
 	},
 
 	// Called when the weather provider is about to start.
 	start: function () {
-		Log.info("Weather provider: " + this.providerName + " started.");
+		Log.info(`Weather provider: ${this.providerName} started.`);
 	},
 
 	// This method should start the API request to fetch the current weather.
 	// This method should definitely be overwritten in the provider.
 	fetchCurrentWeather: function () {
-		Log.warn("Weather provider: " + this.providerName + " does not subclass the fetchCurrentWeather method.");
+		Log.warn(`Weather provider: ${this.providerName} does not subclass the fetchCurrentWeather method.`);
 	},
 
 	// This method should start the API request to fetch the weather forecast.
 	// This method should definitely be overwritten in the provider.
 	fetchWeatherForecast: function () {
-		Log.warn("Weather provider: " + this.providerName + " does not subclass the fetchWeatherForecast method.");
+		Log.warn(`Weather provider: ${this.providerName} does not subclass the fetchWeatherForecast method.`);
 	},
 
 	// This method should start the API request to fetch the weather hourly.
 	// This method should definitely be overwritten in the provider.
 	fetchWeatherHourly: function () {
-		Log.warn("Weather provider: " + this.providerName + " does not subclass the fetchWeatherHourly method.");
+		Log.warn(`Weather provider: ${this.providerName} does not subclass the fetchWeatherHourly method.`);
 	},
 
 	// This returns a WeatherDay object for the current weather.
@@ -114,24 +112,31 @@ var WeatherProvider = Class.extend({
 	},
 
 	// A convenience function to make requests. It returns a promise.
-	fetchData: function (url) {
-		var method = arguments.length <= 1 || arguments[1] === undefined ? "GET" : arguments[1];
-		var data = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
-
-		return new Promise(function (resolve, reject) {
-			var request = new XMLHttpRequest();
-			request.open(method, url, true);
-			request.onreadystatechange = function () {
-				if (this.readyState === 4) {
-					if (this.status === 200) {
-						resolve(JSON.parse(this.response));
-					} else {
-						reject(request);
-					}
+	fetchData: function (url, method = "GET", data = null) {
+		const getData = function (mockData) {
+			return new Promise(function (resolve, reject) {
+				if (mockData) {
+					let data = mockData;
+					data = data.substring(1, data.length - 1);
+					resolve(JSON.parse(data));
+				} else {
+					const request = new XMLHttpRequest();
+					request.open(method, url, true);
+					request.onreadystatechange = function () {
+						if (this.readyState === 4) {
+							if (this.status === 200) {
+								resolve(JSON.parse(this.response));
+							} else {
+								reject(request);
+							}
+						}
+					};
+					request.send();
 				}
-			};
-			request.send();
-		});
+			});
+		};
+
+		return getData(this.config.mockData);
 	}
 });
 
@@ -160,8 +165,8 @@ WeatherProvider.register = function (providerIdentifier, providerDetails) {
 WeatherProvider.initialize = function (providerIdentifier, delegate) {
 	providerIdentifier = providerIdentifier.toLowerCase();
 
-	var provider = new WeatherProvider.providers[providerIdentifier]();
-	var config = Object.assign({}, provider.defaults, delegate.config);
+	const provider = new WeatherProvider.providers[providerIdentifier]();
+	const config = Object.assign({}, provider.defaults, delegate.config);
 
 	provider.delegate = delegate;
 	provider.setConfig(config);

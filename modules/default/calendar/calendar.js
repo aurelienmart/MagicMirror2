@@ -57,7 +57,7 @@ Module.register("calendar", {
 
 	// Define required scripts.
 	getStyles: function () {
-		return ["font-awesome.css"];
+		return ["font-awesome.css", "calendar.css"];
 	},
 
 	// Define required scripts.
@@ -77,14 +77,19 @@ Module.register("calendar", {
     start: function () {
         var self = this;
         Log.info("Starting module: " + this.name);
+
         // Set locale.
         moment.updateLocale(config.language, this.getLocaleSpecification(config.timeFormat));
+
         // clear data holder before start
         this.calendarData = {};
+
         // indicate no data available yet
         this.loaded = false;
+
         this.config.calendars.forEach(function (calendar) {
             calendar.url = calendar.url.replace("webcal://", "https://");
+
             var calendarConfig = {
                 maximumEntries: calendar.maximumEntries,
                 maximumNumberOfDays: calendar.maximumNumberOfDays,
@@ -100,6 +105,7 @@ Module.register("calendar", {
             if (calendar.timeClass === "undefined" || calendar.timeClass === null) {
                 calendarConfig.timeClass = "";
             }
+
             // we check user and password here for backwards compatibility with old configs
             if (calendar.user && calendar.pass) {
                 Log.warn("Deprecation warning: Please update your calendar authentication configuration.");
@@ -109,6 +115,7 @@ Module.register("calendar", {
                     pass: calendar.pass
                 };
             }
+
             // tell helper to start a fetcher for this calendar
             // fetcher till cycle
             self.addCalendar(calendar.url, calendar.auth, calendarConfig);
@@ -144,6 +151,7 @@ Module.register("calendar", {
         var oneMinute = oneSecond * 60;
         var oneHour = oneMinute * 60;
         var oneDay = oneHour * 24;
+        
         var events = this.createEventList();
         var wrapper = document.createElement("table");
         wrapper.className = this.config.tableClass;

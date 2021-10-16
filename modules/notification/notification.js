@@ -36,12 +36,12 @@ Module.register("notification", {
 
 		var title = document.createElement("div");
 		title.className = "medium bright";
-		title.innerHTML = this.title;
+		title.innerHTML = this.image + this.title;
 
 		var notification = document.createElement("div");
 		notification.className = "small light dimmed";
 		notification.style.maxHeight = "25px";
-		notification.innerHTML = this.notification;
+		notification.innerHTML = this.message;
 
 		wrapper.appendChild(title);
 		wrapper.appendChild(notification);
@@ -49,15 +49,17 @@ Module.register("notification", {
 	},
 
 	onLine: function () {
+		this.image = "<i class=\"fa fa-" + this.config.startImage + "\"></i> ";
 		this.title = this.config.startTitle;
-		this.notification = this.translate(this.config.startNotification);
-		this.updateDom(this.config.animationSpeed);
+		this.message = this.translate(this.config.startNotification);
+		this.updateDom();
 	},
 
 	offLine: function () {
+		this.image = "<i class=\"orangered fa fa-wifi\"></i>";
 		this.title = "<span class=\"orangered\">" + this.translate("No Internet connection!") + "</span>";
-		this.notification = this.translate("Check Wi-Fi connection and router");
-		this.updateDom(this.config.animationSpeed);
+		this.message = this.translate("Check Wi-Fi connection and router");
+		this.updateDom();
 	},
 
 	timeout: function () {
@@ -69,8 +71,9 @@ Module.register("notification", {
 
 	notificationReceived: function (notification, payload, sender) {
 		if (notification === "DOM_OBJECTS_CREATED") {
+			this.image = "<i class=\"fa fa-" + this.config.startImage + "\"></i> ";
 			this.title = this.config.startTitle;
-			this.notification = "Răzvan Cristea &copy; " + moment().year() + ", MIT License.";
+			this.message = "Răzvan Cristea &copy; " + moment().year() + ", MIT License.";
 			this.updateDom(this.config.animationSpeed);
 			this.timeout();
 		}
@@ -80,18 +83,26 @@ Module.register("notification", {
 		if (notification === "OFFLINE_NOTIFICATION") {this.offLine();}
 
 		if (notification === "NIGHT_NOTIFICATION") {
-			this.notification = this.translate("Dimmed night mode ") + parseInt(payload) + "%";
+			this.message = this.translate("Dimmed night mode ") + parseInt(payload) + "%";
 			this.updateDom();
 		}
 			
 		if (notification === "DAY_NOTIFICATION") {
+			if (typeof payload.imageFA === "undefined") {
+				this.image = "<i class=\"fa fa-" + this.config.startImage + "\"></i> ";
+			} else this.image = "<i class=\"fa fa-" + payload.imageFA + "\"></i> ";
+
+		//	if (typeof payload.imageUrl === "undefined") {
+		//		this.image = payload.imageUrl;
+		//	}
+
 			if (typeof payload.title === "undefined") {
 				payload.title = this.config.startTitle;
 			} else this.title = payload.title;
 
-			if (typeof payload.notification === "undefined") {
-				payload.notification = this.translate(this.config.startNotification);
-			} else this.notification = payload.notification;
+			if (typeof payload.message === "undefined") {
+				payload.message = this.translate(this.config.startNotification);
+			} else this.message = payload.message;
 
 			if (typeof payload.timer === "undefined") {
 				payload.timer = this.config.timer;

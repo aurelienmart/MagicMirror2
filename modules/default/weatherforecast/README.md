@@ -2,102 +2,24 @@
 
 https://github.com/hangorazvan/forecast_plus
 
-Modified MagicMirror2 weatherforecast with hourly forecast falls back and onecall enpoint option
-<br>This module is no longer maintained, will not have any improvements or bug fixes.
+Modified MagicMirror2 weatherforecast with hourly forecast falls back and onecall enpoint option, including snow amount only for winter mounths
 
 https://forum.magicmirror.builders/topic/12201/snow-amount-on-weather-forecast
 
 <img src=https://github.com/hangorazvan/forecast_plus/blob/master/preview.png>
-Do not make modification and do not replace the default, just add <i>disabled: true</i> in config.js and use this one as 3rd party, then put in config.js
+Do not make modification and do not replace the default, just add <i>disable: true</i> in config.js and use this one as 3rd party,
 
-<br>daily forecast with onecall (7 days)
+Then put in config.js
 
-	{
-		module: "forecast_plus",
-		position: "top_right",
-		config: {
-			lat: "",				// set latitude when use onecall endpoint
-			lon: "",				// set longitude when use onecall endpoint
-			locationID: false,			// set locationID to false when use onecall endpoint
-			forecastEndpoint: "/onecall",		// forecast, forecast/daily or onecall
-			fallBack: true,				// force to use fallback endpoint
-			fullday: "ddd", 			// "ddd" in case of onecall & daily forecast, falls back of using free API or "HH [h]" for hourly forecast
-			showRainAmount: true, 			// snow show only in winter months
-			extra: true,				// snow humidity, dew point, pressure, real feel and rain or snow, 
-			excludes: "current,minutely,hourly",
-								// See weatherforeast default module 'Configuration options' for more information.
-		}
-	}
-
-hourly forecast with onecall (1 hour)
 
 	{
 		module: "forecast_plus",
 		position: "top_right",
 		config: {
-			lat: "",				// set latitude when use onecall endpoint
-			lon: "",				// set longitude when use onecall endpoint
-			locationID: false,			// set locationID to false when use onecall endpoint
-			forecastEndpoint: "/onecall",		// forecast, forecast/daily or onecall
-			fallBack: true,				// force to use fallback endpoint
-			fullday: "HH [h]", 			// "ddd" in case of onecall & daily forecast, falls back of using free API or "HH [h]" for hourly forecast
-			showRainAmount: true, 			// snow show only in winter months
-			extra: true,				// snow humidity, dew point, pressure, real feel and rain or snow, 
-			excludes: "current,minutely,daily",
-								// See weatherforeast default module 'Configuration options' for more information.
+			locationID: false,		// set locationID to false when use onecall endpoint
+			forecastEndpoint: "forecast",	// forecast/daily or onecall
+			fullday: "HH [h]", 		// "ddd" in case of onecall & daily forecast, falls back of using free API or "HH [h]" for hourly forecast
+			showRain_Snow: true, 		// snow show only in winter months
+							// See weatherforeast default module 'Configuration options' for more information.
 		}
 	}
-
-normal daily forecast without fallback (5 days for free API, 16 days for registered API)
-
-	{
-		module: "forecast_plus",
-		position: "top_right",
-		config: {
-			locationID: "",				// set locationID to false when use onecall endpoint
-			forecastEndpoint: "/forecast/daily",	// forecast, forecast/daily or onecall
-			fallBack: false,			// force to use fallback endpoint
-			fullday: "ddd", 			// "ddd" in case of onecall & daily forecast, falls back of using free API or "HH [h]" for hourly forecast
-			showRainAmount: true, 			// snow show only in winter months
-			extra: false,				// snow humidity, dew point, pressure, real feel and rain or snow, 
-								// See weatherforeast default module 'Configuration options' for more information.
-		}
-	}
-
-normal daily forecast with fallback (5 days)
-
-	{
-		module: "forecast_plus",
-		position: "top_right",
-		config: {
-			lat: "",				// set latitude when use onecall endpoint
-			lon: "",				// set longitude when use onecall endpoint
-			locationID: false,			// set locationID to false when use onecall endpoint
-			forecastEndpoint: "/forecast",		// forecast, forecast/daily or onecall
-			fallBack: true,				// force to use fallback endpoint
-			fullday: "ddd", 			// "ddd" in case of onecall & daily forecast, falls back of using free API or "HH [h]" for hourly forecast
-			showRainAmount: true, 			// snow show only in winter months
-			extra: false,				// snow humidity, dew point, pressure, real feel and rain or snow, 
-								// See weatherforeast default module 'Configuration options' for more information.
-		}
-	}
-
-normal hourly forecast (3 hours)
-
-	{
-		module: "forecast_plus",
-		position: "top_right",
-		config: {
-			locationID: "",				// set locationID to false when use onecall endpoint
-			forecastEndpoint: "/forecast",		// forecast, forecast/daily or onecall
-			fallBack: false,			// force to use fallback endpoint
-			fullday: "HH [h]", 			// "ddd" in case of onecall & daily forecast, falls back of using free API or "HH [h]" for hourly forecast
-			showRainAmount: true, 			// snow show only in winter months
-			extra: false,				// snow humidity, dew point, pressure, real feel and rain or snow, 
-								// See weatherforeast default module 'Configuration options' for more information.
-		}
-	}
-
-Redesigned by Răzvan Cristea
-https://github.com/hangorazvan
-Creative Commons BY-NC-SA 4.0, Romania.

@@ -41,7 +41,7 @@ Module.register("clock", {
 	},
 	// Define styles.
 	getStyles: function () {
-		return false;
+		return ["clock_styles.css"];
 	},
 	// Define start sequence.
 	start: function () {
