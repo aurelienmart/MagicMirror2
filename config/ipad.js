@@ -36,12 +36,19 @@ language: "ro",
 
 	modules: [
 		{
+			module: "alert",
+			config: {
+				display_time: 5000,
+			}
+		},
+		{
 			module: "notification",
 			position: "top_center",
 			classes: "night",
 			disabled: false,
 			config: {
-				startTitle: "<i class=\"lime fa fa-wifi\"></i> Magic iPad&sup3;&nbsp;",
+				startImage: "wifi lime",
+				startTitle: "Magic Board&sup2;&nbsp;",
 				startNotification: "Modular smart mirror platform",
 				timer: 8000
 			}
@@ -131,7 +138,7 @@ language: "ro",
 			classes: "day",
 			disabled: false,
 			config: {
-				logo_height: 27
+				logo_height: 28
 			}
 		},
 		{
@@ -212,7 +219,7 @@ language: "ro",
 			classes: "hourly forecast ipad day",
 			disabled: false,
 			config: {
-				maxNumberOfDays: 7,
+				maxNumberOfDays: 4,
 				locationID: false,
 				forecastEndpoint: "/onecall",
 				excludes: "current,minutely,daily",
