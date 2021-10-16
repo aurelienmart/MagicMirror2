@@ -49,6 +49,7 @@ var config = {
 			module: "alert",
 			config: {
 				display_time: 5000,
+				welcome_message: true
 			}
 		},
 		{
