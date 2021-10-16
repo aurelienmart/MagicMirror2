@@ -27,7 +27,7 @@ var config = {
 	locationID: 683506,
 	timezone: "Europe/Bucharest",
 	decimal: ",",
- 	appid: '', // magic mirror
+ 	appid: '',
 	apiBase: "http://api.openweathermap.org/data/",
 	apiVersion: "2.5/",
 	roundTemp: false,
@@ -46,12 +46,19 @@ var config = {
 
 	modules: [
 		{
+			module: "alert",
+			config: {
+				display_time: 5000,
+			}
+		},
+		{
 			module: "notification",
 			position: "top_center",
 			classes: "night",
 			disabled: false,
 			config: {
-				startTitle: "<i class=\"lime fa fa-wifi\"></i> Magic Board&sup2;&nbsp;",
+				startImage: "wifi lime",
+				startTitle: "Magic Board&sup2;&nbsp;",
 				startNotification: "Modular smart mirror platform",
 				timer: 8000
 			}
@@ -414,6 +421,9 @@ var config = {
 					night_alt_cloudy_windy : [
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Nori și ceață",
 						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Ceață și nori"
+					],
+					"14-02-...." : [
+						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
 					],
 					"30-10-...." : [
 						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
