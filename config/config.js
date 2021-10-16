@@ -409,7 +409,7 @@ var config = {
 					],
 					night_rain : [
 						"<i class=\"deepskyblue wi wi-night-rain\"></i> Noapte ploioasă",
-						"<i class=\"deepskyblue wi wi-night-rain\"></i> Ploaie!"
+						"<i class=\"deepskyblue wi wi-night-rain\"></i> Plouă!"
 					],
 					night_thunderstorm : [
 						"<i class=\"royalblue wi wi-night-thunderstorm\"></i> Noapte furtunoasă!",
