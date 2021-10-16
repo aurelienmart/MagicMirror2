@@ -42,7 +42,7 @@ Module.register("currentweather", {
 		apiVersion: config.apiVersion,
 		apiBase: config.apiBase,
 		weatherEndpoint: "onecall",
-		type: "current",
+		endpointType: "current",
 
 		appendLocationNameToHeader: false,
 		useLocationAsHeader: false,
@@ -555,20 +555,21 @@ Module.register("currentweather", {
 		params += "&units=" + this.config.units;
 		params += "&lang=" + this.config.lang;
 		params += "&APPID=" + this.config.appid;
-
-		if (this.config.type === "current") {
+		params += "&exclude=minutely,hourly,daily";
+/*
+		if (this.config.endpointType === "current") {
 			params += "&exclude=minutely,hourly,daily";
 		}
-		else if (this.config.type === "hourly") {
+		else if (this.config.endpointType === "hourly") {
 			params += "&exclude=current,minutely,daily";
 		}
-		else if (this.config.type === "daily") {
+		else if (this.config.endpointType === "daily") {
 			params += "&exclude=current,minutely,hourly";
 		}
 		else {
 			params += "&exclude=minutely";
 		}
-
+*/
 		return params;
 	},
 

@@ -19,7 +19,7 @@ Module.register("clock", {
 		showPeriodUpper: config.period,
 		clockBold: false,
 		showDate: true,
-		showTime: false, // show digital with analog clock
+		showTime: true, // show digital with analog clock
 		showWeek: false,
 		dateFormat: "dddd, LL",
 
@@ -41,7 +41,7 @@ Module.register("clock", {
 	},
 	// Define styles.
 	getStyles: function () {
-		return false;
+		return ["clock_styles.css"];
 	},
 	// Define start sequence.
 	start: function () {
@@ -159,7 +159,7 @@ Module.register("clock", {
 			digitalWrapper.appendChild(dateWrapper);
 		}
 
-		if (this.config.showTime || this.config.displayType !== "analog") {
+		if (this.config.displayType !== "analog" && this.config.showTime) {
 			timeWrapper.innerHTML = timeString;
 			secondsWrapper.innerHTML = now.format(":ss");
 			if (this.config.showPeriodUpper) {

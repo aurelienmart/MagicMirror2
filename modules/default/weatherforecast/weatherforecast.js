@@ -180,8 +180,8 @@ Module.register("weatherforecast", {
 				row.appendChild(medTempCell);
 
 				var feelsLike = document.createElement("td");
-				feelsLike.innerHTML = "<i class=\"wi wi-thermometer\"></i> " + parseFloat(forecast.feelsLike).toFixed(0).replace(".", this.config.decimalSymbol) + degreeLabel;
-				feelsLike.className = "gold";
+				feelsLike.innerHTML = "<i class=\"wi wi-thermometer little\"></i> " + parseFloat(forecast.feelsLike).toFixed(0).replace(".", this.config.decimalSymbol) + degreeLabel;
+				feelsLike.className = "yellow";
 				row.appendChild(feelsLike);	
 			} else {
 				var maxTempCell = document.createElement("td");
@@ -199,7 +199,7 @@ Module.register("weatherforecast", {
 				var rainCell = document.createElement("td");
 				if (isNaN(forecast.rain)) {
 					rainCell.className = "align-right shade";
-					rainCell.innerHTML = this.translate("No rain") + " <i class=\"fa fa-tint-slash lime\"></i>";
+					rainCell.innerHTML = this.translate("No rain") + " <i class=\"fa fa-tint-slash skyblue\"></i>";
 				} else if (!isNaN(forecast.snow)) {
 					if(config.units !== "imperial") {
 						rainCell.innerHTML = parseFloat(forecast.snow).toFixed(1).replace(".", this.config.decimalSymbol) + " mm <i class=\"wi wi-snowflake-cold lightblue\"></i>";
@@ -235,7 +235,7 @@ Module.register("weatherforecast", {
 				table.appendChild(row);
 
 				var humidity = document.createElement("td");
-				humidity.innerHTML = parseFloat(forecast.humidity).toFixed(0).replace(".", this.config.decimalSymbol) + "% <i class=\"wi wi-humidity skyblue little\"></i>";
+				humidity.innerHTML = "<i class=\"wi wi-humidity skyblue little\"></i> " + parseFloat(forecast.humidity).toFixed(0).replace(".", this.config.decimalSymbol) + "%";
 				humidity.className = "align-left humidity";
 				row.appendChild(humidity);
 
@@ -246,17 +246,17 @@ Module.register("weatherforecast", {
 
 				var pressure = document.createElement("td");
 				pressure.innerHTML = Math.round(forecast.pressure * 750.062 / 1000).toFixed(0).replace(".", this.config.decimalSymbol) + " Hg";
-				pressure.className = "pressure";
+				pressure.className = "pressure greenyellow";
 				row.appendChild(pressure);
 
 				var uvIndex = document.createElement("td");
-				uvIndex.innerHTML = "UV " + parseFloat(forecast.uvIndex).toFixed(1).replace(".", this.config.decimalSymbol);
+				uvIndex.innerHTML = "<i class=\"wi wi-hot gold little\"></i> " + parseFloat(forecast.uvIndex).toFixed(1).replace(".", this.config.decimalSymbol);
 				uvIndex.className = "uvIndex";
 				row.appendChild(uvIndex);
 
 				if (this.config.showRainAmount) {
 					var precip = document.createElement("td");
-					precip.innerHTML =  parseFloat(forecast.precip).toFixed(2).replace(".", this.config.decimalSymbol) + "% <i class=\"wi wi-umbrella lime little\"></i>";
+					precip.innerHTML =  parseFloat(forecast.precip).toFixed(2).replace(".", this.config.decimalSymbol) + "% <i class=\"wi wi-umbrella lime\"></i>";
 					precip.className = "precipitation";
 					row.appendChild(precip);
 				}
