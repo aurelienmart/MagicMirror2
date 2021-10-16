@@ -1265,6 +1265,8 @@ header {
 		background: none;
 	}
 
+	.ical table tr:nth-child(even),
+	.icalendar table tr:nth-child(even),
 	.monthly .week:nth-child(odd),
 	.daily table tr:nth-child(odd),
 	.hourly table tr:nth-child(even) {
