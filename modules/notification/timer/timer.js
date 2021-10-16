@@ -81,10 +81,7 @@ Module.register("timer", {
 	},
 
 	timer: function () {
-		var now = this.now; 
-		var midnight = this.midnight; 
-		var morning = this.morning;
-		var size = this.config.bodysize; 
+		var now = this.now; var size = this.config.bodysize; 
 		var hide = Array.from(document.querySelectorAll(".module:not(.night)"));
 		var show = Array.from(document.querySelectorAll(".day"));
 		var weat = Array.from(document.querySelectorAll(".weather"));
@@ -95,17 +92,11 @@ Module.register("timer", {
 		if (window.innerWidth <= size) {
 			if (this.config.zoomMode) {
 				if (navigator.appVersion.match(/iPad/)) {
-					if (now >= midnight && now < morning) { 
-						night_mode(); 
-					} else { 
-						day_mode(); 
+					if (now >= this.midnight && now < this.morning) { 
+						night_mode(); } else { day_mode(); 
 					}
-				} else { 
-					day_mode(); 
-				}
-			} else { 
-				resize(); 
-			}
+				} else { day_mode(); }
+			} else { resize(); }
 		}
 
 		function resize() {
@@ -132,11 +123,9 @@ Module.register("timer", {
 	},
 
 	dimmer: function () {
-		var self = this; 
-		var now = this.now; 
+		var self = this; var now = this.now; 
 		var grayscale = this.grayscale;
-		var gray1 = this.gray1; 
-		var gray2 = this.gray2; 
+		var gray1 = this.gray1; var gray2 = this.gray2; 
 		var body = Array.from(document.querySelectorAll("body"));
 		var above = Array.from(document.querySelectorAll(".above"));
 		var below = Array.from(document.querySelectorAll(".below"));
@@ -181,9 +170,7 @@ Module.register("timer", {
 	},
 
 	notification: function () {
-		var self = this; 
-		var now = this.now; 
-		var date = this.date; 
+		var self = this; var now = this.now; var date = this.date; 
 		var sharp = this.translate("Time it was ") + moment().format("H:mm");
 		var bell = "bell lime ";
 		var gift = "gifts yellow ";
