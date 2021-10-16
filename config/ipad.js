@@ -9,7 +9,7 @@
  */
  
 var config = {
-language: "ro",
+	language: "ro",
 	locale: "ro-RO",
 	timeFormat: 24,
 	units: "metric",
@@ -39,6 +39,7 @@ language: "ro",
 			module: "alert",
 			config: {
 				display_time: 5000,
+				welcome_message: true
 			}
 		},
 		{
