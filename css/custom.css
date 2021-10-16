@@ -102,6 +102,10 @@ a {
 	color: var(--color-text-bright);
 }
 
+.little {
+	font-size: 70%;
+}
+
 .xsmall {
 	font-size: 0.7rem;
 }
@@ -223,8 +227,7 @@ header {
 }
 
 .region.fullscreen.above {
-	background: black;
-	filter: opacity(0); 
+
 }
 
 .region.fullscreen.below {
@@ -434,6 +437,10 @@ header {
 
 .violet {
 	color: violet;
+}
+
+.alert-blur {
+  filter: blur(5px) brightness(50%) !important;
 }
 
 /* Clock */
