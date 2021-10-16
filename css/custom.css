@@ -122,6 +122,11 @@ a {
 	font-size: 1.6rem;
 }
 
+.slarge {
+	font-size: 3rem;
+	line-height: 1.5;
+}
+
 .large {
 	font-size: 6rem;
 	line-height: 1;
@@ -1249,7 +1254,7 @@ header {
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
-		bottom: 17%;
+		bottom: 16%;
 	}
 
 	.large {
