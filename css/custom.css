@@ -444,6 +444,14 @@ header {
 	color: violet;
 }
 
+.ns-box {
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.ns-alert {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .alert-blur {
   filter: blur(5px) brightness(50%) !important;
 }
