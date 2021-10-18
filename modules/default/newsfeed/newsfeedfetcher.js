@@ -75,14 +75,14 @@ var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) 
             Pragma: "no-cache"
         };
         fetch(url, { headers: headers })
-           .then(NodeHelper.checkFetchStatus)
-           .then(function (response) {
-               response.body.pipe(iconv.decodeStream(encoding)).pipe(parser);
-            })
+            .then(NodeHelper.checkFetchStatus)
+            .then(function (response) {
+            response.body.pipe(iconv.decodeStream(encoding)).pipe(parser);
+        })
             .catch(function (error) {
-                fetchFailedCallback(self, error);
-                scheduleTimer();
-            });
+            fetchFailedCallback(self, error);
+            scheduleTimer();
+        });
     };
     /**
      * Schedule the timer for the next update.
