@@ -236,8 +236,7 @@ header {
 }
 
 .region.fullscreen.below {
-	background-image: none;
-	filter: opacity(25%); 
+	filter: opacity(25%);
 }
 
 .region.top {
@@ -450,10 +449,15 @@ header {
 
 .ns-alert {
   background-color: rgba(0, 0, 0, 0.5);
+  position: relative;
+  top: 10px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: var(--color-text-dimmed);
 }
 
 .alert-blur {
-  filter: blur(5px) brightness(50%) !important;
+  filter: blur(2px) brightness(50%) !important;
 }
 
 /* Clock */
@@ -1305,8 +1309,8 @@ header {
 	.calendar table tr:nth-child(n+12),
 	.hourly table tr:nth-child(n+4),
 	.daily table tr:nth-child(n+11),
-	header,	.lifecounter, .yframe, .traffic,
-	.currentweather .prep, .jsontable {
+	header,	.lifecounter, .jsontable,
+	.currentweather .prep {
 		display: none !important;
 	}
 
