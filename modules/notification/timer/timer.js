@@ -33,14 +33,11 @@ Module.register("timer", {
 	},
 
 	notificationReceived: function (notification, payload, sender) {
-		var self = this;
-		if (notification === "DOM_OBJECTS_CREATED") {
-			setInterval(function () {
-				self.variables();
-				self.timer();
-				self.dimmer();
-				self.notification();
-			}, 1000);
+		if (notification === "CLOCK_SECOND") {
+			this.variables();
+			this.timer();
+			this.dimmer();
+			this.notification();
 		}
 	},
 
