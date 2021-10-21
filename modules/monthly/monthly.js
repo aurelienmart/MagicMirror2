@@ -15,6 +15,10 @@ Module.register("monthly", {
 		return ["monthly.css"];
 	},
 
+	getScripts: function () {
+		return ["moment.js"];
+	},
+
 	// Update at midnight
 	start: function () {
 		var self = this;

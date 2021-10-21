@@ -52,20 +52,20 @@ Module.register("notification", {
 		this.image = "<i class=\"fa fa-" + this.config.startImage + "\"></i> ";
 		this.title = this.config.startTitle;
 		this.message = this.translate(this.config.startNotification);
-		this.updateDom();
+		this.timeout();
 	},
 
 	offLine: function () {
 		this.image = "<i class=\"orangered fa fa-wifi\"></i>";
 		this.title = "<span class=\"orangered\">" + this.translate("No Internet connection!") + "</span>";
 		this.message = this.translate("Check Wi-Fi connection and router");
-		this.updateDom();
+		this.timeout();
 	},
 
 	timeout: function () {
 		var self = this;
 		setTimeout(function () {
-			self.onLine();
+			self.updateDom();
 		}, this.config.timer);
 	},
 
@@ -74,8 +74,7 @@ Module.register("notification", {
 			this.image = "<i class=\"fa fa-" + this.config.startImage + "\"></i> ";
 			this.title = this.config.startTitle;
 			this.message = "Răzvan Cristea &copy; " + moment().year() + ", MIT License.";
-			this.updateDom(this.config.animationSpeed);
-			this.timeout();
+			this.updateDom(config.animation);
 		}
 
 		if (notification === "ONLINE_NOTIFICATION") {this.onLine();}
@@ -84,7 +83,7 @@ Module.register("notification", {
 
 		if (notification === "NIGHT_NOTIFICATION") {
 			this.message = this.translate("Dimmed night mode ") + parseInt(payload) + "%";
-			this.updateDom();
+			this.timeout();
 		}
 			
 		if (notification === "DAY_NOTIFICATION") {
@@ -107,10 +106,7 @@ Module.register("notification", {
 			if (typeof payload.timer === "undefined") {
 				payload.timer = this.config.timer;
 			} else this.config.timer = payload.timer;
-			this.updateDom(this.config.animationSpeed);
-			this.timeout();
+			this.updateDom(config.animation);
 		}
-
-		if (notification === "HIDE_NOTIFICATION") {this.onLine();}
 	}
 });
