@@ -440,6 +440,11 @@ var config = {
 				aspect: 9/16,
 				cssClass: "fishtank"
 			}
+		},
+		{
+			module: 'snow',
+			position: 'fullscreen_above',
+			disabled: false,
 		}
 	]
 };
