@@ -184,7 +184,7 @@ var config = {
 		{
 			module: 'jsontable',
 			position: 'top_left',
-			header: 'Consum casnic în ultimile 6 luni',
+			header: 'Consum casnic în ultimile luni',
 			classes: "day",
 			disabled: false,
 			config: {
