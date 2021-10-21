@@ -25,6 +25,10 @@ Module.register("jsontable", {
 		return ["jsontable.css"];
 	},
 
+	getScripts: function () {
+		return ["moment.js"];
+	},
+
 	getHeader: function () {
 		return this.data.header;
 	},
