@@ -47,10 +47,6 @@
   height: 100%;
 }
 
-.alert-blur {
-  filter: blur(2px) brightness(50%);
-}
-
 [class^="ns-effect-"].ns-growl.ns-hide,
 [class*=" ns-effect-"].ns-growl.ns-hide {
   animation-direction: reverse;
