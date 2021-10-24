@@ -445,6 +445,7 @@ header {
 
 .ns-box {
   background-color: rgba(0, 0, 0, 0.85);
+  margin-top: 10px; 
 }
 
 .ns-alert {
@@ -505,7 +506,6 @@ header {
 }
 
 .clock .clockFace {
-	margin: 12px auto;
 	width: 100%;
 	height: 100%;
 }
@@ -602,7 +602,7 @@ header {
 }
 
 .analog {
-		padding-top: 20px;
+    padding-top: 20px;
 }
 
 /* swatch */
