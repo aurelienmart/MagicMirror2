@@ -445,6 +445,7 @@ header {
 
 .ns-box {
   background-color: rgba(0, 0, 0, 0.85);
+  margin-top: 10px; 
 }
 
 .ns-alert {
