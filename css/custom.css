@@ -692,18 +692,9 @@ header {
 	padding-bottom: 5px;
 }
 
-.calendar .symbol span {
+.calendar .calendar-icon {
 	display: inline-block;
 	transform: translate(-5px, 2px);
-}
-
-.calendar .title::first-letter {
-	text-transform: capitalize;
-}
-
-.calendar .time {
-	text-align: right;
-	vertical-align: top;
 }
 
 /* jquery Calendar */
@@ -746,7 +737,7 @@ header {
 
 .icalendar table .description,
 .calendar-table table .description {
-	white-space: nowrap;
+	white-space: pre-wrap;
 }
 
 .icalendar table .days,
@@ -755,6 +746,7 @@ header {
 	text-align: right;
 	white-space: nowrap; 
 	color: var(--color-text-dark);
+	vertical-align: top;
 }
 
 .icalendar .fa {
