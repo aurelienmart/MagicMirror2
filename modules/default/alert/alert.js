@@ -123,7 +123,7 @@ Module.register("alert", {
 			message: image + message,
 			effect: this.config.alert_effect,
 			ttl: params.timer,
-			onClose: function () {return self.hideAlert(sender)},
+			onClose: function () {return self.hide_alert(sender)},
 			al_no: "ns-alert"
 		});
 
