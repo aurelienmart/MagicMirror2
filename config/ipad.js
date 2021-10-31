@@ -370,7 +370,7 @@ var config = {
 					"14-02-...." : [
 						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
 					],
-					"30-10-...." : [
+					"31-10-...." : [
 						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
 					],
 					"01-12-...." : [
