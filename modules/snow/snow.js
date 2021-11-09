@@ -98,9 +98,9 @@ Module.register("snow", {
 			if ((payload.type === "night_snow") || (payload.type === "day_snow")) {
 				this.config.theme = "winter"; this.updateDom()
 				this.show(this.config.animationSpeed, { lockString: this.identifier });
-			} else if ((payload.type === "night_rain") || (payload.type === "day_rain")) {
-				this.config.theme = "water"; this.updateDom()
-				this.show(this.config.animationSpeed, { lockString: this.identifier });
+		//	} else if ((payload.type === "night_rain") || (payload.type === "day_rain")) {
+		//		this.config.theme = "water"; this.updateDom()
+		//		this.show(this.config.animationSpeed, { lockString: this.identifier });
 			} else if (moment().format("DD.MM") == "14.02") {
 				this.config.theme = "love"; this.updateDom()
 				this.show(this.config.animationSpeed, { lockString: this.identifier });
