@@ -50,7 +50,9 @@ Module.register("notification", {
 
 	onLine: function () {
 		this.image = "<i class=\"fa fa-" + this.config.startImage + "\"></i> ";
-		this.title = this.config.startTitle;
+		if (navigator.appVersion.match(/iPad/)) {
+			this.title = this.config.startTablet;
+		} else this.title = this.config.startTitle;
 		this.message = this.translate(this.config.startNotification);
 		this.timeout();
 	},
@@ -72,7 +74,9 @@ Module.register("notification", {
 	notificationReceived: function (notification, payload, sender) {
 		if (notification === "DOM_OBJECTS_CREATED") {
 			this.image = "<i class=\"fa fa-" + this.config.startImage + "\"></i> ";
-			this.title = this.config.startTitle;
+			if (navigator.appVersion.match(/iPad/)) {
+				this.title = this.config.startTablet;
+			} else this.title = this.config.startTitle;
 			this.message = "Răzvan Cristea &copy; " + moment().year() + ", MIT License.";
 			this.updateDom(config.animation);
 		}
