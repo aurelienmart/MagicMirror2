@@ -160,7 +160,7 @@ var config = {
 			classes: "day",
 			disabled: false,
 			config: {
-				maximumEntries: 11,
+				maximumEntries: 22,
 				calendarClass: "icalendar",
 				defaultSymbol: "calendar",
 				displaySymbol: true,
@@ -187,7 +187,7 @@ var config = {
 			position: 'top_left',
 			header: 'Consum casnic în ultimile luni',
 			classes: "day",
-			disabled: false,
+			disabled: true,
 			config: {
 				url: "data.json",
 				arrayName: "2021",
