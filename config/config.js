@@ -160,7 +160,7 @@ var config = {
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
-				maximumEntries: 11,
+				maximumEntries: 20,
 				displayRepeatingCountTitle: true,
 				fetchInterval: 60 * 1000,
 				fade: false,
@@ -204,7 +204,7 @@ var config = {
 			position: 'top_left',
 			header: 'Consum casnic în ultimile luni',
 			classes: "day",
-			disabled: false,
+			disabled: true,
 			config: {
 				url: "data.json",
 				arrayName: "2021",
