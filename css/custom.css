@@ -1293,7 +1293,7 @@ header {
 	.daily table tr:nth-child(n+11),
 	header,	.lifecounter, .jsontable,
 	.currentweather .prep,
-	.newsfeed-desc {
+	.newsfeed-desc, .news .desc {
 		display: none !important;
 	}
 
