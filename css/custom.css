@@ -320,10 +320,6 @@ header {
 	height: 25px;
 }
 
-.calendar table tr {
-	height: 19pt;
-}
-
 .region table td {
 	padding: 0;
 	border-bottom: 1px solid #111;
@@ -619,15 +615,6 @@ header {
 	margin-bottom: 0;
 }
 
-.calendar {
-  margin-top: 15px;
-}
-
-.icalendar table,
-.calendar table {
-  margin-bottom: 10px;
-}
-
 /* notification */
 
 .fa-wifi {
@@ -681,6 +668,7 @@ header {
 
 .calendar {
 	transform: translateX(0);
+	margin-top: 15px;
 }
 
 .calendar header {
@@ -690,6 +678,7 @@ header {
 .calendar table {
 	float: left;
 	padding-bottom: 5px;
+	margin-bottom: 10px;
 }
 
 .calendar .calendar-icon {
@@ -708,7 +697,8 @@ header {
 .icalendar table,
 .calendar-table table {
 	width: 100%;
-	white-space: nowrap; 
+	white-space: nowrap;
+	margin-bottom: 10px;
 }
 
 .icalendar table td,
@@ -1302,7 +1292,8 @@ header {
 	.hourly table tr:nth-child(n+4),
 	.daily table tr:nth-child(n+11),
 	header,	.lifecounter, .jsontable,
-	.currentweather .prep {
+	.currentweather .prep,
+	.newsfeed-desc {
 		display: none !important;
 	}
 
@@ -1319,8 +1310,8 @@ header {
 	.rssfeed .feed .date,
 	.rssfeed .feed .source,
 	.feed .date, .feed .source {
-		font-size: 1.2rem;
-		line-height: 1.4rem;
+		font-size: 1.8rem;
+		line-height: 2rem;
 	}
 
 	.swatch {
