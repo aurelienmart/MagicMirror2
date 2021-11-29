@@ -216,11 +216,11 @@ Module.register("timer", {
 			} else if (date == "14.02 00:10") {
 				this.sendNotification("DAY_NOTIFICATION", {imageFA: hart, title: "Happy Valentine's Day!", message: this.translate("Happy Valentine's Day!"), timer: 14000});
 			} else if (date == this.config.birthday1 + " 00:10") {
-				this.sendNotification("DAY_NOTIFICATION", {imageFA: cake, title: this.translate("Happy Birthday, ") + this.config.name1, message: this.translate("Good health and be happy! F"), timer: 14000});
+				this.sendNotification("DAY_NOTIFICATION", {imageFA: cake, title: this.config.customTitle1, message: this.config.customText1, timer: 14000});
 			} else if (date == this.config.birthday2 + " 00:10") {
-				this.sendNotification("DAY_NOTIFICATION", {imageFA: cake, title: this.translate("Happy Birthday, ") + this.config.name2, message: this.translate("Good health and be happy! M"), timer: 14000});
+				this.sendNotification("DAY_NOTIFICATION", {imageFA: cake, title: this.config.customTitle2, message: this.config.customText2, timer: 14000});
 			} else if (date == this.config.birthday3 + " 00:10") {
-				this.sendNotification("DAY_NOTIFICATION", {imageFA: cake, title: this.translate("Happy Birthday, ") + this.config.name3, message: this.translate("Good health and be happy! M"), timer: 14000});
+				this.sendNotification("DAY_NOTIFICATION", {imageFA: glas, title: this.config.customTitle3, message: this.config.customText3, timer: 14000});
 			}
 		}
 
