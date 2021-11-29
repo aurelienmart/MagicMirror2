@@ -72,12 +72,15 @@ var config = {
 				sharpMode: true,
 				dateMode: true,
 
-				name1: "Paula!",
 				birthday1: "22.08",
-				name2: "Răzvan!",
+				customTitle1: "La mulți ani Paula!",
+				customText1: "Multă sănătate și să fi fericită!",
 				birthday2: "13.10",
-				name3: "",
-				birthday3: ""
+				customTitle2: "La mulți ani Răzvan!",
+				customText2: "Multă sănătate și să fi fericit!",
+				birthday3: "01.12",
+				customTitle3: "La mulți ani România!",
+				customText3: "La mulți ani tuturor românilor!"
 			}
 		},
 		{
