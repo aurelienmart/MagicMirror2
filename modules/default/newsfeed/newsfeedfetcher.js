@@ -4,10 +4,11 @@
  * By Michael Teeuw https://michaelteeuw.nl
  * MIT Licensed.
  */
-const Log = require("../../../js/logger.js");
-const FeedMe = require("feedme");
-const request = require("request");
-const iconv = require("iconv-lite");
+var Log = require("../../../js/logger.js");
+var FeedMe = require("feedme");
+// var request = require("request");
+var fetch = require("node-fetch");
+var iconv = require("iconv-lite");
 
 /**
  * Responsible for requesting an update on the set interval and broadcasting the data.
@@ -18,8 +19,8 @@ const iconv = require("iconv-lite");
  * @param {boolean} logFeedWarnings If true log warnings when there is an error parsing a news article.
  * @class
  */
-const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) {
-	const self = this;
+var NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings) {
+	var self = this;
 
 	var reloadTimer = null;
 	var items = [];
@@ -36,21 +37,21 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 	/**
 	 * Request the new items.
 	 */
-	const fetchNews = function () {
+	var fetchNews = function () {
 		clearTimeout(reloadTimer);
 		reloadTimer = null;
 		items = [];
 
-		const parser = new FeedMe();
+		var parser = new FeedMe();
 
 		parser.on("item", function (item) {
-			const title = item.title;
+			var title = item.title;
 			var description = item.description || item.summary || item.content || "";
-			const pubdate = item.pubdate || item.published || item.updated || item["dc:date"];
-			const url = item.url || item.link || "";
+			var pubdate = item.pubdate || item.published || item.updated || item["dc:date"];
+			var url = item.url || item.link || "";
 
 			if (title && pubdate) {
-				const regex = /(<([^>]+)>)/gi;
+				var regex = /(<([^>]+)>)/gi;
 				description = description.toString().replace(regex, "");
 
 				items.push({
@@ -78,29 +79,27 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 			scheduleTimer();
 		});
 
-		const nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
-		const opts = {
-			headers: {
-				"User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)",
-				"Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
-				Pragma: "no-cache"
-			},
-			encoding: null
-		};
-
-		request(url, opts)
-			.on("error", function (error) {
-				fetchFailedCallback(self, error);
-				scheduleTimer();
-			})
-			.pipe(iconv.decodeStream(encoding))
-			.pipe(parser);
+        var nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
+        var headers = {
+            "User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)",
+            "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
+            Pragma: "no-cache"
+        };
+        fetch(url, { headers: headers })
+            .then(NodeHelper.checkFetchStatus)
+            .then(function (response) {
+            response.body.pipe(iconv.decodeStream(encoding)).pipe(parser);
+        })
+            .catch(function (error) {
+            fetchFailedCallback(self, error);
+            scheduleTimer();
+        });
 	};
 
 	/**
 	 * Schedule the timer for the next update.
 	 */
-	const scheduleTimer = function () {
+	var scheduleTimer = function () {
 		clearTimeout(reloadTimer);
 		reloadTimer = setTimeout(function () {
 			fetchNews();
