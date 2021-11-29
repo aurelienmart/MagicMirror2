@@ -90,7 +90,7 @@ Module.register("alert", {
 			image = "<span class='slarge bright " + "fa fa-" + params.imageFA + "' style='margin-bottom: 10px;'/></span> &nbsp; ";
 		}
 /*		//Create overlay
-		const overlay = document.createElement("div");
+		var overlay = document.createElement("div");
 		overlay.id = "overlay";
 		overlay.innerHTML += '<div class="black_overlay"></div>';
 		document.body.insertBefore(overlay, document.body.firstChild);
@@ -100,9 +100,10 @@ Module.register("alert", {
 			this.hide_alert(sender, false);		
 		}
 
-		const modules = document.querySelectorAll(".module");
-		for (const module of modules) {
-			module.classList["add"]("alert-blur");
+		var modules = document.querySelectorAll(".module");
+		for (var _i = 0; _i < modules.length; _i++) {
+		    var module = modules[_i];
+		    module.classList["add"]("alert-blur");
 		}
 
 		//Display title and message only if they are provided in notification parameters
@@ -123,7 +124,7 @@ Module.register("alert", {
 			message: image + message,
 			effect: this.config.alert_effect,
 			ttl: params.timer,
-			onClose: function () {return self.hide_alert(sender)},
+			onClose: function () {return self.hide_alert(sender);},
 			al_no: "ns-alert"
 		});
 
@@ -138,26 +139,28 @@ Module.register("alert", {
 		}
 	},
 
-	hide_alert: function (sender, close = true) {
+	hide_alert: function (sender, close) {
+	    if (close === void 0) { close = true; }
 		//Dismiss alert and remove from this.alerts
 		if (this.alerts[sender.name]) {
 			this.alerts[sender.name].dismiss(close);
 			this.alerts[sender.name] = null;
 
 /*			//Remove overlay
-			const overlay = document.getElementById("overlay");
+			var overlay = document.getElementById("overlay");
 			overlay.parentNode.removeChild(overlay);
 */		}
 
-		const modules = document.querySelectorAll(".module");
-		for (const module of modules) {
-			module.classList["remove"]("alert-blur");
+		var modules = document.querySelectorAll(".module");
+		for (var _i = 0; _i < modules.length; _i++) {
+		    var module = modules[_i];
+		    module.classList["remove"]("alert-blur");
 		}
 	},
 
 	setPosition: function (pos) {
 		//Add css to body depending on the set position for notifications
-		const sheet = document.createElement("style");
+		var sheet = document.createElement("style");
 		if (pos === "center") {
 			sheet.innerHTML = ".ns-box {margin-left: auto; margin-right: auto; text-align: center;}";
 		}

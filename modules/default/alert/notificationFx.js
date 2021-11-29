@@ -127,7 +127,8 @@
 	 *
 	 * @param {boolean} [close] call the onClose callback at the end
 	 */
-	NotificationFx.prototype.dismiss = function (close = true) {
+	NotificationFx.prototype.dismiss = function (close) {
+    	if (close === void 0) { close = true; }
         var self = this;
 		this.active = false;
 		clearTimeout(this.dismissttl);
@@ -140,7 +141,7 @@
 		}, 25);
 
 		// after animation ends remove ntf from the DOM
-		const onEndAnimationFn = function (ev) {
+		var onEndAnimationFn = function (ev) {
 			if (ev.target !== self.ntf) {
 				return false;
 			}
