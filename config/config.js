@@ -598,7 +598,7 @@ var config = {
 		{
 			module: 'snow',
 			position: 'fullscreen_above',
-			disabled: false,
+			disabled: true,
 		}
 	]
 };
