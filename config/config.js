@@ -172,6 +172,7 @@ var config = {
 				getRelative: 48,
 				coloredSymbolOnly: true,
 				titleReplace: {
+					"a doua zi de Crăciun": "A doua zi de Crăciun",
 					"Ziua Internațională a Femeii": "Ziua femeii",
 					"Zi Constantin Brancusi": "Ziua lui Brâncuși",
 					"New moon": "Lună nouă la",
@@ -182,12 +183,11 @@ var config = {
 				locationTitleReplace: {},
 				excludedEvents: [
 					"Orthodox Good Friday",
-					"Doua zi de Rusalii",
 					"Ziua Sfîntului Andrei",
 					"Adormirea Maicii Domnului",
 					"Rusalii",
 					"Doua zi de Rusalii"
-					],
+				],
 				nextDaysRelative: true,
 
 				calendars: [
