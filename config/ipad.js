@@ -380,9 +380,13 @@ var config = {
 					"01-12-...." : [
 						"<i class=\"gold fa fa-glass-cheers\"></i> La mulți ani România!"
 					],
+					"..-12-...." : [
+						"<i class=\"bright fa fa-snowman\"></i> Vin sărbătorile!",
+						"<i class=\"gold fa fa-gifts\"></i> Luna cadourilor!"
+					],
 					"25-12-...." : [
-						"<i class=\"bright fa fa-snowman\"></i> Crăciun fericit!",
-						"<i class=\"gold fa fa-gifts\"></i> Sărbători fericite!"
+						"<i class=\"gold fa fa-holly-berry\"></i> Crăciun fericit!",
+						"<i class=\"gold fa fa-gift\"></i> Sărbători fericite!"
 					],
 					"26-12-...." : [
 						"<i class=\"bright fa fa-snowman\"></i> Crăciun fericit!",
