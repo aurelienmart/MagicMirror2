@@ -324,12 +324,9 @@ var config = {
 						"Fi sexy, fi tu însuți!",
 						"O zi cât mai frumoasă!",
 						"Azi arăți foarte bine!",
-						"Să te simți excelent!",
 						"Arăți minunat, succes!",
-						"Să ai multă sănătate!",
 						"Fă-o astăzi, nu mâine!",
 						"Întotdeauna ai dreptate!",
-						"Zâmbește, trăiește!",
 						function() {return moment().locale(config.language).format("dddd, D MMMM");}
 					],
 					morning : [
@@ -436,9 +433,13 @@ var config = {
 					"01-12-...." : [
 						"<i class=\"gold fa fa-glass-cheers\"></i> La mulți ani România!"
 					],
+					"..-12-...." : [
+						"<i class=\"bright fa fa-snowman\"></i> Vin sărbătorile!",
+						"<i class=\"gold fa fa-gifts\"></i> Luna cadourilor!"
+					],
 					"25-12-...." : [
-						"<i class=\"bright fa fa-snowman\"></i> Crăciun fericit!",
-						"<i class=\"gold fa fa-gifts\"></i> Sărbători fericite!"
+						"<i class=\"gold fa fa-holly-berry\"></i> Crăciun fericit!",
+						"<i class=\"gold fa fa-gift\"></i> Sărbători fericite!"
 					],
 					"26-12-...." : [
 						"<i class=\"bright fa fa-snowman\"></i> Crăciun fericit!",
