@@ -45,7 +45,7 @@ var CalendarFetcher = function(url, reloadInterval, excludedEvents, maximumEntri
 		var fetcher = null;
 		var httpsAgent = null;
 		var headers = {
-			"User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)"
+			"User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version
 		};
 
 		if (selfSignedCert) {

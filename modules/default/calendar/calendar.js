@@ -279,7 +279,7 @@ Module.register("calendar", {
                 }
                 else {
                     var timeWrapper = document.createElement("td");
-                    timeWrapper.className = "time light align-left " + this.timeClassForUrl(event.url);
+                    timeWrapper.className = "time light align-left " + self.timeClassForUrl(event.url);
                     timeWrapper.style.paddingLeft = "2px";
                     timeWrapper.innerHTML = moment(event.startDate, "x").format("LT");
                     eventWrapper.appendChild(timeWrapper);
@@ -333,9 +333,9 @@ Module.register("calendar", {
                 }
                 else {
                     // Show relative times
-                    if (event.startDate >= now) {
+                    if (event.startDate >= now || (event.fullDayEvent && event.today)) {
                         // Use relative  time
-                        if (!self.config.hideTime) {
+                        if (!self.config.hideTime && !event.fullDayEvent) {
                             timeWrapper.innerHTML = self.capFirst(moment(event.startDate, "x").calendar(null, { sameElse: self.config.dateFormat }));
                         }
                         else {
@@ -343,10 +343,21 @@ Module.register("calendar", {
                                 sameDay: "[" + self.translate("TODAY") + "]",
                                 nextDay: "[" + self.translate("TOMORROW") + "]",
                                 nextWeek: "dddd",
-                                sameElse: self.config.dateFormat
+                                sameElse: event.fullDayEvent ? self.config.fullDayEventDateFormat : self.config.dateFormat
                             }));
                         }
-                        if (event.startDate - now < self.config.getRelative * oneHour) {
+                        if (event.fullDayEvent) {
+                            // Full days events within the next two days
+                            if (event.today) {
+                                timeWrapper.innerHTML = self.capFirst(self.translate("TODAY"));
+                            } else if (event.startDate - now < oneDay && event.startDate - now > 0) {
+                                timeWrapper.innerHTML = self.capFirst(self.translate("TOMORROW"));
+                            } else if (event.startDate - now < 2 * oneDay && event.startDate - now > 0) {
+                                if (self.translate("DAYAFTERTOMORROW") !== "DAYAFTERTOMORROW") {
+                                    timeWrapper.innerHTML = self.capFirst(self.translate("DAYAFTERTOMORROW"));
+                                }
+                            }
+                        } else if (event.startDate - now < self.config.getRelative * oneHour) {
                             // If event is within getRelative  hours, display 'in xxx' time format or moment.fromNow()
                             timeWrapper.innerHTML = self.capFirst(moment(event.startDate, "x").fromNow());
                         }

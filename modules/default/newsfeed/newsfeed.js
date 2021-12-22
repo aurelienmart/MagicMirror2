@@ -33,7 +33,9 @@ Module.register("newsfeed", {
         endTags: [],
         prohibitedWords: [],
         scrollLength: 500,
-        logFeedWarnings: false
+        logFeedWarnings: false,
+        dangerouslyDisableAutoEscaping: false
+
 	},
 
     // Define required scripts.
@@ -113,7 +115,8 @@ Module.register("newsfeed", {
         }
         if (this.newsItems.length === 0) {
             return {
-                loaded: false
+                loaded: false,
+                empty: true
             };
         }
         if (this.activeItem >= this.newsItems.length) {
