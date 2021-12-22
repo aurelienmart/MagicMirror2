@@ -52,6 +52,7 @@
 	"MODULE_ERROR_NO_CONNECTION": "Fără conexiune la internet.",
 	"MODULE_ERROR_UNAUTHORIZED": "Autorizație eșuată.",
 	"MODULE_ERROR_UNSPECIFIED": "Verificați log-urile pentru mai multe detalii.",
+	"NEWSFEED_NO_ITEMS": "Nu sunt știri în acest moment.",
 	"UPDATE_NOTIFICATION": "Un update este disponibil pentru MagicMirror².",
 	"UPDATE_NOTIFICATION_MODULE": "Un update este disponibil pentru modulul {MODULE_NAME}.",
 	"UPDATE_INFO_SINGLE": "Există {COMMIT_COUNT} commit-uri noi pe branch-ul {BRANCH_NAME}.",
