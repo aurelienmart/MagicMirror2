@@ -30,10 +30,11 @@ Module.register("alert", {
 
 	// Define required translations.
 	getTranslations: function () {
-		return {
-			en: "translations/en.json",
-			ro: "translations/ro.json",
-		};
+		return false; 
+	//	{
+	//		en: "translations/en.json",
+	//		ro: "translations/ro.json",
+	//	};
 	},
 
 	start: function () {
