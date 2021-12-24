@@ -22,10 +22,11 @@ Module.register("timer", {
 	},
 
 	getTranslations: function () {
-		return {
-			en: "../en.json",
-			ro: "../ro.json"
-		};
+		return false; 
+	//	{
+	//		en: "../en.json",
+	//		ro: "../ro.json"
+	//	};
 	},
 
 	start: function () {
