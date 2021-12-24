@@ -98,15 +98,14 @@ const CalendarUtils = {
                 if (h > 0 && h < Math.abs(current_offset) / 60) {
                     // if so, rrule created a wrong date (utc day, oops, with utc yesterday adjusted time)
                     // we need to fix that
-                    adjustHours = 24;
+                    // adjustHours = 24;
                     // Log.debug("adjusting date")
                 }
-                //-300 > -240
-                //if (Math.abs(current_offset) > Math.abs(start_offset)){
+
                 if (current_offset > start_offset) {
                     adjustHours -= 1;
                     Log.debug("adjust down 1 hour dst change");
-                    //} else if (Math.abs(current_offset) < Math.abs(start_offset)) {
+
                 } else if (current_offset < start_offset) {
                     adjustHours += 1;
                     Log.debug("adjust up 1 hour dst change");
@@ -332,28 +331,28 @@ const CalendarUtils = {
                             Log.debug("Fullday");
                             // If the offset is negative (east of GMT), where the problem is
                             if (dateoffset < 0) {
-                                if (dh <= Math.abs(dateoffset / 60)) {
-                                    // reduce the time by the offset
-                                    // Apply the correction to the date/time to get it UTC relative
-                                    date = new Date(date.getTime() - Math.abs(dateoffset) * 60000);
-                                    // the duration was calculated way back at the top before we could correct the start time..
-                                    // fix it for this event entry
-                                    //duration = 24 * 60 * 60 * 1000;
-                                    Log.debug("new recurring date1 is " + date);
-                                }
+
+                                // reduce the time by the offset
+                                // Apply the correction to the date/time to get it UTC relative
+                                date = new Date(date.getTime() - Math.abs(24 * 60) * 60000);
+                                // the duration was calculated way back at the top before we could correct the start time..
+                                // fix it for this event entry
+
+                                Log.debug("new recurring date1 is " + date);
+                                //}
                             } else {
                                 // if the timezones are the same, correct date if needed
-                            //  if (event.start.tz === moment.tz.guess()) {
-                                    // if the date hour is less than the offset
-                                    if (24 - dh <= Math.abs(dateoffset / 60)) {
-                                        // apply the correction to the date/time back to right day
-                                        date = new Date(date.getTime() + Math.abs(24 * 60) * 60000);
-                                        // the duration was calculated way back at the top before we could correct the start time..
-                                        // fix it for this event entry
-                                        // duration = 24 * 60 * 60 * 1000;
-                                        Log.debug("new recurring date2 is " + date);
-                                    }
-                            //  }
+
+                                // if the date hour is less than the offset
+                                if (24 - dh <= Math.abs(dateoffset / 60)) {
+                                    // apply the correction to the date/time back to right day
+                                    date = new Date(date.getTime() + Math.abs(24 * 60) * 60000);
+                                    // the duration was calculated way back at the top before we could correct the start time..
+                                    // fix it for this event entry
+
+                                    Log.debug("new recurring date2 is " + date);
+                                }
+
                             }
                         } else {
                             // not full day, but luxon can still screw up the date on the rule processing
@@ -363,25 +362,24 @@ const CalendarUtils = {
                                 if (dh <= Math.abs(dateoffset / 60)) {
                                     // Reduce the time by the offset:
                                     // Apply the correction to the date/time to get it UTC relative
-                                    date = new Date(date.getTime() - Math.abs(nowOffset) * 60000);
+                                    date = new Date(date.getTime() - Math.abs(24 * 60) * 60000);
                                     // the duration was calculated way back at the top before we could correct the start time..
                                     // fix it for this event entry
-                                    //duration = 24 * 60 * 60 * 1000;
+
                                     Log.debug("new recurring date1 is " + date);
                                 }
                             } else {
                                 // if the timezones are the same, correct date if needed
-                            //  if (event.start.tz === moment.tz.guess()) {
-                                    // if the date hour is less than the offset
-                                    if (24 - dh <= Math.abs(dateoffset / 60)) {
-                                        // apply the correction to the date/time back to right day
-                                        date = new Date(date.getTime() + Math.abs(24 * 60) * 60000);
-                                        // the duration was calculated way back at the top before we could correct the start time..
-                                        // fix it for this event entry
-                                        //duration = 24 * 60 * 60 * 1000;
-                                        Log.debug("new recurring date2 is " + date);
-                                    }
-                            //  }
+
+                                // if the date hour is less than the offset
+                                if (24 - dh <= Math.abs(dateoffset / 60)) {
+                                    // apply the correction to the date/time back to right day
+                                    date = new Date(date.getTime() + Math.abs(24 * 60) * 60000);
+                                    // the duration was calculated way back at the top before we could correct the start time..
+                                    // fix it for this event entry
+
+                                    Log.debug("new recurring date2 is " + date);
+                                }
                             }
                         }
                         startDate = moment(date);
