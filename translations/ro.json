@@ -1,4 +1,7 @@
 {
+	"sysTitle": "MagicMirror²",
+	"welcome": "Bun venit, pornire cu succes!",
+
 	"LOADING": "Se încarcă &hellip;",
 
 	"YESTERDAY": "Ieri",
@@ -52,6 +55,7 @@
 	"MODULE_ERROR_NO_CONNECTION": "Fără conexiune la internet.",
 	"MODULE_ERROR_UNAUTHORIZED": "Autorizație eșuată.",
 	"MODULE_ERROR_UNSPECIFIED": "Verificați log-urile pentru mai multe detalii.",
+	"NEWSFEED_NO_ITEMS": "Nu sunt știri în acest moment.",
 	"UPDATE_NOTIFICATION": "Un update este disponibil pentru MagicMirror².",
 	"UPDATE_NOTIFICATION_MODULE": "Un update este disponibil pentru modulul {MODULE_NAME}.",
 	"UPDATE_INFO_SINGLE": "Există {COMMIT_COUNT} commit-uri noi pe branch-ul {BRANCH_NAME}.",
@@ -59,5 +63,24 @@
 
 	"FEELS!": "Se simte ca fiind: ",	
 	"FEELS": "Se simte ca fiind: {DEGREE}",
-	"PRECIP": "Precipitații "
+	"PRECIP": "Precipitații ",
+
+	"No Internet connection!": "Fără conexiune la internet!",
+	"Check Wi-Fi connection and router": "Verifică conexiunea Wi-Fi și routerul",
+	"MagicMirror&sup2; started succesfuly!": "MagicMirror&sup2; a pornit cu succes!",
+	"Dimmed night mode ": "Mod nocturn estompat ",
+	"Modular smart mirror platform": "Platformă modulară inteligentă",
+	"Sharp hour!": "Ora exactă!",
+	"Time it was ": "A fost ora ",
+	"Good night!": "Noapte bună!",
+	"Sleep well!": "Somn ușor!",
+	"Good morning!": "Bună dimineața!",
+	"Bon appetit!": "Poftă bună!",
+	"Have a nice day!": "O zi cât mai bună!",
+	"Have a nice evening!": "O seară plăcută!",
+	"Marry Christmas!": "Crăciun fericit!",
+	"Happy New Year ": "La mulți ani ",
+	"Happy Valentine's Day!": "La mulți ani și multă fericire!",
+	"Happy holidays with many joys!": "Sărbători fericite cu multe bucurii!",
+	"A good new year and good health!": "Un an nou bun și multă sănătate!"
 }

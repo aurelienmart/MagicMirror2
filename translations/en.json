@@ -1,4 +1,7 @@
 {
+	"sysTitle": "MagicMirror²",
+	"welcome": "Welcome, start was successful!",
+
 	"LOADING": "Loading &hellip;",
 
 	"YESTERDAY": "Yesterday",
@@ -52,6 +55,7 @@
 	"MODULE_ERROR_NO_CONNECTION": "No internet connection.",
 	"MODULE_ERROR_UNAUTHORIZED": "Authorization failed.",
 	"MODULE_ERROR_UNSPECIFIED": "Check logs for more details.",
+	"NEWSFEED_NO_ITEMS": "No news at the moment.",
 	"UPDATE_NOTIFICATION": "MagicMirror² update available.",
 	"UPDATE_NOTIFICATION_MODULE": "Update available for {MODULE_NAME} module.",
 	"UPDATE_INFO_SINGLE": "The current installation is {COMMIT_COUNT} commit behind on the {BRANCH_NAME} branch.",
@@ -59,5 +63,24 @@
 
 	"FEELS!": "Feels like: ",
 	"FEELS": "Feels like: {DEGREE}",
-	"PRECIP": "Precipitations "
+	"PRECIP": "Precipitations ",
+
+	"No Internet connection!": "No Internet connection!",
+	"Check Wi-Fi connection and router": "Check Wi-Fi connection and router",
+	"MagicMirror&sup2; started succesfuly!": "MagicMirror&sup2; started succesfuly!",
+	"Dimmed night mode ": "Dimmed night mode ",
+	"Modular smart mirror platform": "Modular smart mirror platform",
+	"Sharp hour!": "Sharp hour!",
+	"Time it was ": "Time it was ",
+	"Good night!": "Good night!",
+	"Sleep well!": "Sleep well!",
+	"Good morning!": "Good morning!",
+	"Bon appetit!": "Bon appetit!",
+	"Have a nice day!": "Have a nice day!",
+	"Have a nice evening!": "Have a nice evening!",
+	"Marry Christmas!": "Marry Christmas!",
+	"Happy New Year ": "Happy Birthday ",
+	"Happy Valentine's Day!": "Happy Valentine's Day!",
+	"Happy holidays with many joys!": "Happy holidays with many joys!",
+	"A good new year and good health!": "A good new year and good health!"
 }
