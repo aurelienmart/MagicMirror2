@@ -209,18 +209,7 @@ Module.register("calendar", {
                 var symbolClass = self.symbolClassForUrl(event.url);
                 symbolWrapper.className = "symbol align-right " + symbolClass;
                 var symbols = self.symbolsForEvent(event);
-                // If symbols are displayed and custom symbol is set, replace event symbol
-                if (self.config.displaySymbol && self.config.customEvents.length > 0) {
-                    for (var ev in self.config.customEvents) {
-                        if (typeof self.config.customEvents[ev].symbol !== "undefined" && self.config.customEvents[ev].symbol !== "") {
-                            var needle = new RegExp(self.config.customEvents[ev].keyword, "gi");
-                            if (needle.test(event.title)) {
-                                symbols[0] = self.config.customEvents[ev].symbol;
-                                break;
-                            }
-                        }
-                    }
-                }
+
                 symbols.forEach(function (s, index) {
                     var symbol = document.createElement("span");
                     symbol.className = "fa fa-fw fa-" + s;
@@ -583,6 +572,19 @@ Module.register("calendar", {
         if (event.fullDayEvent === true && this.hasCalendarProperty(event.url, "fullDaySymbol")) {
             symbols = this.mergeUnique(this.getCalendarPropertyAsArray(event.url, "fullDaySymbol", this.config.defaultSymbol), symbols);
         }
+
+        // If custom symbol is set, replace event symbol
+        for (var _i = 0, _a = this.config.customEvents; _i < _a.length; _i++) {
+            var ev = _a[_i];
+            if (typeof ev.symbol !== "undefined" && ev.symbol !== "") {
+                var needle = new RegExp(ev.keyword, "gi");
+                if (needle.test(event.title)) {
+                    symbols[0] = ev.symbol;
+                    break;
+                }
+            }
+        }
+
         return symbols;
     },
     mergeUnique: function (arr1, arr2) {

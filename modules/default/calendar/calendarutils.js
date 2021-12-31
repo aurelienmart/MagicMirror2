@@ -331,15 +331,15 @@ const CalendarUtils = {
                             Log.debug("Fullday");
                             // If the offset is negative (east of GMT), where the problem is
                             if (dateoffset < 0) {
-
-                                // reduce the time by the offset
-                                // Apply the correction to the date/time to get it UTC relative
-                                date = new Date(date.getTime() - Math.abs(24 * 60) * 60000);
-                                // the duration was calculated way back at the top before we could correct the start time..
-                                // fix it for this event entry
-
-                                Log.debug("new recurring date1 is " + date);
-                                //}
+                                if (dh < Math.abs(dateoffset / 60)) {
+                                    // reduce the time by the offset
+                                    // Apply the correction to the date/time to get it UTC relative
+                                    date = new Date(date.getTime() - Math.abs(24 * 60) * 60000);
+                                    // the duration was calculated way back at the top before we could correct the start time..
+                                    // fix it for this event entry
+                                    //duration = 24 * 60 * 60 * 1000;
+                                    Log.debug("new recurring date1 fulldate is " + date);
+                                }
                             } else {
                                 // if the timezones are the same, correct date if needed
 
@@ -350,7 +350,7 @@ const CalendarUtils = {
                                     // the duration was calculated way back at the top before we could correct the start time..
                                     // fix it for this event entry
 
-                                    Log.debug("new recurring date2 is " + date);
+                                    Log.debug("new recurring date2 fulldate is " + date);
                                 }
 
                             }
