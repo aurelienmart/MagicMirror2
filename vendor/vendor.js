@@ -5,11 +5,11 @@
  * MIT Licensed.
  */
 var vendor = {
-	"moment.js"				: "../js/cdn.js",
-	"moment-timezone.js"	: "../js/cdn.js",
-	"suncalc.js"			: "../js/cdn.js",
-	"nunjucks.js"			: "../js/cdn.js",
-	"jquery.js"				: "../js/cdn.js",
+	"moment.js"				: "../vendor/cdn.js",
+	"moment-timezone.js"	: "../vendor/cdn.js",
+	"suncalc.js"			: "../vendor/cdn.js",
+	"nunjucks.js"			: "../vendor/cdn.js",
+	"jquery.js"				: "../vendor/cdn.js",
 	"weather-icons.css"		: "../fonts/fonts.css",
 	"weather-icons-wind.css": "../fonts/fonts.css",
 	"font-awesome.css"		: "../fonts/fonts.css",
