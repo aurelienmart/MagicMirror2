@@ -117,7 +117,7 @@ var config = {
 			classes: "day",
 			disabled: false,
 			config: {
-				birthday: "2022-01-01 00:00:00",
+				birthday: "2023-01-01 00:00:00",
 				counter: "days",
 				before: "<br>Mai sunt",
 				after: "de zile până la Anul Nou",
