@@ -193,11 +193,13 @@ var config = {
 				calendars: [
 					{
 						symbol: "calendar-check-o", symbolClass: "skyblue", // titleClass: "skyblue", timeClass: "skyblue", color: "normal",
-						url: "http://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
+						url: "http://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics",
+						maximumEntries: 5
 					},
 					{
 						symbol: "moon", symbolClass: "normal", // titleClass: "normal", timeClass: "normal", color: "normal",
-						url: "http://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
+						url: "http://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics",
+						maximumEntries: 5
 					},
 				]
 			}
