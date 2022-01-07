@@ -202,7 +202,7 @@ Module.register("timer", {
 				this.sendNotification("DAY_NOTIFICATION", {imageFA: bell, title: sharp, message: this.translate("Good morning!"), timer: 8000});
 			} else if (now == "12:00:00" || now == "13:00:00" || now == "14:00:00") {
 				this.sendNotification("DAY_NOTIFICATION", {imageFA: bell, title: sharp, message: this.translate("Bon appetit!"), timer: 8000});
-			} else if (now == "15:00:00" || now == "16:40:00" || now == "17:00:00") {
+			} else if (now == "15:00:00" || now == "16:00:00" || now == "17:00:00") {
 				this.sendNotification("DAY_NOTIFICATION", {imageFA: bell, title: sharp, message: this.translate("Have a nice day!"), timer: 8000});
 			} else if (now == "18:00:00" || now == "19:00:00" || now == "20:00:00" || now == "21:00:00" || now == "22:00:00") {
 				this.sendNotification("DAY_NOTIFICATION", {imageFA: bell, title: sharp, message: this.translate("Have a nice evening!"), timer: 8000});

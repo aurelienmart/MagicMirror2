@@ -20,7 +20,7 @@ Module.register("rssfeed", {
 	
 	start: function() {
 		Log.info("Starting module: " + this.name);
-			this.newsfeed();
+		this.newsfeed();
 	},
 
 	getDom: function() {
@@ -108,7 +108,7 @@ Module.register("rssfeed", {
 				var counter = "<span class=\"count\">" + (title.length + desc.length) + "</span>";
 				var update = "<span class=\"update\">(" + counter + "/" + moment().format("HH:mm") + ")</span>";
 				if(oldestDate.diff(pubDate) < 0) {
-					stories.push("<span class=\"date\"> - " + pubDate.toNow().replace("peste","în urmă cu") + ":</span><br><span class=\"title\">" + title + "</span> &bull; <span class=\"desc\">" + desc + "</span>");
+					stories.push("<span class=\"date\"> - " + pubDate.toNow().replace("peste","în urmă cu") + ":</span><br><span class=\"title\">" + title + "</span> <span class=\"desc\"> &bull; " + desc + "</span>");
 				}
 			}
 			function showNews() {

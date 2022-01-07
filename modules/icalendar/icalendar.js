@@ -20,8 +20,8 @@ Module.register("icalendar", {
 	
 	start: function() {
 		Log.info("Starting module: " + this.name); 
-			this.calendar();
-			this.rrule();
+		this.calendar();
+		this.rrule();
 	},
 
 	getDom: function() {
