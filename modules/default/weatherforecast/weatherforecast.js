@@ -26,7 +26,7 @@ Module.register("weatherforecast", {
 		extra: false,
 		degreeLabel: config.scale,
 
-		initialLoadDelay: 2500, // 2.5 seconds delay. This delay is used to keep the OpenWeather API happy.
+		initialLoadDelay: 3000, // 3 seconds delay. This delay is used to keep the OpenWeather API happy.
 		retryDelay: config.delay,
 
 		apiVersion: config.apiVersion,
