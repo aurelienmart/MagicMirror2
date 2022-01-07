@@ -12,7 +12,7 @@ var vendor = {
 	"jquery.js"				: "../vendor/cdn.js",
 	"weather-icons.css"		: "../fonts/fonts.css",
 	"weather-icons-wind.css": "../fonts/fonts.css",
-	"font-awesome.css"		: "../fonts/fonts.css",
+	"font-awesome.css"		: "../fonts/fonts.css"
 };
 
 if (typeof module !== "undefined") {
