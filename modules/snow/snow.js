@@ -23,17 +23,29 @@ Module.register("snow", {
 			"downwards"    : true,      // direction of flake movements, snow goes downwards
 			"sizeFactor"   : 1			// adapt size of flakes to your liking, use original flake size
 			},
+		"snow" : { 
+			"flakePrefix"  : "flake",    // prefix of css name, e.g. snow1 
+			"imagesCount"  : 3,         // number of images available in this theme, here:  snow1, snow2, snow3
+			"downwards"    : true,      // direction of flake movements, snow goes downwards
+			"sizeFactor"   : 2			// adapt size of flakes to your liking, use original flake size
+			},			
 		"love"   : { 
 			"flakePrefix" : "heart",    // prefix of css name, e.g. heart1 
 			"imagesCount"  : 2,         // number of images in this theme, here:  heart1, heart2
 			"downwards"    : false,     // direction of flake movements, hearts raise upwards			
-			"sizeFactor"   : 2			// adapt size of flakes to your liking, we like bigger hearts
+			"sizeFactor"   : 1			// adapt size of flakes to your liking, we like bigger hearts
 			},
 		"water"   : { 
 			"flakePrefix" : "bubble",   // prefix of css name, e.g. bubble1 
 			"imagesCount"  : 1,         // number of images in this theme, here:  bubble1
 			"downwards"    : false,     // direction of flake movements, bubbles raise upwards			
 			"sizeFactor"   : 2			// adapt size of flakes to your liking, we like bigger bubbles
+			},
+		"rain"   : { 
+			"flakePrefix" : "drop",   // prefix of css name, e.g. bubble1 
+			"imagesCount"  : 1,         // number of images in this theme, here:  bubble1
+			"downwards"    : true,     // direction of flake movements, bubbles raise upwards			
+			"sizeFactor"   : 1			// adapt size of flakes to your liking, we like bigger bubbles
 			}
 	},
 
@@ -99,7 +111,7 @@ Module.register("snow", {
 				this.config.theme = "winter"; this.updateDom()
 				this.show(this.config.animationSpeed, { lockString: this.identifier });
 		//	} else if ((payload.type === "night_rain") || (payload.type === "day_rain")) {
-		//		this.config.theme = "water"; this.updateDom()
+		//		this.config.theme = "rain"; this.updateDom()
 		//		this.show(this.config.animationSpeed, { lockString: this.identifier });
 			} else if (moment().format("DD.MM") == "14.02") {
 				this.config.theme = "love"; this.updateDom()
