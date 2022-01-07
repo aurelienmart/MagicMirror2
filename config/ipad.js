@@ -163,7 +163,7 @@ var config = {
 			classes: "day",
 			disabled: false,
 			config: {
-				maximumEntries: 22,
+				maximumEntries: 20,
 				calendarClass: "icalendar",
 				defaultSymbol: "calendar",
 				displaySymbol: true,
@@ -175,11 +175,13 @@ var config = {
 					urls: [
 						{
 							symbol: "calendar-check-o",
-							url: "http://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics"
+							url: "http://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics",
+							maximumEntries: 5
 						},
 						{
 							symbol: "moon",
-							url: "http://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics"
+							url: "http://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics",
+							maximumEntries: 5
 						},
 					]
 				}
