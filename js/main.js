@@ -23,26 +23,7 @@ var MM = (function () {
 			}
 
 			var wrapper = selectWrapper(module.data.position);
-/*
-			if (wrapper.hasResizeObserver === undefined) {
-				wrapper.hasResizeObserver = false;
-			}
-			if (!wrapper.hasResizeObserver) {
-				var resizeObserver = new ResizeObserver(function(entries) {
-					entries.forEach(function(entry) {
-						if (window.screen.width < entry.contentRect.width) {
-							Log.warn("Modules size overflow screen width for position: " + module.data.position);
-						}
-						if (window.screen.height < entry.contentRect.height) {
-							Log.warn("Modules size overflow screen height for position: " + module.data.position);
-						}
-					});
-				});
 
-				resizeObserver.observe(wrapper);
-				wrapper.hasResizeObserver = true;
-			}
-*/
 			var dom = document.createElement("div");
 			dom.id = module.identifier;
 			dom.className = module.name;
