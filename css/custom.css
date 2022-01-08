@@ -952,42 +952,46 @@ header {
 	transform: translate(0, 15px) scale(1.4);
 }
 
-.complimentz .wi-day-cloudy,
+.compliments .wi-day-sunny {
+	content: url("icons/clear.png");
+}
+
+.ompliments .wi-day-cloudy,
 .currentweather .wi-day-cloudy {
 	content: url("icons/mostlysunny.png");
 }
 
-.complimentz .wi-cloudy,
+.compliments .wi-cloudy,
 .currentweather .wi-cloudy {
 	content: url("icons/cloudy.png");
 }
 
-.complimentz .wi-day-cloudy-windy,
+.compliments .wi-day-cloudy-windy,
 .currentweather .wi-day-cloudy-windy {
 	content: url("icons/mostlycloudy.png");
 }
 
-.complimentz .wi-day-showers,
+.compliments .wi-day-showers,
 .currentweather .wi-day-showers {
-	content: url("icons/chancerain.png");
+	content: url("icons/rain.png");
 }
 
-.complimentz .wi-day-rain,
+.compliments .wi-day-rain,
 .currentweather .wi-day-rain {
 	content: url("icons/rain.png");
 }
 
-.complimentz .wi-day-thunderstorm,
+.compliments .wi-day-thunderstorm,
 .currentweather .wi-day-thunderstorm {
 	content: url("icons/tstorms.png");
 }
 
-.complimentz .wi-day-snow,
+.compliments .wi-day-snow,
 .currentweather .wi-day-snow {
 	content: url("icons/snow.png");
 }
 
-.complimentz .wi-day-fog,
+.compliments .wi-day-fog,
 .currentweather .wi-day-fog {
 	content: url("icons/fog.png");
 }
@@ -997,42 +1001,36 @@ header {
 	transform: translate(0, 15px) scale(1.6);
 }
 
-.complimentz .wi-night-alt-cloudy,
+.compliments .wi-night-clear {
+	content: url("icons/nt_clear.png");
+}
+
+.compliments .wi-night-alt-cloudy,
 .currentweather .wi-night-alt-cloudy {
 	content: url("icons/nt_cloudy.png");
 }
 
-.complimentz .wi-night-cloudy,
-.currentweather .wi-night-cloudy {
-	content: url("icons/nt_partlycloudy.png");
-}
-
-.complimentz .wi-night-cloudy-windy,
-.currentweather .wi-night-cloudy-windy {
-	content: url("icons/nt_mostlycloudy.png");
-}
-
-.complimentz .wi-night-showers,
+.compliments .wi-night-showers,
 .currentweather .wi-night-showers {
-	content: url("icons/nt_chancerain.png");
+	content: url("icons/nt_rain.png");
 }
 
-.complimentz .wi-night-rain,
+.compliments .wi-night-rain,
 .currentweather .wi-night-rain {
 	content: url("icons/nt_rain.png");
 }
 
-.complimentz .wi-night-thunderstorm,
+.compliments .wi-night-thunderstorm,
 .currentweather .wi-night-thunderstorm {
 	content: url("icons/nt_tstorms.png");
 }
 
-.complimentz .wi-night-snow,
-.currentweather .wi-night-snow {
+.compliments .wi-night-alt-snow,
+.currentweather .wi-night-alt-snow {
 	content: url("icons/nt_snow.png");
 }
 
-.complimentz .wi-night-alt-cloudy-windy,
+.compliments .wi-night-alt-cloudy-windy,
 .currentweather .wi-night-alt-cloudy-windy {
 	content: url("icons/nt_hazy.png");
 }
