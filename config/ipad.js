@@ -354,8 +354,8 @@ var config = {
 						"<i class=\"powderblue wi wi-night-alt-cloudy\"></i> Este înorat"
 					],
 					night_showers : [
-						"<i class=\"skyblue wi wi-night-alt-showers\"></i> Ploaie ușoară",
-						"<i class=\"skyblue wi wi-night-alt-showers\"></i> Ploaie măruntă"
+						"<i class=\"skyblue wi wi-night-showers\"></i> Ploaie ușoară",
+						"<i class=\"skyblue wi wi-night-showers\"></i> Ploaie măruntă"
 					],
 					night_rain : [
 						"<i class=\"deepskyblue wi wi-night-rain\"></i> Noapte ploioasă",
