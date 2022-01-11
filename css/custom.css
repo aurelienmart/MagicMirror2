@@ -1246,7 +1246,7 @@ header {
 
 @media screen and (max-height: 860px) and (orientation: landscape) {
 	.region.middle.center {
-		bottom: 16%;
+		bottom: 15%;
 	}
 
 	.large {
