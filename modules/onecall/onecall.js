@@ -13,26 +13,22 @@ Module.register("onecall", {
 		lat: config.latitude,
 		lon: config.longitude,
 		location: config.location,
-		locationID: config.locationID,
 		appid: config.appid,
 		units: config.units,
-		maxNumberOfDays: 7,
-		showRainAmount: false,
 		updateInterval: 15 * 60 * 1000, // every 15 minutes
+		initialLoadDelay: 0, // 0 seconds delay
+		retryDelay: config.delay,
 		animationSpeed: config.animation,
 		timeFormat: config.timeFormat,
 		lang: config.language,
-		showPeriod: config.period,
-		showPeriodUpper: config.period,
 		decimalSymbol: config.decimal,
 		degreeLabel: config.scale,
+
+		// current settings
 		showWindDirection: true,
 		showWindDirectionAsArrow: true,
 		useBeaufort: false,
 		useKMPHwind: true,
-		showSun: false,
-		showIndoorTemperature: false,
-		showIndoorHumidity: false,
 		showFeelsLike: true,
 		realFeelsLike: true,
 		showVisibility: true,
@@ -42,13 +38,15 @@ Module.register("onecall", {
 		showUvi: true,
 		showPrecip: true,
 		showDescription: true,
-		fade: true,
+
+		// hourly & daily settings
+		maxNumberOfDays: 8,
+		showRainAmount: true,
+		fade: false,
 		fadePoint: 0.25, // Start on 1/4th of the list.
 		colored: true,
 		extra: false,
-
-		initialLoadDelay: 0, // 0 seconds delay
-		retryDelay: config.delay,
+		fullday: "ddd",
 
 		apiVersion: config.apiVersion,
 		apiBase: config.apiBase,
@@ -60,9 +58,6 @@ Module.register("onecall", {
 
 		calendarClass: "calendar",
 		tableClass: "small",
-
-		excludes: false,
-		fallBack: false,
 
 		onlyTemp: false,
 		hideTemp: false,
@@ -194,13 +189,14 @@ Module.register("onecall", {
 			pressureIcon.className = "wi wi-barometer";
 			small.appendChild(pressureIcon);
 
-			var pressure = document.createElement("span"); 				// pressure.
+			// pressure.
+			var pressure = document.createElement("span");
 			var atpressure = Math.round(this.pressure * 750.062 / 1000);
 				if (atpressure < 745) {
 				    pressure.className = "pressure lightblue";
 				} else if (atpressure > 775) {
-				    pressure.className = "pressure yellow";
-				} else pressure.className = "pressure";
+				    pressure.className = "pressure orange";
+				} else pressure.className = "pressure greenyellow";
 			pressure.innerHTML = " " + Math.round(this.pressure * 750.062 / 1000);
 			small.appendChild(pressure);
 
@@ -215,7 +211,8 @@ Module.register("onecall", {
 			visibilityIcon.className = "fa fa-binoculars";
 			small.appendChild(visibilityIcon);
 
-			var visibility = document.createElement("span"); 			// visibility.
+			// visibility.
+			var visibility = document.createElement("span");
 			visibility.className = "visibility";
 			visibility.innerHTML = this.visibility / 1000;
 			small.appendChild(visibility);
@@ -247,16 +244,6 @@ Module.register("onecall", {
 			small.appendChild(humidity);
 		}
 
-		if (this.config.showSun) {
-			var sunriseSunsetIcon = document.createElement("span");
-			sunriseSunsetIcon.className = "wi " + this.sunriseSunsetIcon;
-			small.appendChild(sunriseSunsetIcon);
-
-			var sunriseSunsetTime = document.createElement("span");
-			sunriseSunsetTime.innerHTML = " " + this.sunriseSunsetTime;
-			small.appendChild(sunriseSunsetTime);
-		}
-
 		wrapper.appendChild(small);
 	},
 
@@ -264,7 +251,11 @@ Module.register("onecall", {
 	getDom: function () {
 		if (this.config.endpointType === "current") {
 			var wrapper = document.createElement("div");
-			wrapper.className = "currentweather";
+			if (!this.config.colored) {
+				wrapper.className = "grayscale currentweather";
+			} else {
+				wrapper.className = "currentweather";
+			}
 
 			if (this.config.appid === "") {
 				wrapper.innerHTML = "Please set the correct openweather <i>appid</i> in the config for module: " + this.name + ".";
@@ -317,151 +308,136 @@ Module.register("onecall", {
 				if (this.temperature == -0) {this.temperature = 0;}
 				temperature.innerHTML = " " + this.temperature.replace(".", this.config.decimalSymbol) + "&deg;<span class=\"deg\">" + degreeLabel + "</span>";
 				large.appendChild(temperature);
-			}
 
-			var spacer = document.createElement("span");
-			spacer.innerHTML = "<br>";
-			large.appendChild(spacer);
-
-			if (this.config.showIndoorTemperature && this.indoorTemperature) {
-				var indoorIcon = document.createElement("span");
-				indoorIcon.className = "medium fa fa-home";
-				large.appendChild(indoorIcon);
-
-				var indoorTemperatureElem = document.createElement("span");
-				indoorTemperatureElem.className = "medium bright";
-				indoorTemperatureElem.innerHTML = " " + this.indoorTemperature.replace(".", this.config.decimalSymbol) + degreeLabel;
-				large.appendChild(indoorTemperatureElem);
-			}
-
-			if (this.config.showIndoorHumidity && this.indoorHumidity) {
-				var indoorHumidityIcon = document.createElement("span");
-				indoorHumidityIcon.className = "medium fa fa-tint";
-				large.appendChild(indoorHumidityIcon);
-
-				var indoorHumidityElem = document.createElement("span");
-				indoorHumidityElem.className = "medium bright";
-				indoorHumidityElem.innerHTML = " " + this.indoorHumidity + "%";
-				large.appendChild(indoorHumidityElem);
+				var spacer = document.createElement("span");
+				spacer.innerHTML = "<br>";
+				large.appendChild(spacer);
 			}
 
 			wrapper.appendChild(large);
 
-			if (this.config.showFeelsLike && this.config.onlyTemp === false) {
+			if (this.config.onlyTemp === false) {
 				var small = document.createElement("div");
 				small.className = "normal medium";
 
-				var feelsLike1 = document.createElement("div");
-				if (this.config.units == "metric") {				// only for metric.
-					if (this.feelsLike1 == -0) {this.feelsLike1 = 0;}
-					if (this.feelsLike1 >= 45) {
-						feelsLike1.className = "real redrf";
-					} else if (this.feelsLike1 >= 40 && this.feelsLike1 < 45) {
-						feelsLike1.className = "real orangered";
-					} else if (this.feelsLike1 >= 35 && this.feelsLike1 < 40) {
-						feelsLike1.className = "real tomato";
-					} else if (this.feelsLike1 >= 30 && this.feelsLike1 < 35) {
-						feelsLike1.className = "real coral";
-					} else if (this.feelsLike1 >= 25 && this.feelsLike1 < 30) {
-						feelsLike1.className = "real darkorange";
-					} else if (this.feelsLike1 >= 20 && this.feelsLike1 < 25) {
-						feelsLike1.className = "real gold";
-					} else if (this.feelsLike1 >= 15 && this.feelsLike1 < 20) {
-						feelsLike1.className = "real yellow";
-					} else if (this.feelsLike1 >= 10 && this.feelsLike1 < 15) {
-						feelsLike1.className = "real greenyellow";
-					} else if (this.feelsLike1 >= 5 && this.feelsLike1 < 10) {
-						feelsLike1.className = "real chartreuse";
-					} else if (this.feelsLike1 >= 0 && this.feelsLike1 < 5) {
-						feelsLike1.className = "real lawngreen";
-					} else if (this.feelsLike1 >= -5 && this.feelsLike1 < 0) {
-						feelsLike1.className = "real lime";
-					} else if (this.feelsLike1 >= -10 && this.feelsLike1 < -5) {
-						feelsLike1.className = "real powderblue";
-					} else if (this.feelsLike1 >= -15 && this.feelsLike1 < -10) {
-						feelsLike1.className = "real lightblue";
-					} else if (this.feelsLike1 >= -20 && this.feelsLike1 < -15) {
-						feelsLike1.className = "real skyblue";
-					} else if (this.feelsLike1 >= -25 && this.feelsLike1 < -20) {
-						feelsLike1.className = "real lightskyblue";
-					} else if (this.feelsLike1 >= -30 && this.feelsLike1 < -25) {
-						feelsLike1.className = "real deepskyblue";
-					} else if (this.feelsLike1 < 30) {
-						feelsLike1.className = "real dodgerblue";
-					}
-				} else feelsLike1.className = "dimmed real";
+				// only for metric.
+				if (this.config.showFeelsLike) {
+					var feelsLike1 = document.createElement("div");
+					if (this.config.units == "metric") {
+						if (this.feelsLike1 == -0) {this.feelsLike1 = 0;}
+						if (this.feelsLike1 >= 45) {
+							feelsLike1.className = "real redrf";
+						} else if (this.feelsLike1 >= 40 && this.feelsLike1 < 45) {
+							feelsLike1.className = "real orangered";
+						} else if (this.feelsLike1 >= 35 && this.feelsLike1 < 40) {
+							feelsLike1.className = "real tomato";
+						} else if (this.feelsLike1 >= 30 && this.feelsLike1 < 35) {
+							feelsLike1.className = "real coral";
+						} else if (this.feelsLike1 >= 25 && this.feelsLike1 < 30) {
+							feelsLike1.className = "real darkorange";
+						} else if (this.feelsLike1 >= 20 && this.feelsLike1 < 25) {
+							feelsLike1.className = "real gold";
+						} else if (this.feelsLike1 >= 15 && this.feelsLike1 < 20) {
+							feelsLike1.className = "real yellow";
+						} else if (this.feelsLike1 >= 10 && this.feelsLike1 < 15) {
+							feelsLike1.className = "real greenyellow";
+						} else if (this.feelsLike1 >= 5 && this.feelsLike1 < 10) {
+							feelsLike1.className = "real chartreuse";
+						} else if (this.feelsLike1 >= 0 && this.feelsLike1 < 5) {
+							feelsLike1.className = "real lawngreen";
+						} else if (this.feelsLike1 >= -5 && this.feelsLike1 < 0) {
+							feelsLike1.className = "real lime";
+						} else if (this.feelsLike1 >= -10 && this.feelsLike1 < -5) {
+							feelsLike1.className = "real powderblue";
+						} else if (this.feelsLike1 >= -15 && this.feelsLike1 < -10) {
+							feelsLike1.className = "real lightblue";
+						} else if (this.feelsLike1 >= -20 && this.feelsLike1 < -15) {
+							feelsLike1.className = "real skyblue";
+						} else if (this.feelsLike1 >= -25 && this.feelsLike1 < -20) {
+							feelsLike1.className = "real lightskyblue";
+						} else if (this.feelsLike1 >= -30 && this.feelsLike1 < -25) {
+							feelsLike1.className = "real deepskyblue";
+						} else if (this.feelsLike1 < 30) {
+							feelsLike1.className = "real dodgerblue";
+						}
+					} else feelsLike1.className = "dimmed real";
 
-				feelsLike1.innerHTML = this.translate("FEELS!") + "<i class=\"wi wi-thermometer\"></i>" + this.feelsLike1 + "&deg;" + degreeLabel;
-				small.appendChild(feelsLike1);
-			}
-
-			if (this.config.showDew) {
-				var dew = document.createElement("span"); 			// dew point.
-				dew.className = "dew midget lightskyblue";
-				dew.innerHTML = this.translate("DEW") + "<i class=\"wi wi-raindrops lightgreen\"></i> " + this.dew.toFixed(1) + "&deg;" + degreeLabel;
-				small.appendChild(dew);
-			}
-
-			var spacer = document.createElement("span");
-			spacer.innerHTML = "&nbsp;";
-			small.appendChild(spacer);
-
-			if (this.config.showUvi) {
-				var uvi = document.createElement("span"); 			// uv index.
-				uvi.className = "uvi midget";
-				uvi.innerHTML = this.translate("UVI") + "<i class=\"wi wi-hot\"></i>" + this.uvi.toFixed(1);
-				if (this.uvi < 0.1) {
-					uvi.className = uvi.className + " lightblue";
-					uvi.innerHTML = this.translate("UVI") + "<i class=\"wi wi-stars\"></i> 0";
-				} else if (this.uvi > 0 && this.uvi < 3) {
-					uvi.className = uvi.className + " lime";
-				} else if (this.uvi >= 3 && this.uvi < 6) {
-					uvi.className = uvi.className + " yellow";
-				} else if (this.uvi >= 6 && this.uvi < 8) {
-					uvi.className = uvi.className + " orange";
-				} else if (this.uvi >= 8 && this.uvi < 11) {
-					uvi.className = uvi.className + " orangered";
-				} else if (this.uvi >= 11) {
-					uvi.className = uvi.className + " violet";
+					feelsLike1.innerHTML = this.translate("FEELS!") + "<i class=\"wi wi-thermometer\"></i>" + this.feelsLike1 + "&deg;" + degreeLabel;
+					small.appendChild(feelsLike1);
 				}
-				small.appendChild(uvi);
-			}
 
-			if (this.config.showPrecip) {
+				// dew point.
+				if (this.config.showDew) {
+					var dew = document.createElement("span"); 
+					dew.className = "dew midget lightskyblue";
+					dew.innerHTML = this.translate("DEW") + "<i class=\"wi wi-raindrops lightgreen\"></i> " + this.dew.toFixed(1) + "&deg;" + degreeLabel;
+					small.appendChild(dew);
+				}
+
 				var spacer = document.createElement("span");
-				spacer.innerHTML = "<br>";
+				spacer.innerHTML = "&nbsp;";
 				small.appendChild(spacer);
 
-				var precipitation = document.createElement("span");	// precipitation
-				precipitation.className = "prep midget";
-				if (this.precipitation > 0) {
-					if(config.units === "imperial") {
-						precipitation.innerHTML = this.translate("PRECIP") + " " + (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in ";
-					} else {
-						precipitation.innerHTML = this.translate("PRECIP") + " " + this.precipitation.toFixed(1).replace(".", this.config.decimalSymbol) + " mm ";
+				// uv index.
+				if (this.config.showUvi) {
+					var uvi = document.createElement("span");
+					uvi.className = "uvi midget";
+					uvi.innerHTML = this.translate("UVI") + "<i class=\"wi wi-hot\"></i>" + this.uvi.toFixed(1);
+					if (this.uvi < 0.1) {
+						uvi.className = uvi.className + " lightblue";
+						uvi.innerHTML = this.translate("UVI") + "<i class=\"wi wi-stars\"></i> 0";
+					} else if (this.uvi > 0 && this.uvi < 3) {
+						uvi.className = uvi.className + " lime";
+					} else if (this.uvi >= 3 && this.uvi < 6) {
+						uvi.className = uvi.className + " yellow";
+					} else if (this.uvi >= 6 && this.uvi < 8) {
+						uvi.className = uvi.className + " orange";
+					} else if (this.uvi >= 8 && this.uvi < 11) {
+						uvi.className = uvi.className + " orangered";
+					} else if (this.uvi >= 11) {
+						uvi.className = uvi.className + " violet";
 					}
-				} else {
-					precipitation.innerHTML = this.translate("No prep") + " ";
+					small.appendChild(uvi);
 				}
-				small.appendChild(precipitation);
 
-				var prepIcon = document.createElement("span");
-				if (this.precipitation > 0) {
-					prepIcon.className = "fa fa-tint prep";
-				} else {
-					prepIcon.className = "fa fa-tint-slash prep";
+				// precipitation
+				if (this.config.showPrecip) {
+					var spacer = document.createElement("span");
+					spacer.innerHTML = "<br>";
+					small.appendChild(spacer);
+
+					var precipitation = document.createElement("span");
+					precipitation.className = "prep midget";
+					if (this.precipitation > 0) {
+						if(config.units === "imperial") {
+							precipitation.innerHTML = this.translate("PRECIP") + " " + (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in ";
+						} else {
+							precipitation.innerHTML = this.translate("PRECIP") + " " + this.precipitation.toFixed(1).replace(".", this.config.decimalSymbol) + " mm ";
+						}
+					} else {
+						precipitation.innerHTML = this.translate("No prep") + " ";
+					}
+					small.appendChild(precipitation);
+
+					var prepIcon = document.createElement("span");
+					if (this.precipitation > 0) {
+						prepIcon.className = "fa fa-tint prep";
+					} else {
+						prepIcon.className = "fa fa-tint-slash prep";
+					}
+					small.appendChild(prepIcon);
 				}
-				small.appendChild(prepIcon);
-			}
 
-			if (this.config.showDescription) {
-				var description = document.createElement("div"); 	// weather description.
-				description.className = "bright";
-				description.innerHTML = this.desc;
-				small.appendChild(description);
-			}
+				// weather description.
+				if (this.config.showDescription) {
+					var description = document.createElement("div");
+					description.className = "bright";
+					description.innerHTML = this.desc;
+					small.appendChild(description);
+				}
 
-			wrapper.appendChild(small);
+				wrapper.appendChild(small);
+			}
 
 			return wrapper;
 
@@ -474,8 +450,8 @@ Module.register("onecall", {
 				var forecast = this.forecast[f];
 
 				var row = document.createElement("tr");
-				if (this.config.colored) {
-					row.className = "colored";
+				if (!this.config.colored) {
+					row.className = "grayscale";
 				}
 				table.appendChild(row);
 
@@ -518,7 +494,7 @@ Module.register("onecall", {
 					this.config.decimalSymbol = ".";
 				}
 
-				if (this.config.fallBack) {
+				if (this.config.endpointType === "hourly") {
 					var medTempCell = document.createElement("td");
 					medTempCell.innerHTML = forecast.dayTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
 					medTempCell.className = "lime";
@@ -576,7 +552,11 @@ Module.register("onecall", {
 
 				if (this.config.extra) {
 					var row = document.createElement("tr");
-					row.className = "extra";
+					if (!this.config.colored) {
+						row.className = "grayscale extra";
+					} else {
+						row.className = "extra";
+					}
 					table.appendChild(row);
 
 					var humidity = document.createElement("td");
@@ -660,14 +640,6 @@ Module.register("onecall", {
 				}
 			}
 		}
-		if (notification === "INDOOR_TEMPERATURE") {
-			this.indoorTemperature = this.roundValue(payload);
-			this.updateDom(this.config.animationSpeed);
-		}
-		if (notification === "INDOOR_HUMIDITY") {
-			this.indoorHumidity = this.roundValue(payload);
-			this.updateDom(this.config.animationSpeed);
-		}
 	},
 
 	/* updateWeather(compliments)
@@ -696,7 +668,7 @@ Module.register("onecall", {
 
 					if (self.config.endpointType === "daily") {
 						self.config.endpointType = "hourly";
-						Log.warn(self.name + ": Your AppID does not support long term forecasts. Switching to fallback endpoint.");
+						Log.warn(self.name + ": Incorrect APPID.");
 					}
 					retry = true;
 				} else {
@@ -720,12 +692,8 @@ Module.register("onecall", {
 		var params = "?";
 		if (this.config.lat && this.config.lon) {
 			params += "lat=" + this.config.lat + "&lon=" + this.config.lon;
-		} else if (this.config.locationID) {
-			params += "id=" + this.config.locationID;
 		} else if (this.firstEvent && this.firstEvent.geo) {
 			params += "lat=" + this.firstEvent.geo.lat + "&lon=" + this.firstEvent.geo.lon;
-		} else if (this.firstEvent && this.firstEvent.location) {
-			params += "q=" + this.firstEvent.location;
 		} else {
 			this.hide(this.config.animationSpeed, { lockString: this.identifier });
 			Log.error(this.name + ": Latitude and longitude not set!");
@@ -736,7 +704,7 @@ Module.register("onecall", {
 		if (this.config.endpointType === "daily") {
 			numberOfDays = this.config.maxNumberOfDays < 1 || this.config.maxNumberOfDays > 5 ? 5 : this.config.maxNumberOfDays;
 			// don't get forecasts for the next day, as it would not represent the whole day
-			if (this.config.fallBack) {
+			if (this.config.endpointType === "hourly") {
 				numberOfDays = numberOfDays * 8 - (Math.round(new Date().getHours() / 3) % 8);
 			}
 		} else {
@@ -749,13 +717,16 @@ Module.register("onecall", {
 		params += "&APPID=" + this.config.appid;
 
 		if (this.config.endpointType === "current") {
-			params += "&exclude=minutely,hourly,daily";
+			params += "&exclude=minutely,hourly,daily,alerts";
 		}
 		else if (this.config.endpointType === "hourly") {
-			params += "&exclude=current,minutely,daily";
+			params += "&exclude=current,minutely,daily,alerts";
 		}
 		else if (this.config.endpointType === "daily") {
-			params += "&exclude=current,minutely,hourly";
+			params += "&exclude=current,minutely,hourly,alerts";
+		}
+		else if (this.config.endpointType === "alerts") {
+			params += "&exclude=current,minutely,hourly,daily";
 		}
 		else {
 			params += "&exclude=minutely";
@@ -884,47 +855,18 @@ Module.register("onecall", {
 		this.windDeg = data.wind_deg;
 		this.weatherType = this.config.iconTable[data.current.weather[0].icon];
 
-		var now = new Date();
-		var sunrise = new Date(data.current.sunrise * 1000);
-		var sunset = new Date(data.current.sunset * 1000);
-
-		// The moment().format('h') method has a bug on the Raspberry Pi.
-		// So we need to generate the timestring manually.
-		// See issue: https://github.com/MichMich/MagicMirror/issues/181
-		var sunriseSunsetDateObject = sunrise < now && sunset > now ? sunset : sunrise;
-		var timeString = moment(sunriseSunsetDateObject).format("HH:mm");
-		if (this.config.timeFormat !== 24) {
-			if (this.config.showPeriod) {
-				if (this.config.showPeriodUpper) {
-					timeString = moment(sunriseSunsetDateObject).format("h:mm A");
-				} else {
-					timeString = moment(sunriseSunsetDateObject).format("h:mm a");
-				}
-			} else {
-				timeString = moment(sunriseSunsetDateObject).format("h:mm");
-			}
-		}
-
-		this.sunriseSunsetTime = timeString;
-		this.sunriseSunsetIcon = sunrise < now && sunset > now ? "wi-sunset" : "wi-sunrise";
-
 		if (!this.loaded) {
 			this.show(this.config.animationSpeed, { lockString: this.identifier });
 			this.loaded = true;
 		}
 		this.updateDom(this.config.animationSpeed);
-		this.sendNotification("CURRENTWEATHER_DATA", { data: data });
-	//	this.sendNotification("CURRENTWEATHER_TYPE", { type: this.config.iconTable[data.current.weather[0].icon].replace("-", "_") });
+		this.sendNotification("CURRENTWEATHER_TYPE", { type: this.config.iconTable[data.current.weather[0].icon].replace("-", "_") });
 	},
 
 	processForecast: function (data, momenttz) {
 		var mom = momenttz ? momenttz : moment; // Exception last.
 
-		// Forcast16 (paid) API endpoint provides this data.  Onecall endpoint
-		// does not.
-		if (data.city) {
-			this.fetchedLocationName = data.city.name; // + ", " + data.city.country;
-		} else if (this.config.location) {
+		if (this.config.location) {
 			this.fetchedLocationName = this.config.location;
 		} else {
 			this.fetchedLocationName = "Unknown";
@@ -936,16 +878,9 @@ Module.register("onecall", {
 		var dayStarts = 7;
 		var dayEnds = 18;
 
-		if (data.city && data.city.sunrise && data.city.sunset) {
-			dayStarts = new Date(mom.unix(data.city.sunrise).locale(config.language).format("YYYY/MM/DD HH:mm:ss")).getHours();
-			dayEnds = new Date(mom.unix(data.city.sunset).locale(config.language).format("YYYY/MM/DD HH:mm:ss")).getHours();
-		}
-
-		// Handle different structs between forecast16 and onecall endpoints
+		// Handle different structs between onecall endpoints
 		var forecastList = null;
-		if (data.list) {
-			forecastList = data.list;
-		} else if (data.daily) {
+		if (data.daily) {
 			forecastList = data.daily;
 		} else if (data.hourly) {
 			forecastList = data.hourly;

@@ -178,6 +178,10 @@
   color: greenyellow;
 }
 
+.hourly table tr:nth-child(1) .day:nth-child(1) {
+  color: lime;
+}
+
 .weatherforecast table tr:nth-child(1) td:nth-child(1) {
   color: lime;
 }
@@ -244,7 +248,6 @@
 }
 
 .weatherforecast .wi-day-cloudy-windy {
-  
   color: skyblue;
 }
 
@@ -317,4 +320,8 @@
 .weatherforecast .wi-night-alt-cloudy-windy {
   transform: translateX(-1px);
   color: skyblue;
+}
+
+.grayscale {
+   filter: grayscale(100%);
 }
