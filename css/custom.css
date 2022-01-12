@@ -624,24 +624,84 @@ header {
 
 /* compliments */
 
-.complimentz .wi {
+.compliments .wi {
 	display: inline-block;
 	transform: translate(20px, 25px) scale(0.6);
 }
 
-.complimentz .wi-day-sunny {
+.compliments .wi-day-sunny {
 	content: url("icons/clear.png");
 	transform: translate(0, 25px);
 }
 
-.complimentz .wi-night-clear {
+.ompliments .wi-day-cloudy {
+  content: url("icons/mostlysunny.png");
+}
+
+.compliments .wi-cloudy {
+  content: url("icons/cloudy.png");
+}
+
+.compliments .wi-day-cloudy-windy {
+  content: url("icons/mostlycloudy.png");
+}
+
+.compliments .wi-day-showers {
+  content: url("icons/rain.png");
+}
+
+.compliments .wi-day-rain {
+  content: url("icons/rain.png");
+}
+
+.compliments .wi-day-thunderstorm {
+  content: url("icons/tstorms.png");
+}
+
+.compliments .wi-day-snow {
+  content: url("icons/snow.png");
+}
+
+.compliments .wi-day-fog {
+  content: url("icons/fog.png");
+}
+
+.compliments .wi-night-clear {
 	content: url("icons/nt_clear.png");
 	transform: translate(0, 25px) scale(1.2);
 }
 
-.complimentz .fa,
-.complimentz .fas,
-.complimentz .far {
+.compliments .wi-night-cloudy {
+  content: url("icons/nt_cloudy.png");
+}
+
+.compliments .wi-night-alt-cloudy {
+  content: url("icons/nt_cloudy.png");
+}
+
+.compliments .wi-night-alt-showers {
+  content: url("icons/nt_rain.png");
+}
+
+.compliments .wi-night-alt-rain {
+  content: url("icons/nt_rain.png");
+}
+
+.compliments .wi-night-alt-thunderstorm {
+  content: url("icons/nt_tstorms.png");
+}
+
+.compliments .wi-night-alt-snow {
+  content: url("icons/nt_snow.png");
+}
+
+.compliments .wi-night-alt-cloudy-windy {
+  content: url("icons/nt_hazy.png");
+}
+
+.compliments .fa,
+.compliments .fas,
+.compliments .far {
 	display: inline-block;
 	transform: scale(0.75);
 }
@@ -974,7 +1034,7 @@ header {
 		display: block !important;
 	}
 
-	.complimentz .wi {
+	.compliments .wi {
 		zoom: 0.8;
 	}
 
