@@ -116,8 +116,6 @@ Module.register("onecall", {
 		this.windSpeed = null;
 		this.windDirection = null;
 		this.windDeg = null;
-		this.sunriseSunsetTime = null;
-		this.sunriseSunsetIcon = null;
 		this.temperature = null;
 		this.indoorTemperature = null;
 		this.indoorHumidity = null;
