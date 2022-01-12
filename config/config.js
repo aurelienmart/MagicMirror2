@@ -236,7 +236,6 @@ var config = {
 				locationID: false,
 				endpointType: "current",
 				appendLocationNameToHeader: false,
-				// modified module with own onecall settings
 			}
 		},
 		{
