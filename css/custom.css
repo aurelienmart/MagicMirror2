@@ -38,10 +38,6 @@ html {
 	font-size: var(--font-size);
 }
 
-::-webkit-scrollbar {
-	display: none;
-}
-
 body {
 	margin: 0;
 	position: absolute;
@@ -56,6 +52,11 @@ body {
 	transform-origin: 0 0;
 	transition: all 1s ease-in-out;
 	text-rendering: geometricprecision;
+}
+
+.hidden,
+::-webkit-scrollbar {
+	display: none;
 }
 
 * {
@@ -630,73 +631,73 @@ header {
 }
 
 .compliments .wi-day-sunny {
-	content: url("icons/clear.png");
+	content: url("/modules/onecall/icons/clear.png");
 	transform: translate(0, 25px);
 }
 
 .ompliments .wi-day-cloudy {
-  content: url("icons/mostlysunny.png");
+  content: url("/modules/onecall/icons/mostlysunny.png");
 }
 
 .compliments .wi-cloudy {
-  content: url("icons/cloudy.png");
+  content: url("/modules/onecall/icons/cloudy.png");
 }
 
 .compliments .wi-day-cloudy-windy {
-  content: url("icons/mostlycloudy.png");
+  content: url("/modules/onecall/icons/mostlycloudy.png");
 }
 
 .compliments .wi-day-showers {
-  content: url("icons/rain.png");
+  content: url("/modules/onecall/icons/rain.png");
 }
 
 .compliments .wi-day-rain {
-  content: url("icons/rain.png");
+  content: url("/modules/onecall/icons/rain.png");
 }
 
 .compliments .wi-day-thunderstorm {
-  content: url("icons/tstorms.png");
+  content: url("/modules/onecall/icons/tstorms.png");
 }
 
 .compliments .wi-day-snow {
-  content: url("icons/snow.png");
+  content: url("/modules/onecall/icons/snow.png");
 }
 
 .compliments .wi-day-fog {
-  content: url("icons/fog.png");
+  content: url("/modules/onecall/icons/fog.png");
 }
 
 .compliments .wi-night-clear {
-	content: url("icons/nt_clear.png");
+	content: url("/modules/onecall/icons/nt_clear.png");
 	transform: translate(0, 25px) scale(1.2);
 }
 
 .compliments .wi-night-cloudy {
-  content: url("icons/nt_cloudy.png");
+  content: url("/modules/onecall/icons/nt_cloudy.png");
 }
 
 .compliments .wi-night-alt-cloudy {
-  content: url("icons/nt_cloudy.png");
+  content: url("/modules/onecall/icons/nt_cloudy.png");
 }
 
 .compliments .wi-night-alt-showers {
-  content: url("icons/nt_rain.png");
+  content: url("/modules/onecall/icons/nt_rain.png");
 }
 
 .compliments .wi-night-alt-rain {
-  content: url("icons/nt_rain.png");
+  content: url("/modules/onecall/icons/nt_rain.png");
 }
 
 .compliments .wi-night-alt-thunderstorm {
-  content: url("icons/nt_tstorms.png");
+  content: url("/modules/onecall/icons/nt_tstorms.png");
 }
 
 .compliments .wi-night-alt-snow {
-  content: url("icons/nt_snow.png");
+  content: url("/modules/onecall/icons/nt_snow.png");
 }
 
 .compliments .wi-night-alt-cloudy-windy {
-  content: url("icons/nt_hazy.png");
+  content: url("/modules/onecall/icons/nt_hazy.png");
 }
 
 .compliments .fa,
