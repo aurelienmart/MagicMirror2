@@ -238,6 +238,7 @@ var MM = (function () {
 		var defaultAnimation = function (moduleWrapper, speed) {
 			moduleWrapper.style.transition = "opacity " + speed / config.transition + "s";
 			moduleWrapper.style.opacity = 0;
+			moduleWrapper.classList.add("hidden");
 		};
 		options = options || {};
 
@@ -325,6 +326,7 @@ var MM = (function () {
 		if (moduleWrapper !== null) {
 			// Restore the position. See hideModule() for more info.
 			moduleWrapper.style.position = "static";
+			moduleWrapper.classList.remove("hidden");
 
 			updateWrapperStates();
 
