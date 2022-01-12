@@ -264,7 +264,7 @@ Module.register("onecall", {
 	getDom: function () {
 		if (this.config.endpointType === "current") {
 			var wrapper = document.createElement("div");
-	//		wrapper.className = this.config.tableClass;
+			wrapper.className = "currentweather";
 
 			if (this.config.appid === "") {
 				wrapper.innerHTML = "Please set the correct openweather <i>appid</i> in the config for module: " + this.name + ".";
@@ -468,7 +468,7 @@ Module.register("onecall", {
 		} else {
 
 			var table = document.createElement("table");
-			table.className = this.config.tableClass;
+			table.className = "weatherforecast " + this.config.tableClass;
 
 			for (var f in this.forecast) {
 				var forecast = this.forecast[f];
