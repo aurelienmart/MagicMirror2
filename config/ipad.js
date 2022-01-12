@@ -216,8 +216,6 @@ var config = {
 			classes: "night current weather",
 			disabled: false,
 			config: {
-				locationID: false,
-				endpointType: "current",
 				appendLocationNameToHeader: false,
 			}
 		},
@@ -229,16 +227,9 @@ var config = {
 			disabled: false,
 			config: {
 				maxNumberOfDays: 4,
-				locationID: false,
 				endpointType: "hourly",
-				excludes: "current,minutely,daily",
-				extra: false,
-				fallBack: true,
 				fullday: "HH [h]",
 				initialLoadDelay: 2000,
-				showRainAmount: true,
-				fadePoint: 0.5,
-				fade: false
 			}
 		},
 		{
@@ -248,16 +239,9 @@ var config = {
 			classes: "daily forecast ipad day",
 			disabled: false,
 			config: {
-				maxNumberOfDays: 8,
-				locationID: false,
 				endpointType: "daily",
-				excludes: "current,minutely,hourly",
 				extra: true,
-				fullday: "ddd",
 				initialLoadDelay: 4000,
-				showRainAmount: true,
-				fadePoint: 0,
-				fade: false
 			}
 		},
 		{
