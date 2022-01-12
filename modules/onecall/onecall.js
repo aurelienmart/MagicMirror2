@@ -117,8 +117,6 @@ Module.register("onecall", {
 		this.windDirection = null;
 		this.windDeg = null;
 		this.temperature = null;
-		this.indoorTemperature = null;
-		this.indoorHumidity = null;
 		this.weatherType = null;
 		this.feelsLike1 = null;
 		this.dew = null;				// dew point.
