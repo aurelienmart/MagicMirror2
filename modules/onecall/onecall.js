@@ -195,7 +195,7 @@ Module.register("onecall", {
 			small.appendChild(pressureIcon);
 
 			var pressure = document.createElement("span"); 				// pressure.
-			var atpressure = Math.round(this.pressure * 750.062 / 1000)
+			var atpressure = Math.round(this.pressure * 750.062 / 1000);
 				if (atpressure < 745) {
 				    pressure.className = "pressure lightblue";
 				} else if (atpressure > 775) {
@@ -314,7 +314,7 @@ Module.register("onecall", {
 
 				var temperature = document.createElement("span");
 				temperature.className = "bright light xlarge";
-				if (this.temperature == -0) {this.temperature = 0}
+				if (this.temperature == -0) {this.temperature = 0;}
 				temperature.innerHTML = " " + this.temperature.replace(".", this.config.decimalSymbol) + "&deg;<span class=\"deg\">" + degreeLabel + "</span>";
 				large.appendChild(temperature);
 			}
@@ -353,7 +353,7 @@ Module.register("onecall", {
 
 				var feelsLike1 = document.createElement("div");
 				if (this.config.units == "metric") {				// only for metric.
-					if (this.feelsLike1 == -0) {this.feelsLike1 = 0}
+					if (this.feelsLike1 == -0) {this.feelsLike1 = 0;}
 					if (this.feelsLike1 >= 45) {
 						feelsLike1.className = "real redrf";
 					} else if (this.feelsLike1 >= 40 && this.feelsLike1 < 45) {
@@ -676,7 +676,7 @@ Module.register("onecall", {
 	 */
 	updateWeather: function () {
 		if (this.config.appid === "") {
-			Log.error("CurrentWeather: APPID not set!");
+			Log.error("OneCall: APPID not set!");
 			return;
 		}
 
@@ -690,38 +690,6 @@ Module.register("onecall", {
 			if (this.readyState === 4) {
 				if (this.status === 200) {
 					self.processWeather(JSON.parse(this.response));
-				} else if (this.status === 401) {
-					self.updateDom(self.config.animationSpeed);
-
-					Log.error(self.name + ": Incorrect APPID.");
-					retry = true;
-				} else {
-					Log.error(self.name + ": Could not load weather.");
-				}
-
-				if (retry) {
-					self.scheduleUpdate(self.loaded ? -1 : self.config.retryDelay);
-				}
-			}
-		};
-		weatherRequest.send();
-	},
-
-	updateForecast: function () {
-		if (this.config.appid === "") {
-			Log.error("WeatherForecast: APPID not set!");
-			return;
-		}
-
-		var url = this.config.apiBase + this.config.apiVersion + this.config.weatherEndpoint + this.getParams();
-		var self = this;
-		var retry = true;
-
-		var weatherRequest = new XMLHttpRequest();
-		weatherRequest.open("GET", url, true);
-		weatherRequest.onreadystatechange = function () {
-			if (this.readyState === 4) {
-				if (this.status === 200) {
 					self.processForecast(JSON.parse(this.response));
 				} else if (this.status === 401) {
 					self.updateDom(self.config.animationSpeed);
@@ -730,7 +698,6 @@ Module.register("onecall", {
 						self.config.endpointType = "hourly";
 						Log.warn(self.name + ": Your AppID does not support long term forecasts. Switching to fallback endpoint.");
 					}
-
 					retry = true;
 				} else {
 					Log.error(self.name + ": Could not load weather.");
@@ -743,7 +710,6 @@ Module.register("onecall", {
 		};
 		weatherRequest.send();
 	},
-
 
 	/* getParams(compliments)
 	 * Generates an url with api parameters based on the config.
@@ -762,7 +728,7 @@ Module.register("onecall", {
 			params += "q=" + this.firstEvent.location;
 		} else {
 			this.hide(this.config.animationSpeed, { lockString: this.identifier });
-			Log.error(self.name + ": Latitude and longitude not set!");
+			Log.error(this.name + ": Latitude and longitude not set!");
 			return;
 		}
 
@@ -949,7 +915,7 @@ Module.register("onecall", {
 		}
 		this.updateDom(this.config.animationSpeed);
 		this.sendNotification("CURRENTWEATHER_DATA", { data: data });
-		this.sendNotification("CURRENTWEATHER_TYPE", { type: this.config.iconTable[data.current.weather[0].icon].replace("-", "_") });
+	//	this.sendNotification("CURRENTWEATHER_TYPE", { type: this.config.iconTable[data.current.weather[0].icon].replace("-", "_") });
 	},
 
 	processForecast: function (data, momenttz) {
@@ -1064,7 +1030,6 @@ Module.register("onecall", {
 		clearTimeout(this.updateTimer);
 		this.updateTimer = setTimeout(function () {
 			self.updateWeather();
-			self.updateForecast();
 		}, nextLoad);
 	},
 
@@ -1140,6 +1105,13 @@ Module.register("onecall", {
 		return roundValue === "-0" ? 0 : roundValue;
 	},
 
+	/* processRain(forecast, allForecasts)
+	 * Calculates the amount of rain for a whole day even if long term forecasts isn't available for the appid.
+	 *
+	 * When using the the fallback endpoint forecasts are provided in 3h intervals and the rain-property is an object instead of number.
+	 * That object has a property "3h" which contains the amount of rain since the previous forecast in the list.
+	 * This code finds all forecasts that is for the same day and sums the amount of rain and returns that.
+	 */
 	processRain: function (forecast, allForecasts, momenttz) {
 		var mom = momenttz ? momenttz : moment; // Exception last.
 
