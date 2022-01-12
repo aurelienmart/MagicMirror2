@@ -230,7 +230,7 @@ var config = {
 		{
 			module: "onecall",
 			position: "top_right",
-			classes: "night current weather currentweather",
+			classes: "night current weather",
 			disabled: false,
 			config: {
 				locationID: false,
@@ -242,7 +242,7 @@ var config = {
 			module: "onecall",
 			position: "top_right",
 			header: "Vremea în următoarele ore la",
-			classes: "hourly forecast ipad day weatherforecast",
+			classes: "hourly forecast ipad day",
 			disabled: false,
 			config: {
 				maxNumberOfDays: 4,
@@ -262,7 +262,7 @@ var config = {
 			module: "onecall",
 			position: "top_right",
 			header: "Vremea în următoarele zile la",
-			classes: "daily forecast ipad day weatherforecast",
+			classes: "daily forecast ipad day",
 			disabled: false,
 			config: {
 				maxNumberOfDays: 8,
