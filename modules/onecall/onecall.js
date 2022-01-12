@@ -103,7 +103,7 @@ Module.register("onecall", {
 
 	// Define required scripts.
 	getStyles: function () {
-		return ["font-awesome.css", "weather-icons.css"];
+		return ["onecall.css", "font-awesome.css", "weather-icons.css"];
 	},
 
 	// Define required translations.
@@ -493,7 +493,7 @@ Module.register("onecall", {
 				row.appendChild(iconCell);
 
 				var icon = document.createElement("span");
-				icon.className = "wi weathericon wi-" + forecast.icon;
+				icon.className = "wi forecasticon wi-" + forecast.icon;
 				iconCell.appendChild(icon);
 
 				var degreeLabel = "";
@@ -747,7 +747,6 @@ Module.register("onecall", {
 		params += "&units=" + this.config.units;
 		params += "&lang=" + this.config.lang;
 		params += "&APPID=" + this.config.appid;
-//		params += "&exclude=minutely,hourly,daily";
 
 		if (this.config.endpointType === "current") {
 			params += "&exclude=minutely,hourly,daily";
