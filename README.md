@@ -6,8 +6,7 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <br>iCalendar based on PHP original first version (jquery)
 <br>RssFeed based on PHP alternative first version (jquery)
 <br>Compliments https://github.com/hangorazvan/compliments_plus
-<br>Currentweather https://github.com/hangorazvan/weather_plus
-<br>Weatherforecast https://github.com/hangorazvan/forecast_plus
+<br>Onecall (Openweathermap) https://github.com/hangorazvan/onecall
 <br>Clock https://github.com/hangorazvan/clock_plus
 
 <b>Some 3rd party modified modules:</b>
