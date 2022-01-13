@@ -4,8 +4,7 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 
 <b>Some modified default original modules:</b>
 <br>Compliments https://github.com/hangorazvan/compliments_plus
-<br>Currentweather https://github.com/hangorazvan/weather_plus
-<br>Weatherforecast https://github.com/hangorazvan/forecast_plus
+<br>Onecall (Openweathermap) https://github.com/hangorazvan/onecall
 <br>Clock https://github.com/hangorazvan/clock_plus
 
 <b>Some 3rd party modified modules:</b>
