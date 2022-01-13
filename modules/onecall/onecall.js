@@ -180,12 +180,12 @@ Module.register("onecall", {
 		spacer.innerHTML = " &nbsp;";
 		small.appendChild(spacer);
 
+		// pressure.
 		if (this.config.showPressure) {
 			var pressureIcon = document.createElement("span");
 			pressureIcon.className = "wi wi-barometer";
 			small.appendChild(pressureIcon);
 
-			// pressure.
 			var pressure = document.createElement("span");
 			var atpressure = Math.round(this.pressure * 750.062 / 1000);
 				if (atpressure < 745) {
@@ -202,12 +202,12 @@ Module.register("onecall", {
 			small.appendChild(pressureSub);
 		}
 
+		// visibility.
 		if (this.config.showVisibility) {
 			var visibilityIcon = document.createElement("span");
 			visibilityIcon.className = "fa fa-binoculars";
 			small.appendChild(visibilityIcon);
 
-			// visibility.
 			var visibility = document.createElement("span");
 			visibility.className = "visibility";
 			visibility.innerHTML = this.visibility / 1000;
@@ -223,6 +223,7 @@ Module.register("onecall", {
 		spacer.innerHTML = "&nbsp;";
 		small.appendChild(spacer);
 
+		// humidity.
 		if (this.config.showHumidity) {
 			var humidityIcon = document.createElement("span");
 			humidityIcon.className = "wi wi-humidity humidityIcon";
@@ -290,7 +291,7 @@ Module.register("onecall", {
 				}
 			}
 
-			if (this.config.decimalSymbol === "") {
+			if (this.config.decimalSymbol === "" || this.config.decimalSymbol === " ") {
 				this.config.decimalSymbol = ".";
 			}
 
@@ -301,7 +302,6 @@ Module.register("onecall", {
 
 				var temperature = document.createElement("span");
 				temperature.className = "bright light xlarge";
-				if (this.temperature == -0) {this.temperature = 0;}
 				temperature.innerHTML = " " + this.temperature.replace(".", this.config.decimalSymbol) + "&deg;<span class=\"deg\">" + degreeLabel + "</span>";
 				large.appendChild(temperature);
 
@@ -454,7 +454,7 @@ Module.register("onecall", {
 				var dayCell = document.createElement("td");
 
 				if (config.language == "ro") {
-					dayCell.className = "day";
+					dayCell.className = "day ziua";
 				} else dayCell.className = "day";
 
 				dayCell.innerHTML = forecast.day;
