@@ -1026,7 +1026,7 @@ header {
 	.hourly table tr:nth-child(n+4),
 	.daily table tr:nth-child(n+11),
 	header,	.lifecounter, .jsontable,
-	.currentweather .prep,
+	.currentweather .prep, .month-header,
 	.newsfeed-desc, .news .desc {
 		display: none !important;
 	}
