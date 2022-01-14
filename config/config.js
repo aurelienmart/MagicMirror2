@@ -268,7 +268,7 @@ var config = {
 			classes: "night",
 			disabled: false,
 			config: {
-				classes: "thin large pre-line complimentz skyblue",
+				classes: "thin large pre-line skyblue",
 				compliments: {
 										anytime : [
 						"Orice faci, fă-o bine!",
