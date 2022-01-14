@@ -11,7 +11,7 @@ Module.register("icalendar", {
 	defaults: {},
 
 	getScripts: function() {
-		return ["jquery.js", "rrule.js"];
+		return ["jquery.js", "rrule.min.js"];
 	},
 
 	getStyles: function() {
