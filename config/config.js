@@ -28,6 +28,7 @@ var config = {
 	timezone: "Europe/Bucharest",
 	decimal: ",",
  	appid: '',
+	backup: '',
 	apiBase: "http://api.openweathermap.org/data/",
 	apiVersion: "2.5/",
 	roundTemp: false,
@@ -59,7 +60,7 @@ var config = {
 			disabled: false,
 			config: {
 				startImage: "wifi lime",
-				startTitle: "Magic Board&sup2;&nbsp;",
+				startTitle: "Magic Board&sup3;&nbsp;",
 				startTablet: "Magic iPad&sup3;&nbsp;",
 				startNotification: "Modular smart mirror platform",
 				timer: 8000
@@ -172,7 +173,7 @@ var config = {
 				getRelative: 48,
 				coloredSymbolOnly: true,
 				titleReplace: {
-					"a doua zi de Crăciun": "A doua zi de Crăciun",
+					"a doua ": "A doua ",
 					"Ziua Internațională a Femeii": "Ziua femeii",
 					"Zi Constantin Brancusi": "Ziua lui Brâncuși",
 					"New moon": "Lună nouă la",
@@ -269,45 +270,45 @@ var config = {
 			config: {
 				classes: "thin large pre-line complimentz skyblue",
 				compliments: {
-					anytime : [
+										anytime : [
 						"Orice faci, fă-o bine!",
 						"Fi sexy, fi tu însuți!",
-						"O zi cât mai frumoasă!",
-						"Azi arăți foarte bine!",
-						"Arăți minunat, succes!",
-						"Fă-o astăzi, nu mâine!",
-						"Întotdeauna ai dreptate!",
+					//	"O zi cât mai frumoasă!",
+					//	"Azi arăți foarte bine!",
+					//	"Arăți minunat, succes!",
+					//	"Fă-o astăzi, nu mâine!",
+					//	"Întotdeauna ai dreptate!",
 						function() {return moment().locale(config.language).format("dddd, D MMMM");}
 					],
 					morning : [
 						"Dimineață frumoasă!",
 						"Bună dimineața!",
-						"Să ai poftă la cafea!"
+					//	"Să ai poftă la cafea!"
 					],
 					noon : [
-						"Un prânz excelent!",
+					//	"Un prânz excelent!",
 						"Poftă bună la prânz!",
 						"O zi fantastică!"
 					],
 					afternoon : [
-						"O după amiază bună!",
+					//	"O după amiază bună!",
 						"O zi cât mai bună!",
 						"O zi excelentă!"
 					],
 					evening : [
 						"O seară minunată!",
-						"O seară liniștită!",
+					//	"O seară liniștită!",
 						"O seară plăcută!"
 					],
 					night : [
 						"Somn ușor!",
 						"Noapte bună!",
 						"Vise plăcute!",
-						"Să visezi frumos!"
+					//	"Să visezi frumos!"
 					],
 					midnight : [
 						"De ce nu dormi?",
-						"Știi cât este ceasul?",
+					//	"Știi cât este ceasul?",
 						"Ai vreun coșmar?"
 					],
 					day_sunny : [
@@ -351,22 +352,26 @@ var config = {
 						"<i class=\"dimmed wi wi-night-clear\"></i> Cer senin"
 					],
 					night_cloudy : [
+						"<i class=\"powderblue wi wi-night-cloudy\"></i> Noapte înorată",
+						"<i class=\"powderblue wi wi-night-cloudy\"></i> Este înorat"
+					],
+					night_alt_cloudy : [
 						"<i class=\"powderblue wi wi-night-alt-cloudy\"></i> Noapte înorată",
 						"<i class=\"powderblue wi wi-night-alt-cloudy\"></i> Este înorat"
 					],
-					night_showers : [
-						"<i class=\"skyblue wi wi-night-showers\"></i> Ploaie ușoară",
-						"<i class=\"skyblue wi wi-night-showers\"></i> Ploaie măruntă"
+					night_alt_showers : [
+						"<i class=\"skyblue wi wi-night-alt-showers\"></i> Ploaie ușoară",
+						"<i class=\"skyblue wi wi-night-alt-showers\"></i> Ploaie măruntă"
 					],
-					night_rain : [
-						"<i class=\"deepskyblue wi wi-night-rain\"></i> Noapte ploioasă",
-						"<i class=\"deepskyblue wi wi-night-rain\"></i> Plouă!"
+					night_alt_rain : [
+						"<i class=\"deepskyblue wi wi-night-alt-rain\"></i> Noapte ploioasă",
+						"<i class=\"deepskyblue wi wi-night-alt-rain\"></i> Plouă!"
 					],
-					night_thunderstorm : [
-						"<i class=\"royalblue wi wi-night-thunderstorm\"></i> Noapte furtunoasă!",
-						"<i class=\"royalblue wi wi-night-thunderstorm\"></i> Furtuna!"
+					night_alt_thunderstorm : [
+						"<i class=\"royalblue wi wi-night-alt-thunderstorm\"></i> Noapte furtunoasă!",
+						"<i class=\"royalblue wi wi-night-alt-thunderstorm\"></i> Furtuna!"
 					],
-					night_snow : [
+					night_alt_snow : [
 						"<i class=\"normal wi wi-night-alt-snow\"></i> Noapte cu ninsoare",
 						"<i class=\"normal wi wi-night-alt-snow\"></i> Ninge!"
 					],
@@ -382,10 +387,6 @@ var config = {
 					],
 					"01-12-...." : [
 						"<i class=\"gold fa fa-glass-cheers\"></i> La mulți ani România!"
-					],
-					"..-12-...." : [
-						"<i class=\"bright fa fa-snowman\"></i> Vin sărbătorile!",
-						"<i class=\"gold fa fa-gifts\"></i> Luna cadourilor!"
 					],
 					"25-12-...." : [
 						"<i class=\"gold fa fa-holly-berry\"></i> Crăciun fericit!",
