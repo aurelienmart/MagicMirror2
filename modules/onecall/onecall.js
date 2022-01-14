@@ -16,7 +16,8 @@ Module.register("onecall", {
 		appid: config.appid,
 		backup: config.backup,
 		units: config.units,
-		updateInterval: 15 * 60 * 1000, // every 15 minutes
+		dayUpdateInterval: 15 * 60 * 1000, // every 15 minutes
+		nightUpdateInterval: 30 * 60 * 1000, // every 30 minutes
 		initialLoadDelay: 0, // 0 seconds delay
 		retryDelay: config.delay,
 		animationSpeed: config.animation,
@@ -957,7 +958,16 @@ Module.register("onecall", {
 	 * argument delay number - Milliseconds before next update. If empty, this.config.updateInterval is used.
 	 */
 	scheduleUpdate: function (delay) {
-		var nextLoad = this.config.updateInterval;
+		var now = moment().format("HH:mm:ss");
+		var updateInterval = null;
+
+		if (now >= "07:00:00" && now <= "23:59:59") {
+			updateInterval = this.config.dayUpdateInterval;
+		} else {
+			updateInterval = this.config.nightUpdateInterval;
+		}
+
+		var nextLoad = updateInterval;
 		if (typeof delay !== "undefined" && delay >= 0) {
 			nextLoad = delay;
 		}
