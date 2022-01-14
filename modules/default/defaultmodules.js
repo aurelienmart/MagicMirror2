@@ -9,15 +9,15 @@
 
 var defaultModules = [
 	"alert", 
-	"calendar", 
+//	"calendar", 
 	"clock", 
 	"compliments", 
 //	"currentweather", 
 	"helloworld", 
-	"newsfeed",
+//	"newsfeed",
 //	"weatherforecast", 
 //	"updatenotification", 
-	"weather"
+//	"weather"
 ];
 
 /*************** DO NOT EDIT THE LINE BELOW ***************/
