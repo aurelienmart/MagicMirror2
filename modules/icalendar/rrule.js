@@ -1,5 +1,5 @@
 /*!
- * rrule.js - Library for working with recurrence rules for calendar dates.
+ * rrule.js - v2.2.0 Library for working with recurrence rules for calendar dates.
  * https://github.com/jakubroztocil/rrule
  *
  * Copyright 2010, Jakub Roztocil and Lars Schoning
