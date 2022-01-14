@@ -12,10 +12,10 @@ var defaultModules = [
 	"calendar", 
 	"clock", 
 	"compliments", 
-	"currentweather", 
+//	"currentweather", 
 	"helloworld", 
 	"newsfeed",
-	"weatherforecast", 
+//	"weatherforecast", 
 //	"updatenotification", 
 	"weather"
 ];
