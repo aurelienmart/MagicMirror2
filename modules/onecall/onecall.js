@@ -50,9 +50,6 @@ Module.register("onecall", {
 		extra: false,
 		fullday: "ddd",
 
-		apiVersion: config.apiVersion,
-		apiBase: config.apiBase,
-		weatherEndpoint: "onecall",
 		endpointType: "current",
 
 		appendLocationNameToHeader: true,
@@ -361,7 +358,7 @@ Module.register("onecall", {
 						}
 					} else feelsLike.className = "dimmed real";
 
-					feelsLike.innerHTML = this.translate("FEELS") + "<i class=\"wi wi-thermometer\"></i>" + this.feelsLike + "&deg;" + degreeLabel;
+					feelsLike.innerHTML = this.translate("FEELS", {DEGREE: "<i class=\"wi wi-thermometer\"></i> " + this.feelsLike + "&deg;" + degreeLabel});
 					small.appendChild(feelsLike);
 				}
 
@@ -651,7 +648,7 @@ Module.register("onecall", {
 			return;
 		}
 
-		var url = this.config.apiBase + this.config.apiVersion + this.config.weatherEndpoint + this.getParams();
+		var url = "https://api.openweathermap.org/data/2.5/onecall" + this.getParams();
 		var self = this;
 		var retry = true;
 
