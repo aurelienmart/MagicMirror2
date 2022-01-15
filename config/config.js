@@ -29,8 +29,6 @@ var config = {
 	decimal: ",",
  	appid: '',
 	backup: '',
-	apiBase: "http://api.openweathermap.org/data/",
-	apiVersion: "2.5/",
 	roundTemp: false,
 	period: false,
 	scale: true,
