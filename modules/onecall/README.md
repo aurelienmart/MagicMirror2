@@ -4,11 +4,7 @@ https://github.com/hangorazvan/onecall
 
 Modified MagicMirror2 current & forecast weather module based on Openweathermap with Onecall endpoint
 
-Do not make modification and do not replace the default, just add <i>disabled: true</i> in config.js and use this one as 3rd party, then put in config.js.
-
-Current weather with onecall
-
-<img src=https://github.com/hangorazvan/onecall/blob/main/current.png>
+Do not make modification and do not replace the default module, just add <i>disabled: true</i> in config.js and use this one as 3rd party
 
 	{
 		module: "weather", 
@@ -17,7 +13,12 @@ Current weather with onecall
 		config: {
 			// no needed anyore
 		}
-	}, 
+	},
+
+Current weather with onecall
+
+<img src=https://github.com/hangorazvan/onecall/blob/master/current.png>
+
 	{
 		module: "onecall",
 		position: "top_right",
@@ -30,8 +31,10 @@ Current weather with onecall
 			lon: "",		// your location longitude,
 			location: "",		// your location,
 			appid: "",		// your openweathermap API key,
+			backup: "",		// second openweathermap API key,
 			units: "",		// your units, metric or imperial
-			updateInterval: 15 * 60 * 1000, // every 15 minutes
+			dayUpdateInterval: 15 * 60 * 1000, // every 15 minutes
+			nightUpdateInterval: 30 * 60 * 1000, // every 30 minutes
 			initialLoadDelay: 0,
 			retryDelay: 2000,
 			animationSpeed: 1000,
@@ -55,9 +58,6 @@ Current weather with onecall
 			showPrecip: true,		// precipitation
 			showDescription: true,
 
-			apiVersion: "2.5/",
-			apiBase: "https://api.openweathermap.org/data/",
-			weatherEndpoint: "onecall",
 			endpointType: "current",
 
 			appendLocationNameToHeader: true,
@@ -67,13 +67,13 @@ Current weather with onecall
 
 			onlyTemp: false,
 			hideTemp: false,
-			roundTemp: false,
+			roundTemp: false,	// error on true
 		}
 	},
 
 Daily forecast with onecall (7 days)
 
-<img src=https://github.com/hangorazvan/onecall/blob/main/daily.png>
+<img src=https://github.com/hangorazvan/onecall/blob/master/daily.png>
 
 	{
 		module: "onecall",
@@ -86,9 +86,11 @@ Daily forecast with onecall (7 days)
 			lat: "",	// your location latitude,
 			lon: "",	// your location longitude,
 			location: "",	// your location,
-			appid: "",	// your openweathermap API key,
-			units: "",	// your units, metric or imperial
-			updateInterval: 15 * 60 * 1000, // every 15 minutes
+			appid: "",		// your openweathermap API key,
+			backup: "",		// second openweathermap API key,
+			units: "",		// your units, metric or imperial
+			dayUpdateInterval: 15 * 60 * 1000, // every 15 minutes
+			nightUpdateInterval: 30 * 60 * 1000, // every 30 minutes
 			initialLoadDelay: 2000,
 			retryDelay: 2000,
 			animationSpeed: 1000,
@@ -106,9 +108,6 @@ Daily forecast with onecall (7 days)
 			extra: true,				// snow humidity, dew point, pressure, real feel and rain or snow,
 			fullday: "ddd", 			// "ddd" in case of daily forecast or "HH [h]" for hourly forecast
 
-			apiVersion: "2.5/",
-			apiBase: "https://api.openweathermap.org/data/",
-			weatherEndpoint: "onecall",
 			endpointType: "daily",
 
 			appendLocationNameToHeader: true,
@@ -121,7 +120,7 @@ Daily forecast with onecall (7 days)
 
 Hourly forecast with onecall (1 hour)
 
-<img src=https://github.com/hangorazvan/onecall/blob/main/hourly.png>
+<img src=https://github.com/hangorazvan/onecall/blob/master/hourly.png>
 
 	{
 		module: "onecall",
@@ -134,9 +133,11 @@ Hourly forecast with onecall (1 hour)
 			lat: "",	// your location latitude,
 			lon: "",	// your location longitude,
 			location: "",	// your location,
-			appid: "",	// your openweathermap API key,
-			units: "",	// your units, metric or imperial
-			updateInterval: 15 * 60 * 1000, // every 15 minutes
+			appid: "",		// your openweathermap API key,
+			backup: "",		// second openweathermap API key,
+			units: "",		// your units, metric or imperial
+			dayUpdateInterval: 15 * 60 * 1000, // every 15 minutes
+			nightUpdateInterval: 30 * 60 * 1000, // every 30 minutes
 			initialLoadDelay: 4000,
 			retryDelay: 2000,
 			animationSpeed: 1000,
@@ -154,9 +155,6 @@ Hourly forecast with onecall (1 hour)
 			extra: false,				// snow humidity, dew point, pressure, real feel and rain or snow,
 			fullday: "HH [h]", 			// "ddd" in case of daily forecast or "HH [h]" for hourly forecast
 
-			apiVersion: "2.5/",
-			apiBase: "https://api.openweathermap.org/data/",
-			weatherEndpoint: "onecall",
 			endpointType: "hourly",
 
 			appendLocationNameToHeader: true,
