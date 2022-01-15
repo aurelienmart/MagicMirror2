@@ -1054,7 +1054,7 @@ header {
 		margin-top: -5px;
 	}
 }
-
+/*
 @media screen and (max-height: 740px) and (orientation: landscape) {
 	.region.middle.center {
 		display: none;
@@ -1066,3 +1066,4 @@ header {
 		display: none;
 	}
 }
+*/
