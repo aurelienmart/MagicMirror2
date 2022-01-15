@@ -238,7 +238,6 @@ var MM = (function () {
 		var defaultAnimation = function (moduleWrapper, speed) {
 			moduleWrapper.style.transition = "opacity " + speed / config.transition + "s";
 			moduleWrapper.style.opacity = 0;
-			moduleWrapper.classList.add("hidden");
 		};
 		options = options || {};
 
@@ -266,6 +265,7 @@ var MM = (function () {
 				// below other modules. This works way better than adjusting
 				// the .display property.
 				moduleWrapper.style.position = "fixed";
+				moduleWrapper.classList.add("hidden");
 
 				updateWrapperStates();
 
