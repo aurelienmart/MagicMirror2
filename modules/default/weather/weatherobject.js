@@ -30,6 +30,11 @@ var WeatherObject = (function () {
         this.precipitation = null;
         this.precipitationUnits = null;
         this.feelsLikeTemp = null;
+        this.pressure = null;
+        this.visibility = null;
+        this.dewpoint = null;
+        this.uvindex = null;
+        this.description = null;
     }
     WeatherObject.prototype.cardinalWindDirection = function () {
         if (this.windDirection > 11.25 && this.windDirection <= 33.75) {

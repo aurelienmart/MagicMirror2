@@ -1,13 +1,13 @@
 {% if current %}
     {% if not config.onlyTemp %}
         <div class="normal medium">
-            <span class="wi wi-strong-wind dimmed"></span>
+            <span class="wi wi-strong-wind cyan"></span>
             <span>
                 {% if config.useBeaufort %}
                     {{ current.beaufortWindSpeed() | round }}
                 {% else %}
                     {% if config.useKmh %}
-                        {{ current.kmhWindSpeed() | round }}
+                        {{ current.kmhWindSpeed() | round }}<span class="subs"> km/h</span>
                     {% else %}
                         {{ current.windSpeed | round }}
                     {% endif %}
@@ -15,7 +15,7 @@
                 {% if config.showWindDirection %}
                     <sup>
                         {% if config.showWindDirectionAsArrow %}
-                            <i class="fa fa-long-arrow-up" style="transform:rotate({{ current.windDirection }}deg);"></i>
+                            <i class="wi wi-direction-down" style="transform:rotate{{ current.windDirection }}deg);"></i>
                         {% else %}
                             {{ current.cardinalWindDirection() | translate }}
                         {% endif %}
@@ -24,10 +24,16 @@
                 {% endif %}
             </span>
             {% if config.showHumidity and current.humidity %}
-                <span>{{ current.humidity | decimalSymbol }}</span><sup>&nbsp;<i class="wi wi-humidity humidityIcon"></i></sup>
+                <span><i class="wi wi-humidity skyblue"></i>{{ current.humidity | decimalSymbol }}%&nbsp;</span>
+            {% endif %}
+            {% if config.showPressure and current.pressure %}
+                <span><i class="wi wi-barometer gold"></i>{{ current.pressure | decimalSymbol }}</span><span class="subs"> Hg</span>
+            {% endif %}
+            {% if config.showVisibility and current.visibility %}
+                <span><i class="fa fa-binoculars violet"></i>{{ current.visibility | decimalSymbol }}</span><span class="subs"> Km</span>
             {% endif %}
             {% if config.showSun %}
-                <span class="wi dimmed wi-{{ current.nextSunAction() }}"></span>
+                <span class="wi dimmed wi-{{ current.nextSunAction() }} gold"></span>
                 <span>
                     {% if current.nextSunAction() === "sunset" %}
                         {{ current.sunset | formatTime }}
@@ -65,14 +71,37 @@
     {% if (config.showFeelsLike or config.showPrecipitationAmount) and not config.onlyTemp %}
         <div class="normal medium feelslike">
             {% if config.showFeelsLike %}
-                <span class="dimmed">
-                    {{ "FEELS" | translate({DEGREE: current.feelsLike() | roundValue | unit("temperature") | decimalSymbol }) }}
-                </span>
+                <div class="lime">
+                    {{ "FEELS" | translate({DEGREE: current.feelsLike() | unit("temperature") | decimalSymbol }) }}
+                    <i class="wi wi-thermometer gold"></i>
+                </div>
             {% endif %}
             {% if config.showPrecipitationAmount %}
-                <span class="dimmed">
+                <div class="normal midget">
                     {{ "PRECIP" | translate }} {{ current.precipitation | unit("precip") }}
+                    <i class="fa fa-tint skyblue"></i>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% if (config.showDewPoint or config.showUVindex) and not config.onlyTemp %}
+        <div class="normal medium dewpoint uvi">
+            {% if config.showDewPoint %}
+                <span class="normal midget lightskyblue">
+                    {{ "DEWPOINT" | translate({DEGREE: current.dewpoint | roundValue | unit("temperature") | decimalSymbol }) }}
+                    <i class="wi wi-raindrops lightgreen"></i>
                 </span>
+            {% endif %}
+            {% if config.showUVindex %}
+                <span class="normal midget greenyellow">&nbsp;
+                    {{ "UVI" | translate }} {{ current.uvindex | decimalSymbol }}
+                    <i class="wi wi-hot gold"></i>
+                </span>
+            {% endif %}
+            {% if config.showDescription %}
+                <div class="normal medium bright">
+                    {{ current.description }}
+                </div>
             {% endif %}
         </div>
     {% endif %}
@@ -81,6 +110,3 @@
         {{ "LOADING" | translate }}
     </div>
 {% endif %}
-
-<!-- Uncomment the line below to see the contents of the `current` object. -->
-<!-- <div style="word-wrap:break-word" class="xsmall dimmed">{{current | dump}}</div> -->
