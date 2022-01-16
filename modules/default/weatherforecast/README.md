@@ -4,7 +4,9 @@ https://github.com/hangorazvan/forecast_plus
 
 Modified MagicMirror2 weatherforecast with hourly forecast falls back and onecall enpoint option, including snow amount only for winter mounths
 
-New version https://github.com/hangorazvan/onecall
+https://github.com/hangorazvan/onecall
+
+Modified MagicMirror2 deprecated current & forecast weather module based on Openweathermap with Onecall endpoint
 
 https://forum.magicmirror.builders/topic/12201/snow-amount-on-weather-forecast
 
@@ -25,3 +27,7 @@ Then put in config.js
 							// See weatherforeast default module 'Configuration options' for more information.
 		}
 	}
+
+Redesigned by Răzvan Cristea
+https://github.com/hangorazvan
+Creative Commons BY-NC-SA 4.0, Romania.
