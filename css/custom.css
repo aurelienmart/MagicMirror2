@@ -425,6 +425,10 @@ header {
 	color: lightgreen;
 }
 
+.cyan {
+	color: cyan;
+}
+
 .magenta {
 	color: magenta;
 }
@@ -1024,8 +1028,8 @@ header {
 	.monthly .month:nth-child(n+2),
 	.icalendar table tr:nth-child(n+12),
 	.calendar table tr:nth-child(n+12),
-	.hourly table tr:nth-child(n+4),
-	.daily table tr:nth-child(n+11),
+	.hourly table tr:nth-child(n+6),
+	.daily table tr:nth-child(n+12),
 	header,	.lifecounter, .jsontable,
 	.currentweather .prep, .month-header,
 	.newsfeed-desc, .news .desc {

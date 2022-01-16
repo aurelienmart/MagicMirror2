@@ -26,12 +26,6 @@
 	"STILL": "încă",
 	"UNTIL": "până",
 
-	"DEW": "Dew point: ",
-	"UVI": "UV index: ",
-	"No prep": "No prep",
-	"No rain": "No rain",
-	"No snow": "No snow",
-
 	"N": "N",
 	"NNE": "NNE",
 	"NE": "NE",
@@ -63,6 +57,12 @@
 
 	"FEELS": "Feels like: {DEGREE}",
 	"PRECIP": "Precipitations ",
+	"DEWPOINT": "Dew point: {DEGREE}",
+	"DEW": "Dew point: ",
+	"UVI": "UV Index ",
+	"No prep": "No prep",
+	"No rain": "No rain",
+	"No snow": "No snow",
 
 	"No Internet connection!": "No Internet connection!",
 	"Check Wi-Fi connection and router": "Check Wi-Fi connection and router",

@@ -26,12 +26,6 @@
 	"STILL": "încă",
 	"UNTIL": "până",
 
-	"DEW": "Punct de rouă: ",
-	"UVI": "Index UV: ",
-	"No prep": "Fără precipitații ",
-	"No rain": "Nu plouă",
-	"No snow": "Nu ninge",
-
 	"N": "N",
 	"NNE": "NNE",
 	"NE": "NE",
@@ -63,6 +57,12 @@
 
 	"FEELS": "Se simte ca fiind: {DEGREE}",	
 	"PRECIP": "Precipitații ",
+	"DEWPOINT": "Punct de rouă: {DEGREE} ",
+	"DEW": "Punct de rouă: ",
+	"UVI": "Index UV ",
+	"No prep": "Fără precipitații ",
+	"No rain": "Nu plouă",
+	"No snow": "Nu ninge",
 
 	"No Internet connection!": "Fără conexiune la internet!",
 	"Check Wi-Fi connection and router": "Verifică conexiunea Wi-Fi și routerul",
