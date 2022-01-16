@@ -13,11 +13,11 @@ Module.register("onecall", {
 		lat: config.latitude,
 		lon: config.longitude,
 		location: config.location,
-		appid: config.appid,
+		appid: "",
 		backup: config.backup,
 		units: config.units,
-		dayUpdateInterval: 15 * 60 * 1000, // every 15 minutes
-		nightUpdateInterval: 30 * 60 * 1000, // every 30 minutes
+		dayUpdateInterval: 5 * 60 * 1000, // every 5 minutes
+		nightUpdateInterval: 15 * 60 * 1000, // every 15 minutes
 		initialLoadDelay: 0, // 0 seconds delay
 		retryDelay: config.delay,
 		animationSpeed: config.animation,
@@ -226,7 +226,7 @@ Module.register("onecall", {
 		// humidity.
 		if (this.config.showHumidity) {
 			var humidityIcon = document.createElement("span");
-			humidityIcon.className = "wi wi-humidity humidityIcon";
+			humidityIcon.className = "wi wi-humidity";
 			small.appendChild(humidityIcon);
 
 			var humidity = document.createElement("span");
