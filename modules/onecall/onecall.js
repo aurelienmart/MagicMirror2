@@ -16,7 +16,7 @@ Module.register("onecall", {
 		appid: "",
 		backup: config.backup,
 		units: config.units,
-		dayUpdateInterval: 5 * 60 * 1000, // every 5 minutes
+		dayUpdateInterval: 10 * 60 * 1000, // every 10 minutes
 		nightUpdateInterval: 15 * 60 * 1000, // every 15 minutes
 		initialLoadDelay: 0, // 0 seconds delay
 		retryDelay: config.delay,
