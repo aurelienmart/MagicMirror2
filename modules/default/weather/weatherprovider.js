@@ -116,7 +116,7 @@ const WeatherProvider = Class.extend({
 		const getData = function (mockData) {
 			return new Promise(function (resolve, reject) {
 				if (mockData) {
-					let data = mockData;
+					var data = mockData;
 					data = data.substring(1, data.length - 1);
 					resolve(JSON.parse(data));
 				} else {

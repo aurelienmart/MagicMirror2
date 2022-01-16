@@ -27,7 +27,6 @@ Module.register("weather", {
 		showWindDirectionAsArrow: true,
 		useBeaufort: false,
 		lang: config.language,
-		showHumidity: true,
 		showSun: false,
 		degreeLabel: true,
 		decimalSymbol: config.decimal,
@@ -46,7 +45,14 @@ Module.register("weather", {
 		onlyTemp: false,
 		showPrecipitationAmount: true,
 		colored: true,
-		showFeelsLike: true
+        showHumidity: true,
+        showFeelsLike: true,
+        showDewPoint: true,
+        showUVindex: true,
+        showPressure: true,
+        showVisibility: true,
+        showDescription: true,
+        absoluteDates: false
 	},
 
 	// Module properties.
@@ -57,7 +63,7 @@ Module.register("weather", {
 
 	// Define required scripts.
     getStyles: function () {
-        return ["font-awesome.css", "weather-icons.css"];
+        return ["weather.css", "font-awesome.css", "weather-icons.css"];
     },
     // Return the scripts that are necessary for the weather module.
     getScripts: function () {
