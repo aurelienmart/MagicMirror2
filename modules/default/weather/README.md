@@ -1,5 +1,36 @@
-# Weather Module
+# MagicMirror² Weather Module with OpenWeatherMap OneCall enhancements and extra data
 
-This module aims to be the replacement for the current `currentweather` and `weatherforcast` modules. The module will be configurable to be used as a current weather view, or to show the forecast. This way the module can be used twice to fulfill both purposes.
+#### Current weather
 
-For configuration options, please check the [MagicMirror² documentation](https://docs.magicmirror.builders/modules/weather.html).
+
+- humidity
+- sunrise
+- sunset
+- temperature
+- units
+- weatherType
+- windDirection
+- windSpeed
+- feels like
+plus
+- dew point
+- UV index
+- mmHg pressure
+- visibility
+- description
+
+#### Weather forecast (hourly and daily)
+
+- date
+- maxTemperature
+- minTemperature
+- rain
+- units
+- weatherType
+plus
+- feels like
+- dew point
+- UV index
+- mmHg pressure
+- visibility
+- humidity
