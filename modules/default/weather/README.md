@@ -12,6 +12,7 @@
 - windDirection
 - windSpeed
 - feels like
+
 plus
 - dew point
 - UV index
@@ -27,6 +28,7 @@ plus
 - rain
 - units
 - weatherType
+
 plus
 - feels like
 - dew point
