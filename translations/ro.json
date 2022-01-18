@@ -57,12 +57,15 @@
 
 	"FEELS": "Se simte ca fiind: {DEGREE}",	
 	"PRECIP": "Precipitații ",
+	"RAIN": "Ploaie ",
+	"SNOW": "Zăpadă ",
 	"DEWPOINT": "Punct de rouă: {DEGREE} ",
 	"DEW": "Punct de rouă: ",
 	"UVI": "Index UV ",
 	"No prep": "Fără precipitații ",
 	"No rain": "Nu plouă",
 	"No snow": "Nu ninge",
+	"ALERTS": "Alertă meteo între ",
 
 	"No Internet connection!": "Fără conexiune la internet!",
 	"Check Wi-Fi connection and router": "Verifică conexiunea Wi-Fi și routerul",
