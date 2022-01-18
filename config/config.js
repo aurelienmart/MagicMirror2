@@ -225,48 +225,6 @@ var config = {
 				cssClass: "jsontable midget"
 			}
 		},
-/************* TEST *************/
-		{
-			module: "weather",
-			position: "top_right",
-			classes: "night currentweather current",
-			disabled: true,
-			config: {
-				apiKey: "",
-				showPrecipitationAmount: false,
-			}
-		},
-		{
-			module: "weather",
-			position: "top_right",
-			header: "Vremea în următoarele zile la",
-			classes: "daily weatherforecast forecast day ipad",
-			disabled: true,
-			config: {
-				apiKey: "",
-				appendLocationNameToHeader: true,
-				type: "daily",
-				maxNumberOfDays: 8,
-				initialLoadDelay: 2000,
-			}
-		},
-		{
-			module: "weather",
-			position: "top_right",
-			header: "Vremea în următoarele ore la",
-			classes: "hourly weatherforecast forecast day ipad",
-			disabled: true,
-			config: {
-				apiKey: "",
-				appendLocationNameToHeader: true,
-				type: "hourly",
-				maxEntries: 6,
-				initialLoadDelay: 4000,
-				extra: true
-			}
-		},
-/************* TEST *************/
-
 		{
 			module: "onecall",
 			position: "top_right",
@@ -275,6 +233,22 @@ var config = {
 			config: {
 				appid: "",
 				appendLocationNameToHeader: false,
+				showAlerts: true
+			}
+		},
+		{
+			module: "onecall",
+			position: "top_right",
+			header: "Vremea în următoarele ore la",
+			classes: "hourly forecast ipad day",
+			disabled: false,
+			config: {
+				appid: "",
+				maxNumberOfDays: 4,
+				endpointType: "hourly",
+				fullday: "HH.mm",
+				initialLoadDelay: 2000,
+				extra: false
 			}
 		},
 		{
@@ -286,22 +260,8 @@ var config = {
 			config: {
 				appid: "",
 				endpointType: "daily",
-				initialLoadDelay: 2000,
-			}
-		},
-		{
-			module: "onecall",
-			position: "top_right",
-			header: "Vremea în următoarele ore la",
-			classes: "hourly forecast ipad day",
-			disabled: false,
-			config: {
-				appid: "",
-				maxNumberOfDays: 6,
-				endpointType: "hourly",
-				fullday: "HH.mm",
-				extra: true,
 				initialLoadDelay: 4000,
+				extra: true,
 			}
 		},
 		{
