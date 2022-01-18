@@ -57,12 +57,15 @@
 
 	"FEELS": "Feels like: {DEGREE}",
 	"PRECIP": "Precipitations ",
+	"RAIN": "Rain ",
+	"SNOW": "Snow ",
 	"DEWPOINT": "Dew point: {DEGREE}",
 	"DEW": "Dew point: ",
 	"UVI": "UV Index ",
 	"No prep": "No prep",
 	"No rain": "No rain",
 	"No snow": "No snow",
+	"ALERTS": "Weather alert between ",
 
 	"No Internet connection!": "No Internet connection!",
 	"Check Wi-Fi connection and router": "Check Wi-Fi connection and router",

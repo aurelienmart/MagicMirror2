@@ -997,7 +997,7 @@ header {
 	.daily table tr:nth-child(even) {
 		background: none;
 	}
-
+/*
 	.ical table tr:nth-child(even),
 	.icalendar table tr:nth-child(even),
 	.monthly .week:nth-child(odd),
@@ -1005,7 +1005,7 @@ header {
 	.hourly table tr:nth-child(even) {
 		background: rgba(128,128,128,0.10);
 	}
-
+*/
 	.calendar-table table tr {
 		height: 23px;
 	}
@@ -1028,10 +1028,11 @@ header {
 	.monthly .month:nth-child(n+2),
 	.icalendar table tr:nth-child(n+12),
 	.calendar table tr:nth-child(n+12),
-	.hourly table tr:nth-child(n+6),
-	.daily table tr:nth-child(n+12),
+	.hourly table tr:nth-child(n+5),
+	.daily table tr:nth-child(n+16),
 	header,	.lifecounter, .jsontable,
-	.currentweather .prep, .month-header,
+	.weather .extra, .onecall .extra,
+  .month-header, .alerts,
 	.newsfeed-desc, .news .desc {
 		display: none !important;
 	}
