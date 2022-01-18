@@ -52,6 +52,8 @@ Module.register("weather", {
         showPressure: true,
         showVisibility: true,
         showDescription: true,
+        extra: false,
+        showAlerts: false,
         absoluteDates: false
 	},
 
@@ -147,7 +149,7 @@ Module.register("weather", {
     },
     // What to do when the weather provider has new information available?
     updateAvailable: function () {
-        Log.log("New weather information available.");
+        //Log.log("New weather information available.");
         this.updateDom(0);
         this.scheduleUpdate();
         if (this.weatherProvider.currentWeather()) {
