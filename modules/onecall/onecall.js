@@ -587,22 +587,22 @@ Module.register("onecall", {
 					pressure.className = "align-center pressure gold";
 					row.appendChild(pressure);
 
-					var uvIndex = document.createElement("td");
-					uvIndex.innerHTML = "uv " + parseFloat(forecast.uvIndex).toFixed(1).replace(".", this.config.decimalSymbol);
-					uvIndex.className = "align-center uvIndex lightgreen";
-					row.appendChild(uvIndex);
-
 					if (this.config.endpointType === "hourly") {
 						var visible = document.createElement("td");
-						visible.innerHTML =  "<i class=\"fa fa-binoculars little violet\"></i> " + forecast.visibility/1000 + " Km";
-						visible.className = "align-right visibility";
+						visible.innerHTML =  forecast.visibility/1000 + " Km";
+						visible.className = "align-center violet visibility";
 						row.appendChild(visible);
 					} else {
 						var realFeelDay = document.createElement("td");
-						realFeelDay.innerHTML =  "Realfeel " + parseFloat(forecast.realFeelsDay).toFixed(0) + degreeLabel;
-						realFeelDay.className = "align-right realFeel yellow";
+						realFeelDay.innerHTML =  parseFloat(forecast.realFeelsDay).toFixed(0) + degreeLabel;
+						realFeelDay.className = "align-center realFeel yellow";
 						row.appendChild(realFeelDay);
 					}
+					
+					var uvIndex = document.createElement("td");
+					uvIndex.innerHTML = "UVI " + parseFloat(forecast.uvIndex).toFixed(1).replace(".", this.config.decimalSymbol);
+					uvIndex.className = "align-right uvIndex lightgreen";
+					row.appendChild(uvIndex);
 				}
 
 				if (this.config.fade && this.config.fadePoint < 1) {
