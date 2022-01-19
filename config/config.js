@@ -233,7 +233,20 @@ var config = {
 			config: {
 				appid: "",
 				appendLocationNameToHeader: false,
+				showPrecip: false,
 				showAlerts: true
+			}
+		},
+		{
+			module: "onecall",
+			position: "top_right",
+			classes: "air quality ipad day",
+			disabled: false,
+			config: {
+				appid: "",
+				appendLocationNameToHeader: false,
+				endpointType: "aqi",
+				initialLoadDelay: 1000,
 			}
 		},
 		{
@@ -260,7 +273,7 @@ var config = {
 			config: {
 				appid: "",
 				endpointType: "daily",
-				initialLoadDelay: 4000,
+				initialLoadDelay: 3000,
 				extra: true,
 			}
 		},
