@@ -66,6 +66,13 @@
 	"No rain": "Nu plouă",
 	"No snow": "Nu ninge",
 	"ALERTS": "Alertă meteo între ",
+	"Good": "Bun",
+    "Fair": "Rezonabil",
+    "Moderate": "Moderat",
+    "Poor": "Slab",
+    "Unhealty": "Riscant",
+    "Index": "Index calitate aer",
+    "Update": "Ultima actualizare ",
 
 	"No Internet connection!": "Fără conexiune la internet!",
 	"Check Wi-Fi connection and router": "Verifică conexiunea Wi-Fi și routerul",

@@ -66,6 +66,13 @@
 	"No rain": "No rain",
 	"No snow": "No snow",
 	"ALERTS": "Weather alert between ",
+	"Good": "Good",
+    "Fair": "Fair",
+    "Moderate": "Moderate",
+    "Poor": "Poor",
+    "Unhealty": "Unhealty",
+    "Index": "Air Quality Index",
+    "Update": "Last update ",
 
 	"No Internet connection!": "No Internet connection!",
 	"Check Wi-Fi connection and router": "Check Wi-Fi connection and router",
