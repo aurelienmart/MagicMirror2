@@ -223,11 +223,11 @@ var config = {
 		{
 			module: "onecall",
 			position: "top_right",
+			header: "Calitatea aerului in",
 			classes: "air quality ipad day",
 			disabled: false,
 			config: {
 				appid: "",
-				appendLocationNameToHeader: false,
 				endpointType: "aqi",
 				initialLoadDelay: 1000,
 			}
@@ -255,6 +255,7 @@ var config = {
 			disabled: false,
 			config: {
 				appid: "",
+				maxNumberOfDays: 7,
 				endpointType: "daily",
 				initialLoadDelay: 3000,
 				extra: true,
