@@ -6,7 +6,7 @@
  *
  * MIT Licensed.
  *
- * Redesigned by Răzvan Cristea
+ * Redesigned by Rﾄホvan Cristea
  * for iPad 3 & HD display
  * https://github.com/hangorazvan
  */
@@ -994,6 +994,8 @@ header {
 		font-size: 5rem;
 	}
 
+    .region table tr:nth-child(even),
+    .monthly .week:nth-child(odd) ,
 	.daily table tr:nth-child(even) {
 		background: none;
 	}
@@ -1032,7 +1034,7 @@ header {
 	.daily table tr:nth-child(n+16),
 	header,	.lifecounter, .jsontable,
 	.weather .extra, .onecall .extra,
-  .month-header, .alerts,
+    .month-header, .alerts,
 	.newsfeed-desc, .news .desc {
 		display: none !important;
 	}
