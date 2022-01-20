@@ -272,6 +272,7 @@ var config = {
 			disabled: false,
 			config: {
 				appid: "",
+				maxNumberOfDays: 7,
 				endpointType: "daily",
 				initialLoadDelay: 3000,
 				extra: true,
