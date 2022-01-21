@@ -6,8 +6,10 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <br>iCalendar based on PHP original first version (jquery)
 <br>RssFeed based on PHP alternative first version (jquery)
 <br>Compliments https://github.com/hangorazvan/compliments_plus
-<br>Onecall (Openweathermap) https://github.com/hangorazvan/onecall
 <br>Clock https://github.com/hangorazvan/clock_plus
+<br>Weather (Openweathermap only) https://github.com/hangorazvan/weather
+<br>Onecall (Openweathermap only) https://github.com/hangorazvan/onecall
+<br>(Deprecated default Current & Forecast Weather)
 
 <b>Some 3rd party modified modules:</b>
 <br>multi monthly calendar https://github.com/hangorazvan/MagicMirror2/tree/master/modules/monthly
@@ -20,8 +22,7 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <br>notification https://github.com/hangorazvan/notification
 <br>yframe https://github.com/hangorazvan/yframe
 
-<img src=https://github.com/hangorazvan/MagicMirror2/blob/ipad/iPad.png>
-<img src=https://github.com/hangorazvan/MagicMirror2/blob/ipad/iPad3.png>
+<img src=https://github.com/hangorazvan/MagicMirror2/blob/master/HD.png>
 
 Redesigned by Răzvan Cristea
 https://github.com/hangorazvan
