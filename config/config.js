@@ -327,6 +327,21 @@ var config = {
 					//	"Știi cât este ceasul?",
 						"Ai vreun coșmar?"
 					],
+					AQI_1 : [
+						 "<i class=\"fa fa-leaf lime\"></i> AQI Index Good",
+					],
+					AQI_2 : [
+						 "<i class=\"fa fa-leaf yellow\"></i> AQI Index Fair",
+						],
+					AQI_3 : [
+						 "<i class=\"fa fa-leaf orange\"></i> AQI Index Moderate",
+					],
+					AQI_4 : [
+						 "<i class=\"fa fa-leaf orangered\"></i> AQI Index Poor",
+					],
+					AQI_5 : [
+						 "<i class=\"fa fa-leaf redrf\"></i> AQI Index Unhealty",
+					],	
 					day_sunny : [
 						"<i class=\"gold wi wi-day-sunny\"></i> Este senin",
 						"<i class=\"gold wi wi-day-sunny\"></i> Vreme senină"
