@@ -203,8 +203,5 @@ Module.register("compliments", {
 		if (notification === "CURRENTWEATHER_TYPE") {
 			this.setCurrentWeatherType(payload.type);
 		}
-		if (notification === "AIR_QUALITY") {
-			this.setCurrentWeatherType(payload);
-		}
 	}
 });
