@@ -105,11 +105,11 @@ Module.register("monthly", {
 						}
 					} else {
 						// empty cell as placeholder
-					//	if (this.config.monthCount == 1) {
+						if (this.config.showPastFuture) {
 							output += "<div class='daydim'>" + currentWeekday.format("D") + "</div>";
-					//	} else {
-					//		output += "<div class='daydim'>&nbsp;</div>";
-					//	}
+						} else {
+							output += "<div class='daydim'>&nbsp;</div>";
+						}
 					}
 					currentWeekday.add(1, "days");
 				}
