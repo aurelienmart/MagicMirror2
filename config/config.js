@@ -328,19 +328,19 @@ var config = {
 						"Ai vreun coșmar?"
 					],
 					AQI_1 : [
-						 "<i class=\"fa fa-leaf lime\"></i> AQI Index Good",
+						 "<span class=\"mlarge\"><i class=\"fa fa-leaf lime\"></i> Calitatea aerului bună</span>",
 					],
 					AQI_2 : [
-						 "<i class=\"fa fa-leaf yellow\"></i> AQI Index Fair",
-						],
+						 "<span class=\"mlarge\"><i class=\"fa fa-leaf yellow\"></i> Calitatea aerului acceptabilă</span>",
+					],
 					AQI_3 : [
-						 "<i class=\"fa fa-leaf orange\"></i> AQI Index Moderate",
+						 "<span class=\"mlarge\"><i class=\"fa fa-leaf orange\"></i> Calitatea aerului moderată</span>",
 					],
 					AQI_4 : [
-						 "<i class=\"fa fa-leaf orangered\"></i> AQI Index Poor",
+						 "<span class=\"mlarge\"><i class=\"fa fa-leaf orangered\"></i> Calitatea aerului slabă</span>",
 					],
 					AQI_5 : [
-						 "<i class=\"fa fa-leaf redrf\"></i> AQI Index Unhealty",
+						 "<span class=\"mlarge\"><i class=\"fa fa-leaf redrf\"></i> Calitatea aerului nesănătoasă</span>",
 					],	
 					day_sunny : [
 						"<i class=\"gold wi wi-day-sunny\"></i> Este senin",
