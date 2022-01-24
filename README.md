@@ -15,7 +15,7 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <br>jsontable https://github.com/hangorazvan/MagicMirror2/tree/master/modules/jsontable
 
 <b>My own test developed modules:</b>
-<br>swatch.beat https://github.com/hangorazvan/pollution
+<br>air pollution https://github.com/hangorazvan/pollution
 <br>swatch.beat https://github.com/hangorazvan/swatch
 <br>lifecounter https://github.com/hangorazvan/lifecounter
 <br>notification https://github.com/hangorazvan/notification
