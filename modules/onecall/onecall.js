@@ -91,12 +91,6 @@ Module.register("onecall", {
 		}
 	},
 
-	// create a variable for the first upcoming calendar event. Used if no location is specified.
-	firstEvent: true,
-
-	// create a variable to hold the location name based on the API result.
-	fetchedLocationName: this.config.location,
-
 	// Define required scripts.
 	getScripts: function () {
 		return ["moment.js"];
@@ -461,64 +455,27 @@ Module.register("onecall", {
 					this.c_nh3/16,      // optional
 					this.c_co/200       // optional
 				).toFixed(0);
-				if (aqi_i <= 25 
-					|| this.c_no2 <= 50 
-					|| this.c_no <= 50 
-					|| this.c_pm10 <= 25 
-					|| this.c_o3 <= 60 
-					|| this.c_pm25 <= 15 
-					|| this.c_co <= 5000 
-					|| this.c_so2 <= 50 
-					|| this.c_nh3 <= 200) {
-					aqi_q = this.translate("Good");
-					aqi_c = "lime";
-				} else if (aqi_i > 25 
-					|| this.c_no2 > 50 
-					|| this.c_no > 50 
-					|| this.c_pm10 > 25 
-					|| this.c_o3 > 60 
-					|| this.c_pm25 > 15	
-					|| this.c_co > 5000	
-					|| this.c_so2 > 50 
-					|| this.c_nh3 > 200) {
-					aqi_q = this.translate("Fair");
-					aqi_c = "yellow";
-				} else if (aqi_i > 50 
-					|| this.c_no2 > 100 
-					|| this.c_no > 100 
-					|| this.c_pm10 > 50 
-					|| this.c_o3 > 120 
-					|| this.c_pm25 > 30 
-					|| this.c_co > 7500 
-					|| this.c_so2 > 100 
-					|| this.c_nh3 > 400) {
-					aqi_q = this.translate("Moderate");
-					aqi_c = "orange";
-				} else if (aqi_i > 75 
-					|| this.c_no2 > 200 
-					|| this.c_no > 200 
-					|| this.c_pm10 > 90 
-					|| this.c_o3 > 180 
-					|| this.c_pm25 > 55 
-					|| this.c_co > 10000 
-					|| this.c_so2 > 350 
-					|| this.c_nh3 > 800) {
-					aqi_q = this.translate("Poor");
-					aqi_c = "orangered";
-				} else if (aqi_i > 100 
-					|| this.c_no2 > 400 
-					|| this.c_no > 400 
-					|| this.c_pm10 > 180 
-					|| this.c_o3 > 240 
-					|| this.c_pm25 > 110 
-					|| this.c_co > 20000 
-					|| this.c_so2 > 500 
-					|| this.c_nh3 > 1600) {
-					aqi_q = this.translate("Unhealty");
-					aqi_c = "redrf";
-				}
-				aqi.innerHTML = this.translate("Index") + " <i class=\"fa fa-leaf " + aqi_c + "\"></i> <span class=" + aqi_c + ">" + aqi_q + " (" + aqi_i + ")</span>";
-			} else {
+
+			if (aqi_i <= 25) {
+				aqi_q = this.translate("Good");
+				aqi_c = "lime";
+			} else if (aqi_i > 25 && aqi_i <= 50) {
+				aqi_q = this.translate("Fair");
+				aqi_c = "yellow";
+			} else if (aqi_i > 50 && aqi_i <= 75) {
+				aqi_q = this.translate("Moderate");
+				aqi_c = "orange";
+			} else if (aqi_i > 75 && aqi_i <= 100) {
+				aqi_q = this.translate("Poor");
+				aqi_c = "coral";
+			} else if (aqi_i > 100) {
+				aqi_q = this.translate("Unhealty");
+				aqi_c = "red";
+			}
+
+			aqi.innerHTML = this.translate("Index") + " <i class=\"fa fa-leaf " + aqi_c + "\"></i> <span class=" + aqi_c + ">" + aqi_q + " (" + aqi_i + ")</span>";
+			
+		} else {
 				if (this.aqi == 1) { 
 					aqi_q = this.translate("Good");
 					aqi_c = "lime";
@@ -790,8 +747,7 @@ Module.register("onecall", {
 		}
 
 		if (this.config.appendLocationNameToHeader) {
-			if (this.data.header) return this.data.header + " " + this.fetchedLocationName;
-			else return this.fetchedLocationName;
+			if (this.data.header) return this.data.header + " " + this.config.location;
 		}
 
 		return this.data.header ? this.data.header : "";
@@ -804,25 +760,10 @@ Module.register("onecall", {
 				this.hide(0, { lockString: this.identifier });
 			}
 		}
-		if (notification === "CALENDAR_EVENTS") {
-			var senderClasses = sender.data.classes.toLowerCase().split(" ");
-			if (senderClasses.indexOf(this.config.calendarClass.toLowerCase()) !== -1) {
-				this.firstEvent = false;
-
-				for (var e in payload) {
-					var event = payload[e];
-					if (event.location || event.geo) {
-						this.firstEvent = event;
-					//	Log.log("First upcoming event with location: ", event);
-						break;
-					}
-				}
-			}
-		}
 	},
 
 	/* updateWeather(compliments)
-	 * Requests new data from openweather.org.
+	 * Requests new data from openweathermap.org.
 	 * Calls processWeather on succesfull response.
 	 */
 	updateWeather: function () {
@@ -845,11 +786,7 @@ Module.register("onecall", {
 				} else if (this.status === 401) {
 					self.updateDom(self.config.animationSpeed);
 					self.config.appid = self.config.backup;
-			/*	if (self.config.endpointType === "daily") {
-						self.config.endpointType = "hourly";
-						Log.warn(self.name + ": Incorrect APPID.");
-					}
-			*/		retry = true;
+					retry = true;
 				} else {
 					Log.error(self.name + ": Incorrect APPID. Could not load weather.");
 				}
@@ -871,8 +808,6 @@ Module.register("onecall", {
 		var params = "?";
 		if (this.config.lat && this.config.lon) {
 			params += "lat=" + this.config.lat + "&lon=" + this.config.lon;
-		} else if (this.firstEvent && this.firstEvent.geo) {
-			params += "lat=" + this.firstEvent.geo.lat + "&lon=" + this.firstEvent.geo.lon;
 		} else {
 			this.hide(this.config.animationSpeed, { lockString: this.identifier });
 			Log.error(this.name + ": Latitude and longitude not set!");
@@ -911,8 +846,8 @@ Module.register("onecall", {
 		return params;
 	},
 
-	/* updateAir (Air Qualiti Index)
-	 * Requests new data from openweather.org.
+	/* updateAir (Air Quality Index)
+	 * Requests new data from openweathermap.org.
 	 * Calls processAir on succesfull response.
 	 */
 	updateAir: function () {
@@ -950,7 +885,7 @@ Module.register("onecall", {
 	/* processAir(data)
 	 * Uses the received data to set the various values.
 	 *
-	 * argument data object - air quality information received form openweather.org.
+	 * argument data object - air quality information received form openweathermap.org.
 	 */
 	processAir: function (data, momenttz) {
 		if (!data || !data.list === "undefined") {
@@ -992,7 +927,7 @@ Module.register("onecall", {
 	/* processWeather(data)
 	 * Uses the received data to set the various values.
 	 *
-	 * argument data object - Weather information received form openweather.org.
+	 * argument data object - Weather information received form openweathermap.org.
 	 */
 	processWeather: function (data, momenttz) {
 		if (!data || !data.current || typeof data.current.temp === "undefined") {
