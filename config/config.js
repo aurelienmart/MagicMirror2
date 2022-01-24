@@ -169,6 +169,18 @@ var config = {
 				fullDayEventDateFormat: "ddd D MMM",
 				getRelative: 48,
 				coloredSymbolOnly: true,
+				customEvents: [
+					{
+						keyword: "New moon", 
+						symbol: "moon", 
+						color: "gray"
+					},
+					{
+						keyword: "Full moon", 
+						symbol: "moon", 
+						color: "white"
+					}
+				],
 				titleReplace: {
 					"a doua ": "A doua ",
 					"Ziua Internațională a Femeii": "Ziua femeii",
@@ -191,14 +203,31 @@ var config = {
 				calendars: [
 					{
 						symbol: "calendar-check-o", symbolClass: "skyblue", // titleClass: "skyblue", timeClass: "skyblue", color: "normal",
-						url: "http://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics",
-						maximumEntries: 5
+						url: "https://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics",
 					},
 					{
-						symbol: "moon", symbolClass: "normal", // titleClass: "normal", timeClass: "normal", color: "normal",
-						url: "http://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics",
-						maximumEntries: 5
+						symbol: "moon", symbolClass: "silver", // titleClass: "normal", timeClass: "normal", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics",					},
+					{
+						symbol: "registered", symbolClass: "lightgreen", // titleClass: "lightgreen", timeClass: "lightgreen", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics",
 					},
+					{
+						symbol: "product-hunt", symbolClass: "tomato", // titleClass: "tomato", timeClass: "tomato", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics",
+					},
+					{
+						symbol: "birthday-cake", symbolClass: "gold", // titleClass: "gold", timeClass: "gold", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics",
+					},
+					{
+						symbol: "film", symbolClass: "magenta", // titleClass: "magenta", timeClass: "magenta", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics",
+					},
+					{
+						symbol: "suitcase", symbolClass: "coral", // titleClass: "coral",timeClass: "coral", color: "normal",
+						url: "https://calendar.google.com/calendar/ical/.../basic.ics",
+					}
 				]
 			}
 		},
