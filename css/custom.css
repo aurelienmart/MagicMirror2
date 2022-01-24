@@ -129,6 +129,11 @@ a {
 	line-height: 1.5;
 }
 
+.mlarge {
+	font-size: 4.5rem;
+	line-height: 1;
+}
+
 .large {
 	font-size: 6rem;
 	line-height: 1;
