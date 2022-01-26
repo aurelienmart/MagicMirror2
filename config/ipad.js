@@ -106,6 +106,7 @@ var config = {
 				repeatWeekdaysVertical: true,
 				weekNumbers: true,
 				highlightWeekend: true,
+				showPastFuture: true,
 				fade: false
 			}
 		},
