@@ -18,6 +18,10 @@ Module.register("lifecounter", {
 	
 	start: function () {
 		Log.info("Starting module: " + this.name);
+		var self = this;
+		setInterval(function() {
+		//	self.updateDom();
+		}, 1000);
 	},
 
 	notificationReceived: function (notification, payload, sender) {

@@ -85,7 +85,7 @@ Module.register("timer", {
 		var hide = Array.from(document.querySelectorAll(".module:not(.night)"));
 		var show = Array.from(document.querySelectorAll(".day"));
 		var weat = Array.from(document.querySelectorAll(".weather"));
-		var comp = Array.from(document.querySelectorAll(".complimentz"));
+		var comp = Array.from(document.querySelectorAll(".compliments"));
 		var fish = Array.from(document.querySelectorAll(".yframe"));
 		var body = Array.from(document.querySelectorAll("body"));
 
@@ -129,9 +129,11 @@ Module.register("timer", {
 		var body = Array.from(document.querySelectorAll("body"));
 		var above = Array.from(document.querySelectorAll(".above"));
 		var below = Array.from(document.querySelectorAll(".below"));
+		var child = Array.from(document.querySelectorAll(":last-child"));
 
 		if (this.config.background) {
-			below.forEach(function(element) {return element.style.backgroundImage = "url(" + self.config.background + ")", element.style.backgroundSize = "cover";});
+			below.forEach(function(element) {return element.style.backgroundImage = "url(" + self.config.background + ")", element.style.filter = "opacity(" + self.config.opacity + "%)", element.style.backgroundSize = "cover";});
+			child.forEach(function(element) {return element.style.marginBottom = "0px";});
 		}
 
 		if (this.config.monochrome) {
