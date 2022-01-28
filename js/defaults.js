@@ -35,7 +35,7 @@ var defaults = {
 			position: "upper_third",
 			classes: "large thin",
 			config: {
-				text: "Magic Mirror<sup>2</sup>"
+				text: "Magic Mirror²"
 			}
 		},
 		{
