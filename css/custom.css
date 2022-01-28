@@ -195,6 +195,12 @@ header {
 	margin-bottom: 5px;
 }
 
+.region.top .mm-container:last-child,
+.calendar table:last-child,
+.module:last-child {
+	
+}
+
 .region.bottom .module {
 	margin-top: 30px;
 	margin-bottom: 0;
@@ -243,7 +249,7 @@ header {
 }
 
 .region.fullscreen.below {
-	filter: opacity(25%);
+
 }
 
 .region.top {
@@ -258,13 +264,9 @@ header {
 	margin-top: 25px;
 }
 
-.region.top .mm-container:empty {
-	margin-bottom: 0;
-}
-
 .region.top.center,
 .region.bottom.center {
-	left: 50%;
+	left: calc(50% - 5px);
 	transform: translateX(-50%);
 }
 
@@ -272,6 +274,10 @@ header {
 .region.top.left,
 .region.top.center {
 	top: 100%;
+	background: rgba(0,0,0,0.5);
+	padding:  5px;
+	margin: 5px;
+	border-radius: 10px;
 }
 
 .region.bottom {
