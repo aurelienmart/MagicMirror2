@@ -57,8 +57,8 @@ var config = {
 			disabled: false,
 			config: {
 				startImage: "wifi lime",
-				startTitle: "Magic Board&sup3;&nbsp;",
-				startTablet: "Magic iPad&sup3;&nbsp;",
+				startTitle: "Magic Board³",
+				startTablet: "Magic iPad³",
 				startNotification: "Modular smart mirror platform",
 				timer: 8000
 			}
