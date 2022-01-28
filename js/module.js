@@ -541,7 +541,7 @@ Module.create = function (name) {
 
 Module.register = function (name, moduleDefinition) {
 	if (moduleDefinition.requiresVersion) {
-		Log.log("Check MagicMirror version for module '" + name + "' - Minimum version:  " + moduleDefinition.requiresVersion + " - Current version: " + window.mmVersion);
+		Log.log("Check MagicMirror² version for module '" + name + "' - Minimum version:  " + moduleDefinition.requiresVersion + " - Current version: " + window.mmVersion);
 		if (cmpVersions(window.mmVersion, moduleDefinition.requiresVersion) >= 0) {
 			Log.log("Version is ok!");
 		} else {
