@@ -498,7 +498,7 @@ const CalendarUtils = {
 
         // include up to maximumEntries current or upcoming events
         // If past events should be included, include all past events
-        const now = moment();
+ /*       const now = moment();
         var entries = 0;
         var events = [];
         for (var ne of newEvents) {
@@ -511,8 +511,8 @@ const CalendarUtils = {
             if (entries > config.maximumEntries) break;
             events.push(ne);
         }
-
-        return events;
+*/
+        return newEvents;
     },
 
     /**

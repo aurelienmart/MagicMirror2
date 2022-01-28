@@ -23,7 +23,7 @@ Module.register("compliments", {
 
 	lastIndexUsed: -1,
 	// Set currentweather from module
-	currentWeatherType: "onecall, currentweather, weather",
+	currentWeatherType: "currentweather, weather, onecall, pollution",
 
 	// Define required scripts.
 	getScripts: function () {

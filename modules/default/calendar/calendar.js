@@ -27,6 +27,7 @@ Module.register("calendar", {
 		fetchInterval: 5 * 60 * 1000, // Update every 5 minutes.
 		animationSpeed: config.animation,
 		fade: true,
+        fadePoint: 0.25, // Start on 1/4th of the list.
 		urgency: 7,
 		timeFormat: "relative",
 		dateFormat: "MMM Do",
@@ -34,7 +35,6 @@ Module.register("calendar", {
 		fullDayEventDateFormat: "MMM Do",
 		showEnd: false,
 		getRelative: 6,
-		fadePoint: 0.25, // Start on 1/4th of the list.
 		hidePrivate: false,
 		hideOngoing: false,
 		hideTime: false,
@@ -152,7 +152,7 @@ Module.register("calendar", {
         var oneHour = oneMinute * 60;
         var oneDay = oneHour * 24;
         
-        var events = this.createEventList();
+        var events = this.createEventList(true);
         var wrapper = document.createElement("table");
         wrapper.className = this.config.tableClass;
         if (this.error) {
@@ -432,7 +432,7 @@ Module.register("calendar", {
      *
      * @returns {object[]} Array with events.
      */
-    createEventList: function () {
+    createEventList: function (limitNumberOfEntries) {
         var now = new Date();
         var today = moment().startOf("day");
         var future = moment().startOf("day").add(this.config.maximumNumberOfDays, "days").toDate();
@@ -441,7 +441,7 @@ Module.register("calendar", {
             var calendar = this.calendarData[calendarUrl];
             for (var e in calendar) {
                 var event = JSON.parse(JSON.stringify(calendar[e])); // clone object
-                if (event.endDate < now) {
+                if (event.endDate < now && limitNumberOfEntries) {
                     continue;
                 }
                 if (this.config.hidePrivate) {
@@ -450,7 +450,7 @@ Module.register("calendar", {
                         continue;
                     }
                 }
-                if (this.config.hideOngoing) {
+                if (this.config.hideOngoing && limitNumberOfEntries) {
                     if (event.startDate < now) {
                         continue;
                     }
@@ -496,6 +496,10 @@ Module.register("calendar", {
         events.sort(function (a, b) {
             return a.startDate - b.startDate;
         });
+
+        if (!limitNumberOfEntries) {
+            return events;
+        }
         // Limit the number of days displayed
         // If limitDays is set > 0, limit display to that number of days
         if (this.config.limitDays > 0) {
@@ -763,21 +767,14 @@ Module.register("calendar", {
      * The all events available in one array, sorted on startdate.
      */
     broadcastEvents: function () {
-        var eventList = [];
-        for (var url in this.calendarData) {
-            for (var _i = 0, _a = this.calendarData[url]; _i < _a.length; _i++) {
-                var ev = _a[_i];
-                var event = cloneObject(ev);
-                event.symbol = this.symbolsForEvent(event);
-                event.calendarName = this.calendarNameForUrl(url);
-                event.color = this.colorForUrl(url);
-                delete event.url;
-                eventList.push(event);
-            }
+        var eventList = this.createEventList(false);
+        for (var event of eventList) {
+            event.symbol = this.symbolsForEvent(event);
+            event.calendarName = this.calendarNameForUrl(event.url);
+            event.color = this.colorForUrl(event.url);
+            delete event.url;
         }
-        eventList.sort(function (a, b) {
-            return a.startDate - b.startDate;
-        });
+
         this.sendNotification("CALENDAR_EVENTS", eventList);
     }
 });
