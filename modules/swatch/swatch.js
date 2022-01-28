@@ -18,6 +18,10 @@ Module.register("swatch", {
 
 	start: function () {
 		Log.info("Starting module: " + this.name);
+		var self = this;
+		setInterval(function() {
+		//	self.swatch();
+		}, 864);
 	},
 
 	notificationReceived: function (notification, payload, sender) {
