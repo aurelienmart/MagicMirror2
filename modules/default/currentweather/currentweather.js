@@ -65,13 +65,13 @@ Module.register("currentweather", {
 			"13d": "day-snow",
 			"50d": "day-fog",
 			"01n": "night-clear",
-			"02n": "night-cloudy",
+			"02n": "night-alt-cloudy",
 			"03n": "night-cloudy",
-			"04n": "night-cloudy",
-			"09n": "night-showers",
-			"10n": "night-rain",
-			"11n": "night-thunderstorm",
-			"13n": "night-snow",
+			"04n": "night-alt-cloudy",
+			"09n": "night-alt-showers",
+			"10n": "night-alt-rain",
+			"11n": "night-alt-thunderstorm",
+			"13n": "night-alt-snow",
 			"50n": "night-alt-cloudy-windy"
 		}
 	},
@@ -556,20 +556,7 @@ Module.register("currentweather", {
 		params += "&lang=" + this.config.lang;
 		params += "&APPID=" + this.config.appid;
 		params += "&exclude=minutely,hourly,daily";
-/*
-		if (this.config.endpointType === "current") {
-			params += "&exclude=minutely,hourly,daily";
-		}
-		else if (this.config.endpointType === "hourly") {
-			params += "&exclude=current,minutely,daily";
-		}
-		else if (this.config.endpointType === "daily") {
-			params += "&exclude=current,minutely,hourly";
-		}
-		else {
-			params += "&exclude=minutely";
-		}
-*/
+
 		return params;
 	},
 
@@ -599,11 +586,11 @@ Module.register("currentweather", {
 			this.precipitation = 0;
 			precip = false;
 		}
-		if (data.current.hasOwnProperty("rain") && !isNaN(data.current["rain"]["1h"])) {
+		if (data.current.hasOwnProperty("rain") && !data.current.hasOwnProperty("snow")) {
 			this.rain = data.current["rain"]["1h"];
 			precip = true;
 		}
-		if (data.current.hasOwnProperty("snow") && !isNaN(data.current["snow"]["1h"])) {
+		if (data.current.hasOwnProperty("snow") && !data.current.hasOwnProperty("rain")) {
 			this.snow = data.current["snow"]["1h"];
 			precip = true;
 		}
