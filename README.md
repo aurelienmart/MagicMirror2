@@ -24,6 +24,7 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <img src=https://github.com/hangorazvan/MagicMirror2/blob/master/HD.png>
 
 Without fucking stupid Retardberry Pi, without any donation, without pointless or religious nonsens modules and other wierd software from so-called developers struggling to break into a world that has nothing to do with their IQ level, with their free time achievements which remain hidden on an obscure server, like an idiot asian nazi asshole. And most important without any help from amateur dudes of forum community. When I needed support, no one gave me an answer. They are sometimes so fucking ignorant and incompetent that they don't understand what you're simple asking them, even if it's obvious and not very complicated, but you have to follow they stupid rules, don't be reckless or rude to comment on something, just talking about how supposed to do things in the fucking right way, no fucking hacking, no fucking cheating. NO FUCKING THANK YOU FART OLD MAN! I HATE STUPID PEOPLE AND I HAVE MY OWN FUCKING RULES!
+
 Not to mention the fact that an idiot wakes up to ask on the forum or on Facebook why I wrote what I wrote, exactly for frustrated people like him, to be as clear as possible.
 
 Redesigned by Răzvan Cristea
