@@ -1,6 +1,6 @@
 # MagicMirror&sup2;
 
-Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile Web served version and HD monitor + Windows 8.1 HP mini netbook / eventually Windows 10 PC stick + IKEA frame + see-thru acrylic mirror, powered by consistent css & js, fonts sizes, icons & well structured folders, based on <b>MagicMirror&sup2;</b> open source core framework unfortunately <b>full of bugs</b> from amateur "developers"...  NO FUCKING THANK YOU FART OLD MAN!
+Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 & ES5 compatibile Web served version and HD monitor + Windows 8.1 HP mini netbook / eventually Windows 10 PC stick + IKEA frame + see-thru acrylic mirror, powered by consistent css & js, fonts sizes, icons & well structured folders, based on <b>MagicMirror&sup2;</b> open source core framework unfortunately <b>full of bugs</b> from amateur "developers"...
 
 <b>Some modified default original modules:</b>
 <br>Compliments https://github.com/hangorazvan/compliments_plus
@@ -22,6 +22,8 @@ Custom <b>redesigned</b> personal (not to much) smart mirror for iPad 3, iOS 9 &
 <br>yframe https://github.com/hangorazvan/yframe
 
 <img src=https://github.com/hangorazvan/MagicMirror2/blob/master/HD.png>
+
+Without fucking stupid Retardberry Pi, without any donation, without pointless or religious nonsens modules and other wierd software from so-called developers struggling to break into a world that has nothing to do with their IQ level, with their free time achievements which remain hidden on an obscure server, like an idiot asian nazi asshole. And most important without any help from amateur dudes of forum community. When I needed support, no one gave me an answer. They are sometimes so fucking ignorant and incompetent that they don't understand what you're simple asking them, even if it's obvious and not very complicated, but you have to follow they stupid rules, don't be reckless or rude to comment on something, just talking about how supposed to do things in the fucking right way, no fucking hacking, no fucking cheating. NO FUCKING THANK YOU FART OLD MAN! I HATE STUPID PEOPLE AND I HAVE MY OWN FUCKING RULES!
 
 Redesigned by Răzvan Cristea
 https://github.com/hangorazvan
