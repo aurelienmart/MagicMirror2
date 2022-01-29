@@ -27,6 +27,8 @@ Without fucking stupid Retardberry Pi, without any donation, without pointless o
 
 Not to mention the fact that an idiot wakes up to ask on the forum or on Facebook why I wrote what I wrote, exactly for frustrated people like him, to be as clear as possible.
 
+Too many contributors put their fingers where they thought they knew how to fix the bugs, but I would prefer to deal with developers those who really know programming and how things are done properly, I’m tired of amateurs.
+
 Redesigned by Răzvan Cristea
 https://github.com/hangorazvan
 Creative Commons BY-NC-SA 4.0, Romania.
