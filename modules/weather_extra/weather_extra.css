@@ -1,9 +1,43 @@
-/* Weather */
+.weather_extra .weathericon,
+.weather_extra .fa-home {
+  line-height: 65px;
+  display: inline-block;
+  transform: translate(0, -3px);
+}
+
+.weather_extra .humidityIcon {
+  padding-right: 4px;
+}
+
+.weather_extra .humidity-padding {
+  padding-bottom: 6px;
+}
+
+.weather_extra .day {
+
+}
+
+.weather_extra .weather-icon {
+  text-align: center;
+}
+
+.weather_extra .min-temp {
+
+}
+
+.weather_extra .precipitation {
+
+}
+
+.weather_extra tr .weathericon {
+  line-height: 25px;
+}
+
+/* Current */
 
 .currentweather .subs {
   font-size: 50%;
 }
-
 
 .currentweather .wi-thermometer,
 .currentweather .wi-humidity, 
@@ -24,18 +58,13 @@
   margin-top: 5px;
 }
 
-.onecall .currentweather .fa-tint {
-  transform: translate(0, 2px) scale(0.7);
+.currentweather .fa-tint {
+  transform: translate(0, 2px) scale(0.55);
 }
 
-.onecall .currentweather .fa-tint-slash {
-  transform: translate(0, 2px) scale(0.7);
+.currentweather .fa-tint-slash {
+  transform: translate(0, 2px) scale(0.55);
   margin: 0 -10px;
-}
-
-.onecall .forecast .fa-tint-slash {
-  transform: translate(0) scale(1.2);
-  margin: 0;
 }
 
 .currentweather .xlarge {
@@ -45,21 +74,14 @@
   padding-right: 3px;
 }
 
-.current-weather .weathericon,
-.currentweather .weathericon {
+.currentweather .wicon {
   transform: translate(0, 20px);
   height: 70px;
-  float: left;
+  padding-right: 50px;
 }
 
-.currentweather .deg {
-  font-size: 50%;
-  font-weight: 400;
-  margin-left: -30px;
-}
-
-.currentweather .description::first-letter {
-  text-transform: capitalize !important;
+.currentweather .bright::first-letter {
+  text-transform: capitalize;
 }
 
 .compliments .wi {
@@ -162,34 +184,7 @@
   content: url("icons/nt_hazy.png");
 }
 
-.onecall .airpollution {
-  margin-bottom: 10px;
-}
-
 /* Forecast */
-
-.onecall .flex-container {
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: flex-start;
-  align-items: center;
-  gap: 17px;
-}
-
-.onecall .flex-container .item {
-  order: 0;
-  width: 30%;
-  flex: 0 1 auto;
-  align-self: center;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.onecall header {
-  margin-top: 10px;
-}
 
 .weatherforecast header {
   margin-bottom: 5px;
@@ -200,53 +195,7 @@
   margin-bottom: 5px;
 }
 
-.daily table tr:nth-child(1) .en:nth-child(1),
-.daily table tr:nth-child(2) .en:nth-child(1),
-.daily table tr:nth-child(1) .ro:nth-child(1),
-.daily table tr:nth-child(2) .ro:nth-child(1) {
-  text-indent: -9999px;
-  line-height: 0;
-}
-
-.daily table tr:nth-child(1) .ro:nth-child(1)::after {
-  text-indent: 0;
-  content: "Astăzi";
-  display: block;
-  line-height: initial;
-}
-
-.daily table tr:nth-child(2) .ro:nth-child(1)::after {
-  text-indent: 0;
-  content: "Mâine";
-  display: block;
-  line-height: initial;
-}
-
-.daily table tr:nth-child(1) .en:nth-child(1)::after {
-  text-indent: 0;
-  content: "Today";
-  display: block;
-  line-height: initial;
-}
-
-.daily table tr:nth-child(2) .en:nth-child(1)::after {
-  text-indent: 0;
-  content: "Tomorrow";
-  display: block;
-  line-height: initial;
-}
-
-.daily table tr:nth-child(1) .day:nth-child(1)::after,
 .hourly table tr:nth-child(1) .day:nth-child(1) {
-  color: lime;
-}
-
-.daily table tr:nth-child(2) .day:nth-child(2)::after {
-  color: greenyellow;
-}
-
-.hourly .item:nth-child(1) .fday,
-.daily .item:nth-child(1) .fday {
   color: lime;
 }
 
@@ -281,8 +230,7 @@
   width: 25% !important;
 }
 
-.weatherforecast .rain, 
-.weatherforecast .snow {
+.weatherforecast .rain, .weatherforecast .snow {
   color: lightgray;
 }
 
@@ -385,8 +333,6 @@
   color: skyblue;
 }
 
-/* colors */
-
 .grayscale {
    filter: grayscale(100%);
 }
@@ -432,10 +378,6 @@
   font-size: 1.2rem;
 }
 
-.smedium {
-  font-size: 1.4rem;
-}
-
 .medium {
   font-size: 1.6rem;
 }
@@ -448,10 +390,6 @@
 .large {
   font-size: 6rem;
   line-height: 1;
-}
-
-.details {
-  line-height: 1.8rem;
 }
 
 .xlarge {
@@ -496,10 +434,6 @@
 }
 
 .redrf {
-  color: red;
-}
-
-.red {
   color: red;
 }
 
@@ -593,7 +527,4 @@
 
 .violet {
   color: violet;
-}
-.hourly{
-  display:none
 }

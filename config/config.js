@@ -10,22 +10,22 @@
  
 var config = {
 	address: "0.0.0.0",
-	port: 8081,
+	port: 8080,
 	basePath: "/",
 	ipWhitelist: [],
 	useHttps: false,
 	httpsPrivateKey: "",
 	httpsCertificate: "",
 
-	language: "ro",
-	locale: "ro-RO",
+	language: "fr",
+	locale: "fr-FR",
 	timeFormat: 24,
 	units: "metric",
-	latitude: 44.4323,
-	longitude: 26.1063,
-	location: "București",
+	latitude: 48.782,
+	longitude: 2.194,
+	location: "Vélizy-Villacoublay",
 	locationID: 683506,
-	timezone: "Europe/Bucharest",
+	timezone: "Europe/Paris",
 	decimal: ",",
 	backup: '',
 	roundTemp: false,
@@ -51,108 +51,16 @@ var config = {
 			}
 		},
 		{
-			module: "notification",
-			position: "top_center",
-			classes: "night",
-			disabled: false,
-			config: {
-				startImage: "wifi lime",
-				startTitle: "Magic Board³",
-				startTablet: "Magic iPad³",
-				startNotification: "Modular smart mirror platform",
-				timer: 8000
-			}
-		},
-		{
-			module: "notification/timer",
-			classes: "night",
-			disabled: false,
-			config: {
-				bodysize: 1080,
-				zoomMode: false,
-				nightMode: true,
-				fadeMode: true,
-				dimming: 50,
-				background: false, // "/css/background.jpg",
-				monochrome: false, // 100,
-				resetMM: false,
-
-				sharpMode: true,
-				dateMode: true,
-
-				birthday1: "22.08",
-				customTitle1: "La mulți ani Paula!",
-				customText1: "Multă sănătate și să fi fericită!",
-				birthday2: "13.10",
-				customTitle2: "La mulți ani Răzvan!",
-				customText2: "Multă sănătate și să fi fericit!",
-				birthday3: "01.12",
-				customTitle3: "La mulți ani România!",
-				customText3: "La mulți ani tuturor românilor!"
-			}
-		},
-		{
-			module: "clock",
-			position: "top_center",
-			classes: "analog night",
-			disabled: false,
-			config: {
-				displayType: "analog",
-				showDate: false,
-				analogSize: "300px",
-				analogFace: "none",
-				secondsColor: "coral"
-			}
-		},
-		{
-			module: "monthly",
-			position: "top_center",
-			classes: "day ",
-			disabled: false,
-			config: {
-				startMonth: 0,
-				monthCount: 2,
-				monthsVertical: true,
-				repeatWeekdaysVertical: true,
-				weekNumbers: true,
-				highlightWeekend: true,
-				showPastFuture: true,
-				fade: false
-			}
-		},
-		{
-			module: "lifecounter",
-			position: "top_center",
-			classes: "day",
-			disabled: false,
-			config: {
-				birthday: "2023-01-01 00:00:00",
-				counter: "days",
-				before: "<br>Mai sunt",
-				after: "de zile până la Anul Nou",
-				cssclass: "midget"
-			}
-		},
-		{
 			module: "clock",
 			position: "top_left",
 			classes: "digital night",
 			disabled: false,
 			config: {
 				displayType: "digital",
-				showWeek: true,
+				showWeek: false,
 				dateFormat: "dddd, D MMMM Y",
-				showSunTimes: true,
-				showMoonTimes: true
-			}
-		},
-		{
-			module: "swatch",
-			position: "top_left",
-			classes: "day",
-			disabled: false,
-			config: {
-				logo_height: 28
+				showSunTimes: false,
+				showMoonTimes: false
 			}
 		},
 		{
@@ -162,457 +70,133 @@ var config = {
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
-				maximumEntries: 20,
+				maximumEntries: 2,
 				displayRepeatingCountTitle: true,
-				fetchInterval: 60 * 1000,
+				fetchInterval: 5*60 * 1000,
 				fade: false,
 				dateFormat: "ddd D MMM",
 				fullDayEventDateFormat: "ddd D MMM",
 				getRelative: 48,
 				coloredSymbolOnly: true,
-				customEvents: [
-					{
-						keyword: "New moon", 
-						symbol: "moon", 
-						color: "gray"
-					},
-					{
-						keyword: "Full moon", 
-						symbol: "moon", 
-						color: "white"
-					}
-				],
-				titleReplace: {
-					"a doua ": "A doua ",
-					"Ziua Internațională a Femeii": "Ziua femeii",
-					"Zi Constantin Brancusi": "Ziua lui Brâncuși",
-					"New moon": "Lună nouă la",
-					"First quarter": "Primul pătrar la",
-					"Full moon": "Lună plină la",
-					"Last quarter": "Ultimul pătrar la"
-				},
 				locationTitleReplace: {},
-				excludedEvents: [
-					"Orthodox Good Friday",
-					"Ziua Sfîntului Andrei",
-					"Adormirea Maicii Domnului",
-					"Rusalii",
-					"Doua zi de Rusalii"
-				],
 				nextDaysRelative: true,
 
 				calendars: [
 					{
 						symbol: "calendar-check-o", symbolClass: "skyblue", // titleClass: "skyblue", timeClass: "skyblue", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics",
-					},
-					{
-						symbol: "moon", symbolClass: "silver", // titleClass: "normal", timeClass: "normal", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics",					},
-					{
-						symbol: "registered", symbolClass: "lightgreen", // titleClass: "lightgreen", timeClass: "lightgreen", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics",
-					},
-					{
-						symbol: "product-hunt", symbolClass: "tomato", // titleClass: "tomato", timeClass: "tomato", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics",
-					},
-					{
-						symbol: "birthday-cake", symbolClass: "gold", // titleClass: "gold", timeClass: "gold", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics",
-					},
-					{
-						symbol: "film", symbolClass: "magenta", // titleClass: "magenta", timeClass: "magenta", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics",
-					},
-					{
-						symbol: "suitcase", symbolClass: "coral", // titleClass: "coral",timeClass: "coral", color: "normal",
-						url: "https://calendar.google.com/calendar/ical/.../basic.ics",
+						url: "webcal://nominis.cef.fr/ical/nominis.php",
 					}
 				]
 			}
 		},
 		{
-			module: 'jsontable',
-			position: 'top_left',
-			header: 'Consum casnic în ultimile luni',
-			classes: "day",
-			disabled: true,
+			module: "onecall/loader",
 			config: {
-				url: "data.json",
-				arrayName: "2021",
-				tableClass: "small",
-				descriptiveRow: "<tr><td>Luna</td><td>Apa calda</td><td>Apa rece</td><td>Energie</td></tr>"
-			}
-		},
-		{
-			module: "simpletext",
-			position: "top_left",
-			classes: "day",
-			disabled: true,
-			config: {
-				text: "&nbsp;<br><header class=\"module-header\">Scanează-mă pentru acces la Wi-Fi</header><img width=\"160px\" src=\"modules/simpletext/wifi.png\"> &nbsp; &nbsp; <img width=\"160px\" src=\"modules/simpletext/wifi2.png\">",
-				cssClass: "jsontable midget"
+				lat: "48.782",                               // your location latitude,
+				lon: "2.194",                               // your location longitude,
+				appid: "23b8abe22f9b5a591e7cafbe33a2bbc3",                             // your Openweathermap appid
+				appid2: "",                            // optional for Pollution module
+				backup: "",                            // optional backup appid
+				dayUpdateInterval: 10 * 60 * 1000,     // every 10 minutes
+				nightUpdateInterval: 15 * 60 * 1000,   // every 15 minutes
 			}
 		},
 		{
 			module: "onecall",
 			position: "top_right",
-			classes: "night current weather",
-			disabled: false,
+			classes: "current weather",
 			config: {
-				appid: "",
-				appendLocationNameToHeader: false,
-				showPrecip: false,
-				showAlerts: true
-			}
-		},
-		{
-			module: "onecall",
-			position: "top_right",
-			header: "Calitatea aerului in",
-			classes: "air quality ipad day",
-			disabled: false,
-			config: {
-				appid: "",
-				endpointType: "aqi",
-				initialLoadDelay: 1000,
-			}
-		},
-		{
-			module: "onecall",
-			position: "top_right",
-			header: "Vremea în următoarele ore la",
-			classes: "hourly forecast ipad day",
-			disabled: false,
-			config: {
-				appid: "",
+				flexDayForecast: false,     // show Flex Day Forecast, set maxNumberOfDays to 3 or 6
+				maxNumberOfHours: 1,
 				maxNumberOfDays: 4,
-				endpointType: "hourly",
-				fullday: "HH.mm",
-				initialLoadDelay: 2000,
-				extra: false
-			}
-		},
-		{
-			module: "onecall",
-			position: "top_right",
-			header: "Vremea în următoarele zile la",
-			classes: "daily forecast ipad day",
-			disabled: false,
-			config: {
-				appid: "",
-				maxNumberOfDays: 7,
-				endpointType: "daily",
-				initialLoadDelay: 3000,
-				extra: true,
-			}
-		},
-		{
-			module: "compliments",
-			position: "middle_center",
-			classes: "night",
-			disabled: false,
-			config: {
-				classes: "thin large pre-line skyblue",
-				compliments: {
-										anytime : [
-						"Orice faci, fă-o bine!",
-						"Fi sexy, fi tu însuți!",
-					//	"O zi cât mai frumoasă!",
-					//	"Azi arăți foarte bine!",
-					//	"Arăți minunat, succes!",
-					//	"Fă-o astăzi, nu mâine!",
-					//	"Întotdeauna ai dreptate!",
-						function() {return moment().locale(config.language).format("dddd, D MMMM");}
-					],
-					morning : [
-						"Dimineață frumoasă!",
-						"Bună dimineața!",
-					//	"Să ai poftă la cafea!"
-					],
-					noon : [
-					//	"Un prânz excelent!",
-						"Poftă bună la prânz!",
-						"O zi fantastică!"
-					],
-					afternoon : [
-					//	"O după amiază bună!",
-						"O zi cât mai bună!",
-						"O zi excelentă!"
-					],
-					evening : [
-						"O seară minunată!",
-					//	"O seară liniștită!",
-						"O seară plăcută!"
-					],
-					night : [
-						"Somn ușor!",
-						"Noapte bună!",
-						"Vise plăcute!",
-					//	"Să visezi frumos!"
-					],
-					midnight : [
-						"De ce nu dormi?",
-					//	"Știi cât este ceasul?",
-						"Ai vreun coșmar?"
-					],
-					AQI_1 : [
-						 "<span class=\"mlarge\"><i class=\"fa fa-leaf lime\"></i> Calitatea aerului bună</span>",
-					],
-					AQI_2 : [
-						 "<span class=\"mlarge\"><i class=\"fa fa-leaf yellow\"></i> Calitatea aerului acceptabilă</span>",
-					],
-					AQI_3 : [
-						 "<span class=\"mlarge\"><i class=\"fa fa-leaf orange\"></i> Calitatea aerului moderată</span>",
-					],
-					AQI_4 : [
-						 "<span class=\"mlarge\"><i class=\"fa fa-leaf orangered\"></i> Calitatea aerului slabă</span>",
-					],
-					AQI_5 : [
-						 "<span class=\"mlarge\"><i class=\"fa fa-leaf redrf\"></i> Calitatea aerului nesănătoasă</span>",
-					],	
-					day_sunny : [
-						"<i class=\"gold wi wi-day-sunny\"></i> Este senin",
-						"<i class=\"gold wi wi-day-sunny\"></i> Vreme senină"
-					],
-					day_cloudy : [
-						"<i class=\"lightblue wi wi-day-cloudy\"></i> Sunt câțiva nori",
-						"<i class=\"lightblue wi wi-day-cloudy\"></i> Nori împrăștiați"
-					],
-					cloudy : [
-						"<i class=\"skyblue wi wi-cloudy\"></i> Este înorat",
-						"<i class=\"skyblue wi wi-cloudy\"></i> Vreme înorată"
-					],
-					day_cloudy_windy : [
-						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este înorat și vânt",
-						"<i class=\"powderblue wi wi-day-cloudy-windy\"></i> Este vânt și înorat"
-					],
-					day_showers : [
-						"<i class=\"skyblue wi wi-day-showers\"></i> Ploaie ușoasă",
-						"<i class=\"skyblue wi wi-day-showers\"></i> Plouă ușor"
-					],
-					day_rain : [
-						"<i class=\"deepskyblue wi wi-day-rain\"></i> Vreme ploioasă",
-						"<i class=\"deepskyblue wi wi-day-rain\"></i> Vreme cu ploaie"
-					],
-					day_thunderstorm : [
-						"<i class=\"dodgerblue wi wi-day-thunderstorm\"></i> Este furtună!",
-						"<i class=\"dodgerblue wi wi-day-thunderstorm\"></i> Atenție, furtună!"
-					],
-					day_snow : [
-						"<i class=\"normal wi wi-day-snow\"></i> Ninsoare",
-						"<i class=\"normal wi wi-day-snow\"></i> Ninge!"
-					],
-					day_fog : [
-						"<i class=\"bright wi wi-day-fog\"></i> Vreme cu ceață",
-						"<i class=\"bright wi wi-day-fog\"></i> Ceață!"
-					],
-					night_clear : [
-						"<i class=\"dimmed wi wi-night-clear\"></i> Noapte senină",
-						"<i class=\"dimmed wi wi-night-clear\"></i> Cer senin"
-					],
-					night_cloudy : [
-						"<i class=\"powderblue wi wi-night-cloudy\"></i> Noapte înorată",
-						"<i class=\"powderblue wi wi-night-cloudy\"></i> Este înorat"
-					],
-					night_alt_cloudy : [
-						"<i class=\"powderblue wi wi-night-alt-cloudy\"></i> Noapte înorată",
-						"<i class=\"powderblue wi wi-night-alt-cloudy\"></i> Este înorat"
-					],
-					night_alt_showers : [
-						"<i class=\"skyblue wi wi-night-alt-showers\"></i> Ploaie ușoară",
-						"<i class=\"skyblue wi wi-night-alt-showers\"></i> Ploaie măruntă"
-					],
-					night_alt_rain : [
-						"<i class=\"deepskyblue wi wi-night-alt-rain\"></i> Noapte ploioasă",
-						"<i class=\"deepskyblue wi wi-night-alt-rain\"></i> Plouă!"
-					],
-					night_alt_thunderstorm : [
-						"<i class=\"royalblue wi wi-night-alt-thunderstorm\"></i> Noapte furtunoasă!",
-						"<i class=\"royalblue wi wi-night-alt-thunderstorm\"></i> Furtuna!"
-					],
-					night_alt_snow : [
-						"<i class=\"normal wi wi-night-alt-snow\"></i> Noapte cu ninsoare",
-						"<i class=\"normal wi wi-night-alt-snow\"></i> Ninge!"
-					],
-					night_alt_cloudy_windy : [
-						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Nori și ceață",
-						"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Ceață și nori"
-					],
-					"14-02-...." : [
-						"<i class=\"orangered fa fa-heart\"></i> Happy Valentine's Day!"
-					],
-					"31-10-...." : [
-						"<i class=\"gold fa fa-ghost\"></i> Happy Halloween!"
-					],
-					"01-12-...." : [
-						"<i class=\"gold fa fa-glass-cheers\"></i> La mulți ani România!"
-					],
-					"25-12-...." : [
-						"<i class=\"gold fa fa-holly-berry\"></i> Crăciun fericit!",
-						"<i class=\"gold fa fa-gift\"></i> Sărbători fericite!"
-					],
-					"26-12-...." : [
-						"<i class=\"bright fa fa-snowman\"></i> Crăciun fericit!",
-						"<i class=\"gold fa fa-gifts\"></i> Sărbători fericite!"
-					],
-					"01-01-...." : [
-						"<i class=\"gold fa fa-glass-cheers\"></i> Un An Nou fericit!",
-						function() {return "La mulți ani! " + moment().format("YYYY");}
-					],
-					"02-01-...." : [
-						"<i class=\"gold fa fa-glass-cheers\"></i> Un An Nou fericit!",
-						function() {return "La mulți ani! " + moment().format("YYYY");}
-					]
-				}
-			}
-		},
-		{
-			module: "quotes",
-			position: "lower_third",
-			classes: "day",
-			disabled: false,
-			config: {
-				updateInterval: 22500,
-				category: "random",
-				className: "medium"
-			}
-		},
-		{
-			module: "newsfeed",
-			position: "bottom_bar",
-			classes: "day rss",
-			disabled: false,
-			config: {
-				showDescription: true,
-				lengthDescription: 300,
-				hideLoading: true,
-				updateInterval: 60 * 1000,
-		        reloadInterval: 60 * 1000,
-				ignoreOlderThan: 12 * 60 * 60 * 1000,
-				ignoreOldItems: true,
-				removeStartTags: "both",
-				removeEndTags: "both",
-				startTags: ["VIDEO","FOTO","horoscop"],
-				endTags: ["VIDEO","FOTO","horoscop"],
-				prohibitedWords: ["VIDEO","FOTO","Marius Tucă Show","Bancul zilei"],
-
-				feeds: [
-					{
-						title: "ProTV",
-						url: "http://rss.stirileprotv.ro",
-						encoding: "UTF-8"
-					},
-					{
-						title: "MediaFax",
-						url: "http://www.mediafax.ro/rss/",
-						encoding: "UTF-8"
-					},
-					{
-						title: "Digi24",
-						url: "http://www.digi24.ro/rss",
-						encoding: "UTF-8"
-					},
-					{
-						title: "HotNews",
-						url: "http://www.hotnews.ro/rss",
-						encoding: "UTF-8"
-					},
-					{
-						title: "NewsIn",
-						url: "http://newsin.ro/feed/",
-						encoding: "UTF-8"
-					},
-					{
-						title: "MainNews",
-						url: "http://mainnews.ro/feed/",
-						encoding: "UTF-8"
-					},
-					{
-						title: "News.ro",
-						url: "http://www.news.ro/rss",
-						encoding: "UTF-8"
-					},
-					{
-						title: "Ziare.com",
-						url: "http://www.ziare.com/rss/12h.xml",
-						encoding: "UTF-8"
-					}
-				]
-			}
-		},
-		{
-			module: "newsfeed",
-			position: "bottom_bar",
-			classes: "international day",
-			disabled: true,
-			config: {
-				showDescription: true,
-				lengthDescription: 300,
-				hideLoading: true,
-				updateInterval: 60 * 1000,
-				ignoreOlderThan: 12 * 60 * 60 * 1000,
-				ignoreOldItems: true,
-
-				feeds: [
-					{
-						title: "Discovery",
-						url: "http://discovery.ro/feed/",
-						encoding: "UTF-8"
-					},
-					{
-						title: "NASA",
-						url: "http://www.nasa.gov/rss/dyn/breaking_news.rss",
-						encoding: "UTF-8"
-					},
-					{
-						title: "BBC World",
-						url: "http://feeds.bbci.co.uk/news/world/rss.xml",
-						encoding: "UTF-8"
-					},
-					{
-						title: "NY Times",
-						url: "http://rss.nytimes.com/services/xml/rss/nyt/World.xml",
-						encoding: "UTF-8"
-					},
-					{
-						title: "WP World",
-						url: "http://feeds.washingtonpost.com/rss/world?itid=lk_inline_manual_43",
-						encoding: "UTF-8"
-					},
-					{
-						title: "CNN World",
-						url: "http://rss.cnn.com/rss/edition.rss",
-						encoding: "UTF-8"
-					},
-					{
-						title: "Reuters",
-						url: "http://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best",
-						encoding: "UTF-8"
-					}
-				]
+				extraHourly: false,          // snow extra hourly humidity, dew point, pressure, real feel and rain or snow,
+				extraDaily: true,           // snow extra daily humidity, dew point, pressure, real feel and rain or snow,
+				endpointType: "onecall",    // "current", "hourly", "daily" or "onecall"
+				oneLoader: true,            // very important for just one API call
+				showWindDirection: false,
+		showWindDirectionAsArrow: false,
+		useBeaufort: false,
+		useKMPHwind: false,
+		showFeelsLike: false,
+		showVisibility: false,
+		showHumidity: false,
+		showPressure: false,
+		showDew: false,              // dew point
+		showUvi: false,              // UV index
+		showDescription: false,
+		showAlerts: false,
+		defaultIcons: true,        // with or without default icons
+		showRainAmount: false,       // snow show only in winter months 
 			}
 		},
 		{
 			module: "yframe",
-			position: "upper_third",
-			classes: "night",
-			disabled: true,
+			position: "bottom_left",
 			config: {
-				url: "http://cristea13.ro/video/fishtank.mp4",
-				media: true,
-				width: "1080",
-				height: "607",
-				aspect: 9/16,
-				cssClass: "fishtank"
-			}
+				url: "http://www.sytadin.fr/frame/cartographie.jsp.html?largeur=596",
+	
+			// HTML5 Video mode example url: "path/folder/file.mp4"
+			// http or local mp4, webm and ogg media
+	
+			// Youtube & Web iframe mode example url: "https://cristea13.ro"
+			// "https://cristea13.ro/video/landscape_demo.mp4"
+			// "https://www.dailymotion.com/embed/video/x7urdc7"
+			// "https://www.youtube.com/embed/eKFTSSKCzWA"
+			// Could be any website without X-Frame-Options deny and sameorigin activated
+			// or media stream from Youtube, Dailymotion, DTube, Metacafe, Ted, lbry.tv etc.
+	
+			// Vimeo iframe mode example url: "https://player.vimeo.com/video/54511177"
+			// Soundcloud iframe mode example url: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/653929878"
+			// Soundcloud playlist tracks must have embeded-player code active to be displayed publicly
+			// Badcamp iframe mode example url: "https://bandcamp.com/EmbeddedPlayer/album=3096747879"
+			// Audiomack iframe mode example url: "https://audiomack.com/embed/playlist/razvanh/love-of-future"
+	
+			media: false,				// false for websites that do not need player options
+			width: "600",				// use without px unit for video or media
+			height: "300",				// ignored for video or media
+			aspect: 9/16,				// height is set to be 9:16 ratio (h/w) for video or media
+			cssClass: "video",			// custom className
+			loop: 1,				// loop video
+			autoplay: 1,				// for video mode autoplay you need controls: 0 and muted: 1
+			controls: 0,				// for video mode without controls you need autoplay: 1
+			muted: 1,				// for video mode not muted you need autoplay: 0 and controls: 1
+	
+		// HTML5 Video mode
+			poster: "",				// custom poster image
+			preload: "auto",
+	
+		// Youtube & Web iframe
+			start: "04",				// seconds to start
+			allow: "autoplay; fullscreen; encrypted-media; picture-in-picture",
+			border: "0",				// css style, width, color
+			style: "",
+			overflow: "hidden",
+			origin: "strict-origin",
+			related: 0,
+				// "RRGGBB" custom colors or false
+			},
 		},
 		{
-			module: 'snow',
-			position: 'fullscreen_above',
-			disabled: true,
+			module: "MMM-Bring",
+			position: "bottom_right",
+			config: {
+			   email: "aurelio-siles@hotmail.fr",
+			   password: "bringMMM1",
+			   updateInterval: 5, // in Minutes
+			   //listName: "Zuhause", // optional
+			   showListName: false,
+			   activeItemColor: "#EE524F",
+			   latestItemColor: "#4FABA2",
+			   showLatestItems: false,
+			   maxItems: 21,
+			   maxLatestItems: 0,
+			   locale: "fr-FR",
+			   useKeyboard: false,
+			   customHeader: "My shopping list", // optional
+			   listDropdown: true
+			}
 		}
+	
 	]
 };
 

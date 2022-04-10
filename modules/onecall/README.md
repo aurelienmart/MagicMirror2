@@ -1,225 +1,232 @@
 # onecall (Openweathermap)
 
+[![Platform](https://img.shields.io/badge/platform-MagicMirror2-informational)](https://github.com/hangorazvan/MagicMirror2)
+[![CC-0 license](https://img.shields.io/badge/License-CC--4.0-blue.svg)](https://creativecommons.org/licenses/by-nd/4.0)
+[![GitHub branches](https://badgen.net/github/branches/hangorazvan/onecall)](https://github.com/hangorazvan/onecall)
+[![GitHub forks](https://badgen.net/github/forks/hangorazvan/onecall)](https://github.com/hangorazvan/onecall)
+[![GitHub stars](https://badgen.net/github/stars/hangorazvan/onecall)](https://github.com/hangorazvan/onecall)
+
 https://github.com/hangorazvan/onecall
 
-Modified MagicMirror2 deprecated current & forecast weather module based on Openweathermap with Onecall endpoint and Air Quality Index with compliments
+Modified MagicMirror2 original current & forecast weather module based on Openweathermap with Onecall endpoint and compliments. 
 
-Do not make modification and do not replace the default module, just add <i>disabled: true</i> in config.js and use this one as 3rd party
+As the name suggests this module call only once your appid no matter how many instances are loaded, for current, hourly or daily, it uses the onecall endpoint for which reason it was designed for.
+
+However the module can work without oneLoader and in this case it must be deactivated via <i>oneLoader: false</i> and configure latitude, longitude and appid for each instance used.
+
+Keep in mind that this module is for my personal use with specific css styling or settings and not necessarily for sharing so don't create issues or pull requests.
+
+Do not make modification and do not replace the default module, just add <i>disabled: true</i> in config.js and use this one as 3rd party.
 
 	{
 		module: "weather", 
 		position: "top_right",
-		disabled: true,
+		disabled: true,			// disabled module
 		config: {
-								// no needed anyore
+			// no needed anyore
 		}
 	},
 
-#### Current weather with onecall
+#### Onecall API loader and single instance
 
-<img src=https://github.com/hangorazvan/onecall/blob/master/current.png>
+<img src=https://github.com/hangorazvan/onecall/blob/master/onecall.png width="300">
+
+(appid2 is optional for https://github.com/hangorazvan/pollution)
+
+	{
+		module: "onecall/loader",
+		config: {
+			lat: "",                               // your location latitude,
+			lon: "",                               // your location longitude,
+			appid: "",                             // your Openweathermap appid
+			appid2: "",                            // optional for Pollution module
+			backup: "",                            // optional backup appid
+			dayUpdateInterval: 10 * 60 * 1000,     // every 10 minutes
+			nightUpdateInterval: 15 * 60 * 1000,   // every 15 minutes
+		}
+	},
+	{
+		module: "onecall",
+		position: "top_right",
+		classes: "current weather",
+		config: {
+			flexDayForecast: false,     // show Flex Day Forecast, set maxNumberOfDays to 3 or 6
+			maxNumberOfHours: 3,
+			maxNumberOfDays: 6,
+			extraHourly: true,          // snow extra hourly humidity, dew point, pressure, real feel and rain or snow,
+			extraDaily: true,           // snow extra daily humidity, dew point, pressure, real feel and rain or snow,
+			endpointType: "onecall",    // "current", "hourly", "daily" or "onecall"
+			oneLoader: true,            // very important for just one API call
+		}
+	},
+
+#### Current weather
+
+<img src=https://github.com/hangorazvan/onecall/blob/master/current.png width="500">
 
 	{
 		module: "onecall",
 		position: "top_right",
-		disabled: false,        			// not necessary
 		header: "Current Weather",
 		classes: "current weather",
 		config: {
-			// you cand skip these settings if they are by default
-			lat: "",				// your location latitude,
-			lon: "",				// your location longitude,
-			location: "",				// your location,
-			appid: "",				// your openweathermap API key,
-			backup: "",				// second openweathermap API key,
-			units: "",				// your units, metric or imperial
-			dayUpdateInterval: 10 * 60 * 1000, 	// every 10 minutes
-			nightUpdateInterval: 15 * 60 * 1000, 	// every 15 minutes
-			initialLoadDelay: 0,
-			retryDelay: 2000,
-			animationSpeed: 1000,
-			timeFormat: 24,
-			lang: "en",
-			decimalSymbol: ".",
-			degreeLabel: true,
-
 			// current settings
 			showWindDirection: true,
-			showWindDirectionAsArrow: true,
+			showWindDirectionAsArrow: false,
 			useBeaufort: false,
 			useKMPHwind: true,
 			showFeelsLike: true,
-			realFeelsLike: true,			// from onecall not calculated by module
 			showVisibility: true,
 			showHumidity: true,
 			showPressure: true,
-			showDew: true,				// dew point
-			showUvi: true,				// UV index
-			showPrecip: true,			// precipitation
+			showDew: true,              // dew point
+			showUvi: true,              // UV index
 			showDescription: true,
 			showAlerts: false,
-
-			endpointType: "current",
-
-			appendLocationNameToHeader: true,
-			useLocationAsHeader: false,
-
-			calendarClass: "calendar",
-
-			onlyTemp: false,
-			hideTemp: false,
-			roundTemp: false,			// error on true
+			defaultIcons: false,        // with or without default icons
+			showRainAmount: true,       // snow show only in winter months
+			endpointType: "current",    // "current", "hourly", "daily" or "onecall"
+			oneLoader: true,            // very important for just one API call
 		}
 	},
 
-#### Daily forecast with onecall (7 days)
+#### Hourly forecast (3 hours)
 
-<img src=https://github.com/hangorazvan/onecall/blob/master/daily.png>
+<img src=https://github.com/hangorazvan/onecall/blob/master/hourly.png width="500">
 
 	{
 		module: "onecall",
 		position: "top_right",
-		disabled: false,        			// not necessary
+		header: "Cuurrent weather and forecast",
+		classes: "hourly",
+		config: {
+
+			// hourly & daily settings
+			flexDayForecast: true,        // show Flex Day Forecast, set maxNumberOfDays to 3 or 6
+			maxNumberOfHours: 3,
+			extraHourly: true,            // snow extra hourly humidity, dew point, pressure, real feel and rain or snow,
+			hourly: "HH.mm",              // "HH [h]" for hourly forecast or "HH.mm" for hour and minutes
+			endpointType: "hourly",       // "current", "hourly", "daily" or "onecall"
+			oneLoader: true,              // very important for just one API call
+		}
+	},
+
+#### Daily forecast (6 days)
+
+<img src=https://github.com/hangorazvan/onecall/blob/master/daily.png width="400">
+
+	{
+		module: "onecall",
+		position: "top_right",
+		disabled: false,
 		header: "Daily Weather Forecast",
 		classes: "daily",
 		config: {
-			// you cand skip these settings if they are by default
-			lat: "",				// your location latitude,
-			lon: "",				// your location longitude,
-			location: "",				// your location,
-			appid: "",				// your openweathermap API key,
-			backup: "",				// second openweathermap API key,
-			units: "",				// your units, metric or imperial
-			dayUpdateInterval: 10 * 60 * 1000, 	// every 10 minutes
-			nightUpdateInterval: 15 * 60 * 1000,	// every 15 minutes
-			initialLoadDelay: 2000,
-			retryDelay: 2000,
-			animationSpeed: 1000,
-			timeFormat: 24,
-			lang: "en",
-			decimalSymbol: ".",
-			degreeLabel: true,
 
 			// hourly & daily settings
-			maxNumberOfDays: 8,
-			showRainAmount: true, 			// snow show only in winter months
-			fade: false,
-			fadePoint: 0.25, 			// Start on 1/4th of the list.
-			colored: true,
-			extra: true,				// snow humidity, dew point, pressure, real feel and rain or snow,
-			fullday: "ddd", 			// "ddd" in case of daily forecast or "HH [h]" for hourly forecast
-
-			endpointType: "daily",
-
-			appendLocationNameToHeader: true,
-			useLocationAsHeader: false,
-
-			tableClass: "small",
-
+			flexDayForecast: true,      // show Flex Day Forecast, set maxNumberOfDays to 3 or 6
+			maxNumberOfDays: 6,
+			extraDaily: true,           // snow extra daily humidity, dew point, pressure, real feel and rain or snow,
+			daily: "dddd",              // "ddd" for short day name or "dddd" for full day name
+			endpointType: "daily",      // "current", "hourly", "daily" or "onecall"
+			oneLoader: true,            // very important for just one API call
 		}
 	},
 
-#### Hourly forecast with onecall (1 hour)
+#### Classic icons and separate 3 instances without oneLoader (not recommanded)
 
-<img src=https://github.com/hangorazvan/onecall/blob/master/hourly.png>
+<img src=https://github.com/hangorazvan/onecall/blob/master/icons.png width="300">
 
 	{
 		module: "onecall",
 		position: "top_right",
-		disabled: false,        			// not necessary
-		header: "Hourly Weather Forecast",
+		header: "Current Weather",
+		classes: "current weather",
+		config: {
+			lat: "",                               // your location latitude,
+			lon: "",                               // your location longitude,
+			appid: "",                             // your Openweathermap appid
+			// current settings
+			defaultIcons: true,
+			endpointType: "current",     // "current", "hourly", "daily" or "onecall"
+			oneLoader: false,            // very important for just one API call
+		}
+	},
+
+	{
+		module: "onecall",
+		position: "top_right",
+		header: "Cuurrent weather and forecast",
 		classes: "hourly",
 		config: {
-			// you cand skip these settings if they are by default
-			lat: "",				// your location latitude,
-			lon: "",				// your location longitude,
-			location: "",				// your location,
-			appid: "",				// your openweathermap API key,
-			backup: "",				// second openweathermap API key,
-			units: "",				// your units, metric or imperial
-			dayUpdateInterval: 10 * 60 * 1000, 	// every 10 minutes
-			nightUpdateInterval: 15 * 60 * 1000, 	// every 15 minutes
-			initialLoadDelay: 4000,
-			retryDelay: 2000,
-			animationSpeed: 1000,
-			timeFormat: 24,
-			lang: "en",
-			decimalSymbol: ".",
-			degreeLabel: true,
-
+			lat: "",                               // your location latitude,
+			lon: "",                               // your location longitude,
+			appid: "",                             // your Openweathermap appid
 			// hourly & daily settings
-			maxNumberOfDays: 4,
-			showRainAmount: true, 			// snow show only in winter months
-			fade: true,
-			fadePoint: 0.25, 			// Start on 1/4th of the list.
-			colored: true,
-			extra: false,				// snow humidity, dew point, pressure, real feel and rain or snow,
-			fullday: "HH [h]", 			// "ddd" in case of daily forecast or "HH [h]" for hourly forecast
-
-			endpointType: "hourly",
-
-			appendLocationNameToHeader: true,
-			useLocationAsHeader: false,
-
-			tableClass: "small",
+			defaultIcons: true,
+			flexDayForecast: true,       // show Flex Day Forecast, set maxNumberOfDays to 3 or 6
+			maxNumberOfHours: 3,
+			endpointType: "hourly",      // "current", "hourly", "daily" or "onecall"
+			oneLoader: false,            // very important for just one API call
 		}
 	},
-
-#### Air Quality Index also in stand alone module https://github.com/hangorazvan/pollution
-
-<img src=https://github.com/hangorazvan/onecall/blob/master/aqi_c.png>
-<img src=https://github.com/hangorazvan/onecall/blob/master/aqi.png>
 
 	{
 		module: "onecall",
 		position: "top_right",
-		header: "Air Quality Index",
-		classes: "air quality day",
-		disabled: false,
+		header: "Daily Weather Forecast",
+		classes: "daily",
 		config: {
-			lat: "",				// your location latitude,
-			lon: "",				// your location longitude,
-			appid: "",				// your openweathermap API key,
-			endpointType: "aqi",
-			calculateAqi: true,			// calculate AQI from pollutants concentration
-			showAqiTime: true,			// show last update time
-			showAqiData: true,			// show AQI calculation pollutants, hidding last update
-			showPollution: false,			// snow list of all pollutants, hidding AQI calculation of all pollutants
+			lat: "",                               // your location latitude,
+			lon: "",                               // your location longitude,
+			appid: "",                             // your Openweathermap appid
+			// hourly & daily settings
+			defaultIcons: true,
+			flexDayForecast: true,       // show Flex Day Forecast, set maxNumberOfDays to 3 or 6
+			maxNumberOfDays: 6,
+			endpointType: "daily",       // "current", "hourly", "daily" or "onecall"
+			oneLoader: false,            // very important for just one API call
 		}
 	},
 
-	/*
-	Quality   Index     Sub-index   CAQI calculation from highest pollutant concentration in μg/m3
+#### Single instance with table forecast (8 hours and 8 days)
 
-	                                O3          NO2         PM10        PM25         SO2         NH3        CO
+<img src=https://github.com/hangorazvan/onecall/blob/master/table.png width="300">
 
-	Good        1       0-25        0-60        0-50        0-25        0-15         0-50        0-200      0-5000
-	Fair        2       25-50       60-120      50-100      25-50       15-30        50-100      200-400    5000-7500
-	Moderate    3       50-75       120-180     100-200     50-90       30-55        100-350     400-800    7500-10000
-	Poor        4       75-100      180-240     200-400     90-180      55-110       350-500     800-1600   10000-20000
-	Unhealty    5       > 100       > 240       > 400       > 180       > 110        > 500       > 1600     > 20000
+	{
+		module: "onecall/loader",
+		config: {
+			lat: "",                               // your location latitude,
+			lon: "",                               // your location longitude,
+			appid: "",                             // your Openweathermap appid
+		}
+	},
+	{
+		module: "onecall",
+		position: "top_right",
+		classes: "current weather",
+		disabled: false,
+		config: {
+			flexDayForecast: false,     // show Flex Day Forecast, set maxNumberOfDays to 3 or 6
+			maxNumberOfHours: 8,
+			maxNumberOfDays: 8,
+			hourly: "HH.mm",            // "HH [h]" for hourly forecast or "HH.mm" for hour and minutes
+			daily: "dddd",              // "ddd" for short day name or "dddd" for full day name
+			fade: true,
+			fadePoint: 0.25,            // Start on 1/4th of the list.
+			colored: true,
+			extraHourly: false,         // snow extra hourly humidity, dew point, pressure, real feel and rain or snow,
+			extraDaily: true,           // snow extra daily humidity, dew point, pressure, real feel and rain or snow,
+			endpointType: "onecall",    // "current", "hourly", "daily" or "onecall"
+			oneLoader: true,            // very important for just one API call
+		}
+	},
 
-	Source: https://www.airqualitynow.eu/download/CITEAIR-Comparing_Urban_Air_Quality_across_Borders.pdf
-	*/
+Weather compliments to put in your config.js
+<br>You need to use my compliments_plus to work with onecall compliments
+https://github.com/hangorazvan/compliments_plus
 
-Weather and Air Quality compliments to put in your config.js
-
-	compliments: {
-		AQI_1 : [
-			 "<i class=\"fa fa-leaf lime\"></i> Air Quality Good",
-		],
-		AQI_2 : [
-			 "<i class=\"fa fa-leaf yellow\"></i> Air Quality Fair",
-			],
-		AQI_3 : [
-			 "<i class=\"fa fa-leaf orange\"></i> Air Quality Moderate",
-		],
-		AQI_4 : [
-			 "<i class=\"fa fa-leaf orangered\"></i> Air Quality Poor",
-		],
-		AQI_5 : [
-			 "<i class=\"fa fa-leaf redrf\"></i> Air Quality Unhealty",
-		],			
+	compliments: {		
 		day_sunny : [
 			"<i class=\"gold wi wi-day-sunny\"></i> Sunny",
 		],
@@ -272,90 +279,6 @@ Weather and Air Quality compliments to put in your config.js
 			"<i class=\"skyblue wi wi-night-alt-cloudy-windy\"></i> Clouds and fog",
 		],
 	}
-
-To put in your custom.css
-
-		.compliments .wi {
-			display: inline-block;
-			transform: translate(20px, 25px) scale(0.6);
-		}
-
-		.compliments .wi-day-sunny {
-			content: url("../modules/onecall/icons/clear.png");
-			transform: translate(0, 25px);
-		}
-
-		.ompliments .wi-day-cloudy {
-		  content: url("../modules/onecall/icons/mostlysunny.png");
-		}
-
-		.compliments .wi-cloudy {
-		  content: url("../modules/onecall/icons/cloudy.png");
-		}
-
-		.compliments .wi-day-cloudy-windy {
-		  content: url("../modules/onecall/icons/mostlycloudy.png");
-		}
-
-		.compliments .wi-day-showers {
-		  content: url("../modules/onecall/icons/rain.png");
-		}
-
-		.compliments .wi-day-rain {
-		  content: url("../modules/onecall/icons/rain.png");
-		}
-
-		.compliments .wi-day-thunderstorm {
-		  content: url("../modules/onecall/icons/tstorms.png");
-		}
-
-		.compliments .wi-day-snow {
-		  content: url("../modules/onecall/icons/snow.png");
-		}
-
-		.compliments .wi-day-fog {
-		  content: url("../modules/onecall/icons/fog.png");
-		}
-
-		.compliments .wi-night-clear {
-			content: url("../modules/onecall/icons/nt_clear.png");
-			transform: translate(0, 25px) scale(1.2);
-		}
-
-		.compliments .wi-night-cloudy {
-		  content: url("../modules/onecall/icons/nt_cloudy.png");
-		}
-
-		.compliments .wi-night-alt-cloudy {
-		  content: url("../modules/onecall/icons/nt_cloudy.png");
-		}
-
-		.compliments .wi-night-alt-showers {
-		  content: url("../modules/onecall/icons/nt_rain.png");
-		}
-
-		.compliments .wi-night-alt-rain {
-		  content: url("../modules/onecall/icons/nt_rain.png");
-		}
-
-		.compliments .wi-night-alt-thunderstorm {
-		  content: url("../modules/onecall/icons/nt_tstorms.png");
-		}
-
-		.compliments .wi-night-alt-snow {
-		  content: url("../modules/onecall/icons/nt_snow.png");
-		}
-
-		.compliments .wi-night-alt-cloudy-windy {
-		  content: url("../modules/onecall/icons/nt_hazy.png");
-		}
-
-		.compliments .fa,
-		.compliments .fas,
-		.compliments .far {
-			display: inline-block;
-			transform: scale(0.75);
-		}
 
 Redesigned by Răzvan Cristea
 https://github.com/hangorazvan

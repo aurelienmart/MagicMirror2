@@ -308,10 +308,10 @@ Module.register("calendar", {
                     if (event.fullDayEvent && self.config.nextDaysRelative) {
                         // Full days events within the next two days
                         if (event.today) {
-                            timeWrapper.innerHTML = self.capFirst(self.translate("TODAY"));
+                            timeWrapper.innerHTML = self.capFirst(self.translate("Aujourd'hui"));
                         }
                         else if (event.startDate - now < oneDay && event.startDate - now > 0) {
-                            timeWrapper.innerHTML = self.capFirst(self.translate("TOMORROW"));
+                            timeWrapper.innerHTML = self.capFirst(self.translate("Demain"));
                         }
                         else if (event.startDate - now < 2 * oneDay && event.startDate - now > 0) {
                             if (self.translate("DAYAFTERTOMORROW") !== "DAYAFTERTOMORROW") {
