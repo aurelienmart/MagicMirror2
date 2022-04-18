@@ -183,7 +183,7 @@ var config = {
 			   email: "aurelio-siles@hotmail.fr",
 			   password: "bringMMM1",
 			   updateInterval: 5, // in Minutes
-			   //listName: "Zuhause", // optional
+			   listName: "Brasseur", // optional
 			   showListName: false,
 			   activeItemColor: "#EE524F",
 			   latestItemColor: "#4FABA2",
