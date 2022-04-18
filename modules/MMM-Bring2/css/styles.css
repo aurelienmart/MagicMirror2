@@ -1,0 +1,152 @@
+/*****************************************************
+ * Magic Mirror                                      *
+ * MMM-Bring CSS                                     *
+ *                                                   *
+ * By David Werth                                    *
+ *                                                   *
+ * Edit this file ONLY if you know what you're doing *
+ *****************************************************/
+
+@font-face {
+    font-family: "MuseoSans-300";
+    src: url("MuseoSans-300.woff") format("woff");
+}
+
+@font-face {
+    font-family: "MuseoSans-500";
+    src: url("MuseoSans-500.woff") format("woff");
+}
+
+.bring-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position:relative;
+    float:right;
+}
+
+/*
+*  DROPDOWN TITLE
+*/
+
+.bring-titleBtn {
+    background: none;
+    margin: 10px 5px;
+    padding: 5px 20px;
+    border: 2px solid #eee;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.bring-titleBtn:hover {
+    background-color: #2980B9;
+}
+
+#bring-dropList {
+    position: relative;
+    display: inline-block;
+}
+
+#bring-dropList .show {
+    display: block;
+}
+
+#bring-dropItems {
+    display: none;
+    position: absolute;
+    padding: 0px 12px;
+    min-width: 160px;
+    top: 20px;
+    left: -100px;
+    background-color: #000;
+}
+
+
+.bring-dropItem {
+    color: white;
+    padding: 5px 5px;
+    display: block;
+    overflow: auto;
+    position: relative;
+    z-index: 2;
+    border-bottom: 2px solid white;
+    font-size: 0.7em;
+}
+
+.bring-dropItem:hover {
+    background-color: #2980B9;
+}
+
+
+/*
+* LISTS
+*/
+
+.bring-list-item-content {
+    display: flex;
+    flex-direction: column;
+    width: 106px;
+    height: fit-content;
+    margin: 4px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-style: normal;
+    color: white;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #4FABA2
+}
+
+.bring-list-item-add {
+    display: flex;
+    flex-direction: column;
+    width: 98px;
+    height: 116px;
+    margin: 2px;
+    font-size: 70px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: grey;
+    justify-content: center;
+}
+
+
+
+
+.bring-list-item-text-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+}
+
+.bring-list-item-name {
+    display: block;
+    width: 100;
+    min-height:max-content;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: .95em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    font-family: MuseoSans-500, sans-serif;
+    justify-content: center;
+    align-self: center;
+    font-weight: 800;
+}
+
+
+
+.bring-top_right, .bring-top_left, .bring-top_center, .bring-bottom_left, .bring-bottom_center, .bring-bottom_right {
+    max-width: 45vw;
+}
