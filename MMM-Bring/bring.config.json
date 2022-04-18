@@ -1,0 +1,12 @@
+{
+  "user_id": "6f2199f2-e536-4b72-ac97-c4bdd7c78e6c",
+  "default_list_id": "c7b89f3b-7c3d-416f-aea3-050b9230a255",
+  "access_token": "eyJraWQiOiJwcm9kX2FjY2Vzc3Rva2VuXzIwMjAtMDUtMTEiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2NTA3NDA5NDMsInN1YiI6ImF1cmVsaW8tc2lsZXNAaG90bWFpbC5mciIsInJvbGVzIjoiUk9MRV9VU0VSIiwicHJpdmF0ZVV1aWQiOiI2ZjIxOTlmMi1lNTM2LTRiNzItYWM5Ny1jNGJkZDdjNzhlNmMifQ.nWwoPsErHQudsPkj187L2W8yxxe5vMGjhTZ7M77rhdB3ag70DdN003YDQ3H5ucPk3QsPVbeepRIYLojX_Qgifg",
+  "valid_until": 1650740942772,
+  "list_name_c7b89f3b-7c3d-416f-aea3-050b9230a255": "Courses",
+  "list_id_Courses": "c7b89f3b-7c3d-416f-aea3-050b9230a255",
+  "list_name_41fee958-f03d-402a-b12e-78df8dd1d0df": "Home",
+  "list_id_Home": "41fee958-f03d-402a-b12e-78df8dd1d0df",
+  "list_name_da710938-5815-4bea-84a4-2eeb79268d44": "Brasseur",
+  "list_id_Brasseur": "da710938-5815-4bea-84a4-2eeb79268d44"
+}
