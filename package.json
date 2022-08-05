@@ -67,11 +67,13 @@
 		"suncalc": "^1.8.0"
 	},
 	"optionalDependencies": {
-		"electron": "^13.5.1"
+		"electron": "^13.6.9"
 	},
 	"dependencies": {
+		"axios": "^0.27.2",
 		"colors": "^1.4.0",
 		"console-stamp": "^3.0.3",
+		"data-store": "^4.0.3",
 		"digest-fetch": "^1.2.1",
 		"eslint": "^7.32.0",
 		"express": "^4.17.1",

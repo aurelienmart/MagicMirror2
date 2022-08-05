@@ -70,7 +70,7 @@ var config = {
 			header: "Calendar evenimente și aniversări",
 			disabled: false,
 			config: {
-				maximumEntries: 2,
+				maximumEntries: 5,
 				displayRepeatingCountTitle: true,
 				fetchInterval: 5*60 * 1000,
 				fade: false,
@@ -84,7 +84,11 @@ var config = {
 				calendars: [
 					{
 						symbol: "calendar-check-o", symbolClass: "skyblue", // titleClass: "skyblue", timeClass: "skyblue", color: "normal",
-						url: "webcal://nominis.cef.fr/ical/nominis.php",
+						url: "webcal://nominis.cef.fr/ical/nominis.php", maximumNumberOfDays: 2
+					},
+					{
+						symbol: "calendar-check-o", symbolClass: "red", // titleClass: "skyblue", timeClass: "skyblue", color: "normal",
+						url: "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Zone-A.ics"
 					}
 				]
 			}
@@ -180,7 +184,7 @@ var config = {
 			module: "MMM-Bring",
 			position: "bottom_right",
 			config: {
-			   email: "aurelio-siles@hotmail.fr",
+			   email: "email",
 			   password: "bringMMM1",
 			   updateInterval: 1, // in Minutes
 			   listName: "Brasseur", // optional
