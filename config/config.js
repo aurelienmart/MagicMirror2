@@ -184,7 +184,7 @@ var config = {
 			module: "MMM-Bring",
 			position: "bottom_right",
 			config: {
-			   email: "email",
+			   email: "aurelio-siles@hotmail.fr",
 			   password: "bringMMM1",
 			   updateInterval: 1, // in Minutes
 			   listName: "Brasseur", // optional
